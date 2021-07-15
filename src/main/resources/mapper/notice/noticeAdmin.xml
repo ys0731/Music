@@ -1,0 +1,81 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="noticeAdmin">
+	
+	<sql id="noticeWhere">
+		<where>
+ 			<if test="category != null and category != '' ">	
+ 				<if test="category != 'categoryAll'">
+ 					category = #{category}
+ 				</if>
+			</if> 	
+			<if test="sval != null and sval != ''">
+				<if test="stype =='all'">
+					AND title LIKE '%${sval}%' OR content LIKE '%${sval}%' 
+				</if>
+				<if test="stype !='all'">
+					AND ${stype} LIKE '%${sval}%'
+				</if>
+			</if>	
+		</where>	
+	</sql>
+
+	<!-- 목록 -->
+	<select id="selectAll" resultType="music.admin.notice.NoticeAdminVo" parameterType="music.admin.notice.NoticeAdminVo">
+		SELECT * FROM notice
+		<include refid="noticeWhere"/>
+		ORDER BY regdate DESC 
+		LIMIT ${startIdx},${pageRow}
+	</select>
+	
+	<select id="count" resultType="int" parameterType="music.admin.notice.NoticeAdminVo"> 
+		SELECT COUNT(*) FROM notice	
+		<include refid="noticeWhere"/>
+	</select>
+
+	<!-- 상세 -->
+	<select id="detail" resultType="music.admin.notice.NoticeAdminVo" parameterType="music.admin.notice.NoticeAdminVo">
+		SELECT * FROM notice WHERE no = #{no}
+	</select>
+	
+	<!-- 조회수 -->
+	<update id="updateReadcount" parameterType="music.admin.notice.NoticeAdminVo">
+		UPDATE notice SET readcount=readcount+1 WHERE no = #{no}
+	</update>
+		
+	<!-- 파일 업로드 -->
+	<insert id="insert" parameterType="music.admin.notice.NoticeAdminVo">
+		INSERT INTO notice(category, title, content, regdate, readcount, filename_org, filename_real) 
+		VALUES (#{category}, #{title}, #{content}, NOW(), 0, #{filename_org}, #{filename_real})
+	</insert>
+	
+	<!-- 수정 -->
+	<update id="update" parameterType="music.admin.notice.NoticeAdminVo">
+		UPDATE notice SET
+			title = #{title}, content= #{content}, category = #{category}
+			<if test="filename_org != null">
+				,filename_org = #{filename_org}, filename_real = #{filename_real}
+			</if>
+		WHERE no=#{no}
+	</update>
+	
+	<!-- 파일 삭제 -->
+	<update id="delFilename" parameterType="music.admin.notice.NoticeAdminVo">
+		UPDATE notice SET
+			filename_org='', filename_real=''
+		WHERE no=#{no}
+	</update>
+	
+	<!-- 삭제 -->
+	<delete id="delete" parameterType="music.admin.notice.NoticeAdminVo">
+		DELETE FROM notice
+		WHERE no=#{no}
+	</delete>
+</mapper>
+
+
+
+
+
+
+

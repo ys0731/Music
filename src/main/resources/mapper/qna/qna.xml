@@ -1,0 +1,66 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="qna">
+	
+	<sql id="qnaWhere">
+		<where>	
+			<if test="sval != null and sval != ''">
+				<if test="stype =='all'">
+					AND title LIKE '%${sval}%' OR content LIKE '%${sval}%' 
+				</if>
+				<if test="stype !='all'">
+					AND ${stype} LIKE '%${sval}%'
+				</if>
+				<!-- 마이페이지 내가 쓴 글 조회 -->
+				<if test="user_no != 0">
+					AND user_no=#{user_no}
+				</if>
+			</if>	
+		</where>	
+	</sql>
+
+	<!-- 목록 -->
+	<select id="selectAll" resultType="music.qna.QnaVo" parameterType="music.qna.QnaVo">
+		SELECT *,(SELECT nickname From user WHERE no=qna.user_no) AS name 
+		FROM qna
+		<include refid="qnaWhere"/>
+		ORDER BY regdate DESC 
+		LIMIT ${startIdx},${pageRow}
+	</select>
+	
+	<select id="count" resultType="int" parameterType="music.qna.QnaVo"> 
+		SELECT COUNT(*) FROM qna	
+		<include refid="qnaWhere"/>
+	</select>
+
+	<!-- 상세 -->
+	<select id="detail" resultType="music.qna.QnaVo" parameterType="music.qna.QnaVo">
+		SELECT * FROM qna WHERE no = #{no}
+	</select>
+			
+	<!-- 등록 -->
+	<insert id="insert" parameterType="music.qna.QnaVo">
+		INSERT INTO qna(title, content, secret, regdate, user_no) 
+		VALUES (#{title}, #{content}, #{secret}, NOW(), #{user_no})
+	</insert>
+	
+	<!-- 답변 수정 -->
+	<update id="update" parameterType="music.qna.QnaVo">
+		UPDATE qna SET
+			answer = #{answer}, awregdate = NOW()
+		WHERE no=#{no}
+	</update>
+	
+	<!-- 삭제 -->
+	<delete id="delete" parameterType="music.qna.QnaVo">
+		DELETE FROM qna
+		WHERE no=#{no}
+	</delete>
+</mapper>
+
+
+
+
+
+
+
