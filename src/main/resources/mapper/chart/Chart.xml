@@ -1,0 +1,172 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org//dtd/mybatis-3-mapper.dtd">
+<mapper namespace="chart">
+	
+	
+	<!-- 시간별 순위 차트 출력 sql -->
+	<select id="ChartList_24hits" parameterType="music.chart.ChartVo" resultType="music.chart.ChartVo">
+		SELECT  thisweek.no, thisweek.count, thisweek.title, 
+		thisweek.lyrics,  thisweek.artist, thisweek.album, 
+		thisweek.org, thisweek.rel 
+        ,IFNULL(prevweek.rownum-thisweek.rownum,999) AS rank_ch
+        FROM                                                                                                            
+	        (                                                                                                                 
+	          SELECT row_number() over(ORDER BY COUNT(p.song_no) DESC) AS rownum 
+	          ,p.song_no AS no, count(p.song_no) AS COUNT, s.title AS title
+	          ,s.lyrics AS lyrics,  ar.artist AS artist, al.album AS album, 
+			  al.img_org AS org, al.img_real AS rel                              
+	       	  FROM play p		                        
+	          INNER JOIN song s ON p.song_no = s.no
+			  INNER JOIN artist ar ON s.artist_no = ar.no
+			  INNER JOIN album al ON s.album_no = al.no                                 
+	          WHERE TIMESTAMPDIFF(HOUR,p.clickdate,NOW())>=0 AND TIMESTAMPDIFF(HOUR,p.clickdate,NOW())&lt;=1  
+	          GROUP BY p.song_no   
+	          ORDER BY COUNT(p.song_no) DESC
+		      LIMIT 0,100  
+	         ) AS thisweek  
+        LEFT OUTER JOIN  
+	       (        
+	     	SELECT row_number() OVER(order by COUNT(p.song_no) DESC) AS rownum 
+	        ,p.song_no AS no2, COUNT(p.song_no) AS count2, s.title AS title2
+	        ,s.lyrics as lyrics2,  ar.artist AS artist2, al.album AS album2
+	        ,al.img_org AS org2, al.img_real AS rel2                                     
+	        FROM play p
+		    INNER JOIN song s ON p.song_no = s.no
+		    INNER JOIN artist ar ON s.artist_no = ar.no
+		    INNER JOIN album al ON s.album_no = al.no		                                                            
+	        WHERE TIMESTAMPDIFF(HOUR,p.clickdate,NOW())>=2 AND TIMESTAMPDIFF(HOUR,p.clickdate,NOW())&lt;=3  
+	        GROUP BY p.song_no   
+	        ORDER BY COUNT(p.song_no) DESC
+		    LIMIT 0,100        
+           ) AS prevweek     
+  		ON thisweek.no = prevweek.no2  
+	</select>
+	
+	<select id="ChartList_daily" parameterType="music.chart.ChartVo" resultType="music.chart.ChartVo">
+		SELECT  thisweek.no, thisweek.count, thisweek.title, 
+		thisweek.lyrics,  thisweek.artist, thisweek.album, 
+		thisweek.org, thisweek.rel 
+        ,IFNULL(prevweek.rownum-thisweek.rownum,999) AS rank_ch
+        FROM                                                                                                            
+	        (                                                                                                                 
+	          SELECT row_number() over(ORDER BY COUNT(p.song_no) DESC) AS rownum 
+	          ,p.song_no AS no, count(p.song_no) AS COUNT, s.title AS title
+	          ,s.lyrics AS lyrics,  ar.artist AS artist, al.album AS album, 
+			  al.img_org AS org, al.img_real AS rel                              
+	       	  FROM play p		                        
+	          INNER JOIN song s ON p.song_no = s.no
+			  INNER JOIN artist ar ON s.artist_no = ar.no
+			  INNER JOIN album al ON s.album_no = al.no                                 
+	          WHERE TIMESTAMPDIFF(DAY,p.clickdate,NOW())>=0 AND TIMESTAMPDIFF(DAY,p.clickdate,NOW())&lt;=1  
+	          GROUP BY p.song_no   
+	          ORDER BY COUNT(p.song_no) DESC
+		      LIMIT 0,100  
+	         ) AS thisweek  
+        LEFT OUTER JOIN  
+	       (        
+	     	SELECT row_number() OVER(order by COUNT(p.song_no) DESC) AS rownum 
+	        ,p.song_no AS no2, COUNT(p.song_no) AS count2, s.title AS title2
+	        ,s.lyrics as lyrics2,  ar.artist AS artist2, al.album AS album2
+	        ,al.img_org AS org2, al.img_real AS rel2                                     
+	        FROM play p
+		    INNER JOIN song s ON p.song_no = s.no
+		    INNER JOIN artist ar ON s.artist_no = ar.no
+		    INNER JOIN album al ON s.album_no = al.no		                                                            
+	        WHERE TIMESTAMPDIFF(DAY,p.clickdate,NOW())>=2 AND TIMESTAMPDIFF(DAY,p.clickdate,NOW())&lt;=3  
+	        GROUP BY p.song_no   
+	        ORDER BY COUNT(p.song_no) DESC
+		    LIMIT 0,100        
+           ) AS prevweek     
+  		ON thisweek.no = prevweek.no2  
+	</select>
+	
+	<select id="ChartList_weekly" parameterType="music.chart.ChartVo" resultType="music.chart.ChartVo">
+		SELECT  thisweek.no, thisweek.count, thisweek.title, 
+		thisweek.lyrics,  thisweek.artist, thisweek.album, 
+		thisweek.org, thisweek.rel 
+        ,IFNULL(prevweek.rownum-thisweek.rownum,999) AS rank_ch
+        FROM                                                                                                            
+	        (                                                                                                                 
+	          SELECT row_number() over(ORDER BY COUNT(p.song_no) DESC) AS rownum 
+	          ,p.song_no AS no, count(p.song_no) AS COUNT, s.title AS title
+	          ,s.lyrics AS lyrics,  ar.artist AS artist, al.album AS album, 
+			  al.img_org AS org, al.img_real AS rel                              
+	       	  FROM play p		                        
+	          INNER JOIN song s ON p.song_no = s.no
+			  INNER JOIN artist ar ON s.artist_no = ar.no
+			  INNER JOIN album al ON s.album_no = al.no                                 
+	          WHERE TIMESTAMPDIFF(HOUR,p.clickdate,NOW())>=0 AND TIMESTAMPDIFF(HOUR,p.clickdate,NOW())&lt;=7  
+	          GROUP BY p.song_no   
+	          ORDER BY COUNT(p.song_no) DESC
+		      LIMIT 0,100  
+	         ) AS thisweek  
+        LEFT OUTER JOIN  
+	       (        
+	     	SELECT row_number() OVER(order by COUNT(p.song_no) DESC) AS rownum 
+	        ,p.song_no AS no2, COUNT(p.song_no) AS count2, s.title AS title2
+	        ,s.lyrics as lyrics2,  ar.artist AS artist2, al.album AS album2
+	        ,al.img_org AS org2, al.img_real AS rel2                                     
+	        FROM play p
+		    INNER JOIN song s ON p.song_no = s.no
+		    INNER JOIN artist ar ON s.artist_no = ar.no
+		    INNER JOIN album al ON s.album_no = al.no		                                                            
+	        WHERE TIMESTAMPDIFF(HOUR,p.clickdate,NOW())>=8 AND TIMESTAMPDIFF(HOUR,p.clickdate,NOW())&lt;=15  
+	        GROUP BY p.song_no   
+	        ORDER BY COUNT(p.song_no) DESC
+		    LIMIT 0,100        
+           ) AS prevweek     
+  		ON thisweek.no = prevweek.no2  
+	</select>
+	
+	
+	<!-- 장르 | class:1 |jazz:2 |kpop:3 |POP:4 |-->
+	<!-- 클래식 장르 -->
+	<select id="Chart_classic" resultType="music.chart.ChartVo" parameterType="music.chart.ChartVo">
+		SELECT s.title, s.lyrics, ar.artist, al.album, al.img_org, al.img_real
+		FROM song AS s 
+		JOIN artist AS ar ON ar.no = s.artist_no
+		JOIN album AS al ON al.no = s.album_no
+		AND s.genre=1
+		LIMIT 0,100
+	</select>
+	
+	<!-- 재즈 장르 -->
+	<select id="Chart_jazz" resultType="music.chart.ChartVo" parameterType="music.chart.ChartVo">
+		SELECT s.title, s.lyrics, ar.artist, al.album, al.img_org, al.img_real
+		FROM song AS s 
+		JOIN artist AS ar ON ar.no = s.artist_no
+		JOIN album AS al ON al.no = s.album_no
+		AND s.genre=2
+		LIMIT 0,100
+	</select>
+	
+	<!-- kpop장르 -->
+	<select id="Chart_kpop" resultType="music.chart.ChartVo" parameterType="music.chart.ChartVo">
+		SELECT s.title, s.lyrics, ar.artist, al.album, al.img_org, al.img_real
+		FROM song AS s 
+		JOIN artist AS ar ON ar.no = s.artist_no
+		JOIN album AS al ON al.no = s.album_no
+		AND s.genre=3
+		LIMIT 0,100
+	</select>
+	
+	<!-- pop 장르 -->
+	<select id="Chart_pop" resultType="music.chart.ChartVo" parameterType="music.chart.ChartVo">
+		SELECT s.title, s.lyrics, ar.artist, al.album, al.img_org, al.img_real
+		FROM song AS s 
+		JOIN artist AS ar ON ar.no = s.artist_no
+		JOIN album AS al ON al.no = s.album_no
+		AND s.genre=4
+		LIMIT 0,100
+	</select>
+	
+	<!-- 최신 차트 -->
+	<select id="Chart_recent" resultType="music.chart.ChartVo" parameterType="music.chart.ChartVo">
+		SELECT s.title, s.lyrics, ar.artist, al.album, al.img_org, al.img_real
+		FROM song AS s 
+		JOIN artist AS ar ON ar.no = s.artist_no
+		JOIN album AS al ON al.no = s.album_no
+		ORDER BY s.regdate desc
+		LIMIT 0,100
+	</select>
+</mapper>
