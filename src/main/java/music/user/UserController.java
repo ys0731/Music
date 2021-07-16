@@ -40,7 +40,7 @@ public class UserController {
 	}
 	
 	// form에서 submit용
-	@RequestMapping("/user/insert.do")
+	@RequestMapping("/user/insert.do") //등록
 	public String insert(Model model, UserVo vo, HttpServletRequest req) {
 		int r = service.insert(vo);
 		// r > 0 : 정상 -> alert -> 목록으로 이동
