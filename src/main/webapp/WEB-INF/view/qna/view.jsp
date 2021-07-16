@@ -47,6 +47,9 @@
     .notice_btn_box_wrapper {text-align: center;}
     .notice_btn_box {display: inline-block; margin-bottom: 10px;}
     .notice_regi_title {text-align: center;}
+    
+    /* 글자 */
+    .qna_text{text-indent:10px;}
 </style>
 <body>
  
@@ -61,23 +64,26 @@
             </div>
             <ul class="notice_btn clear">
                 <li><a href="edit.do?no=${vo.no}">수정</a></li>
-                <li><a href="javascript:isDel();">삭제</a></li>
+                <li><a 
+                <c:if test="${empty vo.answer }">href="javascript:isDel();"</c:if>  
+                <c:if test="${!empty vo.answer }">href="javascript:void(0);"</c:if> 
+                >삭제</a></li>
             </ul>
             <div class="notice_margin"></div>
             <form class="form_qna" action="" method="POST" onsubmit="return chk_form()">
                 <table class="tbl_qna" name="tbl">
                     <tr>
-                        <td class="qna_title">제목</td>
-                        <td><input type="text" name="title" id="title"readonly>${vo.title }</td>
+                        <td class="qna_title" style="height: 50px;">제목</td>
+                        <td class="qna_text">${vo.title }</td>
                     </tr>
                     <tr>
                         <td class="qna_content">내용</td>
-                        <td>${vo.content }</td>
+                        <td class="qna_text">${vo.content }</td>
                     </tr>
                     <tr>
                     <c:if test="${!empty vo.answer}">
                         <td class="notice_regi_title" style="width: 100;">답변</td>
-                        <td><textarea name="content" id="content" cols="30" rows="10" readonly>${vo.answer}</textarea></td>
+                        <td style="height: 250px;" class="qna_text">${vo.answer}</td>
                     </c:if>
                     </tr>
                 </table>

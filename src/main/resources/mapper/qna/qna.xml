@@ -44,10 +44,10 @@
 		VALUES (#{title}, #{content}, #{secret}, NOW(), #{user_no})
 	</insert>
 	
-	<!-- 답변 수정 -->
+	<!-- 수정 -->
 	<update id="update" parameterType="music.qna.QnaVo">
 		UPDATE qna SET
-			answer = #{answer}, awregdate = NOW()
+			title = #{title}, secret = #{secret}, content = #{content}
 		WHERE no=#{no}
 	</update>
 	

@@ -116,6 +116,7 @@
                         <input class="qna_form_btn" type="submit" value="수정">
                         <input class="qna_cancel_btn" type="button" value="취소" onclick="location.href='index.do';">
                     </div>
+                    <input type="hidden" name="no" value="${vo.no}">
                 </div>
             </form>
         </div>

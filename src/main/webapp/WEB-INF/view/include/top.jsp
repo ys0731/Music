@@ -14,7 +14,7 @@
                 <h1 class="logo"><a href="index.html"></a></h1>
                 <form class="header_search clear" action="" method="post">
                     <button class="search_btn">
-                        <img src="img/search.png" alt="search" onclick="">
+                        <img src="../img/search.png" alt="search" onclick="">
                     </button>
                     <input class="search_text hide_input_outline no_outline" type="text">
                 </form>
