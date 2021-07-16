@@ -97,9 +97,9 @@ public class QnaController {
 		
 		int r = service.delete(vo);
 		if (r > 0) {
-			model.addAttribute("result", "true");
+			model.addAttribute("msg", "true");
 		} else {
-			model.addAttribute("result", "false");
+			model.addAttribute("msg", "false");
 		}
 		return "include/result";
 	}

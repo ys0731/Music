@@ -99,7 +99,8 @@
 									<strong style="color:red;"> [NEW] </strong>
 								</c:if>
 								<c:if test="${vo.secret == 1}">   <img src="/music/img/admin/lock.png"/></c:if>
-								<c:if test="${!empty vo.answer}"><strong> (1) </strong></c:if>	
+								<c:if test="${!empty vo.answer}"><strong> <img src="/music/img/admin/ico_answer_done.png" style="width: 45px"/> </strong></c:if>
+									
 							</td>
 							<td>${vo.regdate }</td>
 							<td><a href="userpost.do">닉네임</a></td>
