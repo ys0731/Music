@@ -127,7 +127,7 @@ public class CommonVo {
 	}
 
 	public void setOrderby(String orderby) {
-		this.orderby = orderby;
+		if (!"".equals(orderby)) this.orderby = orderby;
 	}
 
 	public String getDirect() {
@@ -135,7 +135,7 @@ public class CommonVo {
 	}
 
 	public void setDirect(String direct) {
-		this.direct = direct;
+		if (!"".equals(direct)) this.direct = direct;
 	}
 
 }
