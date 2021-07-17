@@ -1,0 +1,68 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="artist">
+
+	<sql id="adminWhere">
+		<where>
+			<if test="sval != null and sval != ''">
+				<if test="stype == 'all'">
+					no LIKE '%${sval}%' OR artist LIKE '%${sval}%'
+				</if>
+				<if test="stype != 'all'">
+					${stype} LIKE '%${sval}%'
+				</if>
+			</if>
+		</where>
+	</sql>
+	
+	<select id="selectAllArtists" resultType="music.admin.artist.AdminArtistVo" parameterType="music.admin.artist.AdminArtistVo">
+		SELECT *
+		FROM artist
+		ORDER BY artist, regdate
+	</select>
+
+	<select id="selectAll" resultType="music.admin.artist.AdminArtistVo" parameterType="music.admin.artist.AdminArtistVo">
+		SELECT *
+		FROM artist
+		<include refid="adminWhere"/>
+		ORDER BY ${orderby} ${direct}
+		LIMIT ${startIdx}, ${pageRow}
+	</select>
+	
+	<select id="count" resultType="int" parameterType="music.admin.artist.AdminArtistVo">
+		SELECT COUNT(*)
+		FROM artist
+		<include refid="adminWhere"/>
+	</select>
+	
+	<select id="detail" resultType="music.admin.artist.AdminArtistVo" parameterType="music.admin.artist.AdminArtistVo">
+		SELECT *
+		FROM artist
+		WHERE no = #{no}
+	</select>
+		
+	<insert id="insert" parameterType="music.admin.artist.AdminArtistVo">
+		INSERT INTO artist (artist, debdate, info, img_org, img_real, regdate)
+		VALUES (#{artist}, #{debdate}, #{info}, #{img_org}, #{img_real}, NOW())
+	</insert>
+	
+	<update id="update" parameterType="music.admin.artist.AdminArtistVo">
+		UPDATE artist
+		<set>
+			artist = #{artist},
+			debdate = #{debdate},
+			info = #{info},
+			<if test="img_org != null">
+				img_org = #{img_org},
+				img_real = #{img_real}
+			</if>
+		</set>
+		WHERE no = #{no}
+	</update>
+	
+	<delete id="delete" parameterType="music.admin.artist.AdminArtistVo">
+		DELETE
+		FROM artist
+		WHERE no = #{no}
+	</delete>
+</mapper>

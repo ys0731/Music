@@ -1,0 +1,76 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="song">
+
+	<sql id="adminWhere">
+		<where>
+			<if test="sval != null and sval != ''">
+				<if test="stype == 'all'">
+					no LIKE '%${sval}%' OR title LIKE '%${sval}%'
+				</if>
+				<if test="stype != 'all'">
+					${stype} LIKE '%${sval}%'
+				</if>
+			</if>
+		</where>
+	</sql>
+	
+	<select id="selectAll" resultType="music.admin.song.AdminSongVo" parameterType="music.admin.song.AdminSongVo">
+		SELECT *, (SELECT album FROM album WHERE album_no=album.no) AS albumName, (SELECT artist FROM artist WHERE artist_no=artist.no) AS artistName
+		FROM song
+		<include refid="adminWhere"/>
+		ORDER BY ${orderby} ${direct}
+		LIMIT ${startIdx}, ${pageRow}
+	</select>
+	
+	<select id="count" resultType="int" parameterType="music.admin.song.AdminSongVo">
+		SELECT COUNT(*)
+		FROM song
+		<include refid="adminWhere"/>
+	</select>
+	
+	<select id="detail" resultType="music.admin.song.AdminSongVo" parameterType="music.admin.song.AdminSongVo">
+		SELECT *, (SELECT album FROM album WHERE album_no=album.no) AS albumName, (SELECT artist FROM artist WHERE artist_no=artist.no) AS artistName
+		FROM song
+		WHERE no = #{no}
+	</select>
+		
+	<insert id="insert" parameterType="music.admin.song.AdminSongVo">
+		INSERT INTO song (album_no, artist_no, title, genre, lyrics, src_org, src_real, regdate)
+		VALUES (#{album_no}, #{artist_no}, #{title}, #{genre}, #{lyrics}, #{src_org}, #{src_real}, NOW())
+	</insert>
+	
+	<update id="update" parameterType="music.admin.song.AdminSongVo">
+		UPDATE song
+		<set>
+			album_no = #{album_no},
+			artist_no = #{artist_no},
+			title = #{title},
+			genre = #{genre},
+			lyrics = #{lyrics},
+			<if test="src_org != null">
+				src_org = #{src_org},
+				src_real = #{src_real}
+			</if>
+		</set>
+		WHERE no = #{no}
+	</update>
+	
+	<delete id="delete" parameterType="music.admin.song.AdminSongVo">
+		DELETE
+		FROM song
+		WHERE no = #{no}
+	</delete>
+	
+	<!-- 입력값 대조 -->
+	<select id="exist1" resultType="music.admin.album.AdminAlbumVo" parameterType="music.admin.album.AdminAlbumVo">
+		SELECT *
+		FROM album
+		WHERE no = #{album_no}
+	</select>
+	<select id="exist2" resultType="music.admin.artist.AdminArtistVo" parameterType="music.admin.artist.AdminArtistVo">
+		SELECT *
+		FROM artist
+		WHERE no = #{artist_no}
+	</select>
+</mapper>

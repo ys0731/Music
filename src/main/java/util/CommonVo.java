@@ -15,11 +15,15 @@ public class CommonVo {
 	private String filename_org; //사용자가 첨부한 원본파일명
 	private String filename_real; //서버에 저장된 실제파일명 
 	private String isDel; //기존파일 삭제 체크 
-	
+	private String orderby; // 정렬 컬럼
+	private String direct;  // 오름차순/내림차순
+
 	public CommonVo() {
 		this.pageRow = 10; //기본값
 		this.reqPage = 1; 
 		this.pageRange=5;
+		this.orderby = "regdate";
+		this.direct = "DESC";
 	}
 	
 	public String getIsDel() {
@@ -117,4 +121,21 @@ public class CommonVo {
 	public void setPageRow(int pageRow) {
 		this.pageRow = pageRow;
 	}
+	
+	public String getOrderby() {
+		return orderby;
+	}
+
+	public void setOrderby(String orderby) {
+		this.orderby = orderby;
+	}
+
+	public String getDirect() {
+		return direct;
+	}
+
+	public void setDirect(String direct) {
+		this.direct = direct;
+	}
+
 }
