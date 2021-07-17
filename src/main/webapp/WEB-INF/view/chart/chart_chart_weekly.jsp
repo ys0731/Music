@@ -199,7 +199,7 @@
 	                			</c:choose>	       
 	               			</td>
 	                		<td class="clear">
-	               				<a href="#"><img class="album_mini" src="<%=path %>/img/album1.jpg" alt="album_img"></a>
+	               				<a href="#"><img class="album_mini" src="<%=path %>/upload/${vo.rel}" alt="album_img"></a>
 	               				<a id="lyrics" class="lyrics_popup button_icons" href="/chart/lyrics.do"></a>
 	                 			<p class="list_title">${vo.title }</p>
 	                		</td>

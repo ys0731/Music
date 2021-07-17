@@ -161,7 +161,7 @@
                       		<p>${status.count }</p>
                    		</td>
                    		<td class="clear">
-		                      <a href="album_info.html"> <img class="album_mini" src="<%=path %>/img/album1.jpg" alt="album_img"></a>
+		                      <a href="album_info.html"> <img class="album_mini" src="<%=path %>/upload/${vo.rel}" alt="album_img"></a>
 		                       <a id="lyrics_'+i+'" class="lyrics_popup button_icons" href="#"></a>
 		                       <p class="list_title">${vo.title }</p>
                    		</td>
