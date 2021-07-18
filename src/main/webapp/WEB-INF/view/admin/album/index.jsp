@@ -94,7 +94,7 @@
 							</table>
 							<div class="btn">
 								<div class="btnLeft">
-									<a class="btns" href="javascript:isDel();" data-Num="${adminAlbumVo.no }"><strong>삭제</strong> </a>
+									<a class="btns" href="javascript:isDel();"><strong>삭제</strong> </a>
 								</div>
 								<div class="btnRight">
 									<a class="wbtn" href="write.do"><strong>등록</strong> </a>
