@@ -72,6 +72,15 @@ $(window).load(function(){
   			<ul class="menu">
   				<li><a href="<%=request.getContextPath()%>/admin/user/index.do" class="parent"><span>회원관리</span></a></li>
 				<li><a href="<%=request.getContextPath()%>/admin/product/index.do" class="parent"><span>상품관리</span></a></li>
+				<li>
+					<a href="<%=request.getContextPath()%>/admin/product/index.do" class="parent"><span>콘텐츠관리</span></a>
+					<div class="standard_left">
+					<ul>
+						<li><a href="<%=request.getContextPath()%>/admin/album/index.do"><span>앨범등록</span></a></li>
+						<li><a href="<%=request.getContextPath()%>/admin/artist/index.do"><span>아티스트등록</span></a></li>
+						<li><a href="<%=request.getContextPath()%>/admin/song/index.do"><span>곡등록</span></a></li>
+					</ul>
+				</li>
 				<li><a href="<%=request.getContextPath()%>/admin/notice/index.do" class="parent"><span>게시판</span></a>
 					<div class="standard_left">
 					<ul>
@@ -81,7 +90,6 @@ $(window).load(function(){
 					</div>
 				</li>
 				<li><a href="<%=request.getContextPath()%>/admin/admin/index.do" class="parent"><span>관리자관리</span></a></li>			
-				<li><a href="<%=request.getContextPath()%>/admin/logout.do" class="parent"><span>로그아웃</span></a></li>
 			</ul>
 		</div>
 		<!--//gnb-->
