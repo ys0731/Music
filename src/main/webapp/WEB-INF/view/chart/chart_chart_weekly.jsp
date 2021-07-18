@@ -34,14 +34,25 @@
 
             // sysdate
             var today = new Date();
-            var m = today.getMinutes();
-            var hh = today.getHours();
-            var dd = String(today.getDate()).padStart(2, '0'); // padStart(2, '0') : 두자리
-            var mm = String(today.getMonth() + 1).padStart(2, '0'); //January is 0!
-            var yyyy = today.getFullYear();
-            today = yyyy + '.' + mm + '.' + dd + ' ' + hh + ':00';
+            var today2 = new Date();
+            
+            var week = [0, 1, 2, 3, 4, 5, 6];
+            var dayOfWeek = week[new Date().getDay()];
 
-            document.getElementById('sysdate').innerHTML = today;
+            var startOfWeek = new Date(today.setDate(today.getDate() - dayOfWeek)); // Sunday
+            var endOfWeek = new Date(today2.setDate(today2.getDate() - dayOfWeek + 6)); // Saturday
+
+            var dd = String(startOfWeek .getDate()).padStart(2, '0');
+            var mm = String(startOfWeek .getMonth() + 1).padStart(2, '0');
+            var yyyy = startOfWeek.getFullYear();
+
+            var dd2 = String(endOfWeek .getDate()).padStart(2, '0');
+            var mm2 = String(endOfWeek .getMonth() + 1).padStart(2, '0');
+            var yyyy2 = endOfWeek.getFullYear();
+
+            var thisWeek = yyyy + '.' + mm + '.' + dd + ' ~ ' + yyyy2 + '.' + mm2 + '.' + dd2;
+
+            document.getElementById('sysdate').innerHTML = thisWeek;
 
             // check all
             $("#check_all").change(function(){
