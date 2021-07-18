@@ -7,9 +7,14 @@
     <meta charset="UTF-8">
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>문의게시판 목록</title>
+    <title>문의게시판 </title>
      <%@ include file="/WEB-INF/view/include/headHtml.jsp" %>
-
+	<script>
+	function isSerect(){
+		alert('비밀글은 작성자와 관리자만 볼 수 있습니다.');
+	}
+	
+	</script>
     <style>
         /* chart top btn */
         .qna_btn li {float: left; width: 100px; height: 30px; border-radius: 5px; background-color: #bbb; color: #fff; line-height: 30px; text-align: center; margin-right: 5px;}
@@ -27,8 +32,8 @@
         .chart_box table tr td:nth-child(2) {width: 130px;}
         .chart_box table tr td:nth-child(3) {width: 501px;}
         .chart_box table tr td:nth-child(4) {width: 200px; text-align: center;}
-        .chart_box table tr td:nth-child(5) {width: 153px;}
-        .chart_box table tr td:nth-child(6) {width: 170px; text-align: center;}
+        .chart_box table tr td:nth-child(5) {width: 153px; text-align: center;}
+       /*  .chart_box table tr td:nth-child(6) {width: 170px; text-align: center;} */
         .chart_box table tr td:nth-child(3) p {width: 501px; text-overflow: ellipsis; white-space: nowrap; overflow: hidden;}
         .chart_box table tr {border-bottom: 2px solid #ccc;}
         .chart_box table tr:nth-child(1) { border-top: 2px solid #ccc; height: 40px; font-size: 12px;}
@@ -61,7 +66,8 @@
 		.closedImg{margin:3px 0 0 5px;}
 		span.re_ing{position:relative; color:#fff; font-family:'ëì',dotum; font-size:11px; background:#cacaca; padding:3px; vertical-align:middle;}
 		span.re_ok{position:relative; color:#fff; font-family:'ëì',dotum; font-size:11px; background:#ff7439; padding:3px;  vertical-align:middle;}
-
+		
+		.secretWrite{color: gray; cursor: pointer;}
 		
     </style>
 </head>
@@ -71,8 +77,8 @@
     <div id="container">
         <div class="center">
             <ul class="qna_btn clear">
-                <li><a href="notice_list.html">공지사항</a></li>
-                <li><a href="QNA_list.html">문의</a></li>
+                <li><a href="/music/notice/index.do">공지사항</a></li>
+                <li><a href="/music/qna/index.do">문의</a></li>
             </ul>
             <div class="qna_margin"></div>
             <h2>문의게시판</h2>
@@ -86,24 +92,32 @@
                         <td>등록일</td>                       
                     </tr>
 					<c:if test="${empty vo }">
-						<td colspan="7"> 등록된 글이 없습니다. </td>
+						<td colspan="7" style="text-align: center;"> 등록된 글이 없습니다. </td>
 					</c:if>
 					<c:forEach var="vo" items="${vo}">
 						<tr>
-							<%-- <td class="first"><input type="checkbox" name="checkno" id="no" onclick="isChk();" data-Num="${vo.no }"/></td> --%>	
 							<td></td>
 							<td>${vo.no }</td>
-							<td class="title"><a href="view.do?no=${vo.no}&reqPage=${qnaVo.reqPage}&stype=${param.stype}&sval=${param.sval}">${vo.title}
-							</a>
-								<c:if test="${vo.regdate >= nowday }">
-									<strong style="color:red;"> [NEW] </strong>
-								</c:if>
-								<c:if test="${vo.secret == 1}">   <img src="/music/img/admin/lock.png"/></c:if>
-								<c:if test="${!empty vo.answer}"><strong> <img src="/music/img/admin/ico_answer_done.png" style="width: 45px"/> </strong></c:if>
-									
+							<td class="title">
+							<c:choose>
+								<c:when test="${vo.secret == 0}">
+									<a href="view.do?no=${vo.no}&reqPage=${qnaVo.reqPage}&stype=${param.stype}&sval=${param.sval}">${vo.title}</a>
+								</c:when>
+								<c:when test="${vo.secret == 1 and userInfo.no == vo.user_no}">
+									<a href="view.do?no=${vo.no}&reqPage=${qnaVo.reqPage}&stype=${param.stype}&sval=${param.sval}">${vo.title}</a>
+									<img src="/music/img/admin/lock.png"/>
+								</c:when>
+								<c:otherwise>
+									<span class="secretWrite" onclick="isSerect();">${vo.title } </span><img src="/music/img/admin/lock.png"/>
+								</c:otherwise>
+							</c:choose>
+									<c:if test="${vo.regdate >= nowday }">
+										<strong style="color:red;"> [NEW] </strong>
+										<c:if test="${!empty vo.answer}"><strong> <img src="/music/img/admin/ico_answer_done.png" style="width: 45px"/> </strong></c:if>
+									</c:if>
 							</td>
+							<td><a href="userpost.do">${vo.name}</a></td>
 							<td>${vo.regdate }</td>
-							<td><a href="userpost.do">닉네임</a></td>
 							
 						</tr>
 					</c:forEach>

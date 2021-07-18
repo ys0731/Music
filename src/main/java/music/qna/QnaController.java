@@ -48,7 +48,7 @@ public class QnaController {
 	public String index(Model model,QnaVo vo) {
 		
 		//new 시간 설정 
-        SimpleDateFormat format = new SimpleDateFormat("yyyy-MM-dd");
+        SimpleDateFormat format = new SimpleDateFormat("yyyy-MM-dd HH:mm");
         Calendar cal = Calendar.getInstance();
         cal.add(Calendar.DAY_OF_MONTH, -1); //하루
         //System.out.println("날짜:"+cal);

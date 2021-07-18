@@ -27,10 +27,10 @@ $(document).ready(function () {
 
     $("#gnb_li_last, #user_name").off("mouseenter");
     
-    $("#gnb_li_last").click(function(){
-        alert("로그인이 필요합니다.");
-        window.location.href = 'login.html';
-    });
+    //$("#gnb_li_last").click(function(){
+    //    alert("로그인이 필요합니다.");
+    //    window.location.href = 'login.html';
+    //});
 
     $("#gnb_li_last").mouseenter(function(){
         $(".mymusic_sub").stop().fadeIn(300);

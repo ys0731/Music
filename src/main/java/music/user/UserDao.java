@@ -40,19 +40,13 @@ public class UserDao {
 		return sqlSession.selectOne("user.isDuplicateId", id);
 	}
 	
+	public int isDuplicateNickname(String nickname) {
+		return sqlSession.selectOne("user.isDuplicateNickname", nickname);
+	}
+	
 	public UserVo login(UserVo vo) {
 		return sqlSession.selectOne("user.login", vo);
 	}
 	
-	public UserVo searchId(UserVo vo) {
-		return sqlSession.selectOne("user.searchId", vo);
-	}
-	
-	public UserVo searchPwd(UserVo vo) {
-		return sqlSession.selectOne("user.searchPwd", vo);
-	}
-	
-	public UserVo updateTempPwd(UserVo vo) {
-		return sqlSession.selectOne("user.updateTempPwd", vo);
-	}
+
 }

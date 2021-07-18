@@ -71,11 +71,4 @@
 		DELETE FROM notice
 		WHERE no=#{no}
 	</delete>
-</mapper>
-
-
-
-
-
-
-
+</mapper> 

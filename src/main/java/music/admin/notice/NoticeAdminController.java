@@ -2,6 +2,7 @@ package music.admin.notice;
 
 import java.io.File;
 import java.text.SimpleDateFormat;
+import java.util.Calendar;
 import java.util.Date;
 import java.util.List;
 import java.util.UUID;
@@ -25,6 +26,13 @@ public class NoticeAdminController {
 	//목록	
 	@RequestMapping("/admin/notice/index.do")
 	public String index(Model model,NoticeAdminVo vo) {
+		//new 시간 설정 
+        SimpleDateFormat format = new SimpleDateFormat("yyyy-MM-dd HH:mm");
+        Calendar cal = Calendar.getInstance();
+        cal.add(Calendar.DAY_OF_MONTH, -1); //하루
+        String nowday = format.format(cal.getTime());
+        
+        model.addAttribute("nowday",nowday);
 		model.addAttribute("vo",service.selectAll(vo)); 
 		return "admin/notice/index";
 	}

@@ -3,22 +3,18 @@
 <mapper namespace="user">
 
 	<sql id="userWhere">
-		<where>
+		<where>	
 			<if test="sval != null and sval != ''">
-				<if test="stype == 'all'">
-					id LIKE '%${sval}%' OR name LIKE '%${sval}%'
-				</if>
-				<if test="stype != 'all'">
 					${stype} LIKE '%${sval}%'
-				</if>
-			</if>
-		</where>
+			</if>	
+		</where>	
 	</sql>
 	
+	<!-- 목록 -->
 	<select id="selectAll" resultType="music.user.UserVo" parameterType="music.user.UserVo">
 		SELECT * FROM user
 		<include refid="userWhere"/>
-		ORDER BY ${orderby} ${direct}
+		ORDER BY signdate DESC
 		LIMIT ${startIdx},${pageRow}
 	</select>
 	
@@ -27,41 +23,41 @@
 		<include refid="userWhere"/>
 	</select>
 	
+	<!-- 상세 -->
 	<select id="detail" resultType="music.user.UserVo" parameterType="music.user.UserVo">
 		SELECT * FROM user WHERE no = #{no}
 	</select>
 	
+	<!-- 회원가입 -->
 	<insert id="insert" parameterType="music.user.UserVo">
-		INSERT INTO user (id, pwd, email, nickname, birth_date, gender, tel, signdate, profile_org, profile_real, kakao, token)
-		VALUES (#{id}, md5(#{pwd}), #{email}, #{nickname}, #{birth_date}, #{gender}, #{tel}, NOW(), #{profile_org}, #{profile_real}, #{kakao}, #{token})
+		INSERT INTO user (id, pwd, email, nickname, gender, tel, signdate)
+		VALUES (#{id}, md5(#{pwd}), #{email}, #{nickname}, #{gender}, #{tel}, NOW())
 	</insert>
 	
+	<!-- 정보 수정 -->
 	<update id="update" parameterType="music.user.UserVo">
 		UPDATE user SET pwd=md5(#{pwd}), email=#{email}, tel=#{tel}
 		WHERE no=#{no}
 	</update>
 	
+	<!-- 탈퇴 -->
 	<delete id="delete" parameterType="music.user.UserVo">
 		DELETE FROM user WHERE no=#{no}
 	</delete>
 	
+	<!-- 아이디 중복체크 -->
 	<select id="isDuplicateId" resultType="int" parameterType="String">
 		SELECT COUNT(*) FROM user WHERE id=#{id}
 	</select>	
 	
+	<!-- 닉네임 중복체크 -->
+	<select id="isDuplicateNickname" resultType="int" parameterType="String">
+		SELECT COUNT(*) FROM user WHERE nickname=#{nickname}
+	</select>
+			
+	<!-- 로그인 -->
 	<select id="login" resultType="music.user.UserVo" parameterType="music.user.UserVo">
-		SELECT no, id, nickname FROM user WHERE id=#{id} and pwd=md5(#{pwd})
+		SELECT * FROM user WHERE id=#{id} and pwd=md5(#{pwd})
 	</select>
-	
-	<select id="searchId" resultType="music.user.UserVo" parameterType="music.user.UserVo">
-		SELECT * FROM user WHERE nickname=#{nickname} and email=#{email}
-	</select>
-	
-	<select id="searchPwd" resultType="music.user.UserVo" parameterType="music.user.UserVo">
-		SELECT * FROM user WHERE id=#{id} and email=#{email}
-	</select>
-	
-	<update id="updateTempPwd" parameterType="music.user.UserVo">
-		UPDATE user SET pwd=md5(#{pwd}) WHERE id=#{id} AND email=#{email}
-	</update>
+
 </mapper>

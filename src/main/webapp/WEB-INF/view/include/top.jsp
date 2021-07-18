@@ -7,6 +7,7 @@
                 <div class="center clear">
                     <ul class="clear">
                         <li><a href="ticket.html"><span>이용권구매</span></a></li>
+                        <li><a href="/music/user/insert.do"><span>회원가입</span></a></li>
                     </ul>
                 </div>
             </div>
@@ -33,43 +34,53 @@
                         <li class="rise_10"><span>10</span><span>민족학</span></li>
                     </ul>
                 </div>
-                <a class="login_btn" href="login.html">로그인</a>
+                <c:if test="${empty userInfo }">  
+                <a class="login_btn" href="/music/user/login.do">로그인</a>
+                </c:if>
             </div>
         </div>
         <div id="header_bottom">
             <div class="center">
                 <ul class="gnb clear">
-                    <li><a href="chart_chart_24hits.html">샌드차트</a></li>
-                    <li><a href="recent_chart.html">최신음악</a></li>
-                    <li><a href="chart_genre_kpop.html">장르음악</a></li>
+                    <li><a href="/music/chart/chart_24hit.do">샌드차트</a></li>
+                    <li><a href="/music/chart/chart_recent.do">최신음악</a></li>
+                    <li><a href="/music/chart/chart_genre_kpop.do">장르음악</a></li>
                     <li><a href="recommend_list.html">샌드DJ</a></li>
                     <li><a href="mv_popular.html">MV</a></li>
                     <li id="gnb_li_last">
-                        <a href="mymusic.html">마이뮤직</a>
-                        <ul class="mymusic_sub">
-                            <li><a href="mymusic.html">최근감상곡</a></li>
-                            <li><a href="mymusic_like.html">좋아요</a></li>
-                            <li><a href="mymusic_comment.html">나의댓글</a></li>
-                            <li><a href="index.html">로그아웃</a></li>
-                        </ul>
+	                    <c:if test="${!empty userInfo }"> 
+	                        <a href="mymusic.html">마이뮤직</a>
+		                        <ul class="mymusic_sub">
+		                            <li><a href="mymusic.html">최근감상곡</a></li>
+		                            <li><a href="mymusic_like.html">좋아요</a></li>
+		                            <li><a href="mymusic_comment.html">나의댓글</a></li>
+		                            <li><a href="/music/user/logout.do">로그아웃</a></li>
+		                        </ul>
+	                    </c:if>
                     </li>
                     <li id="user_name">
-                        <span>admin</span><span>님</span>
+                        <span>
+                        <c:if test="${!empty userInfo }"> 
+                        ${userInfo.nickname}
+                        <span>님</span>
+                        </c:if>
+                        </span>
                     </li>
                     <div class="gnb_sub clear">
                         <ul class="chart_sub">
-                            <li><a href="chart_chart_24hits.html">실시간</a></li>
-                            <li><a href="chart_chart_daily.html">일간</a></li>
-                            <li><a href="chart_chart_weekly.html">주간</a></li>
+                       
+                            <li><a href="/music/chart/chart_24hit.do">실시간</a></li>
+                            <li><a href="/music/chart/chart_daily.do">일간</a></li>
+                            <li><a href="/music/chart/chart_weekly.do">주간</a></li>
                         </ul>
                         <ul class="recent_sub">
-                            <li><a href="recent_chart.html">최신곡</a></li>
+                            <li><a href="/music/chart/chart_recent.do">최신곡</a></li>
                         </ul>
                         <ul class="genre_sub">
-                            <li><a href="chart_genre_kpop.html">가요</a></li>
-                            <li><a href="chart_genre_pop.html">Pop</a></li>
-                            <li><a href="chart_genre_jazz.html">Jazz</a></li>
-                            <li><a href="chart_genre_classic.html">Classic</a></li>
+                            <li><a href="/music/chart/chart_genre_kpop.do">가요</a></li>
+                            <li><a href="/music/chart/chart_genre_pop.do">Pop</a></li>
+                            <li><a href="/music/chart/chart_genre_jazz.do">Jazz</a></li>
+                            <li><a href="/music/chart/chart_genre_classic.do">Classic</a></li>
                         </ul>
                         <ul class="offer_sub">
                             <li><a href="recommend_list.html">추천음악</a></li>

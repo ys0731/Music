@@ -102,7 +102,11 @@ function isDel(){
 											<td>${vo.no }</td>
 											<c:if test="${vo.category == 'categoryInfo'}"><td>안내</td></c:if>	
 											<c:if test="${vo.category == 'categoryCheck'}"><td>점검</td></c:if>	
-											<td class="title"><a href="view.do?no=${vo.no}&reqPage=${noticeAdminVo.reqPage}&stype=${param.stype}&sval=${param.sval}&category=${param.category}">${vo.title }</a></td>
+											<td class="title"><a href="view.do?no=${vo.no}&reqPage=${noticeAdminVo.reqPage}&stype=${param.stype}&sval=${param.sval}&category=${param.category}">${vo.title }</a>
+											<c:if test="${vo.regdate >= nowday }">
+												<strong style="color:red;"> [NEW] </strong>
+											</c:if>
+											</td>
 											<td>${vo.regdate }</td>
 											<td>관리자</td>
 											<td class="last">${vo.readcount }</td>

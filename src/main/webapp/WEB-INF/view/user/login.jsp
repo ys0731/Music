@@ -8,10 +8,9 @@
     <meta charset="UTF-8">
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>login</title>
-    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.6.0/jquery.min.js"></script>
-
-    <link rel="stylesheet" href="css/reset.css">
+    <title>register</title>
+	<script src="https://ajax.googleapis.com/ajax/libs/jquery/3.6.0/jquery.min.js"></script>
+    <link href="<%=request.getContextPath()%>/css/reset.css" rel="stylesheet" type="text/css" />
     <script>
      function loginCheck() {
     	 if ($("#id").val().trim() == "") {
@@ -32,7 +31,7 @@
             margin: 0 auto;
             margin-top: 200px;
             width: 300px;
-            background-image: url("img/logo.png");
+            background-image: url("../img/logo.png");
             background-position: center;
             background-repeat: no-repeat;
             background-size: cover;
@@ -92,22 +91,23 @@
 <body>
     <h1 class="logo"><a href="index.do"></a></h1>
     <div class="login_wrapper">
-        <form action="login.do" method="POST" id="board1" name="board1" onsubmit="return loginCheck();">
+        <form action="login.do" method="post" id="board1" name="board1" onsubmit="return loginCheck();">
             <div class="text_wrapper">
-                <input name="id" id="id" class="no_outline hide_input_outline" type="text" placeholder="아이디">
+                <input name="id" id="id" class="no_outline hide_input_outline" type="text" placeholder="아이디" value="${userVo.id }">
                 <input name="pwd" id="pwd" class="no_outline hide_input_outline" type="password" placeholder="비밀번호">
             </div>
             <div class="login_bottom clear">
                 <div class="id_check_wrapper">
-                    <input type="checkbox" name="id_check" id="id_check"><label for="id_check">아이디 저장</label>
+                    <input type="checkbox" name="checkId" id="reg1" value="check" <c:if test="${!empty userVo.id}">checked</c:if>/> 아이디저장
                 </div>
                 <ul class="clear">
-                    <li><a href="join.do">회원가입</a></li>
+                    <li><a href="insert.do">회원가입</a></li>
                     <li><a href="searchId.do">아이디 찾기</a></li>
                     <li><a href="searchPwd.do">비밀번호 찾기</a></li>
                 </ul>
             </div>
-            <!-- <input type="submit" value="로그인"> -->
+            
+            <!-- <div class="login_btn"><input type="submit" value="로그인" alt="로그인" /></div> -->
             <button class="login_btn">로그인</button>
             <button class="kakao_login_btn">카카오 계정으로 로그인</button>
         </form>

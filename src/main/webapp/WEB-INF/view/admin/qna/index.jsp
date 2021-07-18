@@ -100,17 +100,15 @@ function isDel(){
 										<tr>
 											<td class="first"><input type="checkbox" name="checkno" id="no" onclick="isChk();" data-Num="${vo.no }"/></td>	
 											<td>${vo.no }</td>
-											<td class="title"><a href="view.do?no=${vo.no}&reqPage=${qnaAdminVo.reqPage}&stype=${param.stype}&sval=${param.sval}">${vo.title }
-											</a>
+											<td class="title"><a href="view.do?no=${vo.no}&reqPage=${qnaAdminVo.reqPage}&stype=${param.stype}&sval=${param.sval}">${vo.title }</a>
 												<c:if test="${vo.regdate >= nowday }">
 													<strong style="color:red;"> [NEW] </strong>
 												</c:if>
 												<c:if test="${vo.secret == 1}">   <img src="/music/img/admin/lock.png"/></c:if>
-												<%-- <c:if test="${!empty vo.answer}"><strong> (1) </strong></c:if>	 --%>
 												<c:if test="${!empty vo.answer}"><strong> <img src="/music/img/admin/ico_answer_done.png" style="width: 40px"/> </strong></c:if>
 											</td>
 											<td>${vo.regdate }</td>
-											<td><a href="userpost.do">닉네임</a></td>
+											<td>${vo.name }</td>
 											
 										</tr>
 									</c:forEach>									

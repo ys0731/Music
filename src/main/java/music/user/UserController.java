@@ -1,5 +1,8 @@
 package music.user;
 
+import java.util.regex.Matcher;
+import java.util.regex.Pattern;
+
 import javax.servlet.http.Cookie;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
@@ -12,7 +15,6 @@ import org.springframework.web.bind.annotation.CookieValue;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RequestParam;
 
 
@@ -21,94 +23,75 @@ public class UserController {
 
 	@Autowired
 	UserService service;
-	
-//	@RequestMapping("/admin/user/index.do")
-//	public String index(Model model, UserVo vo) {
-//		model.addAttribute("list", service.selectAll(vo));
-//		return "admin/user/index";
-//	}
-	
-//	@RequestMapping("/board/detail.do")
-//	public String detail(Model model, UserVo vo) {
-//		model.addAttribute("vo", service.deatil(vo));
-//		return "board/detail";
-//	}
-	
-	@RequestMapping("/user/join.do")
-	public String write(Model model, UserVo vo) {
-		return "user/join";
+
+	//회원 가입
+	@RequestMapping("/user/insert.do")
+	public String write(UserVo vo,Model model) {
+		return "user/insert";
 	}
 	
-	// form에서 submit용
-	@RequestMapping("/user/insert.do") //등록
-	public String insert(Model model, UserVo vo, HttpServletRequest req) {
-		int r = service.insert(vo);
-		// r > 0 : 정상 -> alert -> 목록으로 이동
-		// r == 0 : 비정상 -> alert -> 이전페이지로 이동
-		if (r > 0) {
-			model.addAttribute("msg", "정상적으로 등록되었습니다.");
-			model.addAttribute("url", "/project/sample/index.do");
-		} else {
-			model.addAttribute("msg", "등록실패");
-			model.addAttribute("url", "join.do");
-		}
-		return "include/alert";
-	}
-	
-	// ajax용
 	@RequestMapping("/user/insertAjax.do")
-	public String insertAjax(Model model, UserVo vo, HttpServletRequest req) {
+	public String insertAjax(UserVo vo,Model model, HttpServletRequest req) {
 		int r = service.insert(vo);
 		if (r > 0) {
-			model.addAttribute("result", "true");
+			model.addAttribute("msg", "true");
 		} else {
-			model.addAttribute("result", "false");
+			model.addAttribute("msg", "false");
 		}
 		return "include/result";
 	}
 	
-//	@RequestMapping("/board/edit.do")
-//	public String edit(Model model, UserVo vo) {
-//		model.addAttribute("vo", service.edit(vo));
-//		return "board/edit";
-//	}
-	
-//	@RequestMapping("/board/update.do")
-//	public String update(Model model, UserVo vo, HttpServletRequest req) {
-//		int r = service.update(vo);
-//		// r > 0 : 정상 -> alert -> 목록으로 이동
-//		// r == 0 : 비정상 -> alert -> 이전페이지로 이동
-//		if (r > 0) {
-//			model.addAttribute("msg", "정상적으로 수정되었습니다.");
-//			model.addAttribute("url", "index.do");
-//		} else {
-//			model.addAttribute("msg", "수정실패");
-//			model.addAttribute("url", "edit.do?no="+vo.getNo());
-//		}
-//		return "include/alert";
-//	}
-	
-//	@RequestMapping("/board/delete.do")
-//	public String delete(Model model, UserVo vo, HttpServletRequest req) {
-//		int r = service.delete(vo);
-//		if (r > 0) {
-//			model.addAttribute("result", "true");
-//		} else {
-//			model.addAttribute("result", "false");
-//		}
-//		return "include/result";
-//	}
-	
+	//아이디 중복체크
 	@RequestMapping("/user/isDuplicateId.do")
 	public String isDuplicateId(Model model, @RequestParam String id) {
 		if (service.isDuplicateId(id) == 0) {
-			model.addAttribute("result", "false");
+			model.addAttribute("msg", "false");
 		} else {
-			model.addAttribute("result", "true");
+			model.addAttribute("msg", "true");
 		}
 		return "include/result";
 	}
+
+	//닉네임 중복체크
+	@RequestMapping("/user/isDuplicateNickname.do")
+	public String isDuplicateNickname(Model model, @RequestParam String nickname) {
+		if (service.isDuplicateNickname(nickname) == 0) {
+			model.addAttribute("msg", "false");
+		} else {
+			model.addAttribute("msg", "true");
+		}
+		return "include/result";
+	}	
 	
+	//비밀번호 유효성 검사
+	@RequestMapping("/user/isVaildPwd.do")
+	public String isVaildPwd(Model model, @RequestParam String pwd) {
+		
+		String password = pwd;
+		
+		//숫자,영어,특수문자 포함한 글자 정규식 
+		String regex = "^((?=.*\\d)(?=.*[a-zA-Z])(?=.*[\\W]).{8,20})$";
+		
+		//공백 문자 정규식
+		String blank = "(\\s)";
+		
+		//문자열 길이 
+		int pwdLength = password.toUpperCase().length();
+		
+		//비밀번호 정규식 체크
+		Matcher matcher = Pattern.compile(regex).matcher(password);		
+		Matcher matcher2 = Pattern.compile(blank).matcher(password);
+		
+		if(!matcher.find() || matcher2.find() || (pwdLength > 20 || pwdLength < 8)) {
+			model.addAttribute("msg", "false");			
+		}else {
+			model.addAttribute("msg", "true");	
+		}
+		return "include/result";
+	}			
+	
+	
+	//로그인
 	@GetMapping("/user/login.do")
 	public String loginForm(UserVo vo, @CookieValue(value="cookieId", required = false) Cookie cookie) {
 		if (cookie != null) {
@@ -127,7 +110,7 @@ public class UserController {
 		} else {
 			sess.setAttribute("userInfo", uv);
 			// 쿠키에 저장
-			Cookie cookie = new Cookie("cookieId", vo.getId());
+			Cookie cookie = new Cookie("cookieId", vo.getId()); //아이디 쿠키에 저장 
 			cookie.setPath("/");
 			if ("check".equals(vo.getCheckId())) {
 				cookie.setMaxAge(60*60*24*365);
@@ -135,54 +118,20 @@ public class UserController {
 				cookie.setMaxAge(0);
 			}
 			res.addCookie(cookie);
-			String url = "/SendMusic/board/index.do";
-			if (req.getParameter("url") != null && !"".equals(req.getParameter("url"))) url = req.getParameter("url");
-			return "redirect: "+url;
+			
+			return "redirect:/notice/index.do";
 		}
 	}
 	
+	//로그아웃
 	@GetMapping("/user/logout.do")
 	public String logout(Model model, HttpSession sess) {
 		sess.invalidate();
 		model.addAttribute("msg", "로그아웃되었습니다.");
-		model.addAttribute("url", "/SendMusic/board/index.do");
+		model.addAttribute("url", "/music/notice/index.do");
 		return "include/alert";
 	}
 	
-//	@RequestMapping("/user/mypage.do")
-//	public String mypage(Model model, BoardVo vo, HttpSession sess) {
-//		vo.setUser_no(((UserVo)sess.getAttribute("userInfo")).getNo());
-//		model.addAttribute("list", boardService.selectAll(vo));
-//		
-//		return "user/mypage";
-//	}
+
 	
-	@RequestMapping(value = "/user/searchId.do", method = RequestMethod.GET)
-	public String searchId(Model model, UserVo vo) {
-		return "user/searchId";
-	}
-	@RequestMapping(value = "/user/searchId.do", method = RequestMethod.POST)
-	public String searchId2(Model model, UserVo vo) {
-		UserVo uv = service.searchId(vo);
-		String id = "";
-		if (uv != null) {
-			id = uv.getId();
-		}
-		model.addAttribute("result", id);
-		return "include/result";
-	}
-	@RequestMapping(value = "/user/searchPwd.do", method = RequestMethod.GET)
-	public String searchPwd(Model model, UserVo vo) {
-		return "user/searchPwd";
-	}
-	@RequestMapping(value = "/user/searchPwd.do", method = RequestMethod.POST)
-	public String searchPwd2(Model model, UserVo vo) {
-		UserVo uv = service.searchPwd(vo);
-		if(uv != null) {
-			model.addAttribute("result", "ok");
-		} else {
-			model.addAttribute("result", "no");
-		}
-		return "include/result";
-	}
 }

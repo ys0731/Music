@@ -1,5 +1,6 @@
 <%@ page contentType="text/html; charset=utf-8" %>
 <%@page import="java.util.ArrayList"%>
+
 <script>
 
 function OpenWinCount(URL,width,height) {
@@ -69,7 +70,7 @@ $(window).load(function(){
 		
 		<div id="menu">
   			<ul class="menu">
-  				<li><a href="<%=request.getContextPath()%>/admin/member/index.do" class="parent"><span>회원관리</span></a></li>
+  				<li><a href="<%=request.getContextPath()%>/admin/user/index.do" class="parent"><span>회원관리</span></a></li>
 				<li><a href="<%=request.getContextPath()%>/admin/product/index.do" class="parent"><span>상품관리</span></a></li>
 				<li><a href="<%=request.getContextPath()%>/admin/notice/index.do" class="parent"><span>게시판</span></a>
 					<div class="standard_left">
@@ -79,7 +80,8 @@ $(window).load(function(){
 					</ul>
 					</div>
 				</li>
-				<li><a href="<%=request.getContextPath()%>/admin/admin/index.do" class="parent"><span>관리자관리</span></a></li>
+				<li><a href="<%=request.getContextPath()%>/admin/admin/index.do" class="parent"><span>관리자관리</span></a></li>			
+				<li><a href="<%=request.getContextPath()%>/admin/logout.do" class="parent"><span>로그아웃</span></a></li>
 			</ul>
 		</div>
 		<!--//gnb-->

@@ -51,7 +51,21 @@
 		<property name="maxUploadSize" value="100000000"/>
 	</bean> 
 	
-	
+	<!-- 인터셉터 -->
+	<mvc:interceptors>
+		<mvc:interceptor>
+		<!-- 나중에 마이페이지 추가할 예정 -->
+			<mvc:mapping path="/qna/write.do"/>
+			<bean class="music.interceptor.LoginInterceptor"/>		  
+		</mvc:interceptor>
+		
+		<mvc:interceptor>
+			<mvc:mapping path="/admin/**"/>
+			<mvc:exclude-mapping path="/admin/login.do"/> 
+			<bean class="music.interceptor.LoginAdminInterceptor"/>		  
+		</mvc:interceptor>		
+		
+	</mvc:interceptors>
 	
 	
 	

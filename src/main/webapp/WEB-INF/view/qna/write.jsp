@@ -6,7 +6,7 @@
     <meta charset="UTF-8">
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>질문게시판 등록</title>
+    <title>문의게시판</title>
      <%@ include file="/WEB-INF/view/include/headHtml.jsp" %>
 
 </head>
@@ -90,10 +90,11 @@
                 <h2>문의게시판</h2>
             </div>
             <form class="form_qna" name="frm" id="frm" action="insert.do" method="post" onsubmit="return goSave();">
+            	<input type="hidden" name="user_no" value="${userInfo.no }"> 
                 <table class="tbl_qna" name="tbl">
                     <tr>
                         <td class="notice_regi_title"><label for="id">닉네임</label></td>
-                        <td><input type="text" name="nickname" id="nickname" readonly value="작성자닉네임"></td>
+                        <td><input type="text" name="nickname" id="nickname" readonly value="${userInfo.nickname }"></td>
                     </tr>
                     <tr>
                         <td class="notice_regi_title"><label for="title">제목</label></td>

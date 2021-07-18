@@ -1,6 +1,7 @@
 package music.user;
 
 import java.sql.Timestamp;
+import java.text.SimpleDateFormat;
 
 import util.CommonVo;
 
@@ -11,16 +12,13 @@ public class UserVo extends CommonVo {
 	private String pwd;
 	private String email;
 	private String nickname;
-	private int birth_date;
-	private int gender;
+	private String gender;
 	private String tel;
 	private Timestamp signdate;
-	private String checkId;
-	private String profile_org;
-	private String profile_real;
-	private int kakao;
-	private String token;
 	
+	private String checkId; //아이디 중복체크
+	private String nicknameId; //닉네임 중복체크
+
 	public int getNo() {
 		return no;
 	}
@@ -51,16 +49,10 @@ public class UserVo extends CommonVo {
 	public void setNickname(String nickname) {
 		this.nickname = nickname;
 	}
-	public int getBirth_date() {
-		return birth_date;
-	}
-	public void setBirth_date(int birth_date) {
-		this.birth_date = birth_date;
-	}
-	public int getGender() {
+	public String getGender() {
 		return gender;
 	}
-	public void setGender(int gender) {
+	public void setGender(String gender) {
 		this.gender = gender;
 	}
 	public String getTel() {
@@ -69,8 +61,9 @@ public class UserVo extends CommonVo {
 	public void setTel(String tel) {
 		this.tel = tel;
 	}
-	public Timestamp getSigndate() {
-		return signdate;
+	public String getSigndate() {
+		SimpleDateFormat sdf = new SimpleDateFormat("yyyy-MM-dd"); 
+		return sdf.format(signdate);
 	}
 	public void setSigndate(Timestamp signdate) {
 		this.signdate = signdate;
@@ -80,31 +73,6 @@ public class UserVo extends CommonVo {
 	}
 	public void setCheckId(String checkId) {
 		this.checkId = checkId;
-	}
-	public String getProfile_org() {
-		return profile_org;
-	}
-	public void setProfile_org(String profile_org) {
-		this.profile_org = profile_org;
-	}
-	public String getProfile_real() {
-		return profile_real;
-	}
-	public void setProfile_real(String profile_real) {
-		this.profile_real = profile_real;
-	}
-	public int getKakao() {
-		return kakao;
-	}
-	public void setKakao(int kakao) {
-		this.kakao = kakao;
-	}
-	public String getToken() {
-		return token;
-	}
-	public void setToken(String token) {
-		this.token = token;
-	}
-	
+	}	
 	
 }

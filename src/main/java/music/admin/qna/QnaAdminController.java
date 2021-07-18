@@ -12,21 +12,26 @@ import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 
+import music.qna.QnaService;
+import music.qna.QnaVo;
+
 @Controller
 public class QnaAdminController {
 	
 	@Autowired
 	QnaAdminService service;
 	
+	@Autowired
+	QnaService qService;
+	
 	//목록	
 	@RequestMapping("/admin/qna/index.do")
 	public String index(Model model,QnaAdminVo vo) {
 		
 		//new 시간 설정 
-        SimpleDateFormat format = new SimpleDateFormat("yyyy-MM-dd");
+        SimpleDateFormat format = new SimpleDateFormat("yyyy-MM-dd HH:mm");
         Calendar cal = Calendar.getInstance();
         cal.add(Calendar.DAY_OF_MONTH, -1); //하루
-        //System.out.println("날짜:"+cal);
         String nowday = format.format(cal.getTime());
         
         model.addAttribute("nowday",nowday);
@@ -87,48 +92,7 @@ public class QnaAdminController {
 		return "/admin/include/result";
 	}
 
-		@RequestMapping("/admin/qna/userpost.do") 
-		public String userpost(Model model,QnaAdminVo vo) {
 			
-			//new 시간 설정 
-	        SimpleDateFormat format = new SimpleDateFormat("yyyy-MM-dd");
-	        Calendar cal = Calendar.getInstance();
-	        cal.add(Calendar.DAY_OF_MONTH, -1); //하루
-	        //System.out.println("날짜:"+cal);
-	        String nowday = format.format(cal.getTime());
-	        
-	        model.addAttribute("nowday",nowday);
-			model.addAttribute("vo",service.selectAll(vo)); 
-			return "admin/qna/userpost";
-		}
-	 
-		
-		
-		//하나로 쓰면안돼,, 분류하자.. 관리자/일반 로그인인터셉터 어떻게 구분할건데 ...... 
-		
-		//쓰기
-//		@RequestMapping("/qna/write.do")
-//		public String write() {		
-//			return "qna/write";
-//			
-//		}	
-		
-		//등록
-//		@RequestMapping("/admin/qna/insert.do")
-//		public String insert(Model model,QnaVo vo,HttpServletRequest req) { 
-	//
-//			int r = service.insert(vo);
-	//
-//			if(r>0) {
-//				model.addAttribute("msg","정상적으로 등록되었습니다.");
-//				model.addAttribute("url","index.do");
-//			}else {
-//				model.addAttribute("msg","등록실패");
-//				model.addAttribute("url","write.do");		
-//			}
-//			
-//			return "/admin/include/alert";
-//		}
 		
 		
 		
