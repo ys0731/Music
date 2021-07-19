@@ -62,8 +62,26 @@ public class UserServiceImpl implements UserService {
 	public UserVo login(UserVo vo) {
 		return dao.login(vo);
 	}
+	
+	public UserVo searchId(UserVo vo) {
+		return dao.searchId(vo);
+	}
 
-
-
+	public UserVo searchPwd(UserVo vo) {
+		UserVo uv = dao.searchPwd(vo);
+		if (uv != null) {
+			String tempPwd = "";
+			for (int i=0; i<3; i++) {
+				tempPwd += (char)((Math.random()*26)+65);
+			}
+			for (int i=0; i<3; i++) {
+				tempPwd += (int)((Math.random()*9));
+			}
+			vo.setPwd(tempPwd); //임시비밀번호 vo에 저장
+			dao.updateTempPwd(vo); //임시비밀번호를 db에 수정
+			SendMail.sendMail("lsmvip0522@naver.com", uv.getEmail(), "[SEND MUSIC]"+uv.getId()+"님의 임시 비밀번호 입니다.", "안녕하세요 SENDMUSIC입니다."+uv.getId()+"님의 임시 비밀번호는 "+tempPwd+"입니다.");
+		}
+		return uv;
+	}
 }
 

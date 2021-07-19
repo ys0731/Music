@@ -8,36 +8,37 @@
     <meta charset="UTF-8">
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>find_pwd</title>
+    <title>searchPwd</title>
     <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.6.0/jquery.min.js"></script>
-
-    <link rel="stylesheet" href="css/reset.css">
+	<link href="<%=request.getContextPath()%>/css/reset.css" rel="stylesheet" type="text/css" />
     <script>
-        // input number only
-        function isNumberKey(event){
-            var charCode = (event.which) ? event.which : event.keyCode
-            if (charCode > 31 && (charCode < 48 || charCode > 57))
-                return false;
-            return true;
-        }
-
+    function searchPwd() {
+    	$.ajax({
+    		url:'searchPwd.do',
+    		data:{
+    			id:$("#id").val(),
+    			email:$("#email").val(),
+    			nickname:$("#nickname").val()
+    		},
+    		method:"post",
+    		success:function(res) {
+    			if (res.trim() == 'ok') {
+    				alert('회원님의 이메일로 임시비밀번호가 발급되었습니다.');
+    				alert('로그인 페이지로 이동합니다.');
+    				location.href='/SendMusic/user/login.do';
+    				
+    				
+    			} else {
+    				alert('아이디/이메일이 올바르지 않습니다.');
+    			}
+    		}
+    	});
+    	return false;
+    }
         $(document).ready(function(){
-            // send verification code
-            $(".email_wrapper button").click(function(event) {
-                event.preventDefault();
-                alert('인증번호가 전송되었습니다.');
-                $(".next_btn").addClass("on");
-            });
-
             // avoid function without verifying email
             $(".next_btn").click(function(event){
                 event.preventDefault();
-                var check = $('.next_btn').attr('class');
-                if (check == "next_btn on") {
-                    window.location.href = "pwd_change.html";
-                } else {
-                    alert("이메일 인증이 필요합니다.");
-                }
             });
 
             // BLACKOUT!
@@ -54,7 +55,7 @@
             margin: 0 auto;
             margin-top: 180px;
             width: 300px;
-            background-image: url("img/logo.png");
+            background-image: url("../img/logo.png");
             background-position: center;
             background-repeat: no-repeat;
             background-size: cover;
@@ -94,8 +95,7 @@
         #ver_code {margin-left: 86px;}
 
         /* 다음단계 btn */
-        .next_btn {width: 100%; height: 50px; margin-top: 30px; border: none; border-radius: 5px; background-color: #333; color: #fff; font-size: 20px; font-weight: bold; cursor: pointer;}
-        .next_btn.on {background-color: #11264f;}
+        .next_btn {width: 100%; height: 50px; margin-top: 30px; border: none; border-radius: 5px; background-color: #11264f; color: #fff; font-size: 20px; font-weight: bold; cursor: pointer;}
     </style>
 </head>
 
@@ -103,19 +103,17 @@
     <h1 class="logo"><a href="index.html"></a></h1>
     <h2>비밀번호 찾기</h2>
     <div class="pwd_find_wrapper">
-        <form action="" method="POST">
+        <form action="searchPwd.do" method="POST" id="board1" name="board1">
             <div class="id_wrapper">
                 <label for="id">아이디</label><input name="id" id="id" class="no_outline hide_input_outline" type="text" placeholder="아이디 입력">
             </div>
-            <div class="name_wrapper">
-                <label for="name">이름</label><input name="name" id="name" class="no_outline hide_input_outline" type="text" placeholder="이름 입력">
+            <div class="nickname_wrapper">
+                <label for="nickname">별명</label><input name="nickname" id="nickname" class="no_outline hide_input_outline" type="text" placeholder="별명 입력">
             </div>
             <div class="email_wrapper clear">
                 <label for="email">이메일</label><input name="email" id="email" class="no_outline hide_input_outline" type="text" placeholder="이메일 입력">
-                <button>인증</button>
             </div>
-            <input name="ver_code" id="ver_code" class="no_outline hide_input_outline" type="text" placeholder="인증번호 입력" onkeypress="return isNumberKey(event)" maxlength="4">
-            <button class="next_btn">다음단계</button>
+            <button class="next_btn" onclick="return searchPwd();">임시 비밀번호 발급</button>
         </form>
     </div>
 </body>

@@ -13,5 +13,7 @@ public interface UserService {
 	int isDuplicateId(String id);
 	int isDuplicateNickname(String nickname);
 	UserVo login(UserVo vo);
+	UserVo searchId(UserVo vo);
+	UserVo searchPwd(UserVo vo);
 
 }
