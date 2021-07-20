@@ -34,12 +34,10 @@
 
             // sysdate
             var today = new Date();
-            var m = today.getMinutes();
-            var hh = today.getHours();
-            var dd = String(today.getDate()).padStart(2, '0'); // padStart(2, '0') : 두자리
+            var dd = String(today.getDate()).padStart(2, '0');
             var mm = String(today.getMonth() + 1).padStart(2, '0'); //January is 0!
             var yyyy = today.getFullYear();
-            today = yyyy + '.' + mm + '.' + dd + ' ' + hh + ':00';
+            today = yyyy + '.' + mm + '.' + dd;
 
             document.getElementById('sysdate').innerHTML = today;
 

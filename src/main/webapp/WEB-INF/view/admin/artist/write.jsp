@@ -19,6 +19,11 @@
 			$("#debdate").focus();
 			return false;
 		}
+		if ($('#debdate').val().trim().toString().length != 8) {
+			alert("올바른 형식으로 데뷔일을 입력해 주세요.");
+			$("#reldate").focus();
+			return false;
+		}
 		if ($('#info').val().trim() == "") {
 			alert("아티스트정보를 입력해 주세요.");
 			$("#info").focus();

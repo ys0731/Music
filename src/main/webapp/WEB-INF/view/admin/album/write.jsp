@@ -19,6 +19,11 @@
 			$("#reldate").focus();
 			return false;
 		}
+		if ($('#reldate').val().trim().toString().length != 8) {
+			alert("올바른 형식으로 발매일을 입력해 주세요.");
+			$("#reldate").focus();
+			return false;
+		}
 		if ($('#info').val().trim() == "") {
 			alert("앨범정보를 입력해 주세요.");
 			$("#info").focus();

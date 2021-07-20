@@ -12,26 +12,19 @@
                 </div>
             </div>
             <div class="header_top_down center clear">
-                <h1 class="logo"><a href="index.html"></a></h1>
-                <form class="header_search clear" action="" method="post">
-                    <button class="search_btn">
-                        <img src="../img/search.png" alt="search" onclick="">
+                <h1 class="logo"><a href="/music/index.do"></a></h1>
+                <form class="header_search clear" action="/music/search.do" method="post">
+                    <button class="search_btn" type="submit">
+                        <img src="../img/search.png" alt="search">
                     </button>
-                    <input class="search_text hide_input_outline no_outline" type="text">
+                    <input class="search_text hide_input_outline no_outline" type="text" name="searchword" id="searchword">
                 </form>
                 <div class="rise"><p>급상승</p></div>
                 <div class="rising">
                     <ul>
-                        <li class="rise_1"><span>1</span><span>학과명</span></li>
-                        <li class="rise_2"><span>2</span><span>명선우</span></li>
-                        <li class="rise_3"><span>3</span><span>우산발</span></li>
-                        <li class="rise_4"><span>4</span><span>발자최</span></li>
-                        <li class="rise_5"><span>5</span><span>최영서</span></li>
-                        <li class="rise_6"><span>6</span><span>서릿김</span></li>
-                        <li class="rise_7"><span>7</span><span>김찬구</span></li>
-                        <li class="rise_8"><span>8</span><span>구덩이</span></li>
-                        <li class="rise_9"><span>9</span><span>이승민</span></li>
-                        <li class="rise_10"><span>10</span><span>민족학</span></li>
+                       <c:forEach var="sv" items="${searchRank }" end="9" varStatus="status">
+                        	<li class="rise_1"><span>${status.count }</span><span>${sv.searchword }</span></li>
+                        </c:forEach>
                     </ul>
                 </div>
                 <c:if test="${empty userInfo }">  

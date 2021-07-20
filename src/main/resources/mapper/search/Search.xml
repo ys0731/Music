@@ -1,0 +1,25 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org//dtd/mybatis-3-mapper.dtd">
+<mapper namespace="search">
+	<!-- 검색어 랭킹 추출 -->
+	<select id="searchRanking" resultType="music.search.SearchVo" parameterType="music.search.SearchVo">
+		SELECT searchword,COUNT(searchword) AS count
+		FROM search
+		WHERE searchdate > (NOW()-interval 1 DAY)
+		GROUP BY 1
+		ORDER BY 2 DESC 
+		LIMIT 0,10
+	</select>
+	
+	<insert id="searchInsert" parameterType="music.search.SearchVo">
+		INSERT INTO search(searchword,searchdate)
+		VALUES(#{searchword}, NOW()) 
+	</insert>
+	
+	<select id="selectOne" resultType="music.admin.artist.AdminArtistVo"  parameterType="music.admin.artist.AdminArtistVo">
+		SELECT * 
+		FROM artist
+		WHERE artist = '${searchword}'	
+	</select>
+	
+</mapper>

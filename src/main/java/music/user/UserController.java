@@ -15,6 +15,7 @@ import org.springframework.web.bind.annotation.CookieValue;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RequestParam;
 
 
@@ -132,6 +133,36 @@ public class UserController {
 		return "include/alert";
 	}
 	
-
+	//아이디찾기
+	@RequestMapping(value = "/user/searchId.do", method = RequestMethod.GET)
+	public String searchId(Model model, UserVo vo) {
+		return "user/searchId";
+	}
+	@RequestMapping(value = "/user/searchId.do", method = RequestMethod.POST)
+	public String searchId2(Model model, UserVo vo) {
+		UserVo uv = service.searchId(vo);
+		String id = "";
+		if (uv != null) {
+			id = uv.getId();
+		}
+		model.addAttribute("msg", id);
+		return "include/result";
+	}
+	
+	//비밀번호 찾기
+	@RequestMapping(value = "/user/searchPwd.do", method = RequestMethod.GET)
+	public String searchPwd(Model model, UserVo vo) {
+		return "user/searchPwd";
+	}
+	@RequestMapping(value = "/user/searchPwd.do", method = RequestMethod.POST)
+	public String searchPwd2(Model model, UserVo vo) {
+		UserVo uv = service.searchPwd(vo);
+		if(uv != null) {
+			model.addAttribute("msg", "ok");
+		} else {
+			model.addAttribute("msg", "no");
+		}
+		return "include/result";
+	}
 	
 }
