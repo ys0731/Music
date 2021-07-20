@@ -120,7 +120,7 @@ public class UserController {
 			}
 			res.addCookie(cookie);
 			
-			return "redirect:/notice/index.do";
+			return "redirect:/index.do";
 		}
 	}
 	

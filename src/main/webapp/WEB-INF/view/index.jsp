@@ -9,105 +9,16 @@
     <meta charset="UTF-8">
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>main</title>
-    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.6.0/jquery.min.js"></script>
-    <script src="js/header_footer.js"></script>
+    <title>Send Music</title>
     <script src="js/main.js"></script>
-
     <link rel="stylesheet" href="https://unpkg.com/swiper/swiper-bundle.min.css"/>
-    <link rel="stylesheet" href="css/reset.css">
-    <link rel="stylesheet" href="css/header_footer.css">
     <link rel="stylesheet" href="css/main.css">
-
+	<%@ include file="/WEB-INF/view/include/headHtml.jsp" %>
 </head>
 
 <body>
-    <div id="header">
-        <div id="header_top">
-            <div class="header_top_up">
-                <div class="center clear">
-                    <ul class="clear">
-                        <li><a href="ticket.html"><span>이용권구매</span></a></li>
-                        <li><a href="/music/user/insert.do"><span>회원가입</span></a></li>
-                    </ul>
-                </div>
-            </div>
-            <div class="header_top_down center clear">
-                <h1 class="logo"><a href="/music/index.do"></a></h1>
-                <form class="header_search clear" action="/music/search.do" method="post">
-                    <button class="search_btn" type="submit">
-                        <img src="img/search.png" alt="search">
-                    </button>
-                    <input class="search_text hide_input_outline no_outline" type="text" name="searchword" id="searchword">
-                </form>
-                <div class="rise"><p>급상승</p></div>
-                <div class="rising">
-                    <ul>
-                        <c:forEach var="sv" items="${searchRank }" end="9" varStatus="status">
-                        	<li class="rise_1"><span>${status.count }</span><span>${sv.searchword }</span></li>
-                        </c:forEach>
-                    </ul>
-                </div>
-                <c:if test="${empty userInfo }">  
-                <a class="login_btn" href="/music/user/login.do">로그인</a>
-                </c:if>
-            </div>
-        </div>
-        <div id="header_bottom">
-            <div class="center">
-                <ul class="gnb clear">
-                    <li><a href="/music/chart/chart_24hit.do">샌드차트</a></li>
-                    <li><a href="/music/chart/chart_recent.do">최신음악</a></li>
-                    <li><a href="/music/chart/chart_genre_kpop.do">장르음악</a></li>
-                    <li><a href="recommend_list.html">샌드DJ</a></li>
-                    <li><a href="mv_popular.html">MV</a></li>
-                    <li id="gnb_li_last">
-	                    <c:if test="${!empty userInfo }"> 
-	                        <a href="mymusic.html">마이뮤직</a>
-		                        <ul class="mymusic_sub">
-		                            <li><a href="mymusic.html">최근감상곡</a></li>
-		                            <li><a href="mymusic_like.html">좋아요</a></li>
-		                            <li><a href="mymusic_comment.html">나의댓글</a></li>
-		                            <li><a href="/music/user/logout.do">로그아웃</a></li>
-		                        </ul>
-	                    </c:if>
-                    </li>
-                    <li id="user_name">
-                        <span>
-                        <c:if test="${!empty userInfo }"> 
-                        ${userInfo.nickname}
-                        <span>님</span>
-                        </c:if>
-                        </span>
-                    </li>
-                    <div class="gnb_sub clear">
-                        <ul class="chart_sub">
-                       
-                            <li><a href="/music/chart/chart_24hit.do">실시간</a></li>
-                            <li><a href="/music/chart/chart_daily.do">일간</a></li>
-                            <li><a href="/music/chart/chart_weekly.do">주간</a></li>
-                        </ul>
-                        <ul class="recent_sub">
-                            <li><a href="/music/chart/chart_recent.do">최신곡</a></li>
-                        </ul>
-                        <ul class="genre_sub">
-                            <li><a href="/music/chart/chart_genre_kpop.do">가요</a></li>
-                            <li><a href="/music/chart/chart_genre_pop.do">Pop</a></li>
-                            <li><a href="/music/chart/chart_genre_jazz.do">Jazz</a></li>
-                            <li><a href="/music/chart/chart_genre_classic.do">Classic</a></li>
-                        </ul>
-                        <ul class="offer_sub">
-                            <li><a href="recommend_list.html">추천음악</a></li>
-                        </ul>
-                        <ul class="mv_sub">
-                            <li><a href="mv_recent.html">최신MV</a></li>
-                            <li><a href="mv_popular.html">인기MV</a></li>
-                        </ul>
-                    </div>
-                </ul>
-            </div>
-        </div>
-    </div>
+	<%@ include file="/WEB-INF/view/include/top.jsp" %>
+    
     <div id="container">
         <div class="center">
             <div id="visual">
@@ -269,32 +180,15 @@
             <div class="notice clear">
                 <span>공지사항</span>
                 <p>
-                    <a href="notice_list.html">샌드뮤직 창립일 기념축사 이벤트</a>
+                <c:forEach var="nv" items="${nv}" varStatus="status" begin="0" end="0">
+                    <a href="/music/notice/index.do">${nv.title}</a>
+                </c:forEach>    
                 </p>
             </div>
         </div>
     </div>
    <%@ include file="/WEB-INF/view/include/bottom.jsp" %>
-    <!-- https://stackoverflow.com/questions/4126708/is-it-possible-to-style-html5-audio-tag -->
-    <!-- <div class="mp3_player">
-        <div class="player_info clear">
-            <img src="img/disk.png" alt="disk">
-            <div>
-                <span>Keep Yourself Alive</span>
-                <span>Queen</span>
-            </div>
-        </div>
-        <audio id="audio_player" controls controlsList="nodownload" autoplay loop> <!-- hidden -->
-            <!-- <source id="audio_route" src="music/music.mp3" type="audio/mpeg">
-        </audio>
-        <div></div> -->
-        <!-- <div> 
-            <button onclick="document.getElementById('audio_player').play()">Play</button> 
-            <button onclick="document.getElementById('audio_player').pause()">Pause</button> 
-            <button onclick="document.getElementById('audio_player').volume += 0.1">Vol +</button> 
-            <button onclick="document.getElementById('audio_player').volume -= 0.1">Vol -</button>
-        </div> -->
-    </div> -->
+
     <!-- Swiper JS -->
     <script src="https://unpkg.com/swiper/swiper-bundle.min.js"></script>
 

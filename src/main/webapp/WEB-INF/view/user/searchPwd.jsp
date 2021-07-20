@@ -17,19 +17,19 @@
     		url:'searchPwd.do',
     		data:{
     			id:$("#id").val(),
-    			email:$("#email").val(),
-    			nickname:$("#nickname").val()
+    			nickname:$("#nickname").val(),
+    			email:$("#email").val()
     		},
     		method:"post",
     		success:function(res) {
     			if (res.trim() == 'ok') {
     				alert('회원님의 이메일로 임시비밀번호가 발급되었습니다.');
     				alert('로그인 페이지로 이동합니다.');
-    				location.href='/SendMusic/user/login.do';
+    				location.href='/music/user/login.do';
     				
     				
     			} else {
-    				alert('아이디/이메일이 올바르지 않습니다.');
+    				alert('아이디,닉네임,이메일이 올바르지 않습니다.');
     			}
     		}
     	});
@@ -82,7 +82,7 @@
         .pwd_find_wrapper {width: 500px; margin: 0 auto; padding: 50px 70px; box-sizing: border-box; background-color: #b0c4de;}
         .pwd_find_wrapper div {margin-bottom: 20px;}
         .pwd_find_wrapper div label {font-size: 20px; margin-right: 32px;}
-        .pwd_find_wrapper div:nth-child(2) label {margin-right: 50px;}
+        .pwd_find_wrapper div:nth-child(2) label {margin-right: 32px;}
 
         input[type="text"] {height: 30px; text-indent: 10px;}
 
@@ -100,7 +100,7 @@
 </head>
 
 <body>
-    <h1 class="logo"><a href="index.html"></a></h1>
+    <h1 class="logo"><a href="/music/index.do"></a></h1>
     <h2>비밀번호 찾기</h2>
     <div class="pwd_find_wrapper">
         <form action="searchPwd.do" method="POST" id="board1" name="board1">
@@ -108,7 +108,7 @@
                 <label for="id">아이디</label><input name="id" id="id" class="no_outline hide_input_outline" type="text" placeholder="아이디 입력">
             </div>
             <div class="nickname_wrapper">
-                <label for="nickname">별명</label><input name="nickname" id="nickname" class="no_outline hide_input_outline" type="text" placeholder="별명 입력">
+                <label for="nickname"">닉네임</label><input name="nickname" id="nickname" class="no_outline hide_input_outline" type="text" placeholder="별명 입력">
             </div>
             <div class="email_wrapper clear">
                 <label for="email">이메일</label><input name="email" id="email" class="no_outline hide_input_outline" type="text" placeholder="이메일 입력">

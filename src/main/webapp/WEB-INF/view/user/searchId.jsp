@@ -123,7 +123,7 @@
 </head>
 
 <body>
-    <h1 class="logo"><a href="index.html"></a></h1>
+    <h1 class="logo"><a href="/music/index.do"></a></h1>
     <h2>아이디 찾기</h2>
     <div class="id_find_wrapper">
         <form action="searchId.do" method="POST" id="board1" name="board1">

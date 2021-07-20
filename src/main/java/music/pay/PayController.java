@@ -53,7 +53,7 @@ public class PayController {
 		vo.setUser_no(((UserVo)sess.getAttribute("userInfo")).getNo());
 		service.insert(vo);
 		//메인페이지로 가게 경로 수정할것	
-		return "notice/index";
+		return "redirect:/index.do";
 	}
 	
 	//이용권 결제내역
