@@ -1,0 +1,30 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="ticket">
+
+
+	<!-- 이용권 목록 -->
+	<select id="selectAll" resultType="music.ticket.TicketVo" parameterType="music.ticket.TicketVo">
+		SELECT * FROM ticket
+	</select>
+	
+	<!-- 이용권 등록 -->
+	<insert id="insert" parameterType="music.ticket.TicketVo">
+		INSERT INTO ticket(type,price) values(#{type}, #{price})
+	</insert>
+		
+	<!-- 이용권 삭제 -->
+	<delete id="delete" parameterType="music.ticket.TicketVo">
+		DELETE FROM ticket
+		WHERE no=#{no}
+	</delete>
+	
+	
+</mapper>
+
+
+
+
+
+
+

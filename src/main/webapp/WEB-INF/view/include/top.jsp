@@ -6,7 +6,7 @@
             <div class="header_top_up">
                 <div class="center clear">
                     <ul class="clear">
-                        <li><a href="ticket.html"><span>이용권구매</span></a></li>
+                        <li><a href="/music/ticket/index.do"><span>이용권구매</span></a></li>
                         <li><a href="/music/user/insert.do"><span>회원가입</span></a></li>
                     </ul>
                 </div>
@@ -51,6 +51,7 @@
 	                    <c:if test="${!empty userInfo }"> 
 	                        <a href="mymusic.html">마이뮤직</a>
 		                        <ul class="mymusic_sub">
+		                         	<li><a href="/music/pay/view.do">이용권내역</a></li>
 		                            <li><a href="mymusic.html">최근감상곡</a></li>
 		                            <li><a href="mymusic_like.html">좋아요</a></li>
 		                            <li><a href="mymusic_comment.html">나의댓글</a></li>
