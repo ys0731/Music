@@ -55,5 +55,16 @@ public class ChartServiceImpl implements ChartService {
 		return list;
 	}
 	
+	@Override
+	public List<ChartVo> User_recent(int no) {
+		List<ChartVo> list = dao.User_recent(no);
+		return list;
+	}
+	@Override
+	public ChartVo detail(int no) {
+		ChartVo vo = dao.detail(no);
+		return vo;
+	}
+	
 
 }

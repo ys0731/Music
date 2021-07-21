@@ -1,10 +1,20 @@
 package music.chart;
 
+import javax.servlet.http.HttpServletRequest;
+import javax.servlet.http.HttpSession;
+
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
+
+import music.admin.album.AdminAlbumService;
+import music.admin.album.AdminAlbumVo;
+import music.like.LikeService;
+import music.like.LikeVo;
+import music.user.UserService;
+import music.user.UserVo;
 
 @Controller
 public class ChartController {
@@ -12,11 +22,27 @@ public class ChartController {
 	@Autowired
 	ChartService service;
 	
+	@Autowired
+	LikeService lservice;
+	
+	@Autowired
+	UserService uservice;
+
+	
 	//실시간 순위 차트
 	@RequestMapping("/chart/chart_24hit.do")
-	public String chart_24hits(ChartVo vo, Model model) {
+	public String chart_24hits(ChartVo vo, Model model, LikeVo lv, UserVo uv, HttpSession sess) {
+		uv = (UserVo)sess.getAttribute("userInfo"); //로그인한 유저의 정보
+		if(uv != null) {   //로그인 했으면
+			int uno = uv.getNo(); 
+			lv.setUser_no(uno);  //로그인한유저의 번호를 LikeVo에 set
+			model.addAttribute("heart",lservice.heart_List(lv)); //유저의 좋아요곡 목록을 모델객체에 저장
+			model.addAttribute("list", service.ChartList_24hits(vo));
+			return "chart/chart_chart_24hits";
+		} else {		
 		model.addAttribute("list", service.ChartList_24hits(vo));
 		return "chart/chart_chart_24hits";
+		}
 	}
 	
 	//일간 순위 차트
@@ -28,9 +54,18 @@ public class ChartController {
 	
 	//주간 순위 차트
 	@RequestMapping("/chart/chart_weekly.do")
-	public String chart_weekly(ChartVo vo, Model model) {
+	public String chart_weekly(ChartVo vo, Model model, LikeVo lv, UserVo uv, HttpSession sess) {
+		uv = (UserVo)sess.getAttribute("userInfo"); //로그인한 유저의 정보
+		if(uv != null) {  //로그인 했으면
+			int uno = uv.getNo(); 
+			lv.setUser_no(uno);  //로그인한유저의 번호를 LikeVo에 set
+			model.addAttribute("heart",lservice.heart_List(lv)); //유저의 좋아요곡 목록을 모델객체에 저장
+			model.addAttribute("list", service.ChartList_weekly(vo));
+			return "chart/chart_chart_weekly";
+		} else {		
 		model.addAttribute("list", service.ChartList_weekly(vo));
 		return "chart/chart_chart_weekly";
+		}
 	}
 	
 	//장르-클래식 
@@ -71,5 +106,14 @@ public class ChartController {
 		return "chart/recent_chart";
 	}
 	
+	//가사 팝업창
+	@RequestMapping("chart/lyrics.do")
+	public String lyrics(ChartVo vo, Model model,HttpServletRequest req) {
+		int no = Integer.parseInt(req.getParameter("no"));
+		ChartVo cv = service.detail(no);
+		model.addAttribute("vo", cv);
+		return "chart/lyrics";
+	}
 	
+
 }

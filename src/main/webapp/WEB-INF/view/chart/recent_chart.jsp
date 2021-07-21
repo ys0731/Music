@@ -14,16 +14,10 @@
     <%@ include file="/WEB-INF/view/include/headHtml.jsp" %>
 
     <script>
-        // lyrics popup (id는 같은 이름을 복수의 태그에 부여 불가능!)
-        window.onload = function () {
-            var btn = document.getElementById("lyrics_1");
-
-            function popup() {
-                window.open("lyrics.html", "popup", "width=400, height=600");
-            }
-
-            btn.onclick = popup;
-        }
+	  //팝업
+	    function popup(no) {
+	        window.open("/music/chart/lyrics.do?no="+no, "popup", "width=400, height=600");
+	    }
 
         $(document).ready(function(){
 
@@ -36,8 +30,28 @@
                     $("input[type='checkbox'][name='check_list']").prop("checked", false);
                 }
             });
-
-           
+			
+            //가사
+            $(".lyrics").click(function() {
+            	var no = $(this).data('no');
+            	popup(no);
+            });
+            
+          //좋아요
+            $(".like").click(function() {
+            	var sno = $(this).data('no');
+            	$.ajax({
+            		url: '/music/like/like.do?sno='+sno,
+            		method: 'post',
+            		data: {
+            			no: sno           			
+            		},
+            		success: function(data) {
+            			console.log("success");
+            		}
+            		
+            	});
+            });//함수 끝
             
             // preventDefault
             $(".chart_box ul li a, .lyrics_popup, .like_btn, .play_music, .add_list ").click(function(e){
@@ -158,7 +172,7 @@
                    		</td>
                    		<td class="clear">
 		                      <a href="album_info.html"> <img class="album_mini" src="<%=path %>/upload/${vo.rel}" alt="album_img"></a>
-		                       <a id="lyrics_'+i+'" class="lyrics_popup button_icons" href="#"></a>
+		                       <a class="lyrics_popup button_icons lyrics" href="#" data-no="${vo.no }"></a>
 		                       <p class="list_title">${vo.title }</p>
                    		</td>
                    		<td>
@@ -168,7 +182,7 @@
                      		<a href="album_info.html"><p class="list_album">${vo.album }</p></a>
                    		</td>
 	                    <td>
-	                        <a class="like_btn" href="#"></a>
+	                        <a class="like_btn like" href="#" data-no="${vo.no }"></a>
 	                    </td>
 	                    <td>
 	                        <a class="play_music button_icons" href="#"></a>
