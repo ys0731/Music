@@ -1,0 +1,36 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org//dtd/mybatis-3-mapper.dtd">
+<mapper namespace="mvChart">
+	
+	  
+	<select id="popularMv" parameterType="music.mvChart.MvChartVo" resultType="music.mvChart.MvChartVo">
+		SELECT 
+			img,
+    		link,
+			(SELECT title FROM song WHERE no=a.song_no) AS title,
+    		(SELECT artist FROM artist WHERE no=(SELECT artist_no FROM song WHERE no=a.song_no)) AS artist,
+    		(SELECT album FROM album WHERE no=(SELECT album_no FROM song WHERE no=a.song_no)) AS album,
+    		a.cnt
+		FROM (
+			SELECT
+				mp.mv_no, m.song_no, sum(1) AS cnt, img, link
+			FROM mv_play AS mp LEFT JOIN mv AS m
+			ON mp.mv_no=m.no
+    		AND substring(mp.clickdate,1,10) = substring(now(),1,10)
+			GROUP BY mp.mv_no
+		) AS a
+		ORDER BY a.cnt DESC
+	</select>
+	
+	<!-- 최신 차트 -->
+	<select id="recentMv" resultType="music.mvChart.MvChartVo" parameterType="music.mvChart.MvChartVo">
+		SELECT
+			img,
+			link,
+			(SELECT title FROM song WHERE no=m.song_no) AS title,
+    		(SELECT artist FROM artist WHERE no=(SELECT artist_no FROM song WHERE no=m.song_no)) AS artist,
+    		(SELECT album FROM album WHERE no=(SELECT album_no FROM song WHERE no=m.song_no)) AS album
+		FROM mv AS m 
+		ORDER BY m.regdate DESC
+	</select>
+</mapper>
