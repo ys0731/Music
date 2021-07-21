@@ -14,15 +14,10 @@
    <%@ include file="/WEB-INF/view/include/headHtml.jsp" %>
 
     <script>
-        window.onload = function () {
-            var btn = document.getElementById("lyrics");
-
-            function popup() {
-                window.open("/music/chart/lyrics.do", "popup", "width=400, height=600");
-            }
-
-            btn.onclick = popup;
-        }
+	  //팝업
+	    function popup(no) {
+	        window.open("/music/chart/lyrics.do?no="+no, "popup", "width=400, height=600");
+	    }
 
         $(document).ready(function(){
             // change color when clicked
@@ -30,7 +25,29 @@
                 $(".chart_btn li").removeClass("active");
                 $(this).addClass("active");
             }); 
-
+			
+            //가사
+            $(".lyrics").click(function() {
+            	var no = $(this).data('no');
+            	popup(no);
+            });
+            
+            //좋아요
+            $(".like").click(function() {
+            	var sno = $(this).data('no');
+            	$.ajax({
+            		url: '/music/like/like.do?sno='+sno,
+            		method: 'post',
+            		data: {
+            			no: sno           			
+            		},
+            		success: function(data) {
+            			console.log("success");
+            		}
+            		
+            	});
+            });//함수 끝
+            
             // sysdate
             var today = new Date();
             var m = today.getMinutes();
@@ -190,7 +207,7 @@
 		               			</td>
 		                		<td class="clear">
 		               				<a href="#"><img class="album_mini" src="<%=path %>/upload/${vo.rel}" alt="album_img"></a>
-		               				<a id="lyrics" class="lyrics_popup button_icons" href="#"></a>
+		               				<a class="lyrics_popup button_icons lyrics" href="#" data-no="${vo.no }"></a>
 		                 			<p class="list_title">${vo.title }</p>
 		                		</td>
 		                		<td>
@@ -200,7 +217,7 @@
 		                			<p class="list_album"><a href="album_info.html">${vo.album }</a></p>
 		                		</td>
 		                		<td>
-		                			<a class="like_btn" href="#"></a>
+		                			<a class="like_btn like" href="#" data-no="${vo.no }"></a>
 		                   		</td>
 		                  		<td>
 		                      		<a class="play_music button_icons" href="#"></a>

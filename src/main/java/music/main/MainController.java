@@ -13,6 +13,8 @@ import music.admin.album.AdminAlbumService;
 import music.admin.album.AdminAlbumVo;
 import music.chart.ChartService;
 import music.chart.ChartVo;
+import music.notice.NoticeService;
+import music.notice.NoticeVo;
 import music.search.SearchService;
 import music.search.SearchVo;
 
@@ -28,13 +30,19 @@ public class MainController {
 	@Autowired
 	SearchService sservice;
 	
+	@Autowired
+	NoticeService nservice;
+	
 	//메인 페이지
 	@RequestMapping("/index.do")
-	public String index(Model model, ChartVo cv, AdminAlbumVo av, HttpSession sess, SearchVo sv) {
+	public String index(Model model, ChartVo cv, AdminAlbumVo av, HttpSession sess, SearchVo sv, NoticeVo nv) {
+		
 		List<SearchVo> searchRank = sservice.searchRanking(sv);
 		model.addAttribute("av",alservice.selectAllAlbums(av));
 		model.addAttribute("cv",cservice.ChartList_24hits(cv));
 		sess.setAttribute("searchRank", searchRank);
+		
+		model.addAttribute("nv",nservice.selectAll(nv));	
 		return "index";
 		}
 }

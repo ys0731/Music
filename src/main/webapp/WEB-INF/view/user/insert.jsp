@@ -39,7 +39,7 @@
 	   				success:function(res){
 	   					if(res.trim() =='true'){
 	   						alert('정상적으로 가입되었습니다.');
-	   						location.href='/music/notice/index.do';
+	   						location.href='/music/index.do';
 	   					}else{
 	   						alert('등록 실패'); 
 	   					}

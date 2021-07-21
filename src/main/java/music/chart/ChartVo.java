@@ -3,7 +3,8 @@ package music.chart;
 import java.sql.Timestamp;
 
 public class ChartVo {
-		
+	
+	private int no; //곡 번호
 	private String title;
 	private String artist;
 	private String album;
@@ -14,11 +15,25 @@ public class ChartVo {
 	private int genre; //장르
 	private int rank_ch; //순위 등락
 	
+	private int user_no; //유저 번호
 	
 	
 	
 	
 	
+	
+	public int getNo() {
+		return no;
+	}
+	public void setNo(int no) {
+		this.no = no;
+	}
+	public int getUser_no() {
+		return user_no;
+	}
+	public void setUser_no(int user_no) {
+		this.user_no = user_no;
+	}
 	public String getTitle() {
 		return title;
 	}

@@ -6,7 +6,7 @@
             <div class="header_top_up">
                 <div class="center clear">
                     <ul class="clear">
-                        <li><a href="ticket.html"><span>이용권구매</span></a></li>
+                        <li><a href="/music/ticket/index.do"><span>이용권구매</span></a></li>
                         <li><a href="/music/user/insert.do"><span>회원가입</span></a></li>
                     </ul>
                 </div>
@@ -15,7 +15,7 @@
                 <h1 class="logo"><a href="/music/index.do"></a></h1>
                 <form class="header_search clear" action="/music/search.do" method="post">
                     <button class="search_btn" type="submit">
-                        <img src="../img/search.png" alt="search">
+                        <img src="/music/img/search.png" alt="search">
                     </button>
                     <input class="search_text hide_input_outline no_outline" type="text" name="searchword" id="searchword">
                 </form>
@@ -44,6 +44,7 @@
 	                    <c:if test="${!empty userInfo }"> 
 	                        <a href="mymusic.html">마이뮤직</a>
 		                        <ul class="mymusic_sub">
+		                         	<li><a href="/music/pay/view.do">이용권내역</a></li>
 		                            <li><a href="mymusic.html">최근감상곡</a></li>
 		                            <li><a href="mymusic_like.html">좋아요</a></li>
 		                            <li><a href="mymusic_comment.html">나의댓글</a></li>

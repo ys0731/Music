@@ -89,7 +89,7 @@
 </head>
 
 <body>
-    <h1 class="logo"><a href="index.do"></a></h1>
+    <h1 class="logo"><a href="/music/index.do"></a></h1>
     <div class="login_wrapper">
         <form action="login.do" method="post" id="board1" name="board1" onsubmit="return loginCheck();">
             <div class="text_wrapper">

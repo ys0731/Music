@@ -122,7 +122,7 @@
 	<!-- 장르 | class:4 |jazz:3 |kpop:1 |POP:2 |-->
 	<!-- 클래식 장르 -->
 	<select id="Chart_classic" resultType="music.chart.ChartVo" parameterType="music.chart.ChartVo">
-		SELECT s.title, s.lyrics, ar.artist, al.album, al.img_org AS org, al.img_real AS rel
+		SELECT s.title, s.lyrics, ar.artist, al.album, al.img_org AS org, al.img_real AS rel,s.no AS no
 		FROM song AS s 
 		JOIN artist AS ar ON ar.no = s.artist_no
 		JOIN album AS al ON al.no = s.album_no
@@ -132,7 +132,7 @@
 	
 	<!-- 재즈 장르 -->
 	<select id="Chart_jazz" resultType="music.chart.ChartVo" parameterType="music.chart.ChartVo">
-		SELECT s.title, s.lyrics, ar.artist, al.album, al.img_org AS org, al.img_real AS rel
+		SELECT s.title, s.lyrics, ar.artist, al.album, al.img_org AS org, al.img_real AS rel,s.no AS no
 		FROM song AS s 
 		JOIN artist AS ar ON ar.no = s.artist_no
 		JOIN album AS al ON al.no = s.album_no
@@ -142,7 +142,7 @@
 	
 	<!-- kpop장르 -->
 	<select id="Chart_kpop" resultType="music.chart.ChartVo" parameterType="music.chart.ChartVo">
-		SELECT s.title, s.lyrics, ar.artist, al.album,al.img_org AS org, al.img_real AS rel
+		SELECT s.title, s.lyrics, ar.artist, al.album,al.img_org AS org, al.img_real AS rel,s.no AS no
 		FROM song AS s 
 		JOIN artist AS ar ON ar.no = s.artist_no
 		JOIN album AS al ON al.no = s.album_no
@@ -152,7 +152,7 @@
 	
 	<!-- pop 장르 -->
 	<select id="Chart_pop" resultType="music.chart.ChartVo" parameterType="music.chart.ChartVo">
-		SELECT s.title, s.lyrics, ar.artist, al.album, al.img_org AS org, al.img_real AS rel
+		SELECT s.title, s.lyrics, ar.artist, al.album, al.img_org AS org, al.img_real AS rel,s.no AS no
 		FROM song AS s 
 		JOIN artist AS ar ON ar.no = s.artist_no
 		JOIN album AS al ON al.no = s.album_no
@@ -162,11 +162,32 @@
 	
 	<!-- 최신 차트 -->
 	<select id="Chart_recent" resultType="music.chart.ChartVo" parameterType="music.chart.ChartVo">
-		SELECT s.title, s.lyrics, ar.artist, al.album, al.img_org AS org, al.img_real AS rel
+		SELECT s.title, s.lyrics, ar.artist, al.album, al.img_org AS org, al.img_real AS rel,s.no AS no
 		FROM song AS s 
 		JOIN artist AS ar ON ar.no = s.artist_no
 		JOIN album AS al ON al.no = s.album_no
 		ORDER BY s.regdate desc
 		LIMIT 0,100
 	</select>
+	
+	<!-- 최근 감상곡 -->
+	<select id="User_recent" resultType="music.chart.ChartVo" parameterType="int">
+		SELECT s.title, s.lyrics, ar.artist, al.album
+		FROM play p
+		JOIN song s ON p.song_no = s.no
+		JOIN artist ar ON s.artist_no = ar.no
+		JOIN album al ON s.album_no = al.no
+		WHERE user_no = #{user_no}
+		ORDER BY clickdate	
+	</select>
+	
+	<!-- 곡 하나 상세 -->
+	<select id="detail" resultType="music.chart.ChartVo" parameterType="int">
+		SELECT s.title, s.lyrics, ar.artist,al.img_org AS org, al.img_real AS rel,s.no AS no
+		FROM song AS s 
+		JOIN artist AS ar ON ar.no = s.artist_no
+		JOIN album AS al ON al.no = s.album_no
+		WHERE s.no = #{no}
+	</select>
+	
 </mapper>
