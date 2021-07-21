@@ -48,11 +48,11 @@ public class PayController {
 	}
 	
 	@RequestMapping("/pay/payment.do")
-	public String payment(PayVo vo, HttpSession sess,UserVo uv) {	
-		vo.setTicket_type(1);
+	public String payment(PayVo vo, HttpSession sess,UserVo uv, @RequestParam String ticket_type, @RequestParam int time) {	
+		vo.setTicket_type(ticket_type);
+		vo.setTime(time);
 		vo.setUser_no(((UserVo)sess.getAttribute("userInfo")).getNo());
 		service.insert(vo);
-		//메인페이지로 가게 경로 수정할것	
 		return "redirect:/index.do";
 	}
 	

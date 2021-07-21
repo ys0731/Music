@@ -1,6 +1,7 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8"
     pageEncoding="UTF-8"%>
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
+
 <!DOCTYPE html>
 <html lang="en">
 <head>
@@ -11,36 +12,37 @@
      <%@ include file="/WEB-INF/view/include/headHtml.jsp" %>
     <script type="text/javascript" src="https://cdn.iamport.kr/js/iamport.payment-1.1.5.js"></script>
 	<script>
-	function iamport(){
-	        IMP.init('imp22227801'); 
-	        IMP.request_pay({
-	            pg : 'html5_inicis',
-	            pay_method : 'card',
-	            merchant_uid : 'merchant_' + new Date().getTime(),
-	            name : '스트리밍 정기결제 무제한 듣기',
-	            amount : '100',
-	            buyer_email : '${userInfo.email}',
-	            buyer_tel : '${userInfo.tel}'
-	        }, function(rsp) {
-	            	console.log(rsp);
-	            	//결제 검증
-	            	$.ajax({
-	            		type: "POST",
-	            		url : "/music/verifyIamport/" + rsp.imp_uid
-	            	}).done(function(data){
-	            		console.log(data);
-	            		//가격 비교한 후 로직 실행 (서버 검증)
-	            		if(rsp.paid_amount == data.response.amount){
-	            			alert("결제가 성공하였습니다.");
-	            			$("input[name=user_no]").val('${userInfo.no}');
-	            			location.href='/music/pay/payment.do';
-	            		}else{
-	            			alert('결제가 취소되었습니다.');
-	            		}
-	            	});
-	        });
-			
-		};
+	function iamport(ticket_type,price,time){
+        IMP.init('imp22227801'); 
+        IMP.request_pay({
+            pg : 'html5_inicis',
+            pay_method : 'card',
+            merchant_uid : 'merchant_' + new Date().getTime(),
+            name : ticket_type,
+            amount : price,
+            buyer_email : '${userInfo.email}',
+            buyer_tel : '${userInfo.tel}'
+        }, function(rsp) {
+            	console.log(rsp);
+            	//결제 검증
+            	$.ajax({
+            		type: "POST",
+            		url : "/music/verifyIamport/" + rsp.imp_uid
+            	}).done(function(data){
+            		console.log(data);
+            		//가격 비교한 후 로직 실행 (서버 검증)
+            		if(rsp.paid_amount == data.response.amount){
+            			alert("결제가 성공하였습니다.");
+            			$("input[name=user_no]").val('${userInfo.no}');
+            			location.href='/music/pay/payment.do?ticket_type='+ticket_type+'&time='+time;
+            		}else{
+            			alert('결제가 취소되었습니다.');
+            		}
+            	});
+            	
+        });
+		
+	};
 
 	</script>
     <style>
@@ -51,7 +53,6 @@
 
         /* ticket box */
         .ticket_box {height: 60px; padding: 60px; border: 1px solid #ccc; margin-bottom: 20px; position: relative;}
-        .ticket_box:nth-child(4) {margin-bottom: 100px;}
         #strm {color: #6A5ACD; font-size: 20px; line-height: 30px;}
 
         /* pirce & pay button */
@@ -67,14 +68,16 @@
         <div class="center">
             <h2>이용권 구매</h2>
             <h3>무제한 듣기</h3>
+            <c:forEach var="vo" items="${vo}">
             <div class="ticket_box">
-                <p id="strm">스트리밍 이용권</p>
-                <P id="dtl">1시간 듣기</P>
+                <p id="strm" name="ticket_type" value="${vo.ticket_type}">${vo.ticket_type}</p>
                 <div class="price_box1">                    
-                    <span>100원</span>
-                    <a href="javascript:iamport();">구매</a>
+                    <span name="price">${vo.price } 원</span>
+                    <a href='javascript:iamport("${vo.ticket_type}",${vo.price}, ${vo.time});'>구매</a>
                 </div>
+                <input type="hidden" name="time" value="${vo.time}">
             </div>
+            </c:forEach>
                  <input type="hidden" name="user_no" value="">
         </div>
     </div>

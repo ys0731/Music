@@ -2,15 +2,21 @@
 <!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
 <mapper namespace="ticket">
 
-
+	
 	<!-- 이용권 목록 -->
 	<select id="selectAll" resultType="music.ticket.TicketVo" parameterType="music.ticket.TicketVo">
 		SELECT * FROM ticket
+		ORDER BY regdate DESC 
+		LIMIT ${startIdx},${pageRow}
+	</select>
+	
+	<select id="count" resultType="int" parameterType="music.ticket.TicketVo"> 
+		SELECT COUNT(*) FROM ticket	
 	</select>
 	
 	<!-- 이용권 등록 -->
 	<insert id="insert" parameterType="music.ticket.TicketVo">
-		INSERT INTO ticket(type,price) values(#{type}, #{price})
+		INSERT INTO ticket(ticket_type,price,regdate,time) values(#{ticket_type}, #{price},NOW(),#{time})
 	</insert>
 		
 	<!-- 이용권 삭제 -->

@@ -76,17 +76,17 @@
         /* chart row */
         .chart_box table {margin-bottom: 20px;}
         .chart_box table tr td:nth-child(1) {width: 50px; text-align: center;}
-        .chart_box table tr td:nth-child(2) {width: 140px; text-align: center;}
-        .chart_box table tr td:nth-child(3) {width: 150px; text-align: center;}
-        .chart_box table tr td:nth-child(4) {width: 501px; text-align: center;}
-        .chart_box table tr td:nth-child(5) {width: 165px; text-align: center;}
+        .chart_box table tr td:nth-child(2) {width: 240px; text-align: center;}
+        .chart_box table tr td:nth-child(3) {width: 303px; text-align: center;}
+        .chart_box table tr td:nth-child(4) {width: 413px; text-align: center;}
+        /* .chart_box table tr td:nth-child(5) {width: 165px; text-align: center;} */
         .chart_box table tr {border-bottom: 2px solid #ccc;}
         .chart_box table tr:nth-child(1) {color: #333; border-top: 2px solid #ccc; height: 40px; font-size: 12px;}
         .chart_box table tr {height: 80px;}
         #container {margin-bottom: 255px;}
 
         /* ticket button */
-        .ticket_btn {display: block; width: 100px; height: 30px; margin: 20px auto; border-radius: 5px; background-color: #11264f; color: #fff; line-height: 30px; text-align: center;}
+        .ticket_btn {display: inline-block; width: 100px; height: 30px; margin: 20px auto; border-radius: 5px; background-color: #11264f; color: #fff; line-height: 30px; text-align: center; }
         .ticket_btn:hover {background-color: #4169E1;}
 
 	</style>
@@ -116,21 +116,19 @@
                     	<td><input type="checkbox" name="allChk" id="allChk" onclick="isAllChk();"/></td>
                     	<td>NO</td>
                         <td>이용권</td>
-                        <td>다음 결제 안내</td>
-                        <td>해지 신청</td>
+                        <td>만료일</td>
+                        <!-- <td>해지 신청</td> -->
                     </tr>
                     	<input type="hidden" name="checked_no" value="">
                     <c:forEach var="vo" items="${list}" varStatus="status">
                     <tr>
                     	<td><input type="checkbox" name="checkno" id="no" onclick="isChk();" data-Num="${vo.no }"/></td>
                     	<td>${status.count}</td>
-                    	<c:if test="${vo.ticket_type == 1}">
-                    	<td>스트리밍 1시간 듣기 <span style="font-size: 12px;">(${vo.pay_start_date})</span></td>
-                    	</c:if>
+                    	<td>${vo.ticket_type } <span style="font-size: 12px;">(${vo.pay_start_date})</span></td>
                     	<td style="color:red;">${vo.pay_end_date}</td>
-                    	<td><p class="notice_click_cnt"><a class="ticket_btn clear" href="javascript:isDel();" data-Num="${payVo.no }">해지하기</a></p></td>
                     </tr>
                     </c:forEach>	
+                    	<p class="notice_click_cnt"><a class="ticket_btn clear" href="javascript:isDel();" data-Num="${payVo.no }">해지하기</a></p>
                     </c:if>	
                 </table>
                

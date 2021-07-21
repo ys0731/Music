@@ -8,22 +8,30 @@ import util.CommonVo;
 public class PayVo extends CommonVo{
 	
 	private int no;
-	private int ticket_type;
+	private String ticket_type;
 	private Timestamp pay_start_date;
 	private Timestamp pay_end_date;
 	private int user_no;
+
+	private int time;
 	
 	
+	public int getTime() {
+		return time;
+	}
+	public void setTime(int time) {
+		this.time = time;
+	}
 	public int getNo() {
 		return no;
 	}
 	public void setNo(int no) {
 		this.no = no;
 	}
-	public int getTicket_type() {
+	public String getTicket_type() {
 		return ticket_type;
 	}
-	public void setTicket_type(int ticket_type) {
+	public void setTicket_type(String ticket_type) {
 		this.ticket_type = ticket_type;
 	}
 	public String getPay_start_date() {

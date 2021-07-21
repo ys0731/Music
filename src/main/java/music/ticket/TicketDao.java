@@ -6,6 +6,7 @@ import org.mybatis.spring.SqlSessionTemplate;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Repository;
 
+
 @Repository
 public class TicketDao {
 	
@@ -15,7 +16,11 @@ public class TicketDao {
 	public List<TicketVo> selectAll(TicketVo vo) {
 		return sqlSession.selectList("ticket.selectAll", vo);
 	}
-
+	
+	public int count(TicketVo vo){
+		return sqlSession.selectOne("ticket.count",vo); 
+	}
+	
 	public int insert(TicketVo vo) {
 		return sqlSession.insert("ticket.insert", vo);
 	}
