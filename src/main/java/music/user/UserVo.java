@@ -18,7 +18,43 @@ public class UserVo extends CommonVo {
 	
 	private String checkId; //아이디 중복체크
 	private String nicknameId; //닉네임 중복체크
+	private int totalPrice; //누적 금액
 
+	private String sdate; //검색 시작날짜
+	private String edate; //검색 종료날짜
+	private String ticket_type; //보유 이용권
+	
+
+	public String getTicket_type() {
+		return ticket_type;
+	}
+	public void setTicket_type(String ticket_type) {
+		this.ticket_type = ticket_type;
+	}
+	public String getSdate() {
+		return sdate;
+	}
+	public void setSdate(String sdate) {
+		this.sdate = sdate;
+	}
+	public String getEdate() {
+		return edate;
+	}
+	public void setEdate(String edate) {
+		this.edate = edate;
+	}
+	public String getNicknameId() {
+		return nicknameId;
+	}
+	public void setNicknameId(String nicknameId) {
+		this.nicknameId = nicknameId;
+	}
+	public int getTotalPrice() {
+		return totalPrice;
+	}
+	public void setTotalPrice(int totalPrice) {
+		this.totalPrice = totalPrice;
+	}
 	public int getNo() {
 		return no;
 	}

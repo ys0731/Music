@@ -7,12 +7,23 @@
 			<if test="sval != null and sval != ''">
 					${stype} LIKE '%${sval}%'
 			</if>	
+			<if test="sdate != null and sdate != '' and 
+					  edate != null and edate != ''">
+					AND signdate BETWEEN '${sdate}' AND '${edate}'
+			</if>
 		</where>	
 	</sql>
 	
 	<!-- 목록 -->
 	<select id="selectAll" resultType="music.user.UserVo" parameterType="music.user.UserVo">
-		SELECT * FROM user
+		SELECT * 
+		FROM (SELECT pay.user_no,sum(price) AS totalPrice
+				FROM pay LEFT JOIN ticket
+				ON pay.ticket_no = ticket.no
+				GROUP BY pay.user_no) 
+		        AS p 
+		RIGHT JOIN user
+		ON p.user_no = user.no
 		<include refid="userWhere"/>
 		ORDER BY signdate DESC
 		LIMIT ${startIdx},${pageRow}
@@ -24,7 +35,7 @@
 	</select>
 	
 	<!-- 상세 -->
-	<select id="detail" resultType="music.user.UserVo" parameterType="music.user.UserVo">
+	<select id="detail" resultType="music.user.UserVo" parameterType="music.user.UserVo">	
 		SELECT * FROM user WHERE no = #{no}
 	</select>
 	
@@ -59,7 +70,7 @@
 	<select id="login" resultType="music.user.UserVo" parameterType="music.user.UserVo">
 		SELECT * FROM user WHERE id=#{id} and pwd=md5(#{pwd})
 	</select>
-	
+				
 	<!-- 아이디 찾기 -->
 	<select id="searchId" resultType="music.user.UserVo" parameterType="music.user.UserVo">
 		SELECT * FROM user WHERE email=#{email} and nickname=#{nickname}

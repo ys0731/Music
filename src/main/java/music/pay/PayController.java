@@ -48,9 +48,10 @@ public class PayController {
 	}
 	
 	@RequestMapping("/pay/payment.do")
-	public String payment(PayVo vo, HttpSession sess,UserVo uv, @RequestParam String ticket_type, @RequestParam int time) {	
+	public String payment(PayVo vo, HttpSession sess,UserVo uv, @RequestParam String ticket_type, @RequestParam int time, @RequestParam int no) {	
 		vo.setTicket_type(ticket_type);
 		vo.setTime(time);
+		vo.setTicket_no(no);
 		vo.setUser_no(((UserVo)sess.getAttribute("userInfo")).getNo());
 		service.insert(vo);
 		return "redirect:/index.do";

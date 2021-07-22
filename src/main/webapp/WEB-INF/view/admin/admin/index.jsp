@@ -69,12 +69,13 @@ function isDel(){
 					<!-- 내용 : s -->
 					<div id="bbs">
 						<div id="blist">
-							<p><span><strong>총 ${userVo.totCount }명</strong>  |  ${userVo.reqPage }/${userVo.totPage}페이지</span></p>
+							<p><span><strong>전체 가입 회원 ${userVo.totCount }명</strong>  |  ${userVo.reqPage }/${userVo.totPage}페이지</span></p>
 							<form name="frm" id="frm" action="process.do" method="post">
 							<table width="100%" border="0" cellspacing="0" cellpadding="0" summary="관리자 관리목록입니다.">
 								<colgroup>
 									<col class="w3" />
 									<col class="w4" />
+									<col class="w15" />
 									<col class="w15" />
 									<col class="w15" />
 									<col class="w15" />
@@ -87,11 +88,11 @@ function isDel(){
 										<th scope="col" class="first"><input type="checkbox" name="allChk" id="allChk" onclick="isAllChk();"/></th>
 										<th scope="col">번호</th>
 										<th scope="col">아이디</th>
-										<th scope="col">이메일</th>
 										<th scope="col">닉네임</th>
-										<th scope="col">성별</th>
+										<th scope="col">이메일</th>
 										<th scope="col">연락처</th>
-										<th scope="col" class="last">등록일</th>
+										<th scope="col">누적 구매금액</th>
+										<th scope="col" class="last">가입일</th>
 									</tr>
 								</thead>
 								<tbody>
@@ -102,11 +103,11 @@ function isDel(){
 										<tr>
 											<td class="first"><input type="checkbox" name="checkno" id="no" onclick="isChk();" data-Num="${vo.no}"/></td>	
 											<td>${vo.no }</td>
-											<td>${vo.id }</td>
-											<td>${vo.email }</td>
+											<td><a href="view.do?no=${vo.no}&reqPage=${userVo.reqPage}&stype=${userVo.stype}&sval=${userVo.sval}&sdate=${userVo.sdate}&edate=${userVo.edate}">${vo.id }</a></td>
 											<td>${vo.nickname }</td>
-											<td>${vo.gender }</td>
+											<td>${vo.email }</td>
 											<td>${vo.tel }</td>
+											<td>${vo.totalPrice }원</td>
 											<td>${vo.signdate }</td>
 										</tr>
 									</c:forEach> 									
@@ -123,25 +124,27 @@ function isDel(){
 							<!-- 페이징 처리 -->
  							<div class='page'>
 							<c:if test="${userVo.startPage > userVo.pageRange }">
-								<a href="index.do?reqPage=1&stype=${userVo.stype}&sval=${userVo.sval}"> << </a>
+								<a href="index.do?reqPage=1&stype=${userVo.stype}&sval=${userVo.sval}&sdate=${userVo.sdate}&edate=${userVo.edate}"> << </a>
 							</c:if>							
 							<c:if test="${userVo.startPage > userVo.pageRange }">
-								<a href="index.do?reqPage=${userVo.startPage-1}&stype=${userVo.stype}&sval=${userVo.sval}"> < </a>
+								<a href="index.do?reqPage=${userVo.startPage-1}&stype=${userVo.stype}&sval=${userVo.sval}&sdate=${userVo.sdate}&edate=${userVo.edate}"> < </a>
 							</c:if>
 							<c:forEach var="req" begin="${userVo.startPage }" end="${userVo.endPage }">
-									<a href='index.do?reqPage=${req}&stype=${userVo.stype}&sval=${userVo.sval}' <c:if test="${req==userVo.reqPage }">style="color: red"</c:if>> ${req} </a>
+									<a href='index.do?reqPage=${req}&stype=${userVo.stype}&sval=${userVo.sval}&sdate=${userVo.sdate}&edate=${userVo.edate}' <c:if test="${req==userVo.reqPage }">style="color: red"</c:if>> ${req} </a>
 							</c:forEach>
                             <c:if test="${userVo.totPage > userVo.endPage}"> 
-                        		<a href="index.do?reqPage=${userVo.endPage+1}&stype=${userVo.stype}&sval=${userVo.sval}">></a>
+                        		<a href="index.do?reqPage=${userVo.endPage+1}&stype=${userVo.stype}&sval=${userVo.sval}&sdate=${userVo.sdate}&edate=${userVo.edate}">></a>
                         	</c:if>
                         	<c:if test="${userVo.totPage > userVo.endPage}"> 
-                        		<a href="index.do?reqPage=${userVo.totPage}&stype=${userVo.stype}&sval=${userVo.sval}">>></a>
+                        		<a href="index.do?reqPage=${userVo.totPage}&stype=${userVo.stype}&sval=${userVo.sval}&sdate=${userVo.sdate}&edate=${userVo.edate}">>></a>
                         	</c:if>
 
 							</div>
 							<!-- //페이징 처리 -->
  							<form name="searchForm" id="searchForm" action="index.do"  method="post">
 								<div class="search">
+									<input type="text" name="sdate" value="${userVo.sdate}" title="시작날짜를 입력해주세요" style="width:100px;" placeholder="시작 날짜 입력"/> ~
+									<input type="text" name="edate" value="${userVo.edate}" title="종료날짜를 입력해주세요" style="width:100px;" placeholder="종료 날짜 입력"/> 
 									<select name="stype" title="검색을 선택해주세요">
 										<option value="id" 	<c:if test="${userVo.stype=='id' }">selected</c:if>>아이디</option>
 										<option value="nickname" <c:if test="${userVo.stype=='nickname' }">selected</c:if>>닉네임</option>

@@ -16,6 +16,8 @@ import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 
+import music.pay.PayService;
+import music.pay.PayVo;
 import music.user.UserService;
 import music.user.UserVo;
 
@@ -26,7 +28,9 @@ public class AdminAdminController {
 	@Autowired
 	AdminService service;
 	@Autowired
-	UserService uService;	
+	UserService uService;
+	@Autowired
+	PayService pService;	
 	
 	//로그인
 	@GetMapping("/admin/login.do")
@@ -73,8 +77,19 @@ public class AdminAdminController {
 	@RequestMapping("/admin/user/index.do")
 	public String index(Model model, UserVo vo) {
 		model.addAttribute("list", uService.selectAll(vo));
+		
 		return "admin/admin/index";
 	}
+	
+	//회원 상세
+	@RequestMapping("/admin/user/view.do")
+	public String view(Model model, UserVo vo, PayVo pv, @RequestParam int no) {
+		model.addAttribute("list", uService.deatil(vo));	
+		pv.setUser_no(no);
+		model.addAttribute("pv",pService.selectAll(pv));
+		return "admin/admin/view";
+	}	
+	
 	
 	//회원 삭제
 	@RequestMapping("/admin/user/delete.do")

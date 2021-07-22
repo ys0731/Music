@@ -51,7 +51,6 @@ public class QnaController {
         SimpleDateFormat format = new SimpleDateFormat("yyyy-MM-dd HH:mm");
         Calendar cal = Calendar.getInstance();
         cal.add(Calendar.DAY_OF_MONTH, -1); //하루
-        //System.out.println("날짜:"+cal);
         String nowday = format.format(cal.getTime());
         
         model.addAttribute("nowday",nowday);
@@ -103,22 +102,7 @@ public class QnaController {
 		}
 		return "include/result";
 	}
-//
-//		@RequestMapping("/admin/qna/userpost.do") 
-//		public String userpost(Model model,QnaVo vo) {
-//			
-//			//new 시간 설정 
-//	        SimpleDateFormat format = new SimpleDateFormat("yyyy-MM-dd");
-//	        Calendar cal = Calendar.getInstance();
-//	        cal.add(Calendar.DAY_OF_MONTH, -1); //하루
-//	        //System.out.println("날짜:"+cal);
-//	        String nowday = format.format(cal.getTime());
-//	        
-//	        model.addAttribute("nowday",nowday);
-//			model.addAttribute("vo",service.selectAll(vo)); 
-//			return "admin/qna/userpost";
-//		}
-//	 
+
 		
 	
 		

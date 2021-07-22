@@ -12,8 +12,8 @@
 				
 	<!-- 결제 회원 등록 -->
 	<insert id="insert" parameterType="music.pay.PayVo">
-		INSERT INTO pay(ticket_type, pay_start_date, pay_end_date, user_no)
-		VALUES (#{ticket_type}, NOW(), DATE_SUB(NOW(), INTERVAL -${time} hour), #{user_no})
+		INSERT INTO pay(ticket_no,ticket_type, pay_start_date, pay_end_date, user_no)
+		VALUES (#{ticket_no},#{ticket_type}, NOW(), DATE_SUB(NOW(), INTERVAL -${time} hour), #{user_no})
 	</insert>
 	
 	<!-- 결제 회원 해지 -->

@@ -8,6 +8,7 @@ import util.CommonVo;
 public class PayVo extends CommonVo{
 	
 	private int no;
+	private int ticket_no;
 	private String ticket_type;
 	private Timestamp pay_start_date;
 	private Timestamp pay_end_date;
@@ -16,6 +17,12 @@ public class PayVo extends CommonVo{
 	private int time;
 	
 	
+	public int getTicket_no() {
+		return ticket_no;
+	}
+	public void setTicket_no(int ticket_no) {
+		this.ticket_no = ticket_no;
+	}
 	public int getTime() {
 		return time;
 	}

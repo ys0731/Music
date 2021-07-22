@@ -39,15 +39,15 @@
                     <li><a href="/music/chart/chart_recent.do">최신음악</a></li>
                     <li><a href="/music/chart/chart_genre_kpop.do">장르음악</a></li>
                     <li><a href="recommend_list.html">샌드DJ</a></li>
-                    <li><a href="mv_popular.html">MV</a></li>
+                    <li><a href="/music/mvChart/recentMv.do">MV</a></li>
                     <li id="gnb_li_last">
 	                    <c:if test="${!empty userInfo }"> 
-	                        <a href="mymusic.html">마이뮤직</a>
+	                        <a href="/music/user/mymusic.do">마이뮤직</a>
 		                        <ul class="mymusic_sub">
 		                         	<li><a href="/music/pay/view.do">이용권내역</a></li>
-		                            <li><a href="mymusic.html">최근감상곡</a></li>
-		                            <li><a href="mymusic_like.html">좋아요</a></li>
-		                            <li><a href="mymusic_comment.html">나의댓글</a></li>
+		                            <li><a href="/music/user/mymusic.do">최근감상곡</a></li>
+		                            <li><a href="/music/user/mymusic_like.do">좋아요</a></li>
+		                            <li><a href="">나의댓글</a></li>
 		                            <li><a href="/music/user/logout.do">로그아웃</a></li>
 		                        </ul>
 	                    </c:if>

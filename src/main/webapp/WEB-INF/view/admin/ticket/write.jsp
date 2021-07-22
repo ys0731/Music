@@ -47,7 +47,7 @@ function goSave() {
 									<tr>
 										<th scope="row"><label for="">*이용권</label></th>
 										<td colspan="10">
-											<input type="text" id="ticket_type" name="ticket_type" class="w100" title="종류를 입력해주세요"/>	
+											<input type="text" id="ticket_type" name="ticket_type" class="w30" title="종류를 입력해주세요"/>	
 										</td>
 									</tr>
 									<tr>
@@ -63,7 +63,7 @@ function goSave() {
 									<tr>
 										<th scope="row"><label for="">*금액</label></th>
 										<td colspan="10">
-											<input type="text" id="price" name="price" class="w100" title="금액을 입력해주세요"/>	
+											<input type="text" id="price" name="price" class="w30" title="금액을 입력해주세요"/>	원
 										</td>
 									</tr>
 								</tbody>

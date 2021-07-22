@@ -12,7 +12,7 @@
      <%@ include file="/WEB-INF/view/include/headHtml.jsp" %>
     <script type="text/javascript" src="https://cdn.iamport.kr/js/iamport.payment-1.1.5.js"></script>
 	<script>
-	function iamport(ticket_type,price,time){
+	function iamport(ticket_type,price,time,no){
         IMP.init('imp22227801'); 
         IMP.request_pay({
             pg : 'html5_inicis',
@@ -34,7 +34,7 @@
             		if(rsp.paid_amount == data.response.amount){
             			alert("결제가 성공하였습니다.");
             			$("input[name=user_no]").val('${userInfo.no}');
-            			location.href='/music/pay/payment.do?ticket_type='+ticket_type+'&time='+time;
+            			location.href='/music/pay/payment.do?ticket_type='+ticket_type+'&time='+time+'&no='+no;
             		}else{
             			alert('결제가 취소되었습니다.');
             		}
@@ -73,9 +73,10 @@
                 <p id="strm" name="ticket_type" value="${vo.ticket_type}">${vo.ticket_type}</p>
                 <div class="price_box1">                    
                     <span name="price">${vo.price } 원</span>
-                    <a href='javascript:iamport("${vo.ticket_type}",${vo.price}, ${vo.time});'>구매</a>
+                    <a href='javascript:iamport("${vo.ticket_type}",${vo.price}, ${vo.time},${vo.no});'>구매</a>
                 </div>
                 <input type="hidden" name="time" value="${vo.time}">
+                <input type="hidden" name="no" value="${vo.no}">
             </div>
             </c:forEach>
                  <input type="hidden" name="user_no" value="">

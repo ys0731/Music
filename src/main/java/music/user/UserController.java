@@ -1,5 +1,7 @@
 package music.user;
 
+import java.text.SimpleDateFormat;
+import java.util.Date;
 import java.util.regex.Matcher;
 import java.util.regex.Pattern;
 
@@ -109,7 +111,11 @@ public class UserController {
 			model.addAttribute("url", "login.do");
 			return "include/alert";
 		} else {
+			Date date_now = new Date(System.currentTimeMillis()); // 현재시간
 			sess.setAttribute("userInfo", uv);
+			
+			
+			
 			// 쿠키에 저장
 			Cookie cookie = new Cookie("cookieId", vo.getId()); //아이디 쿠키에 저장 
 			cookie.setPath("/");
