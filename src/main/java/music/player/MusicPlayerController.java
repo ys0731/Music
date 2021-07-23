@@ -51,6 +51,20 @@ public class MusicPlayerController {
 		sess.setAttribute("playlist", li);
 	}
 	
+	@RequestMapping("/player/playlogs.do")
+	public void playerLogs(HttpServletRequest req, HttpSession sess) {
+		String[] song_no = req.getParameterValues("chkArr");
+		UserVo uv = (UserVo) sess.getAttribute("userInfo");
+		int user_no = uv.getNo();
+		MusicPlayerVo mpv = new MusicPlayerVo();
+		mpv.setUser_no(user_no);
+		
+		for (String i : song_no) {
+			mpv.setSong_no(Integer.parseInt(i));
+			service.insertClick(mpv);
+		}
+	}
+	
 	@RequestMapping("/player/sendplaylist.do")
 	public String sendPlaylist() {
 		return "player/arrPlayer";

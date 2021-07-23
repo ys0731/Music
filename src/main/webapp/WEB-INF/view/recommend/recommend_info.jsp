@@ -130,14 +130,14 @@
 		        }
 	        });
 	        
-	        $.ajax({
-	              url: '<%=request.getContextPath()%>/player/playlogs.do',
-	              type: 'post',
-	              traditional: true,
-	              data: {
-	                 chkArr: chkArr   
-	              }
-	           });  
+			$.ajax({
+		        url: '<%=request.getContextPath()%>/player/playlogs.do',
+		        type: 'post',
+		        traditional: true,
+		        data: {
+		        	chkArr: chkArr	
+		        }
+	        });
 	        
     	}
     </script>
