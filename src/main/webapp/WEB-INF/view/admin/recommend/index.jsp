@@ -100,7 +100,7 @@
 									<form method="post" name="frm" id="frm" action="update.do">
 										<div class="sortable" style="height: 290px; margin-bottom: 20px; border: 1px solid #333; box-sizing: border-box;">
 											<dt style="line-height: 56px; background-color: #ccced0; text-align: center; color: #fff;">
-												<strong style="font-weight: bold;">오늘 리스트</strong>
+												<strong style="font-weight: bold;">오늘 리스트 포스트</strong>
 											</dt>
 											<c:forEach var="vo" items="${todayListShow }" varStatus="status">
 												<div style="line-height: 56px; padding: 0px 10px; border: 1px solid #eee; background-color: #fff; cursor: pointer;">
@@ -113,7 +113,7 @@
 										</div>
 										<div class="sortable" style="height: 290px; border: 1px solid #333; box-sizing: border-box;">
 											<dt style="line-height: 56px; background-color: #ccced0; text-align: center; color: #fff;">
-												<strong style="font-weight: bold;">태그 리스트</strong>
+												<strong style="font-weight: bold;">태그 리스트 포스트</strong>
 											</dt>
 											<c:forEach var="vo" items="${tagListShow }" varStatus="status">
 												<div style="line-height: 56px; padding: 0px 10px; border: 1px solid #eee; background-color: #fff; cursor: pointer;">
