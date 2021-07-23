@@ -11,14 +11,14 @@
 	<!-- 좋아요 취소-->
 	<delete id="dislike">
 		DELETE FROM mlike
-		WHERE song_no = #{song_no} AND #{user_no}
+		WHERE song_no = #{song_no} AND  user_no = #{user_no}
 	</delete>
 	
 	<!-- 해당 유저가 해당 곡을 좋아요 눌럿는지 확인 -->
 	<select id="search" resultType="music.like.LikeVo" parameterType="int">
 		SELECT *
 		FROM mlike
-		WHERE song_no = #{song_no} AND #{user_no}
+		WHERE song_no = #{song_no} AND user_no = #{user_no}
 	</select>
 	
 	<!-- 좋아요 누른 곡 목록 -->

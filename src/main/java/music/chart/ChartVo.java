@@ -16,12 +16,16 @@ public class ChartVo {
 	private int rank_ch; //순위 등락
 	
 	private int user_no; //유저 번호
+	private int mlike_cnt; //좋아요 여부
 	
 	
 	
-	
-	
-	
+	public int getMlike_cnt() {
+		return mlike_cnt;
+	}
+	public void setMlike_cnt(int mlike_cnt) {
+		this.mlike_cnt = mlike_cnt;
+	}
 	public int getNo() {
 		return no;
 	}
