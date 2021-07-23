@@ -81,6 +81,16 @@ $(window).load(function(){
 						<li><a href="<%=request.getContextPath()%>/admin/song/index.do"><span>곡등록</span></a></li>
 					</ul>
 				</li>
+				<li>
+  					<a href="<%=request.getContextPath()%>/admin/recommend/index.do" class="parent"><span>추천음악관리</span></a>
+  					<div class="standard_left">
+  					<ul>
+  						<li><a href="<%=request.getContextPath()%>/admin/recommend/index.do"><span>추천음악선택</span></a></li>
+  						<li><a href="<%=request.getContextPath()%>/admin/recommend/write.do"><span>추천음악등록</span></a></li>
+  						<li><a href="<%=request.getContextPath()%>/recommend/recommend_list.do"><span>추천음악페이지</span></a></li>
+  					</ul>
+  					</div>
+				</li>
 				<li><a href="<%=request.getContextPath()%>/admin/notice/index.do" class="parent"><span>게시판</span></a>
 					<div class="standard_left">
 					<ul>
