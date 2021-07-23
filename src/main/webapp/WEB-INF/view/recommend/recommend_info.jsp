@@ -23,7 +23,7 @@
             btn.onclick = popup;
         }
 
-        $(document).ready(function(){
+        $(function(){
             // check all
             $("#check_all").change(function(){
                 if ($("#check_all").is(':checked')) {
@@ -54,93 +54,10 @@
             $(".add_list").click(function(){
                 $(this).toggleClass("on");
             });
-            //play music img toggle
-            /* $(".play_music").click(function(){
-                $(this).toggleClass("on");
-            }); */
-            
-    		// player.html--------------------------------------------------------------------------------
-               	var windowOpen;
-        	
-            $(".play_music").click(function(){
-            	if ($(this).hasClass("on")) {
-            		$(this).removeClass("on");
-            	} else {
-            		$(this).addClass("on");
-	            	$(this).parent().parent().siblings().children().children(".play_music").removeClass("on");
-	            	<c:if test="${!empty expiryDate}">	
-        			$.ajax({
-        		        url: '<%=request.getContextPath()%>/player/playlog.do',
-        		        type: 'post',
-        		        data: {
-        		        	no: no	
-        		        }
-        	        });
-        			</c:if>	
-            	}
-	    	});
         });
-        
-        function player(no) {
-
-            $(".play_music").click(function(){
-            	if ($(this).hasClass("on")) {
-            		<c:if test="${!empty expiryDate}">		
-        				windowOpen = window.open('<%=request.getContextPath()%>/player/play.do?no='+no,'pagename',
-                    	'resizable=0,scrollbars=no,toolbars=no, menubar=no,height=660,width=400');
-        			</c:if>
-					<c:if test="${empty expiryDate}">
-						alert('보유중인 이용권이 없습니다.');
-					</c:if>
-            	} else {
-		        	windowOpen.close();
-		        	return;
-            	}
-	    	});
-
-        }
-        
-        function checkplayer() {
-        	var chkArr = new Array();
-   			
-        	$("input[type='checkbox'][name='check_list']:checked").each(function(){
-   				chkArr.push($(this).attr("data-Num"));
-   			});
-        	
-   			// alert(chkArr);
-   			
-	        $.ajax({
-	        	url: '<%=request.getContextPath()%>/player/checkplay.do',
-		        type: 'post',
-		        traditional: true,
-		        data: {
-		        	chkArr: chkArr	
-		        },
-		        success : function(res){
-		        	<c:if test="${!empty expiryDate}">	
-				        windowOpen = window.open('<%=request.getContextPath()%>/player/sendplaylist.do','pagename',
-			            'resizable=0,scrollbars=no,toolbars=no, menubar=no,height=660,width=400');
-				    </c:if>
-					<c:if test="${empty expiryDate}">
-						alert('보유중인 이용권이 없습니다.');
-					</c:if>
-		        },
-		        error : function(res){
-		        	alert("선택된 곡이 없습니다.");
-		        }
-	        });
-	        
-			$.ajax({
-		        url: '<%=request.getContextPath()%>/player/playlogs.do',
-		        type: 'post',
-		        traditional: true,
-		        data: {
-		        	chkArr: chkArr	
-		        }
-	        });
-	        
-    	}
     </script>
+
+	<%@ include file="/WEB-INF/view/player/playnlog.jsp" %>
 
     <style>
         /* list chart name */

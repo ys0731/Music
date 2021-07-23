@@ -93,12 +93,10 @@
             $(".add_list").click(function(){
                 $(this).toggleClass("on");
             });
-            //play music img toggle
-            $(".play_music").click(function(){
-                $(this).toggleClass("on");
-            });
         });
     </script>
+
+	<%@ include file="/WEB-INF/view/player/playnlog.jsp" %>
 
     <style>
         /* chart top btn */
@@ -230,7 +228,7 @@
 		                			<a class="like_btn like <c:if test="${vo.mlike_cnt==1 }">on</c:if>" href="#" data-no="${vo.no }"></a>
 		                   		</td>
 		                  		<td>
-		                      		<a class="play_music button_icons play" href="#" data-no="${vo.no }"></a>
+		                      		<a class="play_music button_icons play" onclick="javascript:player(no=${vo.song_no });" data-no="${vo.no }"></a>
 		                   		</td>
 		                  		<td>
 		                       		<a class="add_list button_icons" href="#"></a>
