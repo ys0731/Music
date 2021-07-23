@@ -60,4 +60,10 @@ public class UserDao {
 		return sqlSession.selectOne("user.updateTempPwd", vo);
 	}
 
+	public UserVo isUserExpiryDate(UserVo vo) {
+		return sqlSession.selectOne("user.isUserExpiryDate", vo);
+	}	
+	
+	
 }
+

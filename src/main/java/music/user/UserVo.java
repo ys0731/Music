@@ -23,8 +23,15 @@ public class UserVo extends CommonVo {
 	private String sdate; //검색 시작날짜
 	private String edate; //검색 종료날짜
 	private String ticket_type; //보유 이용권
+	private Timestamp pay_end_date;
 	
-
+	public String getPay_end_date() {
+		SimpleDateFormat sdf = new SimpleDateFormat("yyyy-MM-dd HH:mm:ss"); 
+		return sdf.format(pay_end_date);
+	}
+	public void setPay_end_date(Timestamp pay_end_date) {
+		this.pay_end_date = pay_end_date;
+	}
 	public String getTicket_type() {
 		return ticket_type;
 	}

@@ -76,9 +76,13 @@
 	        	windowOpen.close();
 	        	return;
 	        }
-	        
-			windowOpen = window.open('<%=request.getContextPath()%>/player/play.do?no='+no,'pagename',
+	       <c:if test="${!empty expiryDate}">
+				windowOpen = window.open('<%=request.getContextPath()%>/player/play.do?no='+no,'pagename',
             'resizable=0,scrollbars=no,toolbars=no, menubar=no,height=660,width=400');
+			</c:if>
+			<c:if test="${empty expiryDate}">
+				alert('보유중인 이용권이 없습니다.');
+			</c:if>
         }
         
         function checkplayer() {
@@ -91,7 +95,7 @@
    			// alert(chkArr);
    			
 	        $.ajax({
-		        url: '<%=request.getContextPath()%>/player/checkplay.do',
+	        	url: '<%=request.getContextPath()%>/player/checkplay.do',
 		        type: 'post',
 		        traditional: true,
 		        data: {
