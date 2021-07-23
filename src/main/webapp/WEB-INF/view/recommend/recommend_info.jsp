@@ -63,26 +63,40 @@
            	var windowOpen;
         	
             $(".play_music").click(function(){
-            	$(this).toggleClass("on");
-            	$(this).parent().parent().siblings().children().children(".play_music").removeClass("on");
-				/* if ((windowOpen == null) || (windowOpen.closed)) {
-					windowOpen.close();
-				} */
+            	if ($(this).hasClass("on")) {
+            		$(this).removeClass("on");
+            	} else {
+            		$(this).addClass("on");
+	            	$(this).parent().parent().siblings().children().children(".play_music").removeClass("on");
+	            	
+        			$.ajax({
+        		        url: '<%=request.getContextPath()%>/player/playlog.do',
+        		        type: 'post',
+        		        data: {
+        		        	no: no	
+        		        }
+        	        });
+            	}
 	    	});
         });
         
         function player(no) {
-	        if ($(".play_music").hasClass("on")) {
-	        	windowOpen.close();
-	        	return;
-	        }
-	       <c:if test="${!empty expiryDate}">
-				windowOpen = window.open('<%=request.getContextPath()%>/player/play.do?no='+no,'pagename',
-            'resizable=0,scrollbars=no,toolbars=no, menubar=no,height=660,width=400');
-			</c:if>
-			<c:if test="${empty expiryDate}">
-				alert('보유중인 이용권이 없습니다.');
-			</c:if>
+
+            $(".play_music").click(function(){
+            	if ($(this).hasClass("on")) {
+            		<c:if test="${!empty expiryDate}">		
+        				windowOpen = window.open('<%=request.getContextPath()%>/player/play.do?no='+no,'pagename',
+                    	'resizable=0,scrollbars=no,toolbars=no, menubar=no,height=660,width=400');
+        			</c:if>
+					<c:if test="${empty expiryDate}">
+						alert('보유중인 이용권이 없습니다.');
+					</c:if>
+            	} else {
+		        	windowOpen.close();
+		        	return;
+            	}
+	    	});
+
         }
         
         function checkplayer() {
@@ -102,8 +116,13 @@
 		        	chkArr: chkArr	
 		        },
 		        success : function(res){
-			        windowOpen = window.open('<%=request.getContextPath()%>/player/sendplaylist.do','pagename',
-		            'resizable=0,scrollbars=no,toolbars=no, menubar=no,height=660,width=400');
+		        	<c:if test="${!empty expiryDate}">	
+				        windowOpen = window.open('<%=request.getContextPath()%>/player/sendplaylist.do','pagename',
+			            'resizable=0,scrollbars=no,toolbars=no, menubar=no,height=660,width=400');
+				    </c:if>
+					<c:if test="${empty expiryDate}">
+						alert('보유중인 이용권이 없습니다.');
+					</c:if>
 		        },
 		        error : function(res){
 		        	alert("선택된 곡이 없습니다.");

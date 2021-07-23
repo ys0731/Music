@@ -18,7 +18,12 @@
 	    function popup(no) {
 	        window.open("/music/chart/lyrics.do?no="+no, "popup", "width=400, height=600");
 	    }
-
+		
+	  //재생팝업
+	    function ppopup(no) {
+	        window.open("/music/player/play.do?no="+no, "popup", "width=400, height=600");
+	    }
+        
         $(document).ready(function(){
 
             // check all
@@ -51,6 +56,12 @@
             		}
             		
             	});
+            });//함수 끝
+            
+            / //재생
+            $(".play").click(function() {
+            	var no = $(this).data('no');
+            	ppopup(no);
             });//함수 끝
             
             // preventDefault
@@ -188,10 +199,10 @@
                      		<a href="album_info.html"><p class="list_album">${vo.album }</p></a>
                    		</td>
 	                    <td>
-	                        <a class="like_btn like" href="#" data-no="${vo.no }"></a>
+	                        <a class="like_btn like <c:if test="${vo.mlike_cnt==1 }">on</c:if>" href="#" data-no="${vo.no }"></a>
 	                    </td>
 	                    <td>
-	                        <a class="play_music button_icons" href="#"></a>
+	                        <a class="play_music button_icons play" href="#" data-no="${vo.no }"></a>
 	                    </td>
                   		<td>
                        		<a class="add_list button_icons" href="#"></a>

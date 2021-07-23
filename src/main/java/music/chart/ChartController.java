@@ -31,79 +31,122 @@ public class ChartController {
 	
 	//실시간 순위 차트
 	@RequestMapping("/chart/chart_24hit.do")
-	public String chart_24hits(ChartVo vo, Model model, LikeVo lv, UserVo uv, HttpSession sess) {
+	public String chart_24hits(ChartVo vo, Model model, UserVo uv, HttpSession sess) {
 		uv = (UserVo)sess.getAttribute("userInfo"); //로그인한 유저의 정보
-		if(uv != null) {   //로그인 했으면
+		if(uv != null) {  //로그인 했으면
 			int uno = uv.getNo(); 
-			lv.setUser_no(uno);  //로그인한유저의 번호를 LikeVo에 set
-			model.addAttribute("heart",lservice.heart_List(lv)); //유저의 좋아요곡 목록을 모델객체에 저장
+			vo.setUser_no(uno);  //로그인한유저의 번호를 ChartVo에 set
 			model.addAttribute("list", service.ChartList_24hits(vo));
 			return "chart/chart_chart_24hits";
 		} else {		
-		model.addAttribute("list", service.ChartList_24hits(vo));
-		return "chart/chart_chart_24hits";
+			model.addAttribute("list", service.ChartList_24hits(vo));
+			return "chart/chart_chart_24hits";
 		}
 	}
 	
 	//일간 순위 차트
 	@RequestMapping("/chart/chart_daily.do")
-	public String chart_daily(ChartVo vo, Model model) {
-		model.addAttribute("list", service.ChartList_daily(vo));
-		return "chart/chart_chart_daily";
+	public String chart_daily(ChartVo vo, Model model,UserVo uv, HttpSession sess) {
+		uv = (UserVo)sess.getAttribute("userInfo"); //로그인한 유저의 정보
+		if(uv != null) {  //로그인 했으면
+			int uno = uv.getNo(); 
+			vo.setUser_no(uno);  //로그인한유저의 번호를 ChartVo에 set
+			model.addAttribute("list", service.ChartList_daily(vo));
+			return "chart/chart_chart_daily";
+		} else {		
+			model.addAttribute("list", service.ChartList_daily(vo));
+			return "chart/chart_chart_daily";
+		}
 	}
 	
 	//주간 순위 차트
 	@RequestMapping("/chart/chart_weekly.do")
-	public String chart_weekly(ChartVo vo, Model model, LikeVo lv, UserVo uv, HttpSession sess) {
+	public String chart_weekly(ChartVo vo, Model model, UserVo uv, HttpSession sess) {
 		uv = (UserVo)sess.getAttribute("userInfo"); //로그인한 유저의 정보
 		if(uv != null) {  //로그인 했으면
 			int uno = uv.getNo(); 
-			lv.setUser_no(uno);  //로그인한유저의 번호를 LikeVo에 set
-			model.addAttribute("heart",lservice.heart_List(lv)); //유저의 좋아요곡 목록을 모델객체에 저장
+			vo.setUser_no(uno);  //로그인한유저의 번호를 ChartVo에 set
 			model.addAttribute("list", service.ChartList_weekly(vo));
 			return "chart/chart_chart_weekly";
 		} else {		
-		model.addAttribute("list", service.ChartList_weekly(vo));
-		return "chart/chart_chart_weekly";
+			model.addAttribute("list", service.ChartList_weekly(vo));
+			return "chart/chart_chart_weekly";
 		}
 	}
 	
 	//장르-클래식 
 	@RequestMapping("/chart/chart_genre_classic.do")
-	public String chart_classic(ChartVo vo, Model model) {
-		model.addAttribute("list", service.ChartList_classic(vo));
-		return "chart/chart_genre_classic";
+	public String chart_classic(ChartVo vo, Model model, UserVo uv, HttpSession sess) {
+		uv = (UserVo)sess.getAttribute("userInfo"); //로그인한 유저의 정보
+		if(uv != null) {  //로그인 했으면
+			int uno = uv.getNo(); 
+			vo.setUser_no(uno);  //로그인한유저의 번호를 ChartVo에 set
+			model.addAttribute("list", service.ChartList_classic(vo));
+			return "chart/chart_genre_classic";
+		} else {		
+			model.addAttribute("list", service.ChartList_classic(vo));
+			return "chart/chart_genre_classic";
+		}
 	}
 	
 	//장르-재즈 
 	@RequestMapping("/chart/chart_genre_jazz.do")
-	public String chart_jazz(ChartVo vo, Model model) {
-		vo.setGenre(2);
-		model.addAttribute("list", service.ChartList_jazz(vo));
-		return "chart/chart_genre_jazz";
+	public String chart_jazz(ChartVo vo, Model model, UserVo uv, HttpSession sess) {
+		uv = (UserVo)sess.getAttribute("userInfo"); //로그인한 유저의 정보
+		if(uv != null) {  //로그인 했으면
+			int uno = uv.getNo(); 
+			vo.setUser_no(uno);  //로그인한유저의 번호를 ChartVo에 set
+			model.addAttribute("list", service.ChartList_jazz(vo));
+			return "chart/chart_genre_jazz";
+		} else {		
+			model.addAttribute("list", service.ChartList_jazz(vo));
+			return "chart/chart_genre_jazz";
+		}
 	}
 		
 	//장르-케이팝 
 	@RequestMapping("/chart/chart_genre_kpop.do")
-	public String chart_kpop(ChartVo vo, Model model) {
-		vo.setGenre(3); 
-		model.addAttribute("list", service.ChartList_kpop(vo));
-		return "chart/chart_genre_kpop";
+	public String chart_kpop(ChartVo vo, Model model, UserVo uv, HttpSession sess) {
+		uv = (UserVo)sess.getAttribute("userInfo"); //로그인한 유저의 정보
+		if(uv != null) {  //로그인 했으면
+			int uno = uv.getNo(); 
+			vo.setUser_no(uno);  //로그인한유저의 번호를 ChartVo에 set
+			model.addAttribute("list", service.ChartList_kpop(vo));
+			return "chart/chart_genre_kpop";
+		} else {		
+			model.addAttribute("list", service.ChartList_kpop(vo));
+			return "chart/chart_genre_kpop";
+		}
 	}
 	
 	//장르-팝 
 	@RequestMapping("/chart/chart_genre_pop.do")
-	public String chart_pop(ChartVo vo, Model model) {
-		vo.setGenre(4);
-		model.addAttribute("list", service.ChartList_pop(vo));
-		return "chart/chart_genre_pop";
+	public String chart_pop(ChartVo vo, Model model, UserVo uv, HttpSession sess) {
+		uv = (UserVo)sess.getAttribute("userInfo"); //로그인한 유저의 정보
+		if(uv != null) {  //로그인 했으면
+			int uno = uv.getNo(); 
+			vo.setUser_no(uno);  //로그인한유저의 번호를 ChartVo에 set
+			model.addAttribute("list", service.ChartList_pop(vo));
+			return "chart/chart_genre_pop";
+		} else {		
+			model.addAttribute("list", service.ChartList_pop(vo));
+			return "chart/chart_genre_pop";
+		}
 	}
 	
 	//최신곡 차트
 	@RequestMapping("/chart/chart_recent.do")
-	public String chart_recent(ChartVo vo, Model model) {
-		model.addAttribute("list", service.ChartList_recent(vo));
-		return "chart/recent_chart";
+	public String chart_recent(ChartVo vo, Model model, UserVo uv, HttpSession sess) {
+		uv = (UserVo)sess.getAttribute("userInfo"); //로그인한 유저의 정보
+		if(uv != null) {  //로그인 했으면
+			int uno = uv.getNo(); 
+			vo.setUser_no(uno);  //로그인한유저의 번호를 ChartVo에 set
+			model.addAttribute("list", service.ChartList_recent(vo));
+			return "chart/recent_chart";
+		} else {		
+			model.addAttribute("list", service.ChartList_recent(vo));
+			return "chart/recent_chart";
+		}
 	}
 	
 	//가사 팝업창

@@ -18,6 +18,10 @@
   function popup(no) {
       window.open("/music/chart/lyrics.do?no="+no, "popup", "width=400, height=600");
   }
+  //재생팝업
+  function ppopup(no) {
+      window.open("/music/player/play.do?no="+no, "popup", "width=400, height=600");
+  }
 	    
         $(document).ready(function(){
             // change color when clicked
@@ -46,6 +50,12 @@
             		}
             		
             	});
+            });//함수 끝
+            
+            //재생
+            $(".play").click(function() {
+            	var no = $(this).data('no');
+            	ppopup(no);
             });//함수 끝
 			
             
@@ -228,10 +238,10 @@
 	                			<p class="list_album" id="album"><a href="album_info.html">${vo.album }</a></p>
 	                		</td>
 	                		<td>
-	                			<a class="like_btn like" href="#" data-no="${vo.no }"></a>  <!-- 좋아요 버튼 -->
+	                			<a class="like_btn like <c:if test="${vo.mlike_cnt==1 }">on</c:if>" href="#" data-no="${vo.no }"></a>  <!-- 좋아요 버튼 -->
 	                   		</td>
 	                  		<td>
-	                      		<a class="play_music button_icons" href="#"></a>
+	                      		<a class="play_music button_icons play" href="#" data-no="${vo.no }"></a>
 	                   		</td>
 	                  		<td>
 	                       		<a class="add_list button_icons" href="#"></a>

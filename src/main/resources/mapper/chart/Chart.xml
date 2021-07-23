@@ -5,10 +5,17 @@
 	
 	<!-- 시간별 순위 차트 출력 sql -->
 	<select id="ChartList_24hits" parameterType="music.chart.ChartVo" resultType="music.chart.ChartVo">
+	
 		SELECT  thisweek.no, thisweek.count, thisweek.title, 
 		thisweek.lyrics,  thisweek.artist, thisweek.album, 
 		thisweek.org, thisweek.rel 
-        ,IFNULL(prevweek.rownum-thisweek.rownum,999) AS rank_ch
+        ,IFNULL(prevweek.rownum-thisweek.rownum,999) AS rank_ch,
+        <if test="user_no != 0">
+        (SELECT COUNT(*) FROM mlike WHERE song_no = thisweek.no AND user_no=#{user_no}) AS mlike_cnt 
+        </if>
+         <if test="user_no == 0">
+        0 AS mlike_cnt 
+        </if>
         FROM                                                                                                            
 	        (                                                                                                                 
 	          SELECT row_number() over(ORDER BY COUNT(p.song_no) DESC) AS rownum 
@@ -18,8 +25,10 @@
 	       	  FROM play p		                        
 	          INNER JOIN song s ON p.song_no = s.no
 			  INNER JOIN artist ar ON s.artist_no = ar.no
-			  INNER JOIN album al ON s.album_no = al.no                                 
-	          WHERE TIMESTAMPDIFF(HOUR,p.clickdate,NOW())>=0 AND TIMESTAMPDIFF(HOUR,p.clickdate,NOW())&lt;=1  
+			  INNER JOIN album al ON s.album_no = al.no 
+			  <![CDATA[
+	          WHERE TIMESTAMPDIFF(HOUR,p.clickdate,NOW())>=0 AND TIMESTAMPDIFF(HOUR,p.clickdate,NOW())<=1
+	          ]]>
 	          GROUP BY p.song_no   
 	          ORDER BY COUNT(p.song_no) DESC
 		      LIMIT 0,100  
@@ -33,20 +42,29 @@
 	        FROM play p
 		    INNER JOIN song s ON p.song_no = s.no
 		    INNER JOIN artist ar ON s.artist_no = ar.no
-		    INNER JOIN album al ON s.album_no = al.no		                                                            
-	        WHERE TIMESTAMPDIFF(HOUR,p.clickdate,NOW())>=2 AND TIMESTAMPDIFF(HOUR,p.clickdate,NOW())&lt;=3  
+		    INNER JOIN album al ON s.album_no = al.no	
+		     <![CDATA[	                                                            
+	        WHERE TIMESTAMPDIFF(HOUR,p.clickdate,NOW())>=2 AND TIMESTAMPDIFF(HOUR,p.clickdate,NOW())<=3  
+	        ]]>
 	        GROUP BY p.song_no   
 	        ORDER BY COUNT(p.song_no) DESC
 		    LIMIT 0,100        
            ) AS prevweek     
-  		ON thisweek.no = prevweek.no2  
+  		ON thisweek.no = prevweek.no2
+  		 
 	</select>
 	
 	<select id="ChartList_daily" parameterType="music.chart.ChartVo" resultType="music.chart.ChartVo">
 		SELECT  thisweek.no, thisweek.count, thisweek.title, 
 		thisweek.lyrics,  thisweek.artist, thisweek.album, 
 		thisweek.org, thisweek.rel 
-        ,IFNULL(prevweek.rownum-thisweek.rownum,999) AS rank_ch
+        ,IFNULL(prevweek.rownum-thisweek.rownum,999) AS rank_ch,
+        <if test="user_no != 0">
+        (SELECT COUNT(*) FROM mlike WHERE song_no = thisweek.no AND user_no=#{user_no}) AS mlike_cnt 
+        </if>
+         <if test="user_no == 0">
+        0 AS mlike_cnt 
+        </if>
         FROM                                                                                                            
 	        (                                                                                                                 
 	          SELECT row_number() over(ORDER BY COUNT(p.song_no) DESC) AS rownum 
@@ -84,7 +102,13 @@
 		SELECT  thisweek.no, thisweek.count, thisweek.title, 
 		thisweek.lyrics,  thisweek.artist, thisweek.album, 
 		thisweek.org, thisweek.rel 
-        ,IFNULL(prevweek.rownum-thisweek.rownum,999) AS rank_ch
+        ,IFNULL(prevweek.rownum-thisweek.rownum,999) AS rank_ch,
+        <if test="user_no != 0">
+        (SELECT COUNT(*) FROM mlike WHERE song_no = thisweek.no AND user_no=#{user_no}) AS mlike_cnt 
+        </if>
+         <if test="user_no == 0">
+        0 AS mlike_cnt 
+        </if>
         FROM                                                                                                            
 	        (                                                                                                                 
 	          SELECT row_number() over(ORDER BY COUNT(p.song_no) DESC) AS rownum 
@@ -122,7 +146,13 @@
 	<!-- 장르 | class:4 |jazz:3 |kpop:1 |POP:2 |-->
 	<!-- 클래식 장르 -->
 	<select id="Chart_classic" resultType="music.chart.ChartVo" parameterType="music.chart.ChartVo">
-		SELECT s.title, s.lyrics, ar.artist, al.album, al.img_org AS org, al.img_real AS rel,s.no AS no
+		SELECT s.title, s.lyrics, ar.artist, al.album, al.img_org AS org, al.img_real AS rel,s.no AS no,
+		<if test="user_no != 0">
+        (SELECT COUNT(*) FROM mlike WHERE song_no = s.no AND user_no=#{user_no}) AS mlike_cnt 
+        </if>
+         <if test="user_no == 0">
+        0 AS mlike_cnt 
+        </if>
 		FROM song AS s 
 		JOIN artist AS ar ON ar.no = s.artist_no
 		JOIN album AS al ON al.no = s.album_no
@@ -132,7 +162,13 @@
 	
 	<!-- 재즈 장르 -->
 	<select id="Chart_jazz" resultType="music.chart.ChartVo" parameterType="music.chart.ChartVo">
-		SELECT s.title, s.lyrics, ar.artist, al.album, al.img_org AS org, al.img_real AS rel,s.no AS no
+		SELECT s.title, s.lyrics, ar.artist, al.album, al.img_org AS org, al.img_real AS rel,s.no AS no,
+		<if test="user_no != 0">
+        (SELECT COUNT(*) FROM mlike WHERE song_no = s.no AND user_no=#{user_no}) AS mlike_cnt 
+        </if>
+         <if test="user_no == 0">
+        0 AS mlike_cnt 
+        </if>
 		FROM song AS s 
 		JOIN artist AS ar ON ar.no = s.artist_no
 		JOIN album AS al ON al.no = s.album_no
@@ -142,7 +178,13 @@
 	
 	<!-- kpop장르 -->
 	<select id="Chart_kpop" resultType="music.chart.ChartVo" parameterType="music.chart.ChartVo">
-		SELECT s.title, s.lyrics, ar.artist, al.album,al.img_org AS org, al.img_real AS rel,s.no AS no
+		SELECT s.title, s.lyrics, ar.artist, al.album,al.img_org AS org, al.img_real AS rel,s.no AS no,
+		<if test="user_no != 0">
+        (SELECT COUNT(*) FROM mlike WHERE song_no = s.no AND user_no=#{user_no}) AS mlike_cnt 
+        </if>
+         <if test="user_no == 0">
+        0 AS mlike_cnt 
+        </if>
 		FROM song AS s 
 		JOIN artist AS ar ON ar.no = s.artist_no
 		JOIN album AS al ON al.no = s.album_no
@@ -152,7 +194,13 @@
 	
 	<!-- pop 장르 -->
 	<select id="Chart_pop" resultType="music.chart.ChartVo" parameterType="music.chart.ChartVo">
-		SELECT s.title, s.lyrics, ar.artist, al.album, al.img_org AS org, al.img_real AS rel,s.no AS no
+		SELECT s.title, s.lyrics, ar.artist, al.album, al.img_org AS org, al.img_real AS rel,s.no AS no,
+		<if test="user_no != 0">
+        (SELECT COUNT(*) FROM mlike WHERE song_no = s.no AND user_no=#{user_no}) AS mlike_cnt 
+        </if>
+         <if test="user_no == 0">
+        0 AS mlike_cnt 
+        </if>
 		FROM song AS s 
 		JOIN artist AS ar ON ar.no = s.artist_no
 		JOIN album AS al ON al.no = s.album_no
@@ -162,7 +210,13 @@
 	
 	<!-- 최신 차트 -->
 	<select id="Chart_recent" resultType="music.chart.ChartVo" parameterType="music.chart.ChartVo">
-		SELECT s.title, s.lyrics, ar.artist, al.album, al.img_org AS org, al.img_real AS rel,s.no AS no
+		SELECT s.title, s.lyrics, ar.artist, al.album, al.img_org AS org, al.img_real AS rel,s.no AS no,
+		<if test="user_no != 0">
+        (SELECT COUNT(*) FROM mlike WHERE song_no = s.no AND user_no=#{user_no}) AS mlike_cnt 
+        </if>
+         <if test="user_no == 0">
+        0 AS mlike_cnt 
+        </if>
 		FROM song AS s 
 		JOIN artist AS ar ON ar.no = s.artist_no
 		JOIN album AS al ON al.no = s.album_no
@@ -173,6 +227,7 @@
 	<!-- 최근 감상곡 -->
 	<select id="User_recent" resultType="music.chart.ChartVo" parameterType="int">
 		SELECT s.title, s.lyrics, ar.artist, al.album
+		
 		FROM play p
 		JOIN song s ON p.song_no = s.no
 		JOIN artist ar ON s.artist_no = ar.no

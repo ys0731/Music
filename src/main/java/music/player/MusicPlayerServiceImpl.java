@@ -16,4 +16,9 @@ public class MusicPlayerServiceImpl implements MusicPlayerService {
 		return dao.detail(vo);
 	}
 
+	@Override
+	public int insertClick(MusicPlayerVo vo) {
+		return dao.insertClick(vo);
+	}
+
 }

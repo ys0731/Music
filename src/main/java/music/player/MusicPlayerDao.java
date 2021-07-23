@@ -15,4 +15,8 @@ public class MusicPlayerDao {
 	public AdminSongVo detail(AdminSongVo vo) {
 		return sqlSession.selectOne("player.detail", vo);
 	}
+	
+	public int insertClick(MusicPlayerVo vo) {
+		return sqlSession.insert("player.insertClick", vo);
+	}
 }
