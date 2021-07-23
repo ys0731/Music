@@ -73,7 +73,7 @@ $(window).load(function(){
   				<li><a href="<%=request.getContextPath()%>/admin/user/index.do" class="parent"><span>회원관리</span></a></li>
 				<li><a href="<%=request.getContextPath()%>/admin/ticket/index.do" class="parent"><span>이용권관리</span></a></li>
 				<li>
-					<a href="<%=request.getContextPath()%>/admin/product/index.do" class="parent"><span>콘텐츠관리</span></a>
+					<a href="<%=request.getContextPath()%>/admin/song/index.do" class="parent"><span>콘텐츠관리</span></a>
 					<div class="standard_left">
 					<ul>
 						<li><a href="<%=request.getContextPath()%>/admin/album/index.do"><span>앨범등록</span></a></li>
