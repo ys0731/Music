@@ -68,32 +68,28 @@
             	} else {
             		$(this).addClass("on");
 	            	$(this).parent().parent().siblings().children().children(".play_music").removeClass("on");
+	            	
+        			$.ajax({
+        		        url: '<%=request.getContextPath()%>/player/playlog.do',
+        		        type: 'post',
+        		        data: {
+        		        	no: no	
+        		        }
+        	        });
             	}
 	    	});
-            
-			/* if ((windowOpen == null) || (windowOpen.closed)) {
-				windowOpen.close();
-			} */
         });
         
         function player(no) {
             $(".play_music").click(function(){
-            	if (!$(this).hasClass("on")) {
+            	if ($(this).hasClass("on")) {
+        			windowOpen = window.open('<%=request.getContextPath()%>/player/play.do?no='+no,'pagename',
+                    'resizable=0,scrollbars=no,toolbars=no, menubar=no,height=660,width=400');
+            	} else {
 		        	windowOpen.close();
 		        	return;
             	}
 	    	});
-	        
-	        $.ajax({
-		        url: '<%=request.getContextPath()%>/player/playlog.do',
-		        type: 'post',
-		        data: {
-		        	no: no	
-		        }
-	        });
-	        
-			windowOpen = window.open('<%=request.getContextPath()%>/player/play.do?no='+no,'pagename',
-            'resizable=0,scrollbars=no,toolbars=no, menubar=no,height=660,width=400');
         }
         
         function checkplayer() {
