@@ -37,6 +37,17 @@
 		    	$(this).children("div").eq(i).children("span:nth-child(2)").text(i+1);
 			}
 	    });
+	    
+	    if ($("#sortable > div").length > 0) {
+			document.getElementById('file').disabled = false;
+			document.getElementById('group_id').disabled = false;
+			document.getElementById('title').disabled = false;
+			document.getElementById('sub_title').disabled = false;
+		} else {
+			$("#file").parent().click(function(){alert('리스트를 먼저 추가해주세요.');});
+			$("#title").parent().click(function(){alert('리스트를 먼저 추가해주세요.');});
+			$("#sub_title").parent().click(function(){alert('리스트를 먼저 추가해주세요.');});
+		}
 	});
 	
 	function getList(reqPage, stype, sval, orderby, direct) {
@@ -135,7 +146,7 @@
 												<input type="file" id="file" name="file" style="display: none" title="이미지를 업로드 해주세요." onchange="readURL(this);" accept="image/gif,image/jpeg,image/png">
 											</th>
 											<th style="height: 50px; border-bottom: 1px solid #cccdd0;">
-												<select name="group_id" style="width: 7%; height: 20px;">
+												<select id="group_id" name="group_id" style="width: 7%; height: 20px;">
 													<option value="1" selected="selected">제목</option>
 													<option value="2">태그</option>
 												</select>
