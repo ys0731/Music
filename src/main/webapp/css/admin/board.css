@@ -48,7 +48,7 @@ input[type="text"]{font-size:12px; color:#2e2e2e; height:25px; border:1px solid 
 input[type="password"]{font-size:12px; color:#2e2e2e; height:25px; border:1px solid #cccccc; padding:2px 0 0 3px;}
 input[type="checkbox"]{width:14px; height:25px; vertical-align:middle;}
 input[type="radio"]{width:14px; height:25px; vertical-align:middle;}
-input[type="file"]{font-size:12px; color:#2e2e2e; height:25px; border:1px solid #cccccc; padding:2px 0 0 3px; background:#fff;}
+input[type="file"]{font-size:12px; color:#2e2e2e; height:28px; border:1px solid #cccccc; padding:2px 0 0 3px; background:#fff;}
 input#id{ime-mode:inactive;}
 input#name{ime-mode:active;}
 input#email{ime-mode:inactive;}
