@@ -63,19 +63,26 @@
            	var windowOpen;
         	
             $(".play_music").click(function(){
-            	$(this).toggleClass("on");
-            	$(this).parent().parent().siblings().children().children(".play_music").removeClass("on");
-				/* if ((windowOpen == null) || (windowOpen.closed)) {
-					windowOpen.close();
-				} */
+            	if ($(this).hasClass("on")) {
+            		$(this).removeClass("on");
+            	} else {
+            		$(this).addClass("on");
+	            	$(this).parent().parent().siblings().children().children(".play_music").removeClass("on");
+            	}
 	    	});
+            
+			/* if ((windowOpen == null) || (windowOpen.closed)) {
+				windowOpen.close();
+			} */
         });
         
         function player(no) {
-	        if ($(".play_music").hasClass("on")) {
-	        	windowOpen.close();
-	        	return;
-	        }
+            $(".play_music").click(function(){
+            	if (!$(this).hasClass("on")) {
+		        	windowOpen.close();
+		        	return;
+            	}
+	    	});
 	        
 	        $.ajax({
 		        url: '<%=request.getContextPath()%>/player/playlog.do',
