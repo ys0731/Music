@@ -9,4 +9,9 @@
 		JOIN album AS al ON al.no = s.album_no
 		WHERE s.no = #{no}
 	</select>
+	
+	<insert id="insertClick" parameterType="music.player.MusicPlayerVo">
+		INSERT INTO play (song_no, user_no, clickdate)
+		VALUES (#{song_no}, #{user_no}, NOW())
+	</insert>
 </mapper>

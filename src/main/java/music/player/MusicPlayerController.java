@@ -13,6 +13,7 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.ResponseBody;
 
 import music.admin.song.AdminSongVo;
+import music.user.UserVo;
 
 @Controller
 public class MusicPlayerController {
@@ -24,6 +25,16 @@ public class MusicPlayerController {
 	public String player(Model model, AdminSongVo vo) {
 		model.addAttribute("playlist", service.detail(vo));
 		return "player/player";
+	}
+
+	@RequestMapping("/player/playlog.do")
+	public void playerLog(MusicPlayerVo mpv, HttpServletRequest req, HttpSession sess) {
+		int song_no = Integer.parseInt(req.getParameter("no"));
+		UserVo uv = (UserVo) sess.getAttribute("userInfo");
+		int user_no = uv.getNo();
+		mpv.setUser_no(user_no);
+		mpv.setSong_no(song_no);
+		service.insertClick(mpv);
 	}
 	
 	@RequestMapping("/player/checkplay.do")

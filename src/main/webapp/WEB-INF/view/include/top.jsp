@@ -77,7 +77,7 @@
                             <li><a href="/music/chart/chart_genre_classic.do">Classic</a></li>
                         </ul>
                         <ul class="offer_sub">
-                            <li><a href="recommend_list.html">추천음악</a></li>
+                            <li><a href="/music/recommend/recommend_list.do">추천음악</a></li>
                         </ul>
                         <ul class="mv_sub">
                             <li><a href="mv_recent.html">최신MV</a></li>

@@ -77,6 +77,14 @@
 	        	return;
 	        }
 	        
+	        $.ajax({
+		        url: '<%=request.getContextPath()%>/player/playlog.do',
+		        type: 'post',
+		        data: {
+		        	no: no	
+		        }
+	        });
+	        
 			windowOpen = window.open('<%=request.getContextPath()%>/player/play.do?no='+no,'pagename',
             'resizable=0,scrollbars=no,toolbars=no, menubar=no,height=660,width=400');
         }
