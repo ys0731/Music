@@ -1,0 +1,104 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="recommend">
+
+	<sql id="adminWhere">
+		<where>
+			<if test="sval != null and sval != ''">
+				<if test="stype == 'all'">
+					no LIKE '%${sval}%' OR title LIKE '%${sval}%'
+				</if>
+				<if test="stype != 'all'">
+					${stype} LIKE '%${sval}%'
+				</if>
+			</if>
+		</where>
+	</sql>
+	
+	<!-- 곡 등록시에는 삭제된 앨범이나 아티스트에도 곡이 남게하여 수정 가능하도록 했지만 리스트 선정시에는 불완전한 곡이 등록되는 것을 방지 -->
+	<select id="selectAll" resultType="music.admin.song.AdminSongVo" parameterType="music.admin.song.AdminSongVo">
+		<!-- SELECT * 하면 regdate 중복 의한 ambiguous error-->
+		SELECT song.no, song.title, song.regdate
+		, album.album AS albumName
+		, artist.artist AS artistName
+		FROM song
+		INNER JOIN album
+		ON song.album_no = album.no
+		INNER JOIN artist
+		ON song.artist_no = artist.no
+		<include refid="adminWhere"/>
+		ORDER BY ${orderby} ${direct}
+		LIMIT ${startIdx}, ${pageRow}
+	</select>
+
+	<!-- 곡이 없는 리스트가 등록되는 것을 방지 -->
+	<select id="selectToday" resultType="music.admin.recommend.AdminRecommendVo" parameterType="music.admin.recommend.AdminRecommendVo">
+		<!-- SELECT * 하면 no는 중복되어 있지만 pk이기 때문에 문제없음-->
+		SELECT *
+		FROM recommend
+		WHERE (SELECT COUNT(*) FROM recommend_list) > 0
+		AND group_id = 1
+	</select>
+
+	<!-- 곡이 없는 리스트가 등록되는 것을 방지 -->
+	<select id="selectTag" resultType="music.admin.recommend.AdminRecommendVo" parameterType="music.admin.recommend.AdminRecommendVo">
+		SELECT *
+		FROM recommend
+		WHERE (SELECT COUNT(*) FROM recommend_list) > 0
+		AND group_id = 2
+	</select>
+	
+	<select id="selectListOne" resultType="music.admin.recommend.AdminRecommendVo" parameterType="music.admin.recommend.AdminRecommendVo">
+		SELECT *
+		FROM recommend
+		WHERE no = #{no}
+	</select>
+	
+	<select id="count" resultType="int" parameterType="music.admin.song.AdminSongVo">
+		SELECT COUNT(*)
+		FROM song
+		<include refid="adminWhere"/>
+	</select>
+	
+	<!-- recommend.no = recommend.package_id -->
+	<insert id="insertTop" parameterType="music.admin.recommend.AdminRecommendVo">
+		INSERT INTO recommend (group_id, img, title, sub_title)
+		VALUES (#{group_id}, #{img}, #{title}, #{sub_title})
+		<selectKey keyProperty="no" resultType="int" order="AFTER">
+			SELECT LAST_INSERT_ID()
+		</selectKey>
+	</insert>
+
+	<insert id="insertBottom" parameterType="music.admin.recommend.AdminRecommendVo">
+		INSERT INTO recommend_list (package_id, song_no)
+		VALUES (#{package_id}, #{song_no})
+	</insert>
+	
+	<update id="reset">
+		UPDATE recommend
+		SET order_id = 0
+	</update>
+
+	<!-- 1~8, else 0 -->
+	<update id="update" parameterType="music.admin.recommend.AdminRecommendVo">
+		UPDATE recommend
+		SET order_id = #{order_id}
+		WHERE no = #{no}
+	</update>
+	
+	<delete id="deleteRecommend" parameterType="music.admin.recommend.AdminRecommendVo">
+		DELETE
+		FROM recommend WHERE no IN
+		<foreach collection="nos" index="index" item="no" open="(" close=")" separator=",">
+		#{no}
+		</foreach>
+	</delete>
+
+	<delete id="deleteRecommendList" parameterType="music.admin.recommend.AdminRecommendVo">
+		DELETE
+		FROM recommend_list WHERE package_id IN
+		<foreach collection="nos" index="index" item="no" open="(" close=")" separator=",">
+		#{no}
+		</foreach>
+	</delete>
+</mapper>

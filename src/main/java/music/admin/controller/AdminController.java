@@ -3,25 +3,33 @@ package music.admin.controller;
 import java.io.File;
 import java.io.IOException;
 import java.io.PrintWriter;
-import java.sql.SQLException;
+import java.util.ArrayList;
 import java.util.Date;
 import java.util.List;
 
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
+import javax.servlet.http.HttpSession;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
+import org.springframework.web.bind.annotation.GetMapping;
+import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RequestParam;
+import org.springframework.web.bind.annotation.ResponseBody;
 import org.springframework.web.multipart.MultipartFile;
+
+import com.mysql.cj.Session;
 
 import music.admin.album.AdminAlbumService;
 import music.admin.album.AdminAlbumVo;
 import music.admin.artist.AdminArtistService;
 import music.admin.artist.AdminArtistVo;
+import music.admin.recommend.AdminRecommendService;
+import music.admin.recommend.AdminRecommendVo;
 import music.admin.song.AdminSongService;
 import music.admin.song.AdminSongVo;
 
@@ -36,6 +44,9 @@ public class AdminController {
 	
 	@Autowired
 	AdminSongService songService;
+
+	@Autowired
+	AdminRecommendService recommendService;
 	
 	//-----------------------------------------------------------index.do
 	
@@ -56,7 +67,57 @@ public class AdminController {
 		model.addAttribute("list", songService.selectAll(vo));
 		return "admin/song/index";
 	}
+
+	@RequestMapping("/admin/recommend/index.do")
+	public String recommendIndex(Model model, AdminRecommendVo vo) {
+		return "admin/recommend/index";
+	}
 	
+	@RequestMapping("/admin/recommend/sendtwolist.do")
+	@ResponseBody
+	public void recommendListIndexSend(HttpServletRequest req, HttpSession sess) {
+		String[] list1 = req.getParameterValues("chkArr1"); // today
+		String[] list2 = req.getParameterValues("chkArr2"); // tag
+		AdminRecommendVo asv1 = new AdminRecommendVo();
+		AdminRecommendVo asv2 = new AdminRecommendVo();
+		List<AdminRecommendVo> li1 = new ArrayList<AdminRecommendVo>();
+		List<AdminRecommendVo> li2 = new ArrayList<AdminRecommendVo>();
+		
+		for (String i : list1) {
+			asv1.setNo(Integer.parseInt(i));
+			li1.add(recommendService.selectListOne(asv1));
+		}
+		
+		for (String i : list2) {
+			asv2.setNo(Integer.parseInt(i));
+			li2.add(recommendService.selectListOne(asv2));
+		}
+		
+		sess.setAttribute("todayListShow", li1);
+		sess.setAttribute("tagListShow", li2);
+	}
+	
+	@RequestMapping("/admin/recommend/removetwolist.do")
+	public String recommendListInvalidate(HttpSession sess) {
+		sess.removeAttribute("todayListShow");
+		sess.removeAttribute("tagListShow");
+		return "admin/recommend/index";
+	}
+	//-----------------------------------------------------------list.do
+	
+	@RequestMapping("/admin/recommend/list.do")
+	public String recommendSongList(Model model, AdminSongVo vo) {
+		model.addAttribute("list", recommendService.selectAll(vo));
+		return "admin/recommend/list";
+	}
+	
+	@RequestMapping("/admin/recommend/todayntaglist.do")
+	public String recommendTodayTagList(Model model, AdminRecommendVo vo) {
+		model.addAttribute("todayList", recommendService.selectToday(vo));
+		model.addAttribute("tagList", recommendService.selectTag(vo));
+		return "admin/recommend/todayTagList";
+	}
+
 	//-----------------------------------------------------------view.do	
 	
 	@RequestMapping("/admin/album/view.do")
@@ -103,7 +164,7 @@ public class AdminController {
 	}
 	
 	@RequestMapping(value = "/admin/song/write.do", method = RequestMethod.POST)
-	public void songWrite(Model model, AdminAlbumVo aav1, AdminArtistVo aav2, HttpServletResponse res) throws IOException {
+	public void songWrite(AdminAlbumVo aav1, AdminArtistVo aav2, HttpServletResponse res) throws IOException {
 		AdminAlbumVo albumVo = songService.exist1(aav1);
 		AdminArtistVo artistVo = songService.exist2(aav2);
 		
@@ -117,6 +178,44 @@ public class AdminController {
 			out.print("artistFalse");
 		} 
 	}
+	
+	@GetMapping("/admin/recommend/write.do")
+	public String recommendSongWrite() {
+		return "admin/recommend/write";
+	}
+	
+	@PostMapping("/admin/recommend/write.do")
+	@ResponseBody
+	public void recommendSongIndexSend(HttpServletRequest req, HttpSession sess) {
+		String[] list = req.getParameterValues("chkArr");
+		AdminSongVo asv = new AdminSongVo();
+		List<AdminSongVo> li = new ArrayList<AdminSongVo>();
+		
+		if (sess.getAttribute("songlist") == null) {
+			for (String i : list) {
+				// System.out.println(Integer.parseInt(i));
+				asv.setNo(Integer.parseInt(i));
+				li.add(songService.detail(asv));
+			}
+			sess.setAttribute("songlist", li);
+		} else {
+			List<AdminSongVo> lili = (List<AdminSongVo>)sess.getAttribute("songlist");
+			
+			for (String i : list) {
+				// System.out.println(Integer.parseInt(i));
+				asv.setNo(Integer.parseInt(i));
+				lili.add(songService.detail(asv));
+			}
+			sess.setAttribute("songlist", lili);
+		}
+	}
+	
+	@RequestMapping("/admin/recommend/removelist.do")
+	public String recommendSongInvalidate(HttpSession sess) {
+		sess.removeAttribute("songlist");
+		return "admin/recommend/write";
+	}
+	
 	//-----------------------------------------------------------insert.do
 	
 	@RequestMapping("/admin/album/insert.do")
@@ -226,6 +325,59 @@ public class AdminController {
 		if (r > 0) {
 			model.addAttribute("msg", "정상적으로 등록되었습니다.");
 			model.addAttribute("url", "index.do");
+		} else {
+			model.addAttribute("msg", "등록을 실패하였습니다.");
+			model.addAttribute("url", "write.do");
+		}
+		return "include/alert";
+	}
+	
+	@RequestMapping("/admin/recommend/insert.do")
+	public String recommendInsert(Model model,
+			@RequestParam int group_id,
+			@RequestParam MultipartFile file,
+			@RequestParam String title,
+			@RequestParam String sub_title,
+			@RequestParam int[] song_no,
+			HttpServletRequest req,
+			HttpSession sess) {
+		
+		int r1 = 0;
+		int r2 = 0;
+		if (!file.isEmpty()) {		
+			try {
+				AdminRecommendVo arv1 = new AdminRecommendVo();
+				
+				String org = file.getOriginalFilename();
+				String path = req.getRealPath("/upload/"); // 경로
+				file.transferTo(new File(path+org)); // 경로 + 파일명 저장
+				
+				arv1.setImg(org);
+				arv1.setGroup_id(group_id);
+				arv1.setTitle(title);
+				arv1.setSub_title(sub_title);
+				
+				r1 = recommendService.insertTop(arv1);
+				
+				for (int i=0; i<song_no.length; i++) {
+					AdminRecommendVo arv2 = new AdminRecommendVo();
+					
+					arv2.setPackage_id(arv1.getNo());
+					arv2.setSong_no(song_no[i]);
+					
+					r2 += recommendService.insertBottom(arv2);
+				}
+				
+			} catch (Exception e) {
+				System.out.println(e.getMessage());
+			}
+		}
+			
+
+		if (r1 > 0 && r2 > 0) {
+			sess.removeAttribute("songlist");
+			model.addAttribute("msg", "정상적으로 등록되었습니다.");
+			model.addAttribute("url", "write.do");
 		} else {
 			model.addAttribute("msg", "등록을 실패하였습니다.");
 			model.addAttribute("url", "write.do");
@@ -369,6 +521,35 @@ public class AdminController {
 		return "include/alert";
 	}
 	
+	@RequestMapping("/admin/recommend/update.do")
+	@ResponseBody
+	public void recommendUpdate(Model model, HttpServletRequest req, HttpServletResponse res) throws IOException {
+		String[] list = req.getParameterValues("chkArr");
+		int reset = 0;
+		int r = 0;
+		
+		reset = recommendService.reset();
+		
+		int update = 1;
+		for (String i : list) {
+			AdminRecommendVo arv = new AdminRecommendVo();
+			arv.setNo(Integer.parseInt(i));
+			arv.setOrder_id(update);
+			r += recommendService.update(arv);
+			update++;
+		}
+		System.out.println(reset);
+		System.out.println(r);
+		
+		res.setContentType("text/html;charset=utf-8");
+		PrintWriter out = res.getWriter();
+		if (r == 8) {
+			out.print("true");
+		} else {
+			out.print("false");
+		}
+	}
+	
 	//-----------------------------------------------------------delete.do
 	
 	@RequestMapping("/admin/album/deleteArr.do")
@@ -380,15 +561,16 @@ public class AdminController {
 			no = Integer.parseInt(i);
 			vo.setNo(no);
 			r = albumService.delete(vo);
+
+			res.setContentType("text/html;charset=utf-8");
+			PrintWriter out = res.getWriter();
+			if (r > 0) {
+				out.print("true");
+			} else {
+				out.print("false");
+			}
 		}
 		
-		res.setContentType("text/html;charset=utf-8");
-		PrintWriter out = res.getWriter();
-		if (r > 0) {
-			out.print("true");
-		} else {
-			out.print("false");
-		}
 	}
 	
 	@RequestMapping("/admin/album/delete.do")
@@ -413,15 +595,16 @@ public class AdminController {
 			no = Integer.parseInt(i);
 			vo.setNo(no);
 			r = artistService.delete(vo);
+
+			res.setContentType("text/html;charset=utf-8");
+			PrintWriter out = res.getWriter();
+			if (r > 0) {
+				out.print("true");
+			} else {
+				out.print("false");
+			}
 		}
 		
-		res.setContentType("text/html;charset=utf-8");
-		PrintWriter out = res.getWriter();
-		if (r > 0) {
-			out.print("true");
-		} else {
-			out.print("false");
-		}
 	}
 	
 	@RequestMapping("/admin/artist/delete.do")
@@ -446,15 +629,16 @@ public class AdminController {
 			no = Integer.parseInt(i);
 			vo.setNo(no);
 			r = songService.delete(vo);
+
+			res.setContentType("text/html;charset=utf-8");
+			PrintWriter out = res.getWriter();
+			if (r > 0) {
+				out.print("true");
+			} else {
+				out.print("false");
+			}
 		}
 		
-		res.setContentType("text/html;charset=utf-8");
-		PrintWriter out = res.getWriter();
-		if (r > 0) {
-			out.print("true");
-		} else {
-			out.print("false");
-		}
 	}
 	
 	@RequestMapping("/admin/song/delete.do")
@@ -468,6 +652,30 @@ public class AdminController {
 		} else {
 			out.print("false");
 		}
+	}
+	
+	@RequestMapping("/admin/recommend/delete.do")
+	public void recommendDelete(AdminRecommendVo vo, HttpServletRequest req, HttpServletResponse res) throws IOException {
+		String chkArr = req.getParameter("chkArr");
+		String[] list = chkArr.split(","); // ajax에서 traditional: true가 설정 되어 있지 않은 경우 배열로 담기지 않음
+		int size = list.length;
+		int[] li = new int[size];
+		
+		for (int i = 0; i < size; i++) {
+			li[i] = Integer.parseInt(list[i]);
+		}
+		vo.setNos(li);
+		
+		int count = recommendService.delete(vo);
+		
+		res.setContentType("text/html;charset=utf-8");
+		PrintWriter out = res.getWriter();
+		if (count > 0) {
+			out.print(count);
+		} else {
+			out.print("failed");
+		}
+		
 	}
 	//-----------------------------------------------------------
 

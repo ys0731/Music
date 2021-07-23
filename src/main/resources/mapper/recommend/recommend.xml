@@ -1,0 +1,43 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="recommended">
+
+	<!-- 박스 8개 -->
+	<select id="selectList" resultType="music.recommend.RecommendVo" parameterType="music.recommend.RecommendVo">
+		SELECT rec.*, COUNT(rec.no) AS songcount
+		FROM recommend rec
+		INNER JOIN recommend_list list
+		ON rec.no = list.package_id
+		WHERE order_id != 0
+		AND group_id = #{group_id}
+		GROUP BY rec.no
+		ORDER BY order_id;
+	</select>
+	
+	<!-- 부제목, 곡 수량 -->
+	<select id="selectListTitle" resultType="music.recommend.RecommendVo" parameterType="music.recommend.RecommendVo">
+        SELECT rec.sub_title, COUNT(rec.no) AS songcount
+		FROM recommend rec
+		INNER JOIN recommend_list list
+		ON rec.no = list.package_id
+		WHERE rec.no = #{no}
+	</select>
+	
+	<!-- 곡 리스트 -->
+	<select id="selectSongList" resultType="music.recommend.RecommendVo" parameterType="music.recommend.RecommendVo">
+		SELECT song.no AS songList_no, song.title AS songList_title
+        , (SELECT album FROM album WHERE album_no=album.no) AS songList_album
+        , (SELECT img_org FROM album WHERE album_no=album.no) AS songList_albumImg
+        , (SELECT artist FROM artist WHERE artist_no=artist.no) AS songList_artist
+		FROM song
+        WHERE no IN
+        (SELECT list.song_no
+		FROM recommend_list list
+		INNER JOIN recommend rec
+		ON list.package_id = rec.no
+		WHERE rec.no = #{no}
+        <!-- ORDER BY rec.no -->
+        );
+	</select>
+	
+</mapper>

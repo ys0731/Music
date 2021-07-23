@@ -90,13 +90,13 @@
 									<tr>
 										<th scope="row"><label for="">*노래제목</label></th>
 										<td colspan="10">
-											<input type="text" id="title" name="title" class="w100" title="노래제목을 입력해주세요" value="${vo.title }"/>	
+											<input type="text" id="title" name="title" class="w100" title="노래제목을 입력해주세요" value="${vo.title }" autocomplete="off"/>	
 										</td>
 									</tr>
 									<tr>
 										<th scope="row"><label for="">*앨범</label></th>
 										<td colspan="10">
-			                                <input type="text" id="album_no" name="album_no" title="앨범 선택" list="albumlisted" value="${vo.album_no }"/>
+			                                <input type="text" id="album_no" name="album_no" title="앨범 선택" list="albumlisted" value="${vo.album_no }" autocomplete="off"/>
 												<datalist id="albumlisted">
 				                                    <c:forEach var="albums" items="${albumList }">
 														<option value="${albums.no }">${albums.album }</option>				
@@ -107,7 +107,7 @@
 									<tr>
 										<th scope="row"><label for="">*아티스트</label></th>
 										<td colspan="10">
-			                                <input type="text" id="artist_no" name="artist_no" title="아티스트 선택" list="artistlisted" value="${vo.artist_no }"/>
+			                                <input type="text" id="artist_no" name="artist_no" title="아티스트 선택" list="artistlisted" value="${vo.artist_no }" autocomplete="off"/>
 												<datalist id="artistlisted">
 				                                    <c:forEach var="artists" items="${artistList }">
 														<option value="${artists.no }">${artists.artist }</option>				

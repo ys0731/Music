@@ -62,6 +62,13 @@
 		WHERE no = #{no}
 	</delete>
 	
+	<!-- 곡 delete시 추천음악 리스트에서 delete를 한 곡의 song_no를 갖고 있는 recommend_list delete -->
+	<delete id="deleteIncludedList" parameterType="music.admin.song.AdminSongVo">
+		DELETE
+		FROM recommend_list
+		WHERE song_no = #{no}
+	</delete>
+	
 	<!-- 입력값 대조 -->
 	<select id="exist1" resultType="music.admin.album.AdminAlbumVo" parameterType="music.admin.album.AdminAlbumVo">
 		SELECT *

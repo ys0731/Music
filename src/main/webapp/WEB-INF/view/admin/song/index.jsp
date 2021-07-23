@@ -4,6 +4,15 @@
 <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
 <%@ include file="/WEB-INF/view/admin/include/headHtml.jsp" %>
 <script>
+	$(function(){
+		var marginTop = $(".title").length;
+		if (marginTop == 0) {
+			$(".btn").css({"margin-top": "508px"});
+		} else if (marginTop < 10) {
+			$(".btn").css({"margin-top": 468-52*(marginTop-1)});
+		}
+	});
+
 	function toggle(source) {
 		checkboxes = document.getElementsByName('num');
 		for(var i=0, n=checkboxes.length;i<n;i++) {
@@ -82,7 +91,7 @@
 								<tbody>
 									<c:if test="${empty list}">
 			                            <tr>
-			                                <td class="first" colspan="5">등록된 글이 없습니다.</td>
+			                                <td class="first" colspan="7">등록된 글이 없습니다.</td>
 			                            </tr>						
 									</c:if>
 									<c:forEach var="vo" items="${list }">
@@ -90,8 +99,8 @@
 											<td class="first"><input type="checkbox" name="num" id="num" data-Num="${vo.no }"/></td>
 											<td>${vo.no }</td>
 											<td class="title"><a href="view.do?no=${vo.no }&reqPage=${adminSongVo.reqPage}&stype=${param.stype}&sval=${param.sval}&orderby=${param.orderby}&direct=${param.direct}">${vo.title }</a></td>
-											<td><a href="<%=request.getContextPath()%>/admin/album/view.do?no=${vo.album_no }&reqPage=1">${vo.albumName }</a></td>
-											<td><a href="<%=request.getContextPath()%>/admin/artist/view.do?no=${vo.artist_no }&reqPage=1">${vo.artistName }</a></td>
+											<td><a href="<c:if test="${!empty vo.artistName }"><%=request.getContextPath()%>/admin/album/view.do?no=${vo.album_no }&reqPage=1</c:if>" style="<c:if test="${empty vo.artistName }">color: red;</c:if>">${vo.albumName }<c:if test="${empty vo.albumName }">삭제된 앨범</c:if></a></td>
+											<td><a href="<c:if test="${!empty vo.artistName }"><%=request.getContextPath()%>/admin/artist/view.do?no=${vo.artist_no }&reqPage=1</c:if>" style="<c:if test="${empty vo.artistName }">color: red;</c:if>">${vo.artistName }<c:if test="${empty vo.artistName }">삭제된 아티스트</c:if></a></td>
 											<td><fmt:formatDate value="${vo.regdate }" pattern="yyyy-MM-dd hh:mm"/></td>
 											<td class="last">admin</td>
 										</tr>					
@@ -100,7 +109,7 @@
 							</table>
 							<div class="btn">
 								<div class="btnLeft">
-									<a class="btns" href="javascript:isDel();" data-Num="${adminSongVo.no }"><strong>삭제</strong> </a>
+									<a class="btns" href="javascript:isDel();"><strong>삭제</strong> </a>
 								</div>
 								<div class="btnRight">
 									<a class="wbtn" href="write.do"><strong>등록</strong> </a>

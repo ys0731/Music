@@ -80,7 +80,7 @@
 									<tr>
 										<th scope="row"><label for="">*앨범명</label></th>
 										<td colspan="10">
-											<input type="text" id="album" name="album" class="w100" title="앨범명을 입력해주세요" value="${vo.album }"/>	
+											<input type="text" id="album" name="album" class="w100" title="앨범명을 입력해주세요" value="${vo.album }" autocomplete="off"/>	
 										</td>
 									</tr>
 									<tr>
@@ -97,7 +97,7 @@
 									<tr>
 										<th scope="row"><label for="">*발매일</label></th>
 										<td colspan="10">
-											<input type="text" id="reldate" name="reldate" class="w100" title="발매일을 입력해주세요" value="${vo.reldate }" maxlength="8" onkeypress="return isNumberKey(event)" />	
+											<input type="text" id="reldate" name="reldate" class="w100" title="발매일을 입력해주세요" value="${vo.reldate }" maxlength="8" onkeypress="return isNumberKey(event)" autocomplete="off"/>	
 										</td>
 									</tr>
 									<tr>

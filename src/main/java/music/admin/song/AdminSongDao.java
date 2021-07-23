@@ -38,6 +38,10 @@ public class AdminSongDao {
 	public int delete(AdminSongVo vo) {
 		return sqlSession.delete("song.delete", vo);
 	}
+
+	public int deleteIncludedList(AdminSongVo vo) {
+		return sqlSession.delete("song.deleteIncludedList", vo);
+	}
 	
 	public AdminAlbumVo exist1(AdminAlbumVo vo) {
 		return sqlSession.selectOne("song.exist1", vo);

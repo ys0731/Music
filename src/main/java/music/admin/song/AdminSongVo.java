@@ -19,9 +19,13 @@ public class AdminSongVo extends CommonVo {
 	private String src_real;
 	
 	//---------------------------Alias
-	// from detail... (SELECT album FROM album WHERE album_no=album.no) AS albumName, (SELECT artist FROM artist WHERE artist_no=artist.no) AS artistName
+	// AdminSong.xml (SELECT album FROM album WHERE album_no=album.no) AS albumName, (SELECT artist FROM artist WHERE artist_no=artist.no) AS artistName
 	private String albumName;
 	private String artistName;
+	//---------------------------Alias
+	// player.xml (SELECT *, al.img_real AS album_img, ar.artist AS artist_name)
+	private String album_img;
+	private String artist_name;
 	//---------------------------
 	
 	public int getNo() {
@@ -95,5 +99,18 @@ public class AdminSongVo extends CommonVo {
 	}
 	public void setArtistName(String artistName) {
 		this.artistName = artistName;
+	}
+	//---------------------------
+	public String getAlbum_img() {
+		return album_img;
+	}
+	public void setAlbum_img(String album_img) {
+		this.album_img = album_img;
+	}
+	public String getArtist_name() {
+		return artist_name;
+	}
+	public void setArtist_name(String artist_name) {
+		this.artist_name = artist_name;
 	}
 }

@@ -80,19 +80,19 @@
 									<tr>
 										<th scope="row"><label for="">*아티스트명</label></th>
 										<td colspan="10">
-											<input type="text" id="artist" name="artist" class="w100" title="아티스트명을 입력해주세요" value="${vo.artist }"/>	
+											<input type="text" id="artist" name="artist" class="w100" title="아티스트명을 입력해주세요" value="${vo.artist }" autocomplete="off"/>	
 										</td>
 									</tr>
 									<tr>
 										<th scope="row"><label for="">*데뷔일</label></th>
 										<td colspan="10">
-											<input type="text" id="debdate" name="debdate" class="w100" title="데뷔일을 입력해주세요" value="${vo.debdate }" maxlength="8" onkeypress="return isNumberKey(event)" />	
+											<input type="text" id="debdate" name="debdate" class="w100" title="데뷔일을 입력해주세요" value="${vo.debdate }" maxlength="8" onkeypress="return isNumberKey(event)" autocomplete="off"/>	
 										</td>
 									</tr>
 									<tr>
 										<th scope="row"><label for="">*아티스트정보</label></th>
 										<td colspan="10">
-											<textarea id="info" name="info" title="내용을 입력해주세요" style="width:100%; resize:none;">${vo.info }</textarea>	
+											<textarea id="info" name="info" title="내용을 입력해주세요" style="width:100%; resize:none;" maxlength="316">${vo.info }</textarea>	
 										</td>
 									</tr>
 									<tr>

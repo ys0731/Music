@@ -19,9 +19,6 @@ public class AdminArtistVo extends CommonVo {
 	//-----------------------------------대조용
 	private int artist_no;
 	
-	//검색
-	private String searchword;
-	
 	public int getArtist_no() {
 		return artist_no;
 	}
@@ -76,13 +73,5 @@ public class AdminArtistVo extends CommonVo {
 	public void setRegdate(Timestamp regdate) {
 		this.regdate = regdate;
 	}
-	public String getSearchword() {
-		return searchword;
-	}
-	public void setSearchword(String searchword) {
-		this.searchword = searchword;
-	}
-	
-	
 	
 }

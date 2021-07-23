@@ -1,4 +1,4 @@
-package music.admin.song;
+package music.admin.recommend;
 
 import java.util.List;
 
@@ -7,12 +7,13 @@ import org.springframework.stereotype.Service;
 
 import music.admin.album.AdminAlbumVo;
 import music.admin.artist.AdminArtistVo;
+import music.admin.song.AdminSongVo;
 
 @Service
-public class AdminSongServiceImpl implements AdminSongService {
+public class AdminRecommendServiceImpl implements AdminRecommendService {
 	
 	@Autowired
-	AdminSongDao dao;
+	AdminRecommendDao dao;
 
 	@Override
 	public List<AdminSongVo> selectAll(AdminSongVo vo) {
@@ -37,41 +38,49 @@ public class AdminSongServiceImpl implements AdminSongService {
 		
 		return dao.selectAll(vo);
 	}
-
+	
 	@Override
-	public AdminSongVo detail(AdminSongVo vo) {
-		return dao.detail(vo);
+	public List<AdminRecommendVo> selectToday(AdminRecommendVo vo) {
+		return dao.selectToday(vo);
 	}
 
 	@Override
-	public int insert(AdminSongVo vo) {
-		return dao.insert(vo);
+	public List<AdminRecommendVo> selectTag(AdminRecommendVo vo) {
+		return dao.selectTag(vo);
+	}
+	
+	@Override
+	public AdminRecommendVo selectListOne(AdminRecommendVo vo) {
+		return dao.selectListOne(vo);
 	}
 
 	@Override
-	public AdminSongVo edit(AdminSongVo vo) {
-		return dao.detail(vo);
+	public int insertTop(AdminRecommendVo vo) {
+		return dao.insertTop(vo);
+	}
+	
+	@Override
+	public int insertBottom(AdminRecommendVo vo) {
+		return dao.insertBottom(vo);
 	}
 
 	@Override
-	public int update(AdminSongVo vo) {
+	public int reset() {
+		return dao.reset();
+	}
+
+	@Override
+	public int update(AdminRecommendVo vo) {
 		return dao.update(vo);
 	}
 	
 	@Override
-	public int delete(AdminSongVo vo) {
-		int deletedList = dao.deleteIncludedList(vo);
-		return dao.delete(vo);
+	public int delete(AdminRecommendVo vo) {
+		int del1 = dao.deleteRecommend(vo);
+		int del2 = dao.deleteRecommendList(vo);
+		
+		return del1;
 	}
 
-	@Override
-	public AdminAlbumVo exist1(AdminAlbumVo vo) {
-		return dao.exist1(vo);
-	}
-
-	@Override
-	public AdminArtistVo exist2(AdminArtistVo vo) {
-		return dao.exist2(vo);
-	}
 
 }

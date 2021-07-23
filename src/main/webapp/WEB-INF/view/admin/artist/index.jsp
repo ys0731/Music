@@ -4,6 +4,15 @@
 <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
 <%@ include file="/WEB-INF/view/admin/include/headHtml.jsp" %>
 <script>
+	$(function(){
+		var marginTop = $(".title").length;
+		if (marginTop == 0) {
+			$(".btn").css({"margin-top": "508px"});
+		} else if (marginTop < 10) {
+			$(".btn").css({"margin-top": 468-52*(marginTop-1)});
+		}
+	});
+
 	function toggle(source) {
 		checkboxes = document.getElementsByName('num');
 		for(var i=0, n=checkboxes.length;i<n;i++) {
