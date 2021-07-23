@@ -59,8 +59,8 @@
                 $(this).toggleClass("on");
             }); */
             
-		// player.html--------------------------------------------------------------------------------
-           	var windowOpen;
+    		// player.html--------------------------------------------------------------------------------
+               	var windowOpen;
         	
             $(".play_music").click(function(){
             	if ($(this).hasClass("on")) {
@@ -68,7 +68,7 @@
             	} else {
             		$(this).addClass("on");
 	            	$(this).parent().parent().siblings().children().children(".play_music").removeClass("on");
-	            	
+	            	<c:if test="${!empty expiryDate}">	
         			$.ajax({
         		        url: '<%=request.getContextPath()%>/player/playlog.do',
         		        type: 'post',
@@ -76,6 +76,7 @@
         		        	no: no	
         		        }
         	        });
+        			</c:if>	
             	}
 	    	});
         });
@@ -128,6 +129,16 @@
 		        	alert("선택된 곡이 없습니다.");
 		        }
 	        });
+	        
+	        $.ajax({
+	              url: '<%=request.getContextPath()%>/player/playlogs.do',
+	              type: 'post',
+	              traditional: true,
+	              data: {
+	                 chkArr: chkArr   
+	              }
+	           });  
+	        
     	}
     </script>
 
