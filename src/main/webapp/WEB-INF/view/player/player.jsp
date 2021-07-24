@@ -1,6 +1,11 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8"
     pageEncoding="UTF-8"%>
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
+<%
+	/* HttpSession sess= request.getSession();
+	sess.getAttribute("playlist"); */
+	/* session.getAttribute("playlist"); */
+%>
 <!DOCTYPE html>
 <html>
 
@@ -61,12 +66,14 @@
     <script>
 	  //All songs list
 	  let All_song = [
-	      {
-	          name: "${playlist.title}",
-	          path: "<%=request.getContextPath()%>/upload/${playlist.src_real}",
-	          img: "<%=request.getContextPath()%>/upload/${playlist.album_img}",
-	          singer: "${playlist.artist_name}"
-	      },
+		  	<c:forEach var="playlists" items="${playlist }">
+				{
+				    name: "${playlists.title}",
+				    path: "<%=request.getContextPath()%>/upload/${playlists.src_real}",
+				    img: "<%=request.getContextPath()%>/upload/${playlists.album_img}",
+				    singer: "${playlists.artist_name}"
+				},
+			</c:forEach>
 	  ];
     </script>
     <script src="<%=request.getContextPath()%>/js/player.js"></script>

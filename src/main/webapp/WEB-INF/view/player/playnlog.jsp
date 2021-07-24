@@ -13,6 +13,14 @@ $(function(){
         	$(this).parent().parent().siblings().children().children(".play_music").removeClass("on");
         	<c:if test="${!empty expiryDate}">	
 			$.ajax({
+		    	url: '<%=request.getContextPath()%>/player/play.do',
+				type: 'post',
+				data: {
+					no: no	
+				}
+			});
+			
+			$.ajax({
 		        url: '<%=request.getContextPath()%>/player/playlog.do',
 		        type: 'post',
 		        data: {
@@ -26,14 +34,44 @@ $(function(){
 			</c:if>
     	}
 	});
+	
+	$(".add_list").click(function(){
+		if ($(this).hasClass("on")) {
+			$(this).removeClass("on");
+		} else {
+			$(this).addClass("on");
+			<c:if test="${!empty expiryDate}">	
+	       	$.ajax({
+            	url: '<%=request.getContextPath()%>/player/plusplay.do',
+        		type: 'post',
+        		traditional: true,
+        		data: {
+        			no: no	
+        		}
+        	});
+			
+			$.ajax({
+		        url: '<%=request.getContextPath()%>/player/playlog.do',
+		        type: 'post',
+		        data: {
+		        	no: no	
+		        }
+	        });
+			</c:if>	
+			<c:if test="${empty expiryDate}">
+				alert('보유중인 이용권이 없습니다.');
+				$(this).removeClass("on");
+			</c:if>
+		}
+	});
 });
         
 function player(no) {
     $(".play_music").click(function(){
     	if ($(this).hasClass("on")) {
     		<c:if test="${!empty expiryDate}">		
-				windowOpen = window.open('<%=request.getContextPath()%>/player/play.do?no='+no,'pagename',
-            	'resizable=0,scrollbars=no,toolbars=no, menubar=no,height=660,width=400');
+    		windowOpen = window.open('<%=request.getContextPath()%>/player/sendplaylist.do','pagename',
+     		'resizable=0,scrollbars=no,toolbars=no, menubar=no,height=660,width=400');
 			</c:if>
     	} else {
         	windowOpen.close();
@@ -80,5 +118,20 @@ function checkplayer() {
         	chkArr: chkArr	
         }
     });
+}
+
+function plusplayer(no) {
+    $(".add_list").click(function(){
+    	if ($(this).hasClass("on")) {
+    		<c:if test="${!empty expiryDate}">		
+    		windowOpen = window.open('<%=request.getContextPath()%>/player/sendplaylist.do','pagename',
+     		'resizable=0,scrollbars=no,toolbars=no, menubar=no,height=660,width=400');
+			</c:if>
+		} else {
+			return;
+		}
+        
+    });
+
 }
 </script>

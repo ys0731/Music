@@ -101,10 +101,6 @@
             $(".like_btn").click(function(){
                 $(this).toggleClass("on");
             });
-            //add list img toggle
-            $(".add_list").click(function(){
-                $(this).toggleClass("on");
-            });
         });
     </script> 
     
@@ -242,7 +238,7 @@
 	                      		<a class="play_music button_icons play" href="#" onclick="javascript:player(no=${vo.no });" data-no="${vo.no }"></a>
 	                   		</td>
 	                  		<td>
-	                       		<a class="add_list button_icons" href="#"></a>
+	                       		<a class="add_list button_icons" href="#" onclick="javascript:plusplayer(no=${vo.no });"></a>
 	                   		</td>
 	                	</tr>
 	                    </c:forEach>                  

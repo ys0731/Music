@@ -50,10 +50,6 @@
             $(".like_btn").click(function(){
                 $(this).toggleClass("on");
             });
-            //add list img toggle
-            $(".add_list").click(function(){
-                $(this).toggleClass("on");
-            });
         });
     </script>
 
@@ -166,7 +162,7 @@
 	                        <a class="play_music button_icons player" onclick="javascript:player(no=${vo.songList_no });"></a>
 	                    </td>
                   		<td>
-                       		<a class="add_list button_icons" href="#"></a>
+                       		<a class="add_list button_icons" href="#" onclick="javascript:plusplayer(no=${vo.songList_no });"></a>
                   		</td>
                 	</tr>
                     </c:forEach>
