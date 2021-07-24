@@ -78,11 +78,14 @@ public class MusicPlayerController {
 		AdminSongVo asv = new AdminSongVo();
 		List<AdminSongVo> lili = new ArrayList<AdminSongVo>();
 		
-		List<AdminSongVo> li = (List<AdminSongVo>)sess.getAttribute("playlist");
-		
-		for (AdminSongVo i : li) {
-			lili.add(service.detail(i));
+		if (sess.getAttribute("playlist") != null) {
+			List<AdminSongVo> li = (List<AdminSongVo>)sess.getAttribute("playlist");
+			
+			for (AdminSongVo i : li) {
+				lili.add(service.detail(i));
+			}			
 		}
+		
 		asv.setNo(Integer.parseInt(list));
 		lili.add(service.detail(asv));
 		
