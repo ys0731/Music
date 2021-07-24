@@ -192,7 +192,7 @@
 	                        <a class="like_btn like <c:if test="${vo.mlike_cnt==1 }">on</c:if>" href="#" data-no="${vo.no }"></a>
 	                    </td>
 	                    <td>
-	                         <a class="play_music button_icons play" onclick="javascript:player(no=${vo.song_no });" data-no="${vo.no }"></a>
+	                         <a class="play_music button_icons play" href="#" onclick="javascript:player(no=${vo.no });" data-no="${vo.no }"></a>
 	                    </td>
                   		<td>
                        		<a class="add_list button_icons" href="#"></a>
