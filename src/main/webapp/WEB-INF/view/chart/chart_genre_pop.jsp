@@ -18,10 +18,10 @@
 	    function popup(no) {
 	        window.open("/music/chart/lyrics.do?no="+no, "popup", "width=400, height=600");
 	    }
-	  //재생팝업
+	  /* //재생팝업
 	    function ppopup(no) {
 	        window.open("/music/player/play.do?no="+no, "popup", "width=400, height=600");
-	    }
+	    } */
 
         $(document).ready(function(){
 
@@ -57,11 +57,11 @@
             	});
             });//함수 끝
             
-          / //재생
+          /* / //재생
           $(".play").click(function() {
           	var no = $(this).data('no');
           	ppopup(no);
-          });//함수 끝
+          });//함수 끝 */
             
             // preventDefault
             $(".chart_box ul li a, .lyrics_popup, .like_btn, .play_music, .add_list ").click(function(e){
