@@ -63,6 +63,29 @@
         });
 	}
 	
+	function isEd() {
+		var chkArr = new Array();
+		
+		$('input:checkbox[name="num1"]:checked').each(function(){
+			chkArr.push($(this).attr("data-Num"));
+		});
+		$('input:checkbox[name="num2"]:checked').each(function(){
+			chkArr.push($(this).attr("data-Num"));
+		});
+		
+		if (chkArr.length > 1) {
+			alert('하나의 리스트만 선택해주세요.');
+			return;
+		} else if (chkArr.length == 0) {
+			alert('수정할 리스트를 선택해주세요.');
+			return;
+		}
+		
+		var checked = chkArr[0];
+		
+		location.href='edit.do?no='+checked;
+	}
+	
 	function isDel() {
 		if (confirm("삭제하시겠습니까?")) {
 			var chkArr = new Array();
@@ -125,6 +148,7 @@
 	</div>
 	<div style="margin-top: 620px; margin-right: 6px;">
 		<a class="btns" style="float: right;" href="javascript:isDel();"><strong>삭제</strong></a>
+		<a class="btns" style="float: right;" href="javascript:isEd();"><strong>수정</strong></a>
 		<a class="btns" style="float: right;" href="javascript:checklist();"><strong>추가</strong></a>
 	</div>
 </div>

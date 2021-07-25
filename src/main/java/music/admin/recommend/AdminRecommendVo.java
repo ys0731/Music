@@ -74,4 +74,5 @@ public class AdminRecommendVo {
 	public void setNos(int[] nos) {
 		this.nos = nos;
 	}
+	
 }

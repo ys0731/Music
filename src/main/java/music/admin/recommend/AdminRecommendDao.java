@@ -29,6 +29,10 @@ public class AdminRecommendDao {
 	public AdminRecommendVo selectListOne (AdminRecommendVo vo) {
 		return sqlSession.selectOne("recommend.selectListOne", vo);
 	}
+	
+	public List<AdminRecommendVo> selectSongList (AdminRecommendVo vo) {
+		return sqlSession.selectList("recommend.selectSongList", vo);
+	}
 
 	public int count(AdminSongVo vo) {
 		return sqlSession.selectOne("recommend.count", vo);
@@ -49,7 +53,15 @@ public class AdminRecommendDao {
 	public int update(AdminRecommendVo vo) {
 		return sqlSession.update("recommend.update", vo);
 	}
+
+	public int updateList(AdminRecommendVo vo) {
+		return sqlSession.update("recommend.updateList", vo);
+	}
 	
+	public int updateDeleteList(AdminRecommendVo vo) {
+		return sqlSession.delete("recommend.updateDeleteList", vo);
+	}
+
 	public int deleteRecommend(AdminRecommendVo vo) {
 		return sqlSession.delete("recommend.deleteRecommend", vo);
 	}

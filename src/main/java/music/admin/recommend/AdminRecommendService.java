@@ -14,6 +14,8 @@ public interface AdminRecommendService {
 
 	AdminRecommendVo selectListOne(AdminRecommendVo vo);
 	
+	List<AdminRecommendVo> selectSongList(AdminRecommendVo vo);
+
 	int insertTop(AdminRecommendVo vo);
 	
 	int insertBottom(AdminRecommendVo vo);
@@ -21,6 +23,10 @@ public interface AdminRecommendService {
 	int reset();
 
 	int update(AdminRecommendVo vo);
+
+	int updateList(AdminRecommendVo vo);
+
+	int updateDeleteList(AdminRecommendVo vo);
 
 	int delete(AdminRecommendVo vo);
 
