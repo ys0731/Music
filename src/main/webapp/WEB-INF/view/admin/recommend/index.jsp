@@ -126,7 +126,6 @@
 										</div>
 										<div style="margin-top: 20px;">
 											<a class="btns" style="float: right;" href="removetwolist.do"><strong>초기화</strong></a>
-											<a class="btns" style="float: right;" href=""><strong>제거</strong></a>
 											<a class="btns" style="float: right; cursor: pointer;" onclick="updateList();"><strong>등록</strong></a>
 										</div>
 									</form>

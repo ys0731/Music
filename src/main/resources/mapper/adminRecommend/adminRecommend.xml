@@ -53,6 +53,14 @@
 		FROM recommend
 		WHERE no = #{no}
 	</select>
+
+	<select id="selectSongList" resultType="music.admin.recommend.AdminRecommendVo" parameterType="music.admin.recommend.AdminRecommendVo">
+		SELECT *
+		FROM recommend_list
+		INNER JOIN song
+		ON recommend_list.song_no = song.no
+		WHERE package_id = #{no}
+	</select>
 	
 	<select id="count" resultType="int" parameterType="music.admin.song.AdminSongVo">
 		SELECT COUNT(*)
@@ -60,7 +68,7 @@
 		<include refid="adminWhere"/>
 	</select>
 	
-	<!-- recommend.no = recommend.package_id -->
+	<!-- insert top -->
 	<insert id="insertTop" parameterType="music.admin.recommend.AdminRecommendVo">
 		INSERT INTO recommend (group_id, img, title, sub_title)
 		VALUES (#{group_id}, #{img}, #{title}, #{sub_title})
@@ -69,6 +77,8 @@
 		</selectKey>
 	</insert>
 
+	<!-- insert bottom -->
+	<!-- edit update bottom 2-->
 	<insert id="insertBottom" parameterType="music.admin.recommend.AdminRecommendVo">
 		INSERT INTO recommend_list (package_id, song_no)
 		VALUES (#{package_id}, #{song_no})
@@ -85,6 +95,28 @@
 		SET order_id = #{order_id}
 		WHERE no = #{no}
 	</update>
+	
+	<!-- edit update top -->
+	<update id="updateList" parameterType="music.admin.recommend.AdminRecommendVo">
+		UPDATE recommend
+		<set>
+			group_id = #{group_id},
+			<if test="img != null">
+				img = #{img},
+			</if>
+			title = #{title},
+			sub_title = #{sub_title}
+		</set>
+		WHERE no = #{no}
+	</update>
+
+	<!-- edit update bottom 1-->
+	<!-- SET SQL_SAFE_UPDATES = 0; 설정 반드시 필요! -->
+	<delete id="updateDeleteList" parameterType="music.admin.recommend.AdminRecommendVo">
+		DELETE
+		FROM recommend_list
+		WHERE package_id = #{package_id}
+	</delete>
 	
 	<delete id="deleteRecommend" parameterType="music.admin.recommend.AdminRecommendVo">
 		DELETE

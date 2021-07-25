@@ -130,6 +130,20 @@
         .add_list:hover {background-position: -165px 192px;}
         .add_list:active {background-position: -165px 220px;}
         .add_list.on {background-position: -165px 220px;}
+        
+         /* 페이징처리 */
+		.pagenate {width:100%; clear:both;}
+		.pagenate {text-align:center; margin:10px auto 0;}
+		.pagenate li {display:inline-block;}
+		.pagenate li:first-child { margin-left:0px; }
+		.pagenate li a{display:inline-block; text-decoration:none; padding:0; width:30px; height:30px; line-height:30px; border:1px solid #c7c8cc; box-sizing:border-box; margin-left:-1px; vertical-align:middle;}
+		.pagenate li a:hover{background:#f6f6f6; font-weight:bold; text-decoration:none !important;}
+		.pagenate li a.board { text-indent:-9999em; margin-left:4px; }
+		.pagenate li a.board.first {background:#f3f3f3  no-repeat center center;}
+		.pagenate li a.board.prev {margin-right:30px; background:#efefef  no-repeat center center;}
+		.pagenate li a.board.next {margin-left:30px; background:#efefef  no-repeat center center;}
+		.pagenate li a.board.last {background:#f3f3f3  no-repeat center center;}
+		.pagenate li a.current {color:#fff; background-color:#221f1f; font-weight:bold;  border:1px solid #221f1f;}
     </style>
 
 </head>
@@ -147,17 +161,17 @@
                                 <p>
                                     <span>${userInfo.nickname }</span><span>님</span>
                                 </p>
-                                <a href="/music/user/mymusic_update.do">회원정보 변경</a>
+                                <a href="/music/mymusic/mymusic_update.do">회원정보 변경</a>
                             </div>
                         </div>
                         <div class="my_info clear">
-                            <a href="/music/user/myusic_myinfo.do">내 정보</a>
+                            <a href="/music/mymusic/myusic_myinfo.do">내 정보</a>
                             <a href="/music/pay/view.do">이용권 내역</a>
                         </div>
                         <ul class="my_music">
                             <li>마이뮤직</li>
-                            <li><a href="/music/user/mymusic.do"><span>-</span><span>최근감상곡</span></a></li>
-                            <li><a href="/music/user/mymusic_like.do"><span>-</span><span>좋아요</span></a></li>
+                            <li><a href="/music/mymusic/mymusic.do"><span>-</span><span>최근감상곡</span></a></li>
+                            <li><a href="/music/mymusic/mymusic_like.do"><span>-</span><span>좋아요</span></a></li>
                         </ul>
                     </div>
                     <div class="my_box_bottom">
@@ -165,7 +179,7 @@
                             <li>댓글</li>
                             <li><a href="mymusic_comment.html"><span>-</span><span>내가 쓴 댓글</span></a></li>
                         </ul>
-                        <a class="sign_out" href="/music/user/mymusic_withdrawal.do">회원탈퇴</a>
+                        <a class="sign_out" href="/music/mymusic/mymusic_withdrawal.do">회원탈퇴</a>
                     </div>
                 </div>
             </div>
@@ -173,20 +187,24 @@
                 <h2>최근감상곡</h2>
                 <form class="chart_box" action="" method="post">
                     <ul class="clear">
-                        <li><input id="check_all" type="checkbox"></li>
-                        <li><a href="#">삭제</a></li>
+                        <li><input id="check_all" type="checkbox"></li>                       
                     </ul>
                     <table>
                         <tr>
                             <td></td>
-                            <td>순위</td>
+                            <td>No</td>
                             <td>곡</td>
                             <td>아티스트</td>
                             <td>앨범</td>
                             <td>듣기</td>
                             <td>추가</td>
                         </tr>
-                        <c:forEach var="vo" items="${list }" end="6" varStatus="status">
+                        <c:if test="${empty list }">
+                            <tr>
+                                <td class="first" colspan="7">등록된 곡이 없습니다.</td>
+                            </tr>
+                        </c:if>
+                        <c:forEach var="vo" items="${list }" varStatus="status">
                         <tr>
                    			<td><input name="check_list" type="checkbox"></td>
                   			<td>
@@ -202,15 +220,28 @@
 			                    <p class="list_album"><a href="#">${vo.album }</a></p>
 			                </td>
 			                <td>
-			                    <a class="play_music button_icons" href="#"></a>
+			                    <a class="play_music button_icons" href="#" onclick="javascript:player(no=${vo.no });"></a>
 			                </td>
 			                <td>
-			                    <a class="add_list button_icons" href="#"></a>
+			                    <a class="add_list button_icons" href="#" onclick="javascript:plusplayer(no=${vo.no });"></a>
 			                </td>
 			            </tr>
                         </c:forEach>
                     </table>
                 </form>
+                <div class="pagenate clear">
+                        <ul class='paging'>
+                        <c:if test="${chartVo.startPage > chartVo.pageRange}">
+                        	<li><a href="/music/mymusic/mymusic.do?reqPage=${chartVo.startPage-1 }"><</a></li>
+                        </c:if>
+                        <c:forEach var="rp" begin="${chartVo.startPage}" end="${chartVo.endPage }">
+                            <li><a href='/music/mymusic/mymusic.do?reqPage=${rp}' <c:if test="${rp==chartVo.reqPage }">class='current'</c:if>>${rp }</a></li>
+                        </c:forEach>
+                        <c:if test="${chartVo.totPage > chartVo.endPage}">
+                        	<li><a href="/music/mymusic/mymusic.do?reqPage=${chartVo.endPage+1 }">></a></li>
+                        </c:if>
+                        </ul> 
+                    </div>
             </div>
         </div>
     </div>

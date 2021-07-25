@@ -17,7 +17,7 @@
         $(document).ready(function(){
             $(".agreed").click(function(event){
                 event.preventDefault();
-                location.href = "/music/user/mymusic_delete.do";
+                location.href = "/music/mymusic/mymusic_delete.do";
                 alert("회원탈퇴가 완료되었습니다.");
                 window.location.href = "/music/index.do";
             });
@@ -72,12 +72,12 @@
 </head>
 
 <body>
-    <h1 class="logo"><a href="index.html"></a></h1>
+    <h1 class="logo"><a href="#"></a></h1>
     <h2>회원 탈퇴</h2>
     <div class="rusure">
         <p>회원 탈퇴 후 회원정보 및 개인 이용기록은 모두 삭제되며 삭제된 데이터는 복구할 수 없습니다.</p>
         <p>회원 탈퇴를 계속 진행하시겠습니까?</p>
-        <form class="clear" action="/user/mymusic_delete.do" method="POST">
+        <form class="clear" action="/mymusic/mymusic_delete.do" method="POST">
             <button class="agreed">회원탈퇴</button>
             <button class="cancel">취소</button>
         </form>

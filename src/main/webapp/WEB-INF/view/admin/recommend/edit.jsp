@@ -6,7 +6,7 @@
 <script>
 	$(function(){
 		// list.jsp
-		getList(1,'','','','');
+		getList(1,'','','','',${param.no });
 		
 		// session validate
 		/* if(sessionStorage.getItem("songlist") != 'null') {
@@ -50,9 +50,9 @@
 		}
 	});
 	
-	function getList(reqPage, stype, sval, orderby, direct) {
+	function getList(reqPage, stype, sval, orderby, direct, no) {
 		$.ajax({
-			url: '<%=request.getContextPath()%>/admin/recommend/list.do',
+			url: '<%=request.getContextPath()%>/admin/recommend/list2.do?no='+no,
 			data: {
 				reqPage: reqPage,
 				stype: stype,
@@ -86,9 +86,6 @@
 		if ($("#sortable > div").length < 1) {
 			alert('리스트를 구성할 노래를 입력해주세요.');
 			return;
-		} else if ($("#file").val() == '') {
-			alert('대표이미지를 입력해주세요.');
-			return;
 		} else if ($("#title").val() == '') {
 			alert('제목/태그를 입력해주세요.');
 			return;
@@ -114,7 +111,7 @@
 		<div id="container">
 			<div id="content">
 				<div class="con_tit">
-					<h2>추천음악 - [쓰기]</h2>
+					<h2>추천음악 - [상세/수정]</h2>
 				</div>
 				<!-- //con_tit -->
 				<div class="con">
@@ -124,7 +121,8 @@
 					</div>
 					<!-- //bbs -->
 					<div style="width: 50%; float: left; padding: 29px; box-sizing: border-box;">
-						<form method="post" name="frm" id="frm" action="insert.do" enctype="multipart/form-data">
+						<form method="post" name="frm" id="frm" action="updatelist.do" enctype="multipart/form-data">
+						<input type="hidden" name="no" value="${param.no }">
 							<div style="width: 100%; height: 690px;">
 								<table width="100%" border="0" cellspacing="0" cellpadding="0" style="border-top: #4a4b4f 2px solid;">
 									<colgroup>
@@ -141,27 +139,27 @@
 										<tr style="font-size: 11px; border-bottom: 1px solid #cccdd0;">
 											<th rowspan="2" style="height: 200px; border-right: 1px solid #cccdd0;">
 												<div style="width: 150px; margin-left: 20px; border: 5px double #ccc; cursor: pointer;" onclick="document.getElementById('file').click();">
-													<img id="preview" style="width: 150px; height: 150px;" >
+													<img id="preview" src="<%=request.getContextPath() %>/upload/${top.img }" style="width: 150px; height: 150px;">
 												</div>
 												<input type="file" id="file" name="file" style="display: none" title="이미지를 업로드 해주세요." onchange="readURL(this);" accept="image/gif,image/jpeg,image/png" disabled="disabled">
 											</th>
 											<th style="height: 50px; border-bottom: 1px solid #cccdd0;">
 												<select id="group_id" name="group_id" style="width: 7%; height: 20px;" disabled="disabled">
-													<option value="1" selected="selected">제목</option>
-													<option value="2">태그</option>
+													<option value="1" <c:if test="${top.group_id == 1 }">selected="selected"</c:if>>제목</option>
+													<option value="2" <c:if test="${top.group_id == 2 }">selected="selected"</c:if>>태그</option>
 												</select>
-												<input type="text" id="title" name="title" class="w100" title="[제목 / #태그]를 입력해주세요" style="width: 87.333333%;" placeholder="[제목 / #태그]를 입력해주세요" maxlength="14" autocomplete="off" disabled="disabled"/>
+												<input type="text" id="title" name="title" class="w100" title="[제목 / #태그]를 입력해주세요" style="width: 87.333333%;" placeholder="[제목 / #태그]를 입력해주세요" maxlength="14" autocomplete="off" disabled="disabled" value="${top.title }"/>
 											</th>
 										</tr>
 										<tr style="font-size: 11px; border-bottom: 1px solid #cccdd0;">
 											<th style="height: 150px; border-bottom: 1px solid #cccdd0;">
-												<textarea id="sub_title" name="sub_title" title="부제목을 입력해주세요" style="width:95%; height:120px; resize:none; padding: 5px;" placeholder="부제목을 입력해주세요" maxlength="11" disabled="disabled"></textarea>
+												<textarea id="sub_title" name="sub_title" title="부제목을 입력해주세요" style="width:95%; height:120px; resize:none; padding: 5px;" placeholder="부제목을 입력해주세요" maxlength="11" disabled="disabled">${top.sub_title }</textarea>
 											</th>
 										</tr>
 									</tbody>
 								</table>
 								<div id="sortable" style="width: 100%; height: 350px; margin-top: 50px; border: 1px solid #cccdd0; overflow: auto;">
-									<c:forEach var="vo" items="${songlist }" varStatus="status">
+									<c:forEach var="vo" items="${bottom }" varStatus="status">
 										<div style="line-height: 33px; padding: 0px 10px; border: 1px solid #eee; background-color: #fff; cursor: pointer;">
 											<input type="checkbox" name="songListCheck">
 										    <span>${status.count }</span>
@@ -171,9 +169,9 @@
 									</c:forEach>
 								</div>
 								<div style="content: ''; display: block; clear: both;">
-									<a class="btns" onclick="javascript:removeList();" href="#" style="float: right; display: block; margin-top: 15px; width: 60px; line-height: 25px; text-align: center;"><strong>선택제거</strong> </a>
-									<a class="btns" href="removelist.do" style="float: right; display: block; margin-top: 15px; margin-right: 10px; width: 60px; line-height: 25px; text-align: center;"><strong>초기화</strong> </a>
+									<a class="btns" onclick="removeList();" href="#" style="float: right; display: block; margin-top: 15px; width: 60px; line-height: 25px; text-align: center;"><strong>선택제거</strong> </a>
 									<a class="btns" onclick="goSave();" style="float: right; display: block; margin-top: 15px; margin-right: 10px; width: 60px; line-height: 25px; text-align: center; cursor: pointer;"><strong>등록</strong> </a>
+									<a class="btns" href="index.do" style="float: right; display: block; margin-top: 15px; margin-right: 10px; width: 60px; line-height: 25px; text-align: center; cursor: pointer;"><strong>뒤로</strong> </a>
 								</div>
 							</div>
 						</form>

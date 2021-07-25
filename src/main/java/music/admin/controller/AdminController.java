@@ -22,8 +22,6 @@ import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.ResponseBody;
 import org.springframework.web.multipart.MultipartFile;
 
-import com.mysql.cj.Session;
-
 import music.admin.album.AdminAlbumService;
 import music.admin.album.AdminAlbumVo;
 import music.admin.artist.AdminArtistService;
@@ -69,7 +67,8 @@ public class AdminController {
 	}
 
 	@RequestMapping("/admin/recommend/index.do")
-	public String recommendIndex(Model model, AdminRecommendVo vo) {
+	public String recommendIndex(HttpSession sess) {
+		sess.removeAttribute("bottom");
 		return "admin/recommend/index";
 	}
 	
@@ -109,6 +108,12 @@ public class AdminController {
 	public String recommendSongList(Model model, AdminSongVo vo) {
 		model.addAttribute("list", recommendService.selectAll(vo));
 		return "admin/recommend/list";
+	}
+
+	@RequestMapping("/admin/recommend/list2.do")
+	public String recommendSongList2(Model model, AdminSongVo vo) {
+		model.addAttribute("list", recommendService.selectAll(vo));
+		return "admin/recommend/list2";
 	}
 	
 	@RequestMapping("/admin/recommend/todayntaglist.do")
@@ -183,7 +188,7 @@ public class AdminController {
 	public String recommendSongWrite() {
 		return "admin/recommend/write";
 	}
-	
+
 	@PostMapping("/admin/recommend/write.do")
 	@ResponseBody
 	public void recommendSongIndexSend(HttpServletRequest req, HttpSession sess) {
@@ -423,6 +428,44 @@ public class AdminController {
 		} 
 	}
 	
+	@GetMapping("/admin/recommend/edit.do")
+	public String recommendSongEdit(Model model, AdminRecommendVo vo, HttpSession sess) {
+		model.addAttribute("top", recommendService.selectListOne(vo));		
+		
+		if (sess.getAttribute("bottom") == null) {
+			List<AdminRecommendVo> list = recommendService.selectSongList(vo);
+			List<AdminSongVo> li = new ArrayList<AdminSongVo>();
+			
+			for (AdminRecommendVo i : list) {
+				AdminSongVo asv = new AdminSongVo();
+				asv.setNo(i.getSong_no());
+				li.add(songService.detail(asv));
+			}
+			sess.setAttribute("bottom", li);			
+		}
+		
+		return "admin/recommend/edit";
+	}
+	
+	@PostMapping("/admin/recommend/editplus.do")
+	@ResponseBody
+	public void recommendSongIndexSend2(HttpServletRequest req, HttpSession sess) {
+		String[] list = req.getParameterValues("chkArr");
+		List<AdminSongVo> li = (List<AdminSongVo>)sess.getAttribute("bottom");
+		
+		for (String i : list) {
+			AdminSongVo asv = new AdminSongVo();
+			asv.setNo(Integer.parseInt(i));
+			li.add(songService.detail(asv));
+		}
+		
+		for (AdminSongVo i : li) {
+			System.out.println(i.getNo());
+		}
+		
+		sess.setAttribute("bottom", li);
+	}
+	
 	//-----------------------------------------------------------update.do
 	
 	@RequestMapping("/admin/album/update.do")
@@ -538,8 +581,8 @@ public class AdminController {
 			r += recommendService.update(arv);
 			update++;
 		}
-		System.out.println(reset);
-		System.out.println(r);
+		// System.out.println(reset);
+		// System.out.println(r);
 		
 		res.setContentType("text/html;charset=utf-8");
 		PrintWriter out = res.getWriter();
@@ -548,6 +591,67 @@ public class AdminController {
 		} else {
 			out.print("false");
 		}
+	}
+	
+	@RequestMapping("/admin/recommend/updatelist.do")
+	public String recommendUpdateList(Model model,
+			@RequestParam int no,
+			@RequestParam int group_id,
+			@RequestParam MultipartFile file,
+			@RequestParam String title,
+			@RequestParam String sub_title,
+			@RequestParam int[] song_no,
+			HttpServletRequest req,
+			HttpSession sess) {
+		
+		int r1 = 0;
+		int r2 = 0;
+		int r3 = 0;
+		
+		AdminRecommendVo arv = new AdminRecommendVo();
+		arv.setNo(no);
+		
+		if (!file.isEmpty()) {		
+			try {
+				
+				String org = file.getOriginalFilename();
+				String path = req.getRealPath("/upload/"); // 경로
+				file.transferTo(new File(path+org)); // 경로 + 파일명 저장
+				arv.setImg(org);
+				
+			} catch (Exception e) {
+				System.out.println(e.getMessage());
+			}
+		}
+		
+		arv.setGroup_id(group_id);
+		arv.setTitle(title);
+		arv.setSub_title(sub_title);
+		
+		// top update
+		r1 = recommendService.updateList(arv);
+		
+		// 기존 곡 목록 삭제 후
+		arv.setPackage_id(arv.getNo());
+		r2 = recommendService.updateDeleteList(arv);
+		
+		// 같은 패키지번호로 곡 새로 추가(곡 수가 달라지기 때문에 update로 불가능)
+		for (int i=0; i<song_no.length; i++) {
+			arv.setSong_no(song_no[i]);
+			
+			r3 += recommendService.insertBottom(arv);
+		}
+
+		if (r1 > 0 && r2 > 0 && r3 > 0) {
+			sess.removeAttribute("bottom");
+			model.addAttribute("msg", "정상적으로 등록되었습니다.");
+			model.addAttribute("url", "index.do");
+		} else {
+			sess.removeAttribute("bottom");
+			model.addAttribute("msg", "등록을 실패하였습니다.");
+			model.addAttribute("url", "edit.do?no="+no);
+		}
+		return "include/alert";
 	}
 	
 	//-----------------------------------------------------------delete.do

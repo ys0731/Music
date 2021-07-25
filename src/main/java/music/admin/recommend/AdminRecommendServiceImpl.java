@@ -53,6 +53,11 @@ public class AdminRecommendServiceImpl implements AdminRecommendService {
 	public AdminRecommendVo selectListOne(AdminRecommendVo vo) {
 		return dao.selectListOne(vo);
 	}
+	
+	@Override
+	public List<AdminRecommendVo> selectSongList(AdminRecommendVo vo) {
+		return dao.selectSongList(vo);
+	}
 
 	@Override
 	public int insertTop(AdminRecommendVo vo) {
@@ -73,6 +78,16 @@ public class AdminRecommendServiceImpl implements AdminRecommendService {
 	public int update(AdminRecommendVo vo) {
 		return dao.update(vo);
 	}
+
+	@Override
+	public int updateList(AdminRecommendVo vo) {
+		return dao.updateList(vo);
+	}
+	
+	@Override
+	public int updateDeleteList(AdminRecommendVo vo) {
+		return dao.updateDeleteList(vo);
+	}
 	
 	@Override
 	public int delete(AdminRecommendVo vo) {
@@ -81,6 +96,5 @@ public class AdminRecommendServiceImpl implements AdminRecommendService {
 		
 		return del1;
 	}
-
 
 }

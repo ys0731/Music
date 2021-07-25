@@ -62,6 +62,7 @@
             $("#nat_no").change(function() {
                 $("#nat_no_input").val($("#nat_no").val());
             });
+            
         });
     </script>   
 </head>
@@ -98,7 +99,7 @@
     <div id="container">
         <div class="center">
             <h2>회원정보변경</h2>
-            <form class="chart_box" action="/music/user/mymusic_edit.do" method="post">
+            <form class="chart_box" action="/music/mymusic/mymusic_edit.do" method="post">
                 <table>
                     <tr>
                         <td><label for="id">아이디</label></td>
@@ -145,13 +146,12 @@
                                 <option value="1">미국(+1)</option>
                             </select>
                             <input type="text" style="width: 35px;" id="nat_no_input" value="82">
-                            <input type="text" placeholder="'-'없이 숫자만 입력" id="tel" name="tel">
-                            <input type="button" class="tel_btn" value="인증"><br><br>
+                            <input type="text" placeholder="'-'없이 숫자만 입력" id="tel" name="tel">                            
                         </td>
                     </tr>
                 </table>
                 <input type="submit" class="update_form_btn" value="완료">
-                <input type="button" class="cancel_form_btn" value="취소">
+                <input type="button" class="cancel_form_btn" value="취소" onclick="history.back()">
             </form>
         </div>
     </div>
