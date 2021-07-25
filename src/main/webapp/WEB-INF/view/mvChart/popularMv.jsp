@@ -115,7 +115,7 @@
         <ul>
         <c:forEach var="vo" items="${list }"  varStatus="status" end="10">
         	<li class="videos">
-              <a href="${vo.link }" class="video">
+              <a href="#" value="${vo.no}" value2="${vo.link}" class="video" onclick="test(this);">
                   <span></span>
                   <img src="${vo.img}" alt="" width="360px" height="240px"/>
               </a>
@@ -129,6 +129,26 @@
       style:'carousel',
       spacing:-0.3,
   });
+  function test(obj){
+	  let mno = $(obj).attr('value');
+	  let link = $(obj).attr('value2');
+	  console.log(mno);
+	  console.log(link);
+	  $.ajax({
+			url:'/musicproject/mvChart/clickMv.do',
+			method: 'post',
+			data:{
+				no:mno
+			},
+			success:function(res) {
+				console.log("success")
+				window.open(link)
+			},
+		    error : function(request, status, error) { // 결과 에러 콜백함수
+		        console.log("error")
+		    }
+		});
+	}
 </script>
 
             <form class="chart_box" action="" method="post">
@@ -140,13 +160,13 @@
                         <td>아티스트</td>
                         <td>앨범</td>
                     </tr>
-                    <c:forEach var="vo" items="${list }"  varStatus="status">
+                    <c:forEach var="vo" items="${list}"  varStatus="status">
                     <tr>
                   		<td>
                       		<p>${status.count }</p>
                    		</td>
-                   		<td class="clear">
-		                     <a href="${vo.link }" class="video"> <img class="album_mini" src="${vo.img}" alt="album_img"></a>
+                   		<td class="clear"> <!--!${vo.link } -->
+		                     <a href="#" value="${vo.no}" value2="${vo.link}" class="video" id="recent" onclick="test(this);"> <img class="album_mini" src="${vo.img}" alt="album_img"></a>
                    		</td>
                    		<td>
 		                     <p class="list_title">${vo.title }</p>

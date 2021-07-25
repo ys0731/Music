@@ -5,6 +5,7 @@
 	  
 	<select id="popularMv" parameterType="music.mvChart.MvChartVo" resultType="music.mvChart.MvChartVo">
 		SELECT 
+			mv_no AS no,
 			img,
     		link,
 			(SELECT title FROM song WHERE no=a.song_no) AS title,
@@ -14,7 +15,7 @@
 		FROM (
 			SELECT
 				mp.mv_no, m.song_no, sum(1) AS cnt, img, link
-			FROM mv_play AS mp LEFT JOIN mv AS m
+			FROM mv_play AS mp JOIN mv AS m
 			ON mp.mv_no=m.no
     		AND substring(mp.clickdate,1,10) = substring(now(),1,10)
 			GROUP BY mp.mv_no
@@ -25,6 +26,7 @@
 	<!-- 최신 차트 -->
 	<select id="recentMv" resultType="music.mvChart.MvChartVo" parameterType="music.mvChart.MvChartVo">
 		SELECT
+			no,
 			img,
 			link,
 			(SELECT title FROM song WHERE no=m.song_no) AS title,
@@ -33,4 +35,9 @@
 		FROM mv AS m 
 		ORDER BY m.regdate DESC
 	</select>
+	
+	<!-- mv 로그 -->
+	<insert id="clickMv" parameterType="music.mvChart.ClickMvVo">
+		INSERT INTO mv_play (mv_no, user_no, clickdate) VALUES (#{no}, #{user_no}, now());
+	</insert>
 </mapper>

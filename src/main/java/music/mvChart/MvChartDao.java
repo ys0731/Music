@@ -12,12 +12,16 @@ public class MvChartDao {
 	@Autowired
 	private SqlSessionTemplate sqlSession;
 	  
-	//인기
-	public List<MvChartVo> PopularMv(MvChartVo vo) {
-		return sqlSession.selectList("mvChart.popularMv",vo);    
+		//인기
+		public List<MvChartVo> PopularMv(MvChartVo vo) {
+			return sqlSession.selectList("mvChart.popularMv",vo);    
+		}
+		//최신    
+		public List<MvChartVo> RecentMv(MvChartVo vo) {
+			return sqlSession.selectList("mvChart.recentMv", vo);
+		}
+		//mv로그
+		public int insert(ClickMvVo vo) {
+			return sqlSession.insert("mvChart.clickMv", vo);
+		}
 	}
-	//최신    
-	public List<MvChartVo> RecentMv(MvChartVo vo) {
-		return sqlSession.selectList("mvChart.recentMv", vo);
-	}
-}
