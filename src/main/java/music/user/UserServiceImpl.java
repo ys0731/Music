@@ -89,5 +89,10 @@ public class UserServiceImpl implements UserService {
 		}
 		return uv;
 	}
+
+	@Override
+	public UserVo isUserExpiryDate(UserVo vo) {
+		return dao.isUserExpiryDate(vo);
+	}
 }
 

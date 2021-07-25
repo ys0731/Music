@@ -18,6 +18,10 @@
 	    function popup(no) {
 	        window.open("/music/chart/lyrics.do?no="+no, "popup", "width=400, height=600");
 	    }
+	  /* //재생팝업
+	    function ppopup(no) {
+	        window.open("/music/player/play.do?no="+no, "popup", "width=400, height=600");
+	    } */
 
         $(document).ready(function(){
             // change color when clicked
@@ -47,6 +51,12 @@
             		
             	});
             });//함수 끝
+            
+          /* //재생
+            $(".play").click(function() {
+            	var no = $(this).data('no');
+            	ppopup(no);
+            });//함수 끝 */
             
             // sysdate
             var today = new Date();
@@ -79,16 +89,10 @@
             $(".like_btn").click(function(){
                 $(this).toggleClass("on");
             });
-            //add list img toggle
-            $(".add_list").click(function(){
-                $(this).toggleClass("on");
-            });
-            //play music img toggle
-            $(".play_music").click(function(){
-                $(this).toggleClass("on");
-            });
         });
     </script>
+
+	<%@ include file="/WEB-INF/view/player/playnlog.jsp" %>
 
     <style>
         /* chart top btn */
@@ -217,13 +221,13 @@
 		                			<p class="list_album"><a href="album_info.html">${vo.album }</a></p>
 		                		</td>
 		                		<td>
-		                			<a class="like_btn like" href="#" data-no="${vo.no }"></a>
+		                			<a class="like_btn like <c:if test="${vo.mlike_cnt==1 }">on</c:if>" href="#" data-no="${vo.no }"></a>
 		                   		</td>
 		                  		<td>
-		                      		<a class="play_music button_icons" href="#"></a>
+		                      		<a class="play_music button_icons play" href="#" onclick="javascript:player(no=${vo.no });" data-no="${vo.no }"></a>
 		                   		</td>
 		                  		<td>
-		                       		<a class="add_list button_icons" href="#"></a>
+		                       		<a class="add_list button_icons" href="#" onclick="javascript:plusplayer(no=${vo.no });"></a>
 		                   		</td>
 		                	</tr>
 	                    </c:forEach>                  

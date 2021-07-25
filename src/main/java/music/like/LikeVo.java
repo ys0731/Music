@@ -12,6 +12,7 @@ public class LikeVo extends CommonVo{
 	private int song_no;
 	private int user_no;
 	
+	
 	public int getNo() {
 		return no;
 	}
@@ -54,6 +55,9 @@ public class LikeVo extends CommonVo{
 	public void setLiked(int liked) {
 		this.liked = liked;
 	}
+	
+	
+	
 	
 	
 	

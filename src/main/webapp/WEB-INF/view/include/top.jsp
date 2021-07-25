@@ -38,7 +38,7 @@
                     <li><a href="/music/chart/chart_24hit.do">샌드차트</a></li>
                     <li><a href="/music/chart/chart_recent.do">최신음악</a></li>
                     <li><a href="/music/chart/chart_genre_kpop.do">장르음악</a></li>
-                    <li><a href="recommend_list.html">샌드DJ</a></li>
+                    <li><a href="/music/recommend/recommend_list.do">샌드DJ</a></li>
                     <li><a href="/music/mvChart/recentMv.do">MV</a></li>
                     <li id="gnb_li_last">
 	                    <c:if test="${!empty userInfo }"> 
@@ -77,11 +77,11 @@
                             <li><a href="/music/chart/chart_genre_classic.do">Classic</a></li>
                         </ul>
                         <ul class="offer_sub">
-                            <li><a href="recommend_list.html">추천음악</a></li>
+                            <li><a href="/music/recommend/recommend_list.do">추천음악</a></li>
                         </ul>
                         <ul class="mv_sub">
-                            <li><a href="mv_recent.html">최신MV</a></li>
-                            <li><a href="mv_popular.html">인기MV</a></li>
+                            <li><a href="/music/mvChart/recentMv.do">최신MV</a></li>
+                            <li><a href="/music/mvChart/popularMv.do">인기MV</a></li>
                         </ul>
                     </div>
                 </ul>

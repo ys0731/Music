@@ -37,6 +37,17 @@
 		    	$(this).children("div").eq(i).children("span:nth-child(2)").text(i+1);
 			}
 	    });
+	    
+	    if ($("#sortable > div").length > 0) {
+			document.getElementById('file').disabled = false;
+			document.getElementById('group_id').disabled = false;
+			document.getElementById('title').disabled = false;
+			document.getElementById('sub_title').disabled = false;
+		} else {
+			$("#file").parent().click(function(){alert('리스트를 먼저 추가해주세요.');});
+			$("#title").parent().click(function(){alert('리스트를 먼저 추가해주세요.');});
+			$("#sub_title").parent().click(function(){alert('리스트를 먼저 추가해주세요.');});
+		}
 	});
 	
 	function getList(reqPage, stype, sval, orderby, direct) {
@@ -132,19 +143,19 @@
 												<div style="width: 150px; margin-left: 20px; border: 5px double #ccc; cursor: pointer;" onclick="document.getElementById('file').click();">
 													<img id="preview" style="width: 150px; height: 150px;" >
 												</div>
-												<input type="file" id="file" name="file" style="display: none" title="이미지를 업로드 해주세요." onchange="readURL(this);" accept="image/gif,image/jpeg,image/png">
+												<input type="file" id="file" name="file" style="display: none" title="이미지를 업로드 해주세요." onchange="readURL(this);" accept="image/gif,image/jpeg,image/png" disabled="disabled">
 											</th>
 											<th style="height: 50px; border-bottom: 1px solid #cccdd0;">
-												<select name="group_id" style="width: 7%; height: 20px;">
+												<select id="group_id" name="group_id" style="width: 7%; height: 20px;" disabled="disabled">
 													<option value="1" selected="selected">제목</option>
 													<option value="2">태그</option>
 												</select>
-												<input type="text" id="title" name="title" class="w100" title="[제목 / #태그]를 입력해주세요" style="width: 87.333333%;" placeholder="[제목 / #태그]를 입력해주세요" maxlength="14" autocomplete="off"/>
+												<input type="text" id="title" name="title" class="w100" title="[제목 / #태그]를 입력해주세요" style="width: 87.333333%;" placeholder="[제목 / #태그]를 입력해주세요" maxlength="14" autocomplete="off" disabled="disabled"/>
 											</th>
 										</tr>
 										<tr style="font-size: 11px; border-bottom: 1px solid #cccdd0;">
 											<th style="height: 150px; border-bottom: 1px solid #cccdd0;">
-												<textarea id="sub_title" name="sub_title" title="부제목을 입력해주세요" style="width:95%; height:120px; resize:none; padding: 5px;" placeholder="부제목을 입력해주세요" maxlength="11"></textarea>
+												<textarea id="sub_title" name="sub_title" title="부제목을 입력해주세요" style="width:95%; height:120px; resize:none; padding: 5px;" placeholder="부제목을 입력해주세요" maxlength="11" disabled="disabled"></textarea>
 											</th>
 										</tr>
 									</tbody>

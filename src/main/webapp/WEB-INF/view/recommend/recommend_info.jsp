@@ -23,7 +23,7 @@
             btn.onclick = popup;
         }
 
-        $(document).ready(function(){
+        $(function(){
             // check all
             $("#check_all").change(function(){
                 if ($("#check_all").is(':checked')) {
@@ -50,63 +50,10 @@
             $(".like_btn").click(function(){
                 $(this).toggleClass("on");
             });
-            //add list img toggle
-            $(".add_list").click(function(){
-                $(this).toggleClass("on");
-            });
-            //play music img toggle
-            /* $(".play_music").click(function(){
-                $(this).toggleClass("on");
-            }); */
-            
-		// player.html--------------------------------------------------------------------------------
-           	var windowOpen;
-        	
-            $(".play_music").click(function(){
-            	$(this).toggleClass("on");
-            	$(this).parent().parent().siblings().children().children(".play_music").removeClass("on");
-				/* if ((windowOpen == null) || (windowOpen.closed)) {
-					windowOpen.close();
-				} */
-	    	});
         });
-        
-        function player(no) {
-	        if ($(".play_music").hasClass("on")) {
-	        	windowOpen.close();
-	        	return;
-	        }
-	        
-			windowOpen = window.open('<%=request.getContextPath()%>/player/play.do?no='+no,'pagename',
-            'resizable=0,scrollbars=no,toolbars=no, menubar=no,height=660,width=400');
-        }
-        
-        function checkplayer() {
-        	var chkArr = new Array();
-   			
-        	$("input[type='checkbox'][name='check_list']:checked").each(function(){
-   				chkArr.push($(this).attr("data-Num"));
-   			});
-        	
-   			// alert(chkArr);
-   			
-	        $.ajax({
-		        url: '<%=request.getContextPath()%>/player/checkplay.do',
-		        type: 'post',
-		        traditional: true,
-		        data: {
-		        	chkArr: chkArr	
-		        },
-		        success : function(res){
-			        windowOpen = window.open('<%=request.getContextPath()%>/player/sendplaylist.do','pagename',
-		            'resizable=0,scrollbars=no,toolbars=no, menubar=no,height=660,width=400');
-		        },
-		        error : function(res){
-		        	alert("선택된 곡이 없습니다.");
-		        }
-	        });
-    	}
     </script>
+
+	<%@ include file="/WEB-INF/view/player/playnlog.jsp" %>
 
     <style>
         /* list chart name */
@@ -215,7 +162,7 @@
 	                        <a class="play_music button_icons player" onclick="javascript:player(no=${vo.songList_no });"></a>
 	                    </td>
                   		<td>
-                       		<a class="add_list button_icons" href="#"></a>
+                       		<a class="add_list button_icons" href="#" onclick="javascript:plusplayer(no=${vo.songList_no });"></a>
                   		</td>
                 	</tr>
                     </c:forEach>

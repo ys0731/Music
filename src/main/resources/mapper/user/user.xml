@@ -85,5 +85,17 @@
 	<update id="updateTempPwd" parameterType="music.user.UserVo">
 		UPDATE user SET pwd=md5(#{pwd}) WHERE id=#{id} AND email=#{email}
 	</update>
-
+	
+	<!-- 유저 만료일 체크 -->
+	<select id="isUserExpiryDate" resultType="music.user.UserVo" parameterType="music.user.UserVo">
+	<![CDATA[
+		SELECT user.id,user.no,pay.pay_end_date AS pay_end_date
+		FROM user 
+		LEFT JOIN pay
+		ON user.no = pay.user_no
+		WHERE user.no = #{no} and NOW() <= pay.pay_end_date
+		ORDER BY pay.pay_end_date DESC
+		LIMIT 1		
+	]]>
+	</select>
 </mapper>

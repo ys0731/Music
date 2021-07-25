@@ -42,14 +42,14 @@ public class PayVo extends CommonVo{
 		this.ticket_type = ticket_type;
 	}
 	public String getPay_start_date() {
-		SimpleDateFormat sdf = new SimpleDateFormat("yyyy-MM-dd HH시 mm분"); 
+		SimpleDateFormat sdf = new SimpleDateFormat("yyyy-MM-dd HH:mm:ss"); 
 		return sdf.format(pay_start_date);
 	}
 	public void setPay_start_date(Timestamp pay_start_date) {
 		this.pay_start_date = pay_start_date;
 	}
 	public String getPay_end_date() {
-		SimpleDateFormat sdf = new SimpleDateFormat("yyyy-MM-dd HH시 mm분"); 
+		SimpleDateFormat sdf = new SimpleDateFormat("yyyy-MM-dd HH:mm:ss"); 
 		return sdf.format(pay_end_date);
 	}
 	public void setPay_end_date(Timestamp pay_end_date) {

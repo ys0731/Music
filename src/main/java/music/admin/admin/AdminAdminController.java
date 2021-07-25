@@ -34,7 +34,7 @@ public class AdminAdminController {
 	
 	//로그인
 	@GetMapping("/admin/login.do")
-	public String loginForm(AdminVo vo, @CookieValue(value="cookieId", required = false) Cookie cookie) {
+	public String loginForm(AdminVo vo, @CookieValue(value="cookieAdminId", required = false) Cookie cookie) {
 		if (cookie != null) {
 			vo.setId(cookie.getValue());
 		}
@@ -51,7 +51,7 @@ public class AdminAdminController {
 		} else {
 			sess.setAttribute("adminInfo", av);
 			// 쿠키에 저장
-			Cookie cookie = new Cookie("cookieId", vo.getId()); 
+			Cookie cookie = new Cookie("cookieAdminId", vo.getId()); 
 			cookie.setPath("/");
 			if ("check".equals(vo.getCheckId())) {
 				cookie.setMaxAge(60*60*24*365);

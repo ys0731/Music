@@ -7,9 +7,9 @@
 	$(function(){
 		var marginTop = $(".title").length;
 		if (marginTop == 0) {
-			$(".btn").css({"margin-top": "508px"});
+			$(".btn").css({"margin-top": "491px"});
 		} else if (marginTop < 10) {
-			$(".btn").css({"margin-top": 468-52*(marginTop-1)});
+			$(".btn").css({"margin-top": 451-52*(marginTop-1)});
 		}
 	});
 

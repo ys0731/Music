@@ -15,5 +15,6 @@ public interface UserService {
 	UserVo login(UserVo vo);
 	UserVo searchId(UserVo vo);
 	UserVo searchPwd(UserVo vo);
+	UserVo isUserExpiryDate(UserVo vo);
 
 }
