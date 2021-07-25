@@ -1,0 +1,70 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="albumComment">
+
+	<sql id="boardWhere">
+		<where>
+			<if test="sval != null and sval != ''">
+				<if test="stype == 'all'">
+					title LIKE '%${sval}%' OR content LIKE '%${sval}%'
+				</if>
+				<if test="stype != 'all'">
+					${stype} LIKE '%${sval}%'
+				</if>
+			</if>
+			<if test="user_no != 0">
+				AND user_no=#{user_no}
+			</if>
+		</where>
+	</sql>
+	
+	<select id="selectAll" resultType="music.detailAlbumComment.AlbumCommentVo" parameterType="music.detailAlbumComment.AlbumCommentVo">
+		SELECT *,
+		(SELECT name FROM user WHERE no=reply.user_no) AS name
+		FROM reply
+		<include refid="boardWhere"/>
+		ORDER BY gno DESC, ono ASC
+		LIMIT ${startIdx},${pageRow}
+	</select>
+	
+	<select id="count" resultType="int" parameterType="music.detailAlbumComment.AlbumCommentVo">
+		SELECT COUNT(*) FROM album_comment
+		<include refid="boardWhere"/>
+	</select>
+	
+	<select id="detail" resultType="music.detailAlbumComment.AlbumCommentVo" parameterType="music.detailAlbumComment.AlbumCommentVo">
+		SELECT * FROM album_comment WHERE no = #{no}
+	</select>
+
+	<insert id="insert" parameterType="music.detailAlbumComment.AlbumCommentVo">
+		INSERT INTO album_comment (album_no, user_no, content, gno, ono, nested, regdate)
+		VALUES (#{album_no}, #{user_no}, #{content}, #{gno}, #{ono}, #{nested}, now())
+		<selectKey keyProperty="no" resultType="int" order="AFTER">
+			SELECT LAST_INSERT_ID()
+		</selectKey>
+	</insert>
+	
+	<insert id="insertReply" parameterType="music.detailAlbumComment.AlbumCommentVo">  
+		INSERT INTO album_comment (album_no, user_no, content, gno, ono, nested, regdate)
+		VALUES (#{album_no}, #{user_no}, #{content}, #{gno}, #{ono}, #{nested}, now())
+	</insert>
+	
+	<update id="gno" parameterType="int">
+		UPDATE album_comment SET gno=#{xxx} WHERE no=#{xxx}
+	</update>
+	
+	<update id="onoUpdate" parameterType="music.detailAlbumComment.AlbumCommentVo"> <!-- insertReply보다 먼저 실행되어야함 -->
+		UPDATE album_comment SET ono=ono+1 WHERE gno=#{gno} AND ono>#{ono}
+	</update>
+
+	<delete id="delete" parameterType="music.detailAlbumComment.AlbumCommentVo">
+		DELETE FROM album_comment WHERE no=#{no}
+	</delete>
+	
+	<select id="findByNo" parameterType="int" resultType="music.detailAlbumComment.AlbumCommentVo">
+		SELECT *,
+		(SELECT id FROM user WHERE no=user_no) AS name
+		FROM album_comment WHERE album_no=#{album_no} ORDER BY gno DESC, ono ASC
+	</select>
+	
+</mapper>
