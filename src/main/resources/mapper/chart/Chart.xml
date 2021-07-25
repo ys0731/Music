@@ -233,7 +233,8 @@
 		JOIN artist ar ON s.artist_no = ar.no
 		JOIN album al ON s.album_no = al.no
 		WHERE user_no = #{user_no}
-		ORDER BY clickdate	
+		ORDER BY clickdate AND clickdate>(NOW()-interval 1 WEEK) DESC
+		LIMIT ${startIdx},${pageRow}	
 	</select>
 	
 	<!-- 곡 하나 상세 -->
@@ -243,6 +244,13 @@
 		JOIN artist AS ar ON ar.no = s.artist_no
 		JOIN album AS al ON al.no = s.album_no
 		WHERE s.no = #{no}
+	</select>
+	
+	<!-- count -->
+	<select id="count" resultType="int" parameterType="music.chart.ChartVo"> 
+		SELECT COUNT(*) 
+		FROM play 
+		WHERE user_no = #{user_no}		
 	</select>
 	
 </mapper>

@@ -13,19 +13,7 @@
    <%@ include file="/WEB-INF/view/include/headHtml.jsp" %>
     
     <script>
-        $(document).ready(function() {
-            function readURL(input) {
-                if (input.files && input.files[0]) {
-                    var reader = new FileReader();
-                    reader.onload = function(e) {
-                        $('#profile_image').attr('src', e.target.result);
-                    }
-                    reader.readAsDataURL(input.files[0]);
-                }
-            }
-            $("#image_upload").change(function() {
-                readURL(this);
-            });
+        
             
           	//닉네임 중복확인
             $("#chk_nick").click(function(){
@@ -54,7 +42,25 @@
     					}	
     				});
     			}
-    		}); 
+    		});
+          	
+          	$(".myinfo_btn").click(function() {
+          		if($("#nickname").val()==''){
+    				alert('닉네임을 입력해 주세요.');
+    				$("#nickname").focus();
+    			} else {
+    				$.ajax({
+    					url:'<%=request.getContextPath()%>/mymusic/mymusic_nick_edit.do',
+    					data:{
+    						nickname:$('#nickname').val()
+    						},
+    					success : function(res){
+    						alert('닉네임이 변경되었습니다.')
+    						location.href="/music/mymusic/mymusic.do"
+    					}
+    				})
+    			}
+          	})
         });
     </script>    
 </head>
@@ -100,21 +106,8 @@
                 <div class="top_title">
                     <h2>내정보</h2>
                 </div>
-                <div class="top_title2">
-                    <h1>프로필 이미지</h1>
-                </div>
-                <div class="my_info_div">
-                   <div class="left" id="left">
-                        <img src="<%=path %>/img/profile_default.jpg" id="profile_image" class="img_con">
-                   </div>
-                   <div class="right">
-                        <form class="myinfo_form">
-                            <input type="file" name="image_upload" id="image_upload" accept="image/png, image/jpg, image/gif"><br>
-                            <p style="font-size: 12px; margin-top: 15px;">2MB이하의 png,jpg,gif 파일만 업로드 할 수 있습니다.</p>
-                        </form> 
-                   </div>
-                </div>
-                <div class="center_div"></div>
+                
+                
                 <div class="bottom_title">
                     <h1>프로필 설정</h1>
                 </div>
@@ -129,7 +122,7 @@
                  </div>
                  <div class="btn_myinfo_div">
                     <ul class="btn_myinfo">
-                       <li><a href="mymusic.html" class="myinfo_btn">확인</a></li>
+                       <li><a href="#" class="myinfo_btn">확인</a></li>
                        <li><a onclick="history.back()">취소</a></li>
                    </ul>
                </div>

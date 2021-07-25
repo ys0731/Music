@@ -26,7 +26,7 @@
                 if (hash == "") {
                     alert("비밀번호를 입력해주세요.");
                 } else if(hash == '${user.pwd}') {
-                    window.location.href = "/music/user/mymusic_withdrawal_check.do";
+                    window.location.href = "/music/mymusic/mymusic_withdrawal_check.do";
                 } else {
                     alert("비밀번호가 일치하지 않습니다.");
                 }
@@ -74,7 +74,7 @@
 </head>
 
 <body>
-    <h1 class="logo"><a href="index.html"></a></h1>
+    <h1 class="logo"><a href="#"></a></h1>
     <h2>회원 탈퇴</h2>
     <div class="pwd_check">
         <p>비밀번호를 입력해주세요.</p>

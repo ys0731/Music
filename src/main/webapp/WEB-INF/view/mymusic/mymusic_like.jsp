@@ -25,12 +25,6 @@
                 }
             });
 
-            var row_num = 5;
-            // if row is less than 5, then sustain 555px(, else height is inherited)
-            if (row_num <= 5) {
-                $(".right_side").height(555);
-            }
-            // create chart row_num = 5
             
             // preventDefault
             $(".chart_box ul li a, .play_music, .add_list").click(function(e){
@@ -158,17 +152,17 @@
                                 <p>
                                     <span>${userInfo.nickname }</span><span>님</span>
                                 </p>
-                                <a href="/music/user/mymusic_update.do">회원정보 변경</a>
+                                <a href="/music/mymusic/mymusic_update.do">회원정보 변경</a>
                             </div>
                         </div>
                         <div class="my_info clear">
-                            <a href="/music/user/myusic_myinfo.do">내 정보</a>
-                            <a href="ticket_detail.html">이용권 내역</a>
+                            <a href="/music/mymusic/myusic_myinfo.do">내 정보</a>
+                            <a href="/music/pay/view.do">이용권 내역</a>
                         </div>
                         <ul class="my_music">
                             <li>마이뮤직</li>
-                            <li><a href="/music/user/mymusic.do"><span>-</span><span>최근감상곡</span></a></li>
-                            <li><a href="/music/user/mymusic_like.do"><span>-</span><span>좋아요</span></a></li>
+                            <li><a href="/music/mymusic/mymusic.do"><span>-</span><span>최근감상곡</span></a></li>
+                            <li><a href="/music/mymusic/mymusic_like.do"><span>-</span><span>좋아요</span></a></li>
                         </ul>
                     </div>
                     <div class="my_box_bottom">
@@ -176,7 +170,7 @@
                             <li>댓글</li>
                             <li><a href="mymusic_comment.html"><span>-</span><span>내가 쓴 댓글</span></a></li>
                         </ul>
-                        <a class="sign_out" href="/music/user/mymusic_withdrawal.do">회원탈퇴</a>
+                        <a class="sign_out" href="/music/mymusic/mymusic_withdrawal.do">회원탈퇴</a>
                     </div>
                 </div>
             </div>
@@ -185,7 +179,6 @@
                 <form class="chart_box" action="" method="post">
                     <ul class="clear">
                         <li><input id="check_all" type="checkbox"></li>
-                        <li><a href="#">삭제</a></li>
                     </ul>
                     <table>
                         <tr>
@@ -197,6 +190,11 @@
                             <td>좋아요</td>
                             <td>추가</td>
                         </tr>
+                        <c:if test="${empty list }">
+                            <tr>
+                                <td class="first" colspan="7">등록된 곡이 없습니다.</td>
+                            </tr>
+                        </c:if>
                         <c:forEach var="vo" items="${list }" varStatus="status">
                         <tr>
 		                  <td><input name="check_list" type="checkbox"></td>
@@ -216,7 +214,7 @@
 		                       <a class="like_btn" href="#"></a><span>${vo.liked }</span>
 		                   </td>
 		                   <td>
-		                       <a class="add_list button_icons" href="#"></a>
+		                       <a class="add_list button_icons" href="#" onclick="javascript:plusplayer(no=${vo.no });"></a>
 		                   </td>
                 		</tr>
                         </c:forEach>
@@ -225,13 +223,13 @@
                 	<div class="pagenate clear">
                         <ul class='paging'>
                         <c:if test="${likeVo.startPage > likeVo.pageRange}">
-                        	<li><a href="/music/user/mymusic_like.do?reqPage=${likeVo.startPage-1 }"><</a></li>
+                        	<li><a href="/music/mymusic/mymusic_like.do?reqPage=${likeVo.startPage-1 }"><</a></li>
                         </c:if>
                         <c:forEach var="rp" begin="${likeVo.startPage}" end="${likeVo.endPage }">
-                            <li><a href='/music/user/mymusic_like.do?reqPage=${rp}' <c:if test="${rp==likeVo.reqPage }">class='current'</c:if>>${rp }</a></li>
+                            <li><a href='/music/mymusic/mymusic_like.do?reqPage=${rp}' <c:if test="${rp==likeVo.reqPage }">class='current'</c:if>>${rp }</a></li>
                         </c:forEach>
                         <c:if test="${likeVo.totPage > likeVo.endPage}">
-                        	<li><a href="/music/user/mymusic_like.do?reqPage=${likeVo.endPage+1 }">></a></li>
+                        	<li><a href="/music/mymusic/mymusic_like.do?reqPage=${likeVo.endPage+1 }">></a></li>
                         </c:if>
                         </ul> 
                     </div>

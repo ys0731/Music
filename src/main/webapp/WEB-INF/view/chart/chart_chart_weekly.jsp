@@ -200,6 +200,11 @@
 	                        <td>듣기</td>
 	                        <td>추가</td>
 	                    </tr>
+	                    <c:if test="${empty list }">
+                            <tr>
+                                <td class="first" colspan="8">차트 정보가 없습니다.</td>
+                            </tr>
+                        </c:if>
 	                    <c:forEach var="vo" items="${list }" varStatus="status">
 	                    <tr>
 	                		<td><input name="check_list" type="checkbox"></td>
