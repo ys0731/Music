@@ -38,13 +38,23 @@ $(function(){
 	$(".add_list").click(function(){
 		if ($(this).hasClass("on")) {
 			$(this).removeClass("on");
+        	$.ajax({
+            	url: '<%=request.getContextPath()%>/player/minusplay.do',
+        		type: 'post',
+        		data: {
+        			no: no	
+        		},
+        		success: function(res) {
+        			windowOpen = window.open('<%=request.getContextPath()%>/player/sendplaylist.do','pagename',
+             		'resizable=0,scrollbars=no,toolbars=no, menubar=no,height=660,width=400');
+        		}
+        	});
 		} else {
 			$(this).addClass("on");
 			<c:if test="${!empty expiryDate}">	
 	       	$.ajax({
             	url: '<%=request.getContextPath()%>/player/plusplay.do',
         		type: 'post',
-        		traditional: true,
         		data: {
         			no: no	
         		}
