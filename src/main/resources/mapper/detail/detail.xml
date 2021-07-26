@@ -1,0 +1,45 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org//dtd/mybatis-3-mapper.dtd">
+<mapper namespace="detail">
+	
+	<!-- 앨범 상세-->
+	<select id="albumDetail" parameterType="int" resultType="java.util.Map">
+		SELECT
+			s.genre,
+			(SELECT artist FROM artist WHERE no=s.artist_no) AS artist,
+			(SELECT album FROM album WHERE no=album_no) AS album,
+    		(SELECT img_real FROM album WHERE no=album_no) AS album_img,
+    		(SELECT reldate FROM album WHERE no=album_no) AS reldate,
+            (SELECT info FROM album WHERE no=album_no) AS info,
+            (SELECT no FROM album WHERE no=album_no) AS album_no
+		FROM song AS s where album_no=#{album_no} GROUP BY album_no=#{album_no}
+	</select>
+	
+	<!-- 아티스트 상세-->
+	<select id="artistDetail" parameterType="int" resultType="java.util.Map">
+		SELECT no AS artist_no, artist, debdate, info, img_real FROM artist WHERE no=#{no};
+	</select>
+	
+	<!-- 앨범 상세 곡 -->
+	<select id="albumSong" parameterType="int" resultType="java.util.Map">
+		SELECT
+			s.title,
+			s.lyrics,
+			(SELECT artist FROM artist WHERE no=s.artist_no) AS artist,
+			(SELECT album FROM album WHERE no=album_no) AS album,
+    		(SELECT img_real FROM album WHERE no=album_no) AS album_img
+		FROM song AS s where album_no=#{album_no}
+	</select>
+	
+	<!-- 아티스트 상세 곡-->
+	<select id="artistSong" parameterType="int" resultType="java.util.Map">
+		SELECT
+			s.title,
+			s.lyrics,
+			(SELECT artist FROM artist WHERE no=s.artist_no) AS artist,
+			(SELECT album FROM album WHERE no=album_no) AS album,
+    		(SELECT img_real FROM album WHERE no=album_no) AS album_img
+		FROM song AS s where artist_no=#{artist_no} ORDER BY s.regdate DESC
+	</select>
+	
+</mapper>
