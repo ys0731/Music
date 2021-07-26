@@ -99,6 +99,16 @@ $(window).load(function(){
 					</ul>
 					</div>
 				</li>
+				<li>
+  					<a href="<%=request.getContextPath()%>/admin/statistic/chart1.do" class="parent"><span>통계관리</span></a>
+  					<div class="standard_left">
+  					<ul>
+  						<li><a href="<%=request.getContextPath()%>/admin/statistic/chart1.do"><span>차트1</span></a></li>
+  						<li><a href="<%=request.getContextPath()%>/admin/statistic/chart2.do"><span>차트2</span></a></li>
+  						<li><a href="<%=request.getContextPath()%>/admin/statistic/chart3.do"><span>차트3</span></a></li>
+  					</ul>
+  					</div>
+				</li>
 				<li><a href="<%=request.getContextPath()%>/admin/admin/index.do" class="parent"><span>관리자관리</span></a></li>			
 			</ul>
 		</div>
