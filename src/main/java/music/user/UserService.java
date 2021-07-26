@@ -16,5 +16,6 @@ public interface UserService {
 	UserVo searchId(UserVo vo);
 	UserVo searchPwd(UserVo vo);
 	UserVo isUserExpiryDate(UserVo vo);
+	int updateNick(UserVo vo);
 
 }

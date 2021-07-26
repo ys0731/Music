@@ -12,6 +12,7 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>mymusic_like</title>
     <%@ include file="/WEB-INF/view/include/headHtml.jsp" %>
+    <%@ include file="/WEB-INF/view/player/playnlog.jsp" %>
 
     <script>
         $(document).ready(function(){
@@ -30,14 +31,39 @@
             $(".chart_box ul li a, .play_music, .add_list").click(function(e){
                 e.preventDefault();
             })
-            //like img toggle
-            $(".like_btn").click(function(){
-                $(this).toggleClass("on");
-            });
-            //add list img toggle
-            $(".add_list").click(function(){
-                $(this).toggleClass("on");
-            });
+            
+            $(".album").click(function() {
+            	var sno = $(this).data('no');
+            	$.ajax({
+            		url: '<%=request.getContextPath()%>/detail/albumDetail.do?album_no='+sno,
+            		method: 'post',
+            		data: {
+            			no: sno           			
+            		},
+            		success: function(data) {
+            			console.log("success");
+            			location.href='<%=request.getContextPath()%>/detail/albumDetail.do?album_no='+sno;
+            		}
+            		
+            	});
+            });//함수 끝
+            
+            $(".artist").click(function() {
+            	var sno = $(this).data('no');
+            	$.ajax({
+            		url: '<%=request.getContextPath()%>/detail/artistDetail.do?artist_no='+sno,
+            		method: 'post',
+            		data: {
+            			no: sno           			
+            		},
+            		success: function(data) {
+            			console.log("success");
+            			location.href='<%=request.getContextPath()%>/detail/artistDetail.do?artist_no='+sno;
+            		}
+            		
+            	});
+            });//함수 끝
+            
         });
     </script>
 
@@ -114,11 +140,11 @@
         /* button icons */
         .button_icons {display: block; width: 24px; height: 24px; background-image: url("<%=path %>/img/button_icons.png"); border-radius: 50%; overflow: hidden;}
          
-        /* add_list btn */
-        .add_list {background-position: -165px 0px; margin-left: 5.5px; }
-        .add_list:hover {background-position: -165px 192px;}
-        .add_list:active {background-position: -165px 220px;}
-        .add_list.on {background-position: -165px 220px;}
+        /* .play_music btn */
+        .play_music {background-position: 0px -167px; margin-left: 10.5px; }
+        .play_music:hover {background-position: 221px -167px;}
+        .play_music:active {background-position: 249px -167px;}
+        .play_music.on {background-position: 249px -167px;}
         
         /* 페이징처리 */
 		.pagenate {width:100%; clear:both;}
@@ -168,7 +194,7 @@
                     <div class="my_box_bottom">
                         <ul class="my_comment">
                             <li>댓글</li>
-                            <li><a href="mymusic_comment.html"><span>-</span><span>내가 쓴 댓글</span></a></li>
+                            <li><a href="/music/mymusic/mymusic_comment.do"><span>-</span><span>내가 쓴 댓글</span></a></li>
                         </ul>
                         <a class="sign_out" href="/music/mymusic/mymusic_withdrawal.do">회원탈퇴</a>
                     </div>
@@ -179,6 +205,7 @@
                 <form class="chart_box" action="" method="post">
                     <ul class="clear">
                         <li><input id="check_all" type="checkbox"></li>
+                        <li><a href="#" onclick="javascript:checkplayer();">듣기</a></li>
                     </ul>
                     <table>
                         <tr>
@@ -188,7 +215,7 @@
                             <td>아티스트</td>
                             <td>앨범</td>
                             <td>좋아요</td>
-                            <td>추가</td>
+                            <td>듣기</td>
                         </tr>
                         <c:if test="${empty list }">
                             <tr>
@@ -197,7 +224,7 @@
                         </c:if>
                         <c:forEach var="vo" items="${list }" varStatus="status">
                         <tr>
-		                  <td><input name="check_list" type="checkbox"></td>
+		                  <td><input name="check_list" type="checkbox" data-Num="${vo.no }"></td>
 		                  <td>
 		                       <p>${status.count }</p>
 		                   </td>
@@ -205,16 +232,16 @@
 		                       <p class="list_title">${vo.title }</p>
 		                   </td>
 		                   <td>
-		                       <a href="artist_info.html"><p class="list_artist">${vo.artist }</p></a>
+		                       <p class="list_artist" id="artist"><a class="artist" href="#" data-no="${vo.ar_no }">${vo.artist }</a></p>
 		                   </td>
 		                   <td>
-		                       <a href="album_info.html"><p class="list_album">${vo.album }</p></a>
+		                       <p class="list_album" id="album"><a class="album" href="#" data-no="${vo.al_no }">${vo.album }</a></p>
 		                   </td>
 		                   <td class="clear">
 		                       <a class="like_btn" href="#"></a><span>${vo.liked }</span>
 		                   </td>
 		                   <td>
-		                       <a class="add_list button_icons" href="#" onclick="javascript:plusplayer(no=${vo.no });"></a>
+		                       <a class="play_music button_icons play" href="#" onclick="javascript:player(no=${vo.no });" data-no="${vo.no }"></a>
 		                   </td>
                 		</tr>
                         </c:forEach>

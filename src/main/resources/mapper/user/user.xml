@@ -98,4 +98,9 @@
 		LIMIT 1		
 	]]>
 	</select>
+	
+	<!-- 닉네임 변경 -->
+	<update id="updateNick" parameterType="music.user.UserVo">
+		UPDATE user SET nickname=#{nickname} WHERE no=#{no}
+	</update>
 </mapper>

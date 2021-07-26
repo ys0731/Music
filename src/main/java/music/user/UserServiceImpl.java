@@ -94,5 +94,11 @@ public class UserServiceImpl implements UserService {
 	public UserVo isUserExpiryDate(UserVo vo) {
 		return dao.isUserExpiryDate(vo);
 	}
+	
+	@Override
+	public int updateNick(UserVo vo) {
+		
+		return dao.updateNick(vo);
+	}
 }
 

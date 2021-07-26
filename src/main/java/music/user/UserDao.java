@@ -62,7 +62,10 @@ public class UserDao {
 
 	public UserVo isUserExpiryDate(UserVo vo) {
 		return sqlSession.selectOne("user.isUserExpiryDate", vo);
-	}	
+	}
+	public int updateNick(UserVo vo) {
+		return sqlSession.update("user.updateNick", vo);
+	}
 	
 	
 }

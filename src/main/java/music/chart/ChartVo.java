@@ -19,9 +19,23 @@ public class ChartVo extends CommonVo{
 	
 	private int user_no; //유저 번호
 	private int mlike_cnt; //좋아요 여부
+	private int ar_no; //아티스트 번호
+	private int al_no; //앨범 번호
 	
 	
 	
+	public int getAr_no() {
+		return ar_no;
+	}
+	public void setAr_no(int ar_no) {
+		this.ar_no = ar_no;
+	}
+	public int getAl_no() {
+		return al_no;
+	}
+	public void setAl_no(int al_no) {
+		this.al_no = al_no;
+	}
 	public int getMlike_cnt() {
 		return mlike_cnt;
 	}
