@@ -80,9 +80,10 @@
         	let replyIndex = $(obj).attr('value')
         	$("#co_comment_box_"+replyIndex).toggleClass("on");
         }
-       	function goSave() {
+    	function goSave(event) {
        		console.log("goSave")
-
+       		event.preventDefault();
+			<c:if test="${!empty userInfo}">
 			if ($("#comment").val().trim()=="") {
         			alert('내용을 입력해 주세요');
         	} else {
@@ -90,11 +91,11 @@
        	        	var payload = {
        	        		content : $("#comment").val(),
        	         		album_no : $("#album_no").val(),
-       	         		user_no :  ${userInfo.no }
+       	         		user_no :  ${userInfo.no}
        	         	}
        				console.log("payload =>", payload)
        			  	$.ajax({
-	       				url:'/musicproject/albumDetailComment/insert.do',
+	       				url:'/music/albumDetailComment/insert.do',
 	       				method: 'post',
 	       				data:payload,
 	       				success:function(res) {
@@ -110,13 +111,17 @@
 	       			});
        			}		
        		}
+			</c:if>
+    		<c:if test="${empty userInfo}">
+    			alert('댓글은 로그인 후 등록가능합니다.');
+    		</c:if>
        	}
        	$(function(){
     		commentList();
     	});
        	function commentList() {
        		$.ajax({
-       			url:'/musicproject/albumDetailComment/list.do',
+       			url:'/music/albumDetailComment/list.do',
        			data: { 
        				album_no:$("#album_no").val()
        			},
@@ -128,7 +133,7 @@
        	function commentDel(no) {
     		if (confirm('댓글을 삭제하시겠습니까?')) {
         		$.ajax({
-        			url:'/musicproject/albumDetailComment/delete.do',
+        			url:'/music/albumDetailComment/delete.do',
         			data:{
         				no:no
         			},
@@ -147,14 +152,14 @@
        		console.log("goSaveReply")
        		event.preventDefault();
         	let replyIndex = $(obj).attr('value')
-
+			<c:if test="${!empty userInfo}">
 			if ($("#co_comment_"+replyIndex).val().trim()=="") {
         			alert('내용을 입력해 주세요');
         	} else {
        			if (confirm('답글을 등록하시겠습니까?')) {
        	        	var payload = {
        	         		album_no : $("#album_no").val(),
-       	         		user_no :  ${userInfo.no },
+       	         		user_no :  1,
        	        		content : $("#co_comment_"+replyIndex).val(),
 		   				gno: $("#gno_"+replyIndex).val(),
 		   				ono: $("#ono_"+replyIndex).val(),
@@ -162,7 +167,7 @@
        	         	}
        				console.log("payload =>", payload)
        			  	$.ajax({
-	       				url:'/musicproject/albumDetailComment/insertReply.do',
+	       				url:'/music/albumDetailComment/insertReply.do',
 	       				method: 'post',
 	       				data:payload,
 	       				success:function(res) {
@@ -178,6 +183,10 @@
 	       			});
        			}		
        		}
+			</c:if>
+    		<c:if test="${empty userInfo}">
+    			alert('댓글은 로그인 후 등록가능합니다.');
+    		</c:if>
        	}
     </script>
     <style>
@@ -378,7 +387,7 @@
                     <form action="" method="POST" class="clear">
                         <textarea name="comment" id="comment" placeholder="내용을 입력해주세요." maxlength="100"></textarea>
                         
-                        <button class="insert_comment" onclick="goSave();">등록</button>
+                        <button class="insert_comment" onclick="goSave(event);">등록</button>
                     </form>
                 </div>
                 <p class="max_type">

@@ -79,12 +79,12 @@
         }
        	function goSave(event) {
        		console.log("goSave")
-
+       		event.preventDefault();
+       		<c:if test="${!empty userInfo}">
 			if ($("#comment").val().trim()=="") {
         			alert('내용을 입력해 주세요');
         	} else {
        			if (confirm('댓글을 등록하시겠습니까?')) {
-       				event.preventDefault();
        				console.log("comment", $("#comment").val())
        				console.log("artist_no",$("#artist_no").val())
        				var payload = {
@@ -94,7 +94,7 @@
        	         	}
        				console.log("payload =>", payload)
        			  	$.ajax({
-	       				url:'/musicproject/artistDetailComment/insert.do',
+	       				url:'/music/artistDetailComment/insert.do',
 	       				method: 'post',
 	       				data:payload,
 	       				success:function(res) {
@@ -110,13 +110,17 @@
 	       			});
        			}		
        		}
+			</c:if>
+    		<c:if test="${empty userInfo}">
+    			alert('댓글은 로그인 후 등록가능합니다.');
+    		</c:if>
        	}
        	$(function(){
     		commentList();
     	});
        	function commentList() {
        		$.ajax({
-       			url:'/musicproject/artistDetailComment/list.do',
+       			url:'/music/artistDetailComment/list.do',
        			data: { 
        				artist_no:$("#artist_no").val()
        			},
@@ -128,7 +132,7 @@
        	function commentDel(no) {
     		if (confirm('댓글을 삭제하시겠습니까?')) {
         		$.ajax({
-        			url:'/musicproject/artistDetailComment/delete.do',
+        			url:'/music/artistDetailComment/delete.do',
         			data:{
         				no:no
         			},
@@ -147,7 +151,7 @@
        		console.log("goSaveReply")
        		event.preventDefault();
         	let replyIndex = $(obj).attr('value')
-
+			<c:if test="${!empty userInfo}">
 			if ($("#co_comment_"+replyIndex).val().trim()=="") {
         			alert('내용을 입력해 주세요');
         	} else {
@@ -162,7 +166,7 @@
        	         	}
        				console.log("payload =>", payload)
        			  	$.ajax({
-	       				url:'/musicproject/artistDetailComment/insertReply.do',
+	       				url:'/music/artistDetailComment/insertReply.do',
 	       				method: 'post',
 	       				data:payload,
 	       				success:function(res) {
@@ -178,6 +182,10 @@
 	       			});
        			}		
        		}
+        	</c:if>
+    		<c:if test="${empty userInfo}">
+    			alert('댓글은 로그인 후 등록가능합니다.');
+    		</c:if>
        	}
     </script>
 

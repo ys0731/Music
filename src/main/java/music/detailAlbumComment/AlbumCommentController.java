@@ -21,9 +21,6 @@ public class AlbumCommentController {
 	
 	@RequestMapping("/albumDetailComment/insert.do")
 	public String albumCommentInsert(Model model, AlbumCommentVo vo, HttpSession sess) {
-		UserVo userInfo = (UserVo) sess.getAttribute("userInfo");
-		System.out.println(userInfo.getNo());
-		vo.setUser_no(userInfo.getNo());
 		int r = service.insert(vo);
 		if (r > 0) {
 			model.addAttribute("msg", "true");
@@ -35,9 +32,6 @@ public class AlbumCommentController {
 	
 	@RequestMapping("/albumDetailComment/insertReply.do")
 	public String insertReply(Model model, AlbumCommentVo vo, HttpSession sess) {
-		UserVo userInfo = (UserVo) sess.getAttribute("userInfo");
-		System.out.println(userInfo.getNo());
-		vo.setUser_no(userInfo.getNo());
 		int r = service.insertReply(vo);
 		if (r > 0) {
 			model.addAttribute("msg", "true");
