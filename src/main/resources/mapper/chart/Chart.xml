@@ -9,7 +9,7 @@
 		SELECT  thisweek.no, thisweek.count, thisweek.title, 
 		thisweek.lyrics,  thisweek.artist, thisweek.album, 
 		thisweek.org, thisweek.rel 
-        ,IFNULL(prevweek.rownum-thisweek.rownum,999) AS rank_ch,
+        ,IFNULL(prevweek.rownum-thisweek.rownum,999) AS rank_ch,thisweek.al_no,thisweek.ar_no,
         <if test="user_no != 0">
         (SELECT COUNT(*) FROM mlike WHERE song_no = thisweek.no AND user_no=#{user_no}) AS mlike_cnt 
         </if>
@@ -21,7 +21,7 @@
 	          SELECT row_number() over(ORDER BY COUNT(p.song_no) DESC) AS rownum 
 	          ,p.song_no AS no, count(p.song_no) AS COUNT, s.title AS title
 	          ,s.lyrics AS lyrics,  ar.artist AS artist, al.album AS album, 
-			  al.img_org AS org, al.img_real AS rel                              
+			  al.img_org AS org, al.img_real AS rel, al.no AS al_no,ar.no AS ar_no                              
 	       	  FROM play p		                        
 	          INNER JOIN song s ON p.song_no = s.no
 			  INNER JOIN artist ar ON s.artist_no = ar.no
@@ -38,7 +38,7 @@
 	     	SELECT row_number() OVER(order by COUNT(p.song_no) DESC) AS rownum 
 	        ,p.song_no AS no2, COUNT(p.song_no) AS count2, s.title AS title2
 	        ,s.lyrics as lyrics2,  ar.artist AS artist2, al.album AS album2
-	        ,al.img_org AS org2, al.img_real AS rel2                                     
+	        ,al.img_org AS org2, al.img_real AS rel2, al.no AS al_no2,ar.no AS ar_no2                                     
 	        FROM play p
 		    INNER JOIN song s ON p.song_no = s.no
 		    INNER JOIN artist ar ON s.artist_no = ar.no
@@ -58,7 +58,7 @@
 		SELECT  thisweek.no, thisweek.count, thisweek.title, 
 		thisweek.lyrics,  thisweek.artist, thisweek.album, 
 		thisweek.org, thisweek.rel 
-        ,IFNULL(prevweek.rownum-thisweek.rownum,999) AS rank_ch,
+        ,IFNULL(prevweek.rownum-thisweek.rownum,999) AS rank_ch,thisweek.al_no,thisweek.ar_no,
         <if test="user_no != 0">
         (SELECT COUNT(*) FROM mlike WHERE song_no = thisweek.no AND user_no=#{user_no}) AS mlike_cnt 
         </if>
@@ -70,7 +70,7 @@
 	          SELECT row_number() over(ORDER BY COUNT(p.song_no) DESC) AS rownum 
 	          ,p.song_no AS no, count(p.song_no) AS COUNT, s.title AS title
 	          ,s.lyrics AS lyrics,  ar.artist AS artist, al.album AS album, 
-			  al.img_org AS org, al.img_real AS rel                              
+			  al.img_org AS org, al.img_real AS rel, al.no AS al_no,ar.no AS ar_no                              
 	       	  FROM play p		                        
 	          INNER JOIN song s ON p.song_no = s.no
 			  INNER JOIN artist ar ON s.artist_no = ar.no
@@ -85,7 +85,7 @@
 	     	SELECT row_number() OVER(order by COUNT(p.song_no) DESC) AS rownum 
 	        ,p.song_no AS no2, COUNT(p.song_no) AS count2, s.title AS title2
 	        ,s.lyrics as lyrics2,  ar.artist AS artist2, al.album AS album2
-	        ,al.img_org AS org2, al.img_real AS rel2                                     
+	        ,al.img_org AS org2, al.img_real AS rel2, al.no AS al_no2,ar.no AS ar_no2                                     
 	        FROM play p
 		    INNER JOIN song s ON p.song_no = s.no
 		    INNER JOIN artist ar ON s.artist_no = ar.no
@@ -102,7 +102,7 @@
 		SELECT  thisweek.no, thisweek.count, thisweek.title, 
 		thisweek.lyrics,  thisweek.artist, thisweek.album, 
 		thisweek.org, thisweek.rel 
-        ,IFNULL(prevweek.rownum-thisweek.rownum,999) AS rank_ch,
+        ,IFNULL(prevweek.rownum-thisweek.rownum,999) AS rank_ch,thisweek.al_no,thisweek.ar_no,
         <if test="user_no != 0">
         (SELECT COUNT(*) FROM mlike WHERE song_no = thisweek.no AND user_no=#{user_no}) AS mlike_cnt 
         </if>
@@ -114,7 +114,7 @@
 	          SELECT row_number() over(ORDER BY COUNT(p.song_no) DESC) AS rownum 
 	          ,p.song_no AS no, count(p.song_no) AS COUNT, s.title AS title
 	          ,s.lyrics AS lyrics,  ar.artist AS artist, al.album AS album, 
-			  al.img_org AS org, al.img_real AS rel                              
+			  al.img_org AS org, al.img_real AS rel , al.no AS al_no,ar.no AS ar_no                             
 	       	  FROM play p		                        
 	          INNER JOIN song s ON p.song_no = s.no
 			  INNER JOIN artist ar ON s.artist_no = ar.no
@@ -129,7 +129,7 @@
 	     	SELECT row_number() OVER(order by COUNT(p.song_no) DESC) AS rownum 
 	        ,p.song_no AS no2, COUNT(p.song_no) AS count2, s.title AS title2
 	        ,s.lyrics as lyrics2,  ar.artist AS artist2, al.album AS album2
-	        ,al.img_org AS org2, al.img_real AS rel2                                     
+	        ,al.img_org AS org2, al.img_real AS rel2, al.no AS al_no2,ar.no AS ar_no2                                     
 	        FROM play p
 		    INNER JOIN song s ON p.song_no = s.no
 		    INNER JOIN artist ar ON s.artist_no = ar.no
@@ -146,7 +146,7 @@
 	<!-- 장르 | class:4 |jazz:3 |kpop:1 |POP:2 |-->
 	<!-- 클래식 장르 -->
 	<select id="Chart_classic" resultType="music.chart.ChartVo" parameterType="music.chart.ChartVo">
-		SELECT s.title, s.lyrics, ar.artist, al.album, al.img_org AS org, al.img_real AS rel,s.no AS no,
+		SELECT s.title, s.lyrics, ar.artist, al.album, al.img_org AS org, al.img_real AS rel,s.no AS no, al.no AS al_no,ar.no AS ar_no,
 		<if test="user_no != 0">
         (SELECT COUNT(*) FROM mlike WHERE song_no = s.no AND user_no=#{user_no}) AS mlike_cnt 
         </if>
@@ -162,7 +162,7 @@
 	
 	<!-- 재즈 장르 -->
 	<select id="Chart_jazz" resultType="music.chart.ChartVo" parameterType="music.chart.ChartVo">
-		SELECT s.title, s.lyrics, ar.artist, al.album, al.img_org AS org, al.img_real AS rel,s.no AS no,
+		SELECT s.title, s.lyrics, ar.artist, al.album, al.img_org AS org, al.img_real AS rel,s.no AS no, al.no AS al_no,ar.no AS ar_no,
 		<if test="user_no != 0">
         (SELECT COUNT(*) FROM mlike WHERE song_no = s.no AND user_no=#{user_no}) AS mlike_cnt 
         </if>
@@ -178,7 +178,7 @@
 	
 	<!-- kpop장르 -->
 	<select id="Chart_kpop" resultType="music.chart.ChartVo" parameterType="music.chart.ChartVo">
-		SELECT s.title, s.lyrics, ar.artist, al.album,al.img_org AS org, al.img_real AS rel,s.no AS no,
+		SELECT s.title, s.lyrics, ar.artist, al.album,al.img_org AS org, al.img_real AS rel,s.no AS no, al.no AS al_no,ar.no AS ar_no,
 		<if test="user_no != 0">
         (SELECT COUNT(*) FROM mlike WHERE song_no = s.no AND user_no=#{user_no}) AS mlike_cnt 
         </if>
@@ -194,7 +194,7 @@
 	
 	<!-- pop 장르 -->
 	<select id="Chart_pop" resultType="music.chart.ChartVo" parameterType="music.chart.ChartVo">
-		SELECT s.title, s.lyrics, ar.artist, al.album, al.img_org AS org, al.img_real AS rel,s.no AS no,
+		SELECT s.title, s.lyrics, ar.artist, al.album, al.img_org AS org, al.img_real AS rel,s.no AS no, al.no AS al_no,ar.no AS ar_no,
 		<if test="user_no != 0">
         (SELECT COUNT(*) FROM mlike WHERE song_no = s.no AND user_no=#{user_no}) AS mlike_cnt 
         </if>
@@ -210,7 +210,7 @@
 	
 	<!-- 최신 차트 -->
 	<select id="Chart_recent" resultType="music.chart.ChartVo" parameterType="music.chart.ChartVo">
-		SELECT s.title, s.lyrics, ar.artist, al.album, al.img_org AS org, al.img_real AS rel,s.no AS no,
+		SELECT s.title, s.lyrics, ar.artist, al.album, al.img_org AS org, al.img_real AS rel,s.no AS no, al.no AS al_no,ar.no AS ar_no,
 		<if test="user_no != 0">
         (SELECT COUNT(*) FROM mlike WHERE song_no = s.no AND user_no=#{user_no}) AS mlike_cnt 
         </if>
@@ -226,7 +226,7 @@
 	
 	<!-- 최근 감상곡 -->
 	<select id="User_recent" resultType="music.chart.ChartVo" parameterType="int">
-		SELECT s.title, s.lyrics, ar.artist, al.album
+		SELECT s.title, s.lyrics, ar.artist, al.album,s.no,al.no AS al_no,ar.no AS ar_no
 		
 		FROM play p
 		JOIN song s ON p.song_no = s.no

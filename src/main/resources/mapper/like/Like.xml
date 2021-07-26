@@ -24,6 +24,7 @@
 	<!-- 좋아요 누른 곡 목록 -->
 	<select id="like_List" resultType="music.like.LikeVo" parameterType="music.like.LikeVo">
 		SELECT s.title, ar.artist, al.album,(SELECT COUNT(*) FROM mlike WHERE song_no = s.no) AS liked
+		,ar.no AS ar_no, al.no AS al_no
 		FROM mlike l
 		JOIN song s ON l.song_no = s.no
 		JOIN artist ar ON s.artist_no = ar.no

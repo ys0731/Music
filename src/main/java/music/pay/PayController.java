@@ -48,13 +48,20 @@ public class PayController {
 	}
 	
 	@RequestMapping("/pay/payment.do")
-	public String payment(PayVo vo, HttpSession sess,UserVo uv, @RequestParam String ticket_type, @RequestParam int time, @RequestParam int no) {	
+	public String payment(PayVo vo,Model model, HttpSession sess,UserVo uv, @RequestParam String ticket_type, @RequestParam int time, @RequestParam int no) {	
+		
 		vo.setTicket_type(ticket_type);
 		vo.setTime(time);
 		vo.setTicket_no(no);
 		vo.setUser_no(((UserVo)sess.getAttribute("userInfo")).getNo());
-		service.insert(vo);
-		return "redirect:/index.do";
+		int r = service.insert(vo);
+		
+		if( r >0) {
+			model.addAttribute("msg", "true");
+		}else {
+			model.addAttribute("msg", "false");
+		}
+		return "include/result";
 	}
 	
 	//이용권 결제내역

@@ -10,6 +10,8 @@ import org.springframework.web.bind.annotation.RequestMapping;
 
 import music.chart.ChartService;
 import music.chart.ChartVo;
+import music.detailAlbumComment.AlbumCommentService;
+import music.detailAlbumComment.AlbumCommentVo;
 import music.like.LikeService;
 import music.like.LikeVo;
 import music.user.UserService;
@@ -26,6 +28,9 @@ public class MymusicController {
 	
 	@Autowired
 	LikeService lservice;
+	
+	@Autowired
+	AlbumCommentService acservice;
 	
 	//마이뮤직-최근감상곡
 	@RequestMapping("/mymusic/mymusic.do")
@@ -109,9 +114,18 @@ public class MymusicController {
 		uv = uservice.deatil(((UserVo)sess.getAttribute("userInfo")));
 		String nickname = req.getParameter("nickname");
 		uv.setNickname(nickname);
-		//uservice.updateNick(uv);
+		uservice.updateNick(uv);
 		model.addAttribute("msg","true");
 		return "include/result";
 		
+	}
+	
+	@RequestMapping("/mymusic/mymusic_comment.do")
+	public String comment(UserVo uv, HttpServletRequest req, HttpSession sess,Model model,AlbumCommentVo acv) {
+		uv = (UserVo)sess.getAttribute("userInfo");
+		acv.setUser_no(uv.getNo());
+		model.addAttribute("list", acservice.selectAll(acv));
+		
+		return "mymusic/mymusic_comment";
 	}
 }

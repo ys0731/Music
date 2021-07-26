@@ -52,11 +52,37 @@
             	});
             });//함수 끝
             
-          /* //재생
-            $(".play").click(function() {
-            	var no = $(this).data('no');
-            	ppopup(no);
-            });//함수 끝 */
+            $(".album").click(function() {
+            	var sno = $(this).data('no');
+            	$.ajax({
+            		url: '<%=request.getContextPath()%>/detail/albumDetail.do?album_no='+sno,
+            		method: 'post',
+            		data: {
+            			no: sno           			
+            		},
+            		success: function(data) {
+            			console.log("success");
+            			location.href='<%=request.getContextPath()%>/detail/albumDetail.do?album_no='+sno;
+            		}
+            		
+            	});
+            });//함수 끝
+            
+            $(".artist").click(function() {
+            	var sno = $(this).data('no');
+            	$.ajax({
+            		url: '<%=request.getContextPath()%>/detail/artistDetail.do?artist_no='+sno,
+            		method: 'post',
+            		data: {
+            			no: sno           			
+            		},
+            		success: function(data) {
+            			console.log("success");
+            			location.href='<%=request.getContextPath()%>/detail/artistDetail.do?artist_no='+sno;
+            		}
+            		
+            	});
+            });//함수 끝
             
             // sysdate
             var today = new Date();
@@ -172,7 +198,7 @@
 	            <form class="chart_box" action="" method="post">
 	                <ul class="clear">
 	                    <li><input id="check_all" type="checkbox"></li>
-	                    <li><a href="#">듣기</a></li>
+	                    <li><a href="#" onclick="javascript:checkplayer();">듣기</a></li>
 	                    <li><a href="#">재생목록에 추가</a></li>
 	                </ul>
 	                <table>
@@ -194,7 +220,7 @@
 	                    <c:forEach var="vo" items="${list }" varStatus="status">
 		                    
 		                    <tr>
-		                		<td><input name="check_list" type="checkbox"></td>
+		                		<td><input name="check_list" type="checkbox" data-Num="${vo.no }"></td>
 		                		<td>
 		               				<p style="margin-top: 11px">${status.count}</p>
 		                			<c:choose>
@@ -219,10 +245,10 @@
 		                 			<p class="list_title">${vo.title }</p>
 		                		</td>
 		                		<td>
-		                			<p class="list_artist"><a href="artist_info.html">${vo.artist }</a></p>
+		                			<p class="list_artist" id="artist"><a class="artist" href="#" data-no="${vo.ar_no }">${vo.artist }</a></p>
 		                		</td>
 		                		<td>
-		                			<p class="list_album"><a href="album_info.html">${vo.album }</a></p>
+		                			<p class="list_album" id="album"><a class="album" href="#" data-no="${vo.al_no }">${vo.album }</a></p>
 		                		</td>
 		                		<td>
 		                			<a class="like_btn like <c:if test="${vo.mlike_cnt==1 }">on</c:if>" href="#" data-no="${vo.no }"></a>

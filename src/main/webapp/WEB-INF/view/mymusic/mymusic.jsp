@@ -25,29 +25,46 @@
                 }
             });
 
-            var row_num = 6;
-            // if row is less than 6, then sustain 635px(, else height is inherited)
-            if (row_num <= 6) {
-                $(".right_side").height(635);
-            }
-
             // preventDefault
             $(".chart_box ul li a, .play_music, .add_list").click(function(e){
                 e.preventDefault();
                 // e.stopPropagation();
             })
-
-            //play music img toggle
-            $(".play_music").click(function(){
-                $(this).toggleClass("on");
-            });
-            //add list img toggle
-            $(".add_list").click(function(){
-                $(this).toggleClass("on");
-            });
+            
+            $(".album").click(function() {
+            	var sno = $(this).data('no');
+            	$.ajax({
+            		url: '<%=request.getContextPath()%>/detail/albumDetail.do?album_no='+sno,
+            		method: 'post',
+            		data: {
+            			no: sno           			
+            		},
+            		success: function(data) {
+            			console.log("success");
+            			location.href='<%=request.getContextPath()%>/detail/albumDetail.do?album_no='+sno;
+            		}
+            		
+            	});
+            });//함수 끝
+            
+            $(".artist").click(function() {
+            	var sno = $(this).data('no');
+            	$.ajax({
+            		url: '<%=request.getContextPath()%>/detail/artistDetail.do?artist_no='+sno,
+            		method: 'post',
+            		data: {
+            			no: sno           			
+            		},
+            		success: function(data) {
+            			console.log("success");
+            			location.href='<%=request.getContextPath()%>/detail/artistDetail.do?artist_no='+sno;
+            		}
+            		
+            	});
+            });//함수 끝
         });
     </script>
-
+	<%@ include file="/WEB-INF/view/player/playnlog.jsp" %>
     <style>
         /* right side */
         .right_side {float: right; width: 75%;}
@@ -177,7 +194,7 @@
                     <div class="my_box_bottom">
                         <ul class="my_comment">
                             <li>댓글</li>
-                            <li><a href="mymusic_comment.html"><span>-</span><span>내가 쓴 댓글</span></a></li>
+                            <li><a href="/music/mymusic/mymusic_comment.do"><span>-</span><span>내가 쓴 댓글</span></a></li>
                         </ul>
                         <a class="sign_out" href="/music/mymusic/mymusic_withdrawal.do">회원탈퇴</a>
                     </div>
@@ -187,7 +204,8 @@
                 <h2>최근감상곡</h2>
                 <form class="chart_box" action="" method="post">
                     <ul class="clear">
-                        <li><input id="check_all" type="checkbox"></li>                       
+                        <li><input id="check_all" type="checkbox"></li>
+                        <li><a href="#" onclick="javascript:checkplayer();">듣기</a></li>                       
                     </ul>
                     <table>
                         <tr>
@@ -206,7 +224,7 @@
                         </c:if>
                         <c:forEach var="vo" items="${list }" varStatus="status">
                         <tr>
-                   			<td><input name="check_list" type="checkbox"></td>
+                   			<td><input name="check_list" type="checkbox" data-Num="${vo.no }"></td>
                   			<td>
                       			<p>${status.count }</p>
                    		    </td>
@@ -214,13 +232,13 @@
                        			<p class="list_title">${vo.title }</p>
                    			</td>
                    			<td>
-		                       <p class="list_artist"><a href="#">${vo.artist }</a></p>
+		                       <p class="list_artist" id="artist"><a class="artist" href="#" data-no="${vo.ar_no }">${vo.artist }</a></p>
 		                    </td>
 			                <td>
-			                    <p class="list_album"><a href="#">${vo.album }</a></p>
+			                    <p class="list_album" id="album"><a class="album" href="#" data-no="${vo.al_no }">${vo.album }</a></p>
 			                </td>
 			                <td>
-			                    <a class="play_music button_icons" href="#" onclick="javascript:player(no=${vo.no });"></a>
+			                    <a class="play_music button_icons" href="#" onclick="javascript:player(no=${vo.no });" data-no="${vo.no }"></a>
 			                </td>
 			                <td>
 			                    <a class="add_list button_icons" href="#" onclick="javascript:plusplayer(no=${vo.no });"></a>

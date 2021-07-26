@@ -11,8 +11,24 @@ public class LikeVo extends CommonVo{
 	private int liked; //좋아요 수
 	private int song_no;
 	private int user_no;
+	private int ar_no; //아티스트 번호
+	private int al_no; //앨범 번호
 	
 	
+	
+	
+	public int getAr_no() {
+		return ar_no;
+	}
+	public void setAr_no(int ar_no) {
+		this.ar_no = ar_no;
+	}
+	public int getAl_no() {
+		return al_no;
+	}
+	public void setAl_no(int al_no) {
+		this.al_no = al_no;
+	}
 	public int getNo() {
 		return no;
 	}

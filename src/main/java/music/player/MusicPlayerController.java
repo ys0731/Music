@@ -77,17 +77,48 @@ public class MusicPlayerController {
 		String list = req.getParameter("no");
 		AdminSongVo asv = new AdminSongVo();
 		List<AdminSongVo> lili = new ArrayList<AdminSongVo>();
+		List<Integer> dup = new ArrayList<Integer>();
 		
 		if (sess.getAttribute("playlist") != null) {
 			List<AdminSongVo> li = (List<AdminSongVo>)sess.getAttribute("playlist");
 			
 			for (AdminSongVo i : li) {
 				lili.add(service.detail(i));
+				dup.add(service.detail(i).getNo());
 			}			
 		}
 		
-		asv.setNo(Integer.parseInt(list));
-		lili.add(service.detail(asv));
+		boolean match = true;
+		for (Integer i : dup) {
+			if (Integer.parseInt(list) == i) {
+				match = false;
+			}
+		}
+		
+		if (match) {
+			asv.setNo(Integer.parseInt(list));
+			lili.add(service.detail(asv));
+		}
+		
+		sess.setAttribute("playlist", lili);
+	}
+	
+	@RequestMapping("/player/minusplay.do")
+	@ResponseBody
+	public void minusPlayer(HttpServletRequest req, HttpSession sess) {
+		String list = req.getParameter("no");
+		AdminSongVo asv = new AdminSongVo();
+		List<AdminSongVo> lili = new ArrayList<AdminSongVo>();
+		
+		if (sess.getAttribute("playlist") != null) {
+			List<AdminSongVo> li = (List<AdminSongVo>)sess.getAttribute("playlist");
+			
+			for (AdminSongVo i : li) {
+				if (Integer.parseInt(list) != i.getNo()) {
+					lili.add(service.detail(i));
+				}
+			}			
+		}
 		
 		sess.setAttribute("playlist", lili);
 	}
