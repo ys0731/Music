@@ -1,5 +1,9 @@
 package music.recommend;
 
+import java.io.IOException;
+import java.io.PrintWriter;
+
+import javax.servlet.http.HttpServletResponse;
 import javax.servlet.http.HttpSession;
 
 import org.springframework.beans.factory.annotation.Autowired;
@@ -36,12 +40,10 @@ public class RecommendController {
 	public String recommendInfo(Model model, RecommendVo vo, UserVo uv, HttpSession sess) {
 		model.addAttribute("title", service.selectListTitle(vo));
 		model.addAttribute("list", service.selectSongList(vo));
-		
-		UserVo expiryDate = uService.isUserExpiryDate(((UserVo)sess.getAttribute("userInfo")));
-		if(expiryDate !=null) { //만료일이 지나지 않았으면  
-			model.addAttribute("expiryDate",expiryDate);						
-		}		
+	
 		return "recommend/recommend_info";
 	}	
 	
+	
 }
+

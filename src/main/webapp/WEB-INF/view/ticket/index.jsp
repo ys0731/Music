@@ -32,11 +32,26 @@
             		console.log(data);
             		//가격 비교한 후 로직 실행 (서버 검증)
             		if(rsp.paid_amount == data.response.amount){
-            			alert("결제가 성공하였습니다.");
             			$("input[name=user_no]").val('${userInfo.no}');
-            			location.href='/music/pay/payment.do?ticket_type='+ticket_type+'&time='+time+'&no='+no;
+            			$.ajax({
+            				type: "POST",
+            				data : {
+            					ticket_type : ticket_type,
+            					time : time,
+            					no : no
+            				},
+            				url : "/music/pay/payment.do",
+        	   				success:function(res){
+        	   					if(res.trim() =='true'){
+        	   						alert('결제가 성공하였습니다.');
+        	   						location.href='/music/pay/view.do';
+        	   					}else{
+        	   						alert('결제가 실패하였습니다.'); 
+        	   					}
+        	   				}
+            			})
             		}else{
-            			alert('결제가 취소되었습니다.');
+            			alert('결제 오류.');
             		}
             	});
             	
