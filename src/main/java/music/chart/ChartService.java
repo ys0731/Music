@@ -11,7 +11,7 @@ public interface ChartService {
 	List<ChartVo> ChartList_kpop(ChartVo vo);
 	List<ChartVo> ChartList_pop(ChartVo vo);
 	List<ChartVo> ChartList_recent(ChartVo vo);
-	List<ChartVo> User_recent(int no);
+	List<ChartVo> User_recent(ChartVo vo);
 	ChartVo detail(int no);
 	
 	

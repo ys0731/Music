@@ -56,8 +56,23 @@ public class ChartServiceImpl implements ChartService {
 	}
 	
 	@Override
-	public List<ChartVo> User_recent(int no) {
-		List<ChartVo> list = dao.User_recent(no);
+	public List<ChartVo> User_recent(ChartVo vo) {
+		vo.setPageRow(4);
+		int totCount = dao.count(vo); // 총갯수
+		// 총페이지수
+		int totPage = totCount / vo.getPageRow();
+		if (totCount % vo.getPageRow() > 0) totPage++;
+		// 시작페이지
+		int startPage = (vo.getReqPage()-1)/vo.getPageRange()
+						*vo.getPageRange()+1;
+		int endPage = startPage+vo.getPageRange()-1;
+		if (endPage > totPage) endPage = totPage;
+		
+		vo.setStartPage(startPage);
+		vo.setEndPage(endPage);
+		vo.setTotCount(totCount);
+		vo.setTotPage(totPage);
+		List<ChartVo> list = dao.User_recent(vo);
 		return list;
 	}
 	@Override

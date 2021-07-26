@@ -6,6 +6,8 @@ import org.mybatis.spring.SqlSessionTemplate;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Repository;
 
+import music.like.LikeVo;
+
 @Repository
 public class ChartDao {
 
@@ -42,12 +44,16 @@ public class ChartDao {
 		return sqlSession.selectList("chart.Chart_recent", vo);
 	}
 	//최근 감상곡
-	public List<ChartVo> User_recent(int no) {
-		return sqlSession.selectList("chart.User_recent", no);
+	public List<ChartVo> User_recent(ChartVo vo) {
+		return sqlSession.selectList("chart.User_recent", vo);
 	}
 	
 	//곡 상세
 	public ChartVo detail(int no) {
 		return sqlSession.selectOne("chart.detail", no);
+	}
+	
+	public int count(ChartVo vo) {
+		return sqlSession.selectOne("chart.count",vo);
 	}
 }
