@@ -24,7 +24,6 @@ String path = request.getContextPath();
 				</div>
 			</div>
 			<div <c:if test="${vo.nested > 0 }">style="margin-left: 50px;"</c:if>>
-				<a class="edit_btn" href="#">수정</a>
 				<a class="delete_btn" href="javascript:commentDel(no=${vo.no });">삭제</a>
 			</div>
 		</div>
