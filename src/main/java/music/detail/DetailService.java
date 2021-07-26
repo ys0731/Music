@@ -8,6 +8,7 @@ public interface DetailService {
 	Map artistDetail(int no);
 	List<Map> albumSong(int no);
 	List<Map> artistSong(int no);
+	List<Map> artistSearch(String searchword);
 
 	  
 }

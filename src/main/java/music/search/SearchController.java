@@ -22,7 +22,7 @@ public class SearchController {
 		av = service.selectOne(av); //artist테이블에서 검색어랑 이름이 같은 아티스트 검색
 		model.addAttribute("vo",av);
 		if(av != null) {  //결과가 있으면
-			int r = service.searchInsert(vo);  //search 테이블에 검색어 저장
+			service.searchInsert(vo);  //search 테이블에 검색어 저장
 			return "";    // artist 상세 페이지 리턴
 		} else {
 			return "";
