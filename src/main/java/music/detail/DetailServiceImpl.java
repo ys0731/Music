@@ -23,7 +23,11 @@ public class DetailServiceImpl implements DetailService {
 	public Map artistDetail(int no) {
 		return dao.artistDetail(no);
 	}
-	
+	@Override
+	public List<Map> artistSearch(String searchword) {
+		List<Map> list = dao.artistSearch(searchword);
+		return list;
+	}	
 	@Override
 	public List<Map> albumSong(int no) {
 		List<Map> list = dao.albumSong(no);

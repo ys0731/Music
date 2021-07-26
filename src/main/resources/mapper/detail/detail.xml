@@ -17,8 +17,19 @@
 	
 	<!-- 아티스트 상세-->
 	<select id="artistDetail" parameterType="int" resultType="java.util.Map">
-		SELECT no AS artist_no, artist, debdate, info, img_real FROM artist WHERE no=#{no};
+		SELECT no AS artist_no, artist, debdate, info, img_real FROM artist WHERE no=#{no}
 	</select>
+
+	<!-- 아티스트 상세 수정버전-->
+	<select id="artistSearch" parameterType="String" resultType="java.util.Map">
+		SELECT artist.no AS artist_no, artist, debdate, info, img_real, song.title AS title, song.album_no AS album_no
+		FROM artist join song
+		on artist.no = song.artist_no
+
+		WHERE artist.artist LIKE CONCAT('%',#{searchword},'%')
+
+	</select>
+
 	
 	<!-- 앨범 상세 곡 -->
 	<select id="albumSong" parameterType="int" resultType="java.util.Map">

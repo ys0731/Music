@@ -1,6 +1,7 @@
 package music.detail;
 
 
+
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
@@ -8,7 +9,6 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 
 import music.detailAlbumComment.AlbumCommentService;
-import music.detailAlbumComment.AlbumCommentVo;
 
 
 @Controller
@@ -18,7 +18,6 @@ public class DetailController {
 	DetailService service;
 	@Autowired
 	AlbumCommentService aService;
-
 	
 	// 앨범상세
 	@RequestMapping("/detail/albumDetail.do")
@@ -38,6 +37,14 @@ public class DetailController {
 		return "detail/artistDetail";
 	}
 	
+	// 검색목록
+	@RequestMapping("/detail/searchView.do")
+	public String searchView(@RequestParam String searchword, Model model) {
+		if(!"".equals(searchword)) {
+			model.addAttribute("vo", service.artistSearch(searchword));		
+		}
+		return "detail/searchView";
+	}
 	
 
 }

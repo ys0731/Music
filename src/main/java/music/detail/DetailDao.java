@@ -7,6 +7,8 @@ import org.mybatis.spring.SqlSessionTemplate;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Repository;
 
+import music.admin.notice.NoticeAdminVo;
+
 @Repository
 public class DetailDao {
 
@@ -22,7 +24,10 @@ public class DetailDao {
 	public Map artistDetail(int no) {
 		return sqlSession.selectOne("detail.artistDetail", no);
 	}
-
+	// 아티스트 상세
+	public List<Map> artistSearch(String searchword){
+		return sqlSession.selectList("detail.artistSearch",searchword);
+	}
 	// 엘범상세 곡
 	public List<Map> albumSong(int no) {
 		return sqlSession.selectList("detail.albumSong", no);

@@ -13,11 +13,11 @@
             </div>
             <div class="header_top_down center clear">
                 <h1 class="logo"><a href="/music/index.do"></a></h1>
-                <form class="header_search clear" action="/music/search.do" method="post">
+                <form class="header_search clear" action="/music/detail/searchView.do" method="post">
                     <button class="search_btn" type="submit">
                         <img src="/music/img/search.png" alt="search">
                     </button>
-                    <input class="search_text hide_input_outline no_outline" type="text" name="searchword" id="searchword">
+                    <input class="search_text hide_input_outline no_outline" type="text" name="searchword" id="searchword" value="${searchword}" placeholder="아티스트를 검색해주세요">
                 </form>
                 <div class="rise"><p>급상승</p></div>
                 <div class="rising">
