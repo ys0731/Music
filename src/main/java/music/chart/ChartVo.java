@@ -2,7 +2,9 @@ package music.chart;
 
 import java.sql.Timestamp;
 
-public class ChartVo {
+import util.CommonVo;
+
+public class ChartVo extends CommonVo{
 	
 	private int no; //곡 번호
 	private String title;
