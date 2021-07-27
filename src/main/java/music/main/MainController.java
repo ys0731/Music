@@ -37,10 +37,8 @@ public class MainController {
 	@RequestMapping("/index.do")
 	public String index(Model model, ChartVo cv, AdminAlbumVo av, HttpSession sess, SearchVo sv, NoticeVo nv) {
 		
-		List<SearchVo> searchRank = sservice.searchRanking(sv);
 		model.addAttribute("av",alservice.selectAllAlbums(av));
 		model.addAttribute("cv",cservice.ChartList_24hits(cv));
-		sess.setAttribute("searchRank", searchRank);
 		
 		model.addAttribute("nv",nservice.selectAll(nv));	
 		return "index";
