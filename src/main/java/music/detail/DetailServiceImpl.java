@@ -40,6 +40,18 @@ public class DetailServiceImpl implements DetailService {
 		return list;
 	}
 
+//	@Override
+//	public List<Map> albumSearch(String searchword) {
+//		List<Map> list = dao.albumSearch(searchword);
+//		return list;
+//	}
+
+	@Override
+	public List<Map> songSearch(String searchword) {
+		List<Map> list = dao.songSearch(searchword);
+		return list;
+	}
+
 
 	
 }

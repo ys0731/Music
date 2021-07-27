@@ -13,11 +13,11 @@
             </div>
             <div class="header_top_down center clear">
                 <h1 class="logo"><a href="/music/index.do"></a></h1>
-                <form class="header_search clear" action="/music/detail/searchView.do" method="post">
+                <form class="header_search clear" action="/music/detail/searchView.do" method="get">
                     <button class="search_btn" type="submit">
                         <img src="/music/img/search.png" alt="search">
                     </button>
-                    <input class="search_text hide_input_outline no_outline" type="text" name="searchword" id="searchword" value="${searchword}" placeholder="아티스트를 검색해주세요">
+                    <input class="search_text hide_input_outline no_outline" type="text" name="searchword" id="searchword" value="${searchword}" placeholder="아티스트 혹은 곡명을 검색해주세요">
                 </form>
                 <div class="rise"><p>급상승</p></div>
                 <div class="rising">
@@ -28,7 +28,7 @@
                     </ul>
                 </div>
                 <c:if test="${empty userInfo }">  
-                <a class="login_btn" href="/music/user/login.do">로그인</a>
+                <a class="login_btn" href="/music/user/login.do?url=<%=request.getAttribute("javax.servlet.forward.request_uri")%>?<%=request.getQueryString()==null?"":request.getQueryString() %>">로그인</a>
                 </c:if>
             </div>
         </div>

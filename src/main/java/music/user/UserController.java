@@ -1,6 +1,5 @@
 package music.user;
 
-import java.text.SimpleDateFormat;
 import java.util.Date;
 import java.util.regex.Matcher;
 import java.util.regex.Pattern;
@@ -19,6 +18,7 @@ import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RequestParam;
+import org.springframework.web.servlet.mvc.support.RedirectAttributes;
 
 
 @Controller
@@ -113,10 +113,7 @@ public class UserController {
 		} else {
 			Date date_now = new Date(System.currentTimeMillis()); // 현재시간
 			sess.setAttribute("userInfo", uv);
-			
-			
-			
-			// 쿠키에 저장
+		
 			Cookie cookie = new Cookie("cookieId", vo.getId()); //아이디 쿠키에 저장 
 			cookie.setPath("/");
 			if ("check".equals(vo.getCheckId())) {
@@ -125,8 +122,9 @@ public class UserController {
 				cookie.setMaxAge(0);
 			}
 			res.addCookie(cookie);
-			
-			return "redirect:/index.do";
+			String url = "/music/index.do";
+			if(req.getParameter("url") != null && !"".equals(req.getParameter("url"))) url = req.getParameter("url"); //url 파라미터가 있으면 url에 대입 
+			return "redirect: "+url;
 		}
 	}
 	

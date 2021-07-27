@@ -15,15 +15,33 @@
 		FROM song AS s where album_no=#{album_no} GROUP BY album_no=#{album_no}
 	</select>
 	
-	<!-- 아티스트 상세 수정버전-->
+	<!-- 아티스트 상세 -->
+	<select id="artistDetail" parameterType="int" resultType="java.util.Map">
+		SELECT no AS artist_no, artist, debdate, info, img_real FROM artist WHERE no=#{no}
+	</select>
+	
+	<!-- 아티스트 검색 -->
 	<select id="artistSearch" parameterType="String" resultType="java.util.Map">
 		SELECT artist.no AS artist_no, artist, debdate, info, img_real, song.title AS title, song.album_no AS album_no
 		FROM artist join song
 		on artist.no = song.artist_no
 		WHERE artist.artist LIKE CONCAT('%',#{searchword},'%')
-
 	</select>
-
+	
+	<!--앨범 검색  -->
+<!-- 	<select id="albumSearch" parameterType="String" resultType="java.util.Map">
+	    SELECT album.no AS album_no, album, album.genre AS genre ,info,img_real,album.regdate AS regdate
+        FROM album JOIN song
+        ON album.no = song.album_no
+        WHERE album.album LIKE CONCAT('%',#{searchword},'%')
+	</select>	 -->
+	
+	<!--노래 검색  -->
+	<select id="songSearch" parameterType="String" resultType="java.util.Map">
+        SELECT no,artist_no,album_no,title,genre,lyrics,regdate,src_real
+        FROM song
+        WHERE title LIKE CONCAT('%',#{searchword},'%')
+	</select>	
 	
 	<!-- 앨범 상세 곡 -->
 	<select id="albumSong" parameterType="int" resultType="java.util.Map">

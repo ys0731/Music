@@ -92,6 +92,7 @@
     <h1 class="logo"><a href="/music/index.do"></a></h1>
     <div class="login_wrapper">
         <form action="login.do" method="post" id="board1" name="board1" onsubmit="return loginCheck();">
+        <input type="hidden" name="url" value="${param.url}">
             <div class="text_wrapper">
                 <input name="id" id="id" class="no_outline hide_input_outline" type="text" placeholder="아이디" value="${userVo.id }">
                 <input name="pwd" id="pwd" class="no_outline hide_input_outline" type="password" placeholder="비밀번호">

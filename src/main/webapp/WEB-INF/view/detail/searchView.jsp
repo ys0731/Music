@@ -6,13 +6,106 @@
 <%
 	String path = request.getContextPath();
 %>
+
 <head>
     <meta charset="UTF-8">
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>검색 목록</title>
     <%@ include file="/WEB-INF/view/include/headHtml.jsp" %>
+	
+	    <script>
+	  //팝업
+	    function popup(no) {
+	        window.open("/music/chart/lyrics.do?no="+no, "popup", "width=400, height=600");
+	    }
 
+        $(document).ready(function(){
+
+            // check all
+            $("#check_all").change(function(){
+                if ($("#check_all").is(':checked')) {
+                    $("input[type='checkbox'][name='check_list']").prop("checked", true);                  
+                } 
+                else {
+                    $("input[type='checkbox'][name='check_list']").prop("checked", false);
+                }
+            });
+			
+            //가사
+            $(".lyrics").click(function() {
+            	var no = $(this).data('no');
+            	popup(no);
+            });
+            
+          //좋아요
+            $(".like").click(function() {
+            	var sno = $(this).data('no');
+            	$.ajax({
+            		url: '/music/like/like.do?sno='+sno,
+            		method: 'post',
+            		data: {
+            			no: sno           			
+            		},
+            		success: function(data) {
+            			console.log("success");
+            		}
+            		
+            	});
+            });//함수 끝
+            
+            $(".album").click(function() {
+            	var sno = $(this).data('no');
+            	$.ajax({
+            		url: '<%=request.getContextPath()%>/detail/albumDetail.do?album_no='+sno,
+            		method: 'post',
+            		data: {
+            			no: sno           			
+            		},
+            		success: function(data) {
+            			console.log("success");
+            			location.href='<%=request.getContextPath()%>/detail/albumDetail.do?album_no='+sno;
+            		}
+            		
+            	});
+            });//함수 끝
+            
+            $(".artist").click(function() {
+            	var sno = $(this).data('no');
+            	$.ajax({
+            		url: '<%=request.getContextPath()%>/detail/artistDetail.do?artist_no='+sno,
+            		method: 'post',
+            		data: {
+            			no: sno           			
+            		},
+            		success: function(data) {
+            			console.log("success");
+            			location.href='<%=request.getContextPath()%>/detail/artistDetail.do?artist_no='+sno;
+            		}
+            		
+            	});
+            });//함수 끝
+            
+            // preventDefault
+            $(".chart_box ul li a, .lyrics_popup, .like_btn, .play_music, .add_list ").click(function(e){
+                e.preventDefault();
+            })
+
+            //like img toggle
+            $(".like_btn").click(function(){
+                $(this).toggleClass("on");
+            });
+
+          	// btn change color
+           	$(".chart_btn li").click(function(){               
+                $(".chart_btn li").removeClass("on");
+                $(this).addClass("on");
+            });              
+        });
+    </script>
+    
+    <%@ include file="/WEB-INF/view/player/playnlog.jsp" %>
+	
     <style>
         /* song count */
         .song_count {font-size: 18px; margin: 20px 0;}
@@ -80,38 +173,7 @@
         .artist_box table tr:nth-child(3) td {vertical-align: top;}
         .artist_box table tr:nth-child(2) td:first-child, .artist_box table tr:nth-child(3) td:first-child {width: 80px; color: #666;}
 
-        /* comment input box */
-        .comment_box {position: relative; margin: 20px 0; padding: 20px; box-sizing: border-box;}
-        .comment_box h3 {font-size: 18px; margin-bottom: 20px;}
-        .comment_box div form textarea {float: left; width: 80%; height: 150px; padding: 10px; border: 2px solid #ccc; box-sizing: border-box; font-size: 15px; resize: none;}
-        .comment_box div form textarea:focus {outline: none;}
-        .comment_box div form button {float: right; display: block; width: 150px; height: 150px; border: none; background-color: #11264b; color: #fff; font-size: 15px; font-weight: bold; border-radius: 5px; cursor: pointer;}
-        .comment_box div form button:active {background-color: #183568;}
-
-        .max_type {display: inline-block; position: absolute; right: 215px; padding-top: 10px; color: #666;}
-
-        /* comment list */
-        .comment_list_wrapper {margin-bottom: 20px;}
-        .comment_list {position: relative; height: 120px; padding: 20px 20px; border-bottom: 2px solid #ccc; box-sizing: border-box;}
-        .comment_list:nth-child(1) {border-top: 2px solid #ccc;}
-        .comment_list > p {margin-bottom: 10px;}
-        .comment_list > div > div:nth-child(1) {float: left; width: 80%;}
-        .comment_list > div > div:nth-child(1) > p {color: #666;}
-        .comment_list > div > div:nth-child(1) > div {position: absolute; bottom: 20px;}
-        .comment_list > div > div:nth-child(1) > div > a {color: #ccc;}
-        .comment_list > div > div:nth-child(1) > div > a:hover {color: #aaa;}
-        .comment_list > div > div:nth-child(2) {float: left; margin-left: 90px; margin-top: 5px; color: #ccc;}
-        .comment_list > div > div:nth-child(2) a:hover {color: #aaa;}
-
-        /* co_comment list */
-
-        /* co_comment input box */
-        .co_comment_box {height: 70px; margin-bottom: 20px; padding: 20px; box-sizing: border-box; background-color: #ddd;}
-        .co_comment_box.on {display: none;}
-        .co_comment_box form textarea {float: left; width: 80%; height: 30px; padding: 5px; border: 2px solid #ccc; box-sizing: border-box; font-size: 13px; resize: none;}
-        .co_comment_box form textarea:focus {outline: none;}
-        .co_comment_box form button {float: right; display: block; width: 150px; height: 30px; border: none; background-color: #11264b; color: #fff; font-size: 15px; font-weight: bold; border-radius: 5px; cursor: pointer;}
-        .co_comment_box form button:active {background-color: #183568;}
+      
     </style>
 </head>
 
@@ -121,31 +183,84 @@
     <div id="container">
         <div class="center">
         	<c:if test="${!empty vo }">
-            <h2>찾으시는 <strong style="color:purple;">'${vo[0].artist}'</strong> 검색 결과입니다.</h2>
-            <c:forEach var="vo" items="${vo}" varStatus="status">    
-	            <div class="artist_box clear">
-	            <input type="hidden" id="artist_no" name="artist_no" value="${vo.artist_no}">
-	                <a href="/music/detail/albumDetail.do?album_no=${vo.album_no}"><img src="<%=path %>/upload/${vo.img_real }" alt="album1"></a>
+	            <h2>찾으시는 <strong style="color:purple;">'${vo[0].artist}'</strong> 검색 결과입니다.</h2>
+	            <c:forEach var="vo" items="${vo}" varStatus="status">    
+		            <div class="artist_box clear">
+		            <input type="hidden" id="artist_no" name="artist_no" value="${vo.artist_no}">
+		                <a href="/music/detail/albumDetail.do?album_no=${vo.album_no}"><img src="<%=path %>/upload/${vo.img_real }" alt="album1"></a>
+		                <table>
+		                    <tr>
+		                        <td colspan="2"><a href="/music/detail/artistDetail.do?artist_no=${vo.artist_no}">${vo.artist }</a></td>
+		                    </tr>
+		                    <tr>
+		                        <td>데뷔</td>
+		                        <td>${vo.debdate }</td>
+		                    </tr>
+		                    <tr>
+		                        <td>소개</td>
+		                        <td>
+		                            <p>${vo.info }</p>
+		                        </td>
+		                    </tr>
+		                </table> 
+		            </div>
+	            </c:forEach>
+            </c:if>
+            <c:if test="${empty vo && empty svo}">
+            	<img src="/music/img/search_no.jpeg" style="margin: 200px 253px;"/>
+			</c:if>
+			
+			<c:if test="${!empty svo}">
+				<c:if test="${empty vo}">
+					<h2>찾으시는 <strong style="color:purple;">'${svo[0].title}'</strong> 검색 결과입니다.</h2>
+				</c:if>	
+				<form class="chart_box" action="" method="post">
+	                <ul class="clear" style="margin-top: 50px;">
+	                    <li><input id="check_all" type="checkbox"></li>
+	                    <li><a href="#" onclick="javascript:checkplayer();">듣기</a></li>
+	                    <li><a href="#">재생목록에 추가</a></li>
+	                </ul>
 	                <table>
 	                    <tr>
-	                        <td colspan="2"><a href="/music/detail/artistDetail.do?artist_no=${vo.artist_no}">${vo.artist }</a></td>
+	                        <td></td>
+	                        <td>NO</td>
+	                        <td>곡</td>
+	                        <td>아티스트</td>
+	                        <td>앨범</td>
+	                        <td>좋아요</td>
+	                        <td>듣기</td>
+	                        <td>추가</td>
 	                    </tr>
+	                    <c:forEach var="vo" items="${svo }" varStatus="status">
 	                    <tr>
-	                        <td>데뷔</td>
-	                        <td>${vo.debdate }</td>
-	                    </tr>
-	                    <tr>
-	                        <td>소개</td>
-	                        <td>
-	                            <p>${vo.info }</p>
-	                        </td>
-	                    </tr>
-	                </table> 
-	            </div>
-            </c:forEach>
-            </c:if>
-            <c:if test="${empty vo }">
-            <img src="/music/img/search_no.jpeg" style="margin: 200px 253px;"/>
+	                  		<td><input name="check_list" type="checkbox" data-Num="${vo.no }"></td>
+	                  		<td>
+	                      		<p>${status.count }</p>
+	                   		</td>
+	                   		<td class="clear">
+			                      <a href="album_info.html"> <img class="album_mini" src="<%=path %>/upload/${vo.rel}" alt="album_img"></a>
+			                       <a class="lyrics_popup button_icons lyrics" href="#" data-no="${vo.no }"></a>
+			                       <p class="list_title">${vo.title }</p>
+	                   		</td>
+	                   		<td>
+	                      		<p class="list_artist" id="artist"><a class="artist" href="#" data-no="${vo.ar_no }">${vo.artist }</a></p>
+	                   		</td>
+	                  		<td>
+	                     		<p class="list_album" id="album"><a class="album" href="#" data-no="${vo.al_no }">${vo.album }</a></p>
+	                   		</td>
+		                    <td>
+		                       <a class="like_btn like <c:if test="${vo.mlike_cnt==1 }">on</c:if>" href="#" data-no="${vo.no }"></a>
+		                    </td>
+		                    <td>
+		                         <a class="play_music button_icons play" href="#" onclick="javascript:player(no=${vo.no });" data-no="${vo.no }"></a>
+		                    </td>
+	                  		<td>
+	                       		<a class="add_list button_icons" href="#" onclick="javascript:plusplayer(no=${vo.no });"></a>
+	                  		</td>
+	                	</tr>
+	                    </c:forEach>
+	                </table>
+	            </form>	
 			</c:if>
 		</div>
 	</div>
