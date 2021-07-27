@@ -1,12 +1,11 @@
 package music.search;
 
 import java.util.List;
+import java.util.Map;
 
 import org.mybatis.spring.SqlSessionTemplate;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Repository;
-
-import music.admin.artist.AdminArtistVo;
 
 @Repository
 public class SearchDao {
@@ -18,11 +17,11 @@ public class SearchDao {
 		return sqlSession.selectList("search.searchRanking",vo);
 	}
 	
-	public int searchInsert(SearchVo vo) {
-		return sqlSession.insert("search.searchInsert",vo);
+	public int searchInsert(String searchword) {
+		return sqlSession.insert("search.searchInsert",searchword);
 	}
 	
-	public AdminArtistVo selectOne(AdminArtistVo vo) {
-		return sqlSession.selectOne("search.selectOne", vo);
+	public Map selectOne(String searchword) {
+		return sqlSession.selectOne("search.selectOne", searchword);
 	}
 }

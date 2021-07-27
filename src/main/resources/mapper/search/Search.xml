@@ -11,15 +11,16 @@
 		LIMIT 0,10
 	</select>
 	
-	<insert id="searchInsert" parameterType="music.search.SearchVo">
-		INSERT INTO search(searchword,searchdate)
+	<insert id="searchInsert" parameterType="String">
+		INSERT INTO search(searchword, searchdate)
 		VALUES(#{searchword}, NOW()) 
 	</insert>
 	
-	<select id="selectOne" resultType="music.admin.artist.AdminArtistVo"  parameterType="music.admin.artist.AdminArtistVo">
+	<select id="selectOne" parameterType="String" resultType="java.util.Map">
 		SELECT * 
 		FROM artist
-		WHERE artist = '${searchword}'	
+		WHERE artist LIKE CONCAT('%',#{searchword},'%')
+		LIMIT 1
 	</select>
 	
 </mapper>
