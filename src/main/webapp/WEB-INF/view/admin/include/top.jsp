@@ -110,7 +110,8 @@ $(window).load(function(){
   					</ul>
   					</div>
 				</li>
-				<li><a href="<%=request.getContextPath()%>/admin/admin/index.do" class="parent"><span>관리자관리</span></a></li>			
+				<li><a href="<%=request.getContextPath()%>/admin/admin/index.do" class="parent"><span>관리자관리</span></a></li>
+				<li><a href="<%=request.getContextPath()%>/admin/report/index.do" class="parent"><span>신고관리</span></a>			
 			</ul>
 		</div>
 		<!--//gnb-->
