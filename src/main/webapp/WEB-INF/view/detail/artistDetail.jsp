@@ -187,6 +187,27 @@
     			alert('댓글은 로그인 후 등록가능합니다.');
     		</c:if>
        	}
+    	function report(user_no,artist_co_no) {
+    		if (confirm('댓글을 신고하시겠습니까?')) {
+	    		var params = {
+	    				user_no : user_no,
+	    				artist_co_no : artist_co_no,
+	    				album_co_no : 0
+	    		}
+	    		$.ajax({
+	    			url: '/music/user/report/insert.do',
+	    			method: 'post',
+	    			data: params,
+	    			success:function(res) {
+	    				console.log("success")
+	    				if (res.trim()=='true') {
+	                					alert('신고되었습니다');               					
+		       					}
+	    			}
+	    			
+	    		});
+    		}
+    	}
     </script>
 
     <style>

@@ -17,7 +17,7 @@ String path = request.getContextPath();
 			<div <c:if test="${vo.nested > 0 }">style="margin-left: 40px;"</c:if>>
 				<p>${vo.content }</p>
 				<div>
-					<a class="report_btn" href="#">신고</a>
+					<a class="report_btn" href="javascript:report(user_no=${vo.user_no },album_co_no=${vo.no });">신고</a>
 					<c:if test="${vo.nested < 1}">
 						<a class="comment_btn" value=${status.count } href="#" onclick="addReplyComment(this, event);">답글</a>
 					</c:if>

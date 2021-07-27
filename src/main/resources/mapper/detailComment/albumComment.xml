@@ -20,8 +20,8 @@
 	
 	<select id="selectAll" resultType="music.detailAlbumComment.AlbumCommentVo" parameterType="music.detailAlbumComment.AlbumCommentVo">
 		SELECT *,
-		(SELECT name FROM user WHERE no=reply.user_no) AS name
-		FROM reply
+		(SELECT id FROM user WHERE no=album_comment.user_no) AS id
+		FROM album_comment
 		<include refid="boardWhere"/>
 		ORDER BY gno DESC, ono ASC
 		LIMIT ${startIdx},${pageRow}

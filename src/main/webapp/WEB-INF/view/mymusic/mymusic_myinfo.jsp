@@ -12,56 +12,56 @@
     <title>내정보</title>
    <%@ include file="/WEB-INF/view/include/headHtml.jsp" %>
     
-    <script>
-        
-            
+    <script>           
+          	$(function() {
           	//닉네임 중복확인
-            $("#chk_nick").click(function(){
-    			if($("#nickname").val()==''){
-    				alert('닉네임을 입력해 주세요.');
-    				$("#nickname").focus();
-    			}else{
-    				$.ajax({
-    					url:'<%=request.getContextPath()%>/user/isDuplicateNickname.do',
-    					data:{
-    						nickname:$('#nickname').val()
-    						},
-    					success : function(res){
-    						if(res.trim() == 'true'){
-    							alert('중복된 닉네임입니다. 다른 닉네임을 입력해주세요.')
-    							$('#nickname').val('');
-    							$('#nickname').focus(); 
-    							$("input[name=checked_nickname]").val('');
-    						}else{
-    							alert('사용 가능한 닉네임입니다.')
-    							$("input[name=checked_nickname]").val('y');
-    							$("#nickname").keyup(function(){
-    								$("input[name=checked_nickname]").val('');
-    							});
-    						}
-    					}	
-    				});
-    			}
-    		});
-          	
-          	$(".myinfo_btn").click(function() {
-          		if($("#nickname").val()==''){
-    				alert('닉네임을 입력해 주세요.');
-    				$("#nickname").focus();
-    			} else {
-    				$.ajax({
-    					url:'<%=request.getContextPath()%>/mymusic/mymusic_nick_edit.do',
-    					data:{
-    						nickname:$('#nickname').val()
-    						},
-    					success : function(res){
-    						alert('닉네임이 변경되었습니다.')
-    						location.href="/music/mymusic/mymusic.do"
-    					}
-    				})
-    			}
+                $("#chk_nick").click(function(){
+        			if($("#nickname").val()==''){
+        				alert('닉네임을 입력해 주세요.');
+        				$("#nickname").focus();
+        			}else{
+        				$.ajax({
+        					url:'<%=request.getContextPath()%>/user/isDuplicateNickname.do',
+        					data:{
+        						nickname:$('#nickname').val()
+        						},
+        					success : function(res){
+        						if(res.trim() == 'true'){
+        							alert('중복된 닉네임입니다. 다른 닉네임을 입력해주세요.')
+        							$('#nickname').val('');
+        							$('#nickname').focus(); 
+        							$("input[name=checked_nickname]").val('');
+        						}else{
+        							alert('사용 가능한 닉네임입니다.')
+        							$("input[name=checked_nickname]").val('y');
+        							$("#nickname").keyup(function(){
+        								$("input[name=checked_nickname]").val('');
+        							});
+        						}
+        					}	
+        				});
+        			}
+        		});
+              	
+              	$(".myinfo_btn").click(function() {
+              		if($("#nickname").val()==''){
+        				alert('닉네임을 입력해 주세요.');
+        				$("#nickname").focus();
+        			} else {
+        				$.ajax({
+        					url:'<%=request.getContextPath()%>/mymusic/mymusic_nick_edit.do',
+        					data:{
+        						nickname:$('#nickname').val()
+        						},
+        					success : function(res){
+        						alert('닉네임이 변경되었습니다.')
+        						location.href="/music/mymusic/mymusic.do"
+        					}
+        				})
+        			}
+              	});
           	})
-        });
+        
     </script>    
 </head>
 

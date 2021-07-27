@@ -38,6 +38,7 @@ public class MymusicController {
 		uv = (UserVo)sess.getAttribute("userInfo");
 		cv.setUser_no(uv.getNo());
 		model.addAttribute("list", cservice.User_recent(cv));
+		model.addAttribute("uv", uservice.deatil(uv));
 		
 		return "mymusic/mymusic";
 		
