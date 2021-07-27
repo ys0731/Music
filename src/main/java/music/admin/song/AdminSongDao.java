@@ -18,6 +18,10 @@ public class AdminSongDao {
 	public List<AdminSongVo> selectAll(AdminSongVo vo) {
 		return sqlSession.selectList("song.selectAll", vo); // namespace.id
 	}
+	
+	public List<AdminSongVo> selectAllSongs(AdminSongVo vo) {
+		return sqlSession.selectList("song.selectAllSongs", vo);
+	}
 
 	public int count(AdminSongVo vo) {
 		return sqlSession.selectOne("song.count", vo);

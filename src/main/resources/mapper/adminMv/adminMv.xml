@@ -1,0 +1,81 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="mv">
+
+	<sql id="adminWhere">
+		<where>
+			<if test="sval != null and sval != ''">
+				<if test="stype == 'all'">
+					no LIKE '%${sval}%' OR title LIKE '%${sval}%'
+				</if>
+				<if test="stype != 'all'">
+					${stype} LIKE '%${sval}%'
+				</if>
+			</if>
+		</where>
+	</sql>
+	
+	<select id="selectAll" resultType="music.admin.mv.AdminMvVo" parameterType="music.admin.mv.AdminMvVo">
+		SELECT
+			no,
+			img,
+			link,
+			(SELECT title FROM song WHERE no=m.song_no) AS title,
+			(SELECT artist FROM artist WHERE no=(SELECT artist_no FROM song WHERE no=m.song_no)) AS artist,
+			(SELECT album FROM album WHERE no=(SELECT album_no FROM song WHERE no=m.song_no)) AS album,
+			(SELECT no FROM song WHERE no=m.song_no) AS song_no,
+			regdate
+		FROM mv AS m
+		<include refid="adminWhere"/>
+		ORDER BY ${orderby} ${direct}
+		LIMIT ${startIdx}, ${pageRow}
+	</select>
+	
+	<select id="count" resultType="int" parameterType="music.admin.mv.AdminMvVo">
+		SELECT COUNT(*)
+		FROM mv
+		<include refid="adminWhere"/>
+	</select>
+	
+	<select id="detail" resultType="music.admin.mv.AdminMvVo" parameterType="music.admin.mv.AdminMvVo">
+		SELECT
+			no,
+			img,
+			link,
+			(SELECT title FROM song WHERE no=m.song_no) AS title,
+			(SELECT artist FROM artist WHERE no=(SELECT artist_no FROM song WHERE no=m.song_no)) AS artist,
+			(SELECT album FROM album WHERE no=(SELECT album_no FROM song WHERE no=m.song_no)) AS album,
+			(SELECT no FROM song WHERE no=m.song_no) AS song_no
+		FROM mv AS m WHERE no=#{no}
+	</select>
+		
+	<insert id="insert" parameterType="music.admin.mv.AdminMvVo">
+		INSERT INTO mv (song_no, img, link, regdate)
+		VALUES (#{song_no}, #{img}, #{link}, NOW())
+	</insert>
+	
+	<update id="update" parameterType="music.admin.mv.AdminMvVo">
+		UPDATE mv
+		<set>
+			song_no = #{song_no},
+			<if test="img != null">
+				img = #{img},
+			</if>
+			link = #{link}
+		</set>
+		WHERE no = #{no}
+	</update>
+	
+	<delete id="delete" parameterType="music.admin.mv.AdminMvVo">
+		DELETE
+		FROM mv
+		WHERE no = #{no}
+	</delete>
+	
+	<!-- 입력값 대조 -->
+	<select id="exist" resultType="music.admin.song.AdminSongVo" parameterType="music.admin.song.AdminSongVo">
+		SELECT *
+		FROM song
+		WHERE no = #{no}
+	</select>
+</mapper>

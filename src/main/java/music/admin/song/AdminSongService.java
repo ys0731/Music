@@ -9,6 +9,8 @@ public interface AdminSongService {
 	
 	List<AdminSongVo> selectAll(AdminSongVo vo);
 	
+	List<AdminSongVo> selectAllSongs(AdminSongVo vo);
+	
 	AdminSongVo detail(AdminSongVo vo);
 	
 	int insert(AdminSongVo vo);
