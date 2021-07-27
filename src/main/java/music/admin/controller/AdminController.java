@@ -26,6 +26,8 @@ import music.admin.album.AdminAlbumService;
 import music.admin.album.AdminAlbumVo;
 import music.admin.artist.AdminArtistService;
 import music.admin.artist.AdminArtistVo;
+import music.admin.mv.AdminMvService;
+import music.admin.mv.AdminMvVo;
 import music.admin.recommend.AdminRecommendService;
 import music.admin.recommend.AdminRecommendVo;
 import music.admin.song.AdminSongService;
@@ -45,6 +47,9 @@ public class AdminController {
 
 	@Autowired
 	AdminRecommendService recommendService;
+	
+	@Autowired
+	AdminMvService mvService;
 	
 	//-----------------------------------------------------------index.do
 	
@@ -102,6 +107,12 @@ public class AdminController {
 		sess.removeAttribute("tagListShow");
 		return "admin/recommend/index";
 	}
+	
+	@RequestMapping("/admin/mv/index.do")
+	public String mvIndex(Model model, AdminMvVo vo) {
+		model.addAttribute("list", mvService.selectAll(vo));
+		return "admin/mv/index";
+	}
 	//-----------------------------------------------------------list.do
 	
 	@RequestMapping("/admin/recommend/list.do")
@@ -149,6 +160,11 @@ public class AdminController {
 		return "admin/song/view";
 	}
 	
+	@RequestMapping("/admin/mv/view.do")
+	public String mvView(Model model, AdminMvVo vo) {
+		model.addAttribute("vo", mvService.detail(vo));
+		return "admin/mv/view";
+	}
 	//-----------------------------------------------------------write.do
 	
 	@RequestMapping("/admin/album/write.do")
@@ -221,6 +237,21 @@ public class AdminController {
 		return "admin/recommend/write";
 	}
 	
+	@RequestMapping(value = "/admin/mv/write.do", method = RequestMethod.GET)
+	public String mvWrite(Model model, AdminSongVo songVo) {
+		model.addAttribute("songList", songService.selectAllSongs(songVo));
+		return "admin/mv/write";
+	}
+	
+	@RequestMapping(value = "/admin/mv/write.do", method = RequestMethod.POST)
+	public void mvWrite(Model model, AdminSongVo aav,HttpServletResponse res) throws IOException {
+		AdminSongVo songVo = mvService.exist(aav);
+		res.setContentType("text/html;charset=utf-8");
+		PrintWriter out = res.getWriter();
+		if (songVo == null) {
+			out.print("songFalse");
+		}
+	}
 	//-----------------------------------------------------------insert.do
 	
 	@RequestMapping("/admin/album/insert.do")
@@ -390,6 +421,21 @@ public class AdminController {
 		return "include/alert";
 	}
 	
+	@RequestMapping("/admin/mv/insert.do")
+	public String songInsert(Model model,
+			@RequestParam int song_no,
+			AdminMvVo vo,
+			HttpServletRequest req) {
+		int r = mvService.insert(vo);
+		if (r > 0) {
+			model.addAttribute("msg", "정상적으로 등록되었습니다.");
+			model.addAttribute("url", "index.do");
+		} else {
+			model.addAttribute("msg", "등록을 실패하였습니다.");
+			model.addAttribute("url", "write.do");
+		}
+		return "include/alert";
+	}
 	//-----------------------------------------------------------edit.do
 	
 	@RequestMapping("/admin/album/edit.do")
@@ -464,6 +510,24 @@ public class AdminController {
 		}
 		
 		sess.setAttribute("bottom", li);
+	}
+	
+	@RequestMapping("/admin/mv/edit.do")
+	public String mvEdit(Model model, AdminSongVo songVo, AdminMvVo vo) {
+		model.addAttribute("songList", songService.selectAllSongs(songVo));
+		model.addAttribute("vo", mvService.edit(vo));
+		return "admin/mv/edit";
+	}
+	
+	@RequestMapping(value = "/admin/mv/edit.do", method = RequestMethod.POST)
+	public void mvEdit2(Model model, AdminSongVo aav, HttpServletResponse res) throws IOException {
+		AdminSongVo songVo = mvService.exist(aav);
+		
+		res.setContentType("text/html;charset=utf-8");
+		PrintWriter out = res.getWriter();
+		if (songVo == null) {
+			out.print("songFalse");
+		}
 	}
 	
 	//-----------------------------------------------------------update.do
@@ -654,6 +718,21 @@ public class AdminController {
 		return "include/alert";
 	}
 	
+	@RequestMapping("/admin/mv/update.do")
+	public String mvUpdate(Model model, AdminMvVo vo, HttpServletRequest req) { 
+		
+		int r = mvService.update(vo);
+		
+		if (r > 0) {
+			model.addAttribute("msg", "정상적으로 수정되었습니다.");
+			model.addAttribute("url", "index.do");
+		} else {
+			model.addAttribute("msg", "수정을 실패하였습니다.");
+			model.addAttribute("url", "edit.do?no=" + vo.getNo());
+		}
+		return "include/alert";
+	}
+	
 	//-----------------------------------------------------------delete.do
 	
 	@RequestMapping("/admin/album/deleteArr.do")
@@ -780,6 +859,39 @@ public class AdminController {
 			out.print("failed");
 		}
 		
+	}
+	
+	@RequestMapping("/admin/mv/deleteArr.do")
+	public void mvDelete(Model model, AdminMvVo vo, @RequestParam(value = "chkbox[]") List<String> chArr, HttpServletResponse res) throws IOException {
+		int r = 0;
+		int no = 0;
+		
+		for (String i : chArr) {
+			no = Integer.parseInt(i);
+			vo.setNo(no);
+			r = mvService.delete(vo);
+		}
+		
+		res.setContentType("text/html;charset=utf-8");
+		PrintWriter out = res.getWriter();
+		if (r > 0) {
+			out.print("true");
+		} else {
+			out.print("false");
+		}
+	}
+	
+	@RequestMapping("/admin/mv/delete.do")
+	public void mvDelete(Model model, AdminMvVo vo, HttpServletResponse res) throws IOException {
+		int r = mvService.delete(vo);
+		
+		res.setContentType("text/html;charset=utf-8");
+		PrintWriter out = res.getWriter();
+		if (r > 0) {
+			out.print("true");
+		} else {
+			out.print("false");
+		}
 	}
 	//-----------------------------------------------------------
 

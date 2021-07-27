@@ -37,6 +37,11 @@ public class AdminSongServiceImpl implements AdminSongService {
 		
 		return dao.selectAll(vo);
 	}
+	
+	@Override
+	public List<AdminSongVo> selectAllSongs(AdminSongVo vo) {
+		return dao.selectAllSongs(vo);
+	}
 
 	@Override
 	public AdminSongVo detail(AdminSongVo vo) {
@@ -73,5 +78,6 @@ public class AdminSongServiceImpl implements AdminSongService {
 	public AdminArtistVo exist2(AdminArtistVo vo) {
 		return dao.exist2(vo);
 	}
+
 
 }

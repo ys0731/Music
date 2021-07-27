@@ -79,6 +79,7 @@ $(window).load(function(){
 						<li><a href="<%=request.getContextPath()%>/admin/album/index.do"><span>앨범등록</span></a></li>
 						<li><a href="<%=request.getContextPath()%>/admin/artist/index.do"><span>아티스트등록</span></a></li>
 						<li><a href="<%=request.getContextPath()%>/admin/song/index.do"><span>곡등록</span></a></li>
+						<li><a href="<%=request.getContextPath()%>/admin/mv/index.do"><span>MV등록</span></a></li>
 					</ul>
 				</li>
 				<li>
