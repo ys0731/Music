@@ -16,15 +16,15 @@
         <div class="footer_bottom">
             <div class="center">
                 <p>
-                    <span>(주)메로나</span>
-                    <span>경기도 고양시 일산서구 주엽동 강선로9 (10385)</span>
-                    <span>공동대표이사 : 김찬팔, 김찬칠</span>
+                    <span>(주)샌드뮤직</span>
+                    <span>경기도 고양시 장항동</span>
+                    <span>공동대표이사 : 이승민,최영서,김찬구,명선우</span>
                     <span>사업자등록번호 : 124-43-54788</span>
-                    <span>통신판매신고번호 : 제 2021-고양이양-1004호</span><br>
-                    <span>문의전화 : 010) 7680-7508(평일 09:00-18:00, 유료)</span>
-                    <span>이메일 : goldrocket@naver.com</span>
-                    <span>호스팅서비스사업자 : (주)메로나</span>
-                    <span>Copyright ⓒ 2021 Merona Corp. All rights reserved.</span>
+                    <span>통신판매신고번호 : 제 2021-1234-5678호</span><br>
+                    <span>문의전화 : 010) 1234-5678(평일 09:00-18:00, 유료)</span>
+                    <span>이메일 : sendmusic@gmail.com</span>
+                    <span>호스팅서비스사업자 : (주)샌드뮤직</span>
+                    <span>Copyright ⓒ 2021 SendMusic Corp. All rights reserved.</span>
                 </p>
             </div>
         </div>

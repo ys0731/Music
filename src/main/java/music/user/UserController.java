@@ -133,7 +133,7 @@ public class UserController {
 	public String logout(Model model, HttpSession sess) {
 		sess.invalidate();
 		model.addAttribute("msg", "로그아웃되었습니다.");
-		model.addAttribute("url", "/music/notice/index.do");
+		model.addAttribute("url", "/music/index.do");
 		return "include/alert";
 	}
 	

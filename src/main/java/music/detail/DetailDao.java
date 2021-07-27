@@ -28,10 +28,7 @@ public class DetailDao {
 	public List<Map> artistSearch(String searchword){
 		return sqlSession.selectList("detail.artistSearch",searchword);
 	}
-	// 앨범 검색
-//	public List<Map> albumSearch(String searchword){
-//		return sqlSession.selectList("detail.albumSearch",searchword);
-//	}
+
 	// 노래 검색
 	public List<Map> songSearch(String searchword){
 		return sqlSession.selectList("detail.songSearch",searchword);

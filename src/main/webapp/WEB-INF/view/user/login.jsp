@@ -107,8 +107,6 @@
                     <li><a href="searchPwd.do">비밀번호 찾기</a></li>
                 </ul>
             </div>
-            
-            <!-- <div class="login_btn"><input type="submit" value="로그인" alt="로그인" /></div> -->
             <button class="login_btn">로그인</button>
             <button class="kakao_login_btn">카카오 계정으로 로그인</button>
         </form>
@@ -117,7 +115,7 @@
             <li><a href="#">개인정보처리방침</a></li>
             <li><a href="#">고객센터</a></li>
         </ul>
-        <p class="contact">문의전화 : 010) 7680-7508(평일 09:00-18:00, 유료)</p>
+        <p class="contact">문의전화 : 010) 1234-5678(평일 09:00-18:00, 유료)</p>
     </div>
 </body>
 

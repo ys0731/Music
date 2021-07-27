@@ -16,7 +16,7 @@
 	
 	<!-- 이용권 등록 -->
 	<insert id="insert" parameterType="music.ticket.TicketVo">
-		INSERT INTO ticket(ticket_type,price,regdate,time) values(#{ticket_type}, #{price},NOW(),#{time})
+		INSERT INTO ticket(ticket_type,price,regdate,time) VALUES (#{ticket_type}, #{price},NOW(),#{time})
 	</insert>
 		
 	<!-- 이용권 삭제 -->

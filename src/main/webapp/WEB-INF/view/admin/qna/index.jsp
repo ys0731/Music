@@ -75,21 +75,17 @@ function isDel(){
 								<colgroup>
 									<col class="w3" />
 								 	<col class="w4" /> 
-									<%-- <col class="w3" /> --%>
 									<col class="" />
 									<col class="w10" />
 									<col class="w5" />
-									<%-- <col class="w6" /> --%>
 								</colgroup>
 								<thead>
 									<tr>
 										<th scope="col" class="first"><input type="checkbox" name="allChk" id="allChk" onclick="isAllChk();"/></th>
 										<th scope="col">NO</th>
-										<!-- <th scope="col">분류</th> -->
 										<th scope="col">제목</th> 
 										<th scope="col">등록일</th> 
 										<th scope="col">작성자</th> 
-										<!-- <th scope="col" class="last">조회수</th> -->
 									</tr>
 								</thead>
 								<tbody>
@@ -119,9 +115,6 @@ function isDel(){
 								<div class="btnLeft">
 									<a class="btns" href="javascript:isDel();" data-Num="${qnaAdminVo.no }"><strong>삭제</strong> </a>
 								</div>
-<!-- 								<div class="btnRight">
-									<a class="wbtn" href="write.do"><strong>등록</strong> </a>
-								</div> -->
 							</div>
 							<!--//btn-->
 							<!-- 페이징 처리 -->

@@ -28,13 +28,12 @@ public class DetailController {
 	AlbumCommentService aService;
 	@Autowired
 	SearchService sService;
+	
 	// 앨범상세
 	@RequestMapping("/detail/albumDetail.do")
 	public String albumDetail(@RequestParam(value = "album_no", required = false) int no, Model model) {
 		model.addAttribute("vo", service.albumDetail(no));
 		model.addAttribute("list", service.albumSong(no));
-//	    System.out.println( aService.findByNo(no));
-//		model.addAttribute("commentList", aService.findByNo(no));
 		return "detail/albumDetail";
 	}
 
@@ -52,7 +51,6 @@ public class DetailController {
 		
 		if(!"".equals(searchword)) { 
 			model.addAttribute("vo", service.artistSearch(searchword));	//artist 검색 결과 vo에 저장 
-			//model.addAttribute("abvo", service.albumSearch(searchword));	//album 검색 결과 vo에 저장 
 			model.addAttribute("svo", service.songSearch(searchword));	//song 검색 결과 vo에 저장 
 
 			if(sService.selectOne(searchword) != null) {  //artist테이블에서 검색어랑 이름이 같은 아티스트 검색	, 결과가 있으면

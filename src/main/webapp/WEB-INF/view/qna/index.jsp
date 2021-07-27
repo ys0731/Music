@@ -111,14 +111,13 @@
 									<span class="secretWrite" onclick="isSerect();">${vo.title } </span><img src="/music/img/admin/lock.png"/>
 								</c:otherwise>
 							</c:choose>
-									<c:if test="${vo.regdate >= nowday }">
-										<strong style="color:red;"> [NEW] </strong>
-										<c:if test="${!empty vo.answer}"><strong> <img src="/music/img/admin/ico_answer_done.png" style="width: 45px"/> </strong></c:if>
-									</c:if>
+								<c:if test="${vo.regdate >= nowday }">
+									<strong style="color:red;"> [NEW] </strong>
+									<c:if test="${!empty vo.answer}"><strong> <img src="/music/img/admin/ico_answer_done.png" style="width: 45px"/> </strong></c:if>
+								</c:if>
 							</td>
 							<td><a href="userpost.do">${vo.name}</a></td>
 							<td>${vo.regdate }</td>
-							
 						</tr>
 					</c:forEach>
                 </table>

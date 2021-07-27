@@ -134,7 +134,7 @@
 
         /* chart txt */
         .album_mini {float: left; width: 45px; height: 45px;}
-        .list_title {float: left; margin-top: 4px; margin-left: 10px; width: 385px; text-overflow: ellipsis; white-space: nowrap; overflow: hidden;}
+        .list_title {float: left; margin-top: 15px; margin-left: 10px; width: 385px; text-overflow: ellipsis; white-space: nowrap; overflow: hidden;}
         .list_artist {width: 125px; text-overflow: ellipsis; white-space: nowrap; overflow: hidden;}
         .list_album {width: 185px; text-overflow: ellipsis; white-space: nowrap; overflow: hidden;}
 
@@ -183,7 +183,7 @@
     <div id="container">
         <div class="center">
         	<c:if test="${!empty vo }">
-	            <h2>찾으시는 <strong style="color:purple;">'${vo[0].artist}'</strong> 검색 결과입니다.</h2>
+	            <h2>찾으시는 <strong style="color:purple;">'${param.searchword}'</strong> 검색 결과입니다.</h2>
 	            <c:forEach var="vo" items="${vo}" varStatus="status">    
 		            <div class="artist_box clear">
 		            <input type="hidden" id="artist_no" name="artist_no" value="${vo.artist_no}">
@@ -212,7 +212,7 @@
 			
 			<c:if test="${!empty svo}">
 				<c:if test="${empty vo}">
-					<h2>찾으시는 <strong style="color:purple;">'${svo[0].title}'</strong> 검색 결과입니다.</h2>
+					<h2>찾으시는 <strong style="color:purple;">'${param.searchword}'</strong> 검색 결과입니다.</h2>
 				</c:if>	
 				<form class="chart_box" action="" method="post">
 	                <ul class="clear" style="margin-top: 50px;">
@@ -238,15 +238,16 @@
 	                      		<p>${status.count }</p>
 	                   		</td>
 	                   		<td class="clear">
-			                      <a href="album_info.html"> <img class="album_mini" src="<%=path %>/upload/${vo.rel}" alt="album_img"></a>
+			                      <a href="/music/detail/albumDetail.do?album_no=${vo.album_no}"> <img class="album_mini" src="<%=path %>/upload/${vo.img_real}" alt="album_img"></a>
 			                       <a class="lyrics_popup button_icons lyrics" href="#" data-no="${vo.no }"></a>
 			                       <p class="list_title">${vo.title }</p>
 	                   		</td>
 	                   		<td>
-	                      		<p class="list_artist" id="artist"><a class="artist" href="#" data-no="${vo.ar_no }">${vo.artist }</a></p>
+	                      		<p class="list_artist" id="artist">
+	                      		<a class="artist" href="/music/detail/artistDetail.do?artist_no=${vo.artist_no}" data-no="${vo.ar_no }" >${vo.artist }</a></p>
 	                   		</td>
 	                  		<td>
-	                     		<p class="list_album" id="album"><a class="album" href="#" data-no="${vo.al_no }">${vo.album }</a></p>
+	                     		<p class="list_album" id="album"><a class="album" href="/music/detail/albumDetail.do?album_no=${vo.album_no}" data-no="${vo.al_no }">${vo.album }</a></p>
 	                   		</td>
 		                    <td>
 		                       <a class="like_btn like <c:if test="${vo.mlike_cnt==1 }">on</c:if>" href="#" data-no="${vo.no }"></a>

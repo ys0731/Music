@@ -6,18 +6,6 @@ $(document).ready(function () {
         $(".swiper-button-next, .swiper-button-prev").fadeOut(300);
     });
 
-    // $(".swiper-slide div a").mouseenter(function () {
-    //     $(this).css({ "filter": "grayscale(0)" });
-    //     $(this).siblings().css({ "filter": "grayscale(75%)" });
-    //     $(this).parent().siblings().children().css({ "filter": "grayscale(75%)" });
-    // });
-
-    // $(".swiper-slide a").mouseleave(function () {
-    //     $(this).css({ "filter": "grayscale(0)" });
-    //     $(this).siblings().css({ "filter": "grayscale(0)" });
-    //     $(this).parent().siblings().children().css({ "filter": "grayscale(0)" });
-    // });
-
     // charts
     $(".charts tr").mouseenter(function () {
         var btn_list = $(this).index();

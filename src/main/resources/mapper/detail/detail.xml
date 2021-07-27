@@ -24,22 +24,17 @@
 	<select id="artistSearch" parameterType="String" resultType="java.util.Map">
 		SELECT artist.no AS artist_no, artist, debdate, info, img_real, song.title AS title, song.album_no AS album_no
 		FROM artist join song
-		on artist.no = song.artist_no
+		ON artist.no = song.artist_no
 		WHERE artist.artist LIKE CONCAT('%',#{searchword},'%')
 	</select>
-	
-	<!--앨범 검색  -->
-<!-- 	<select id="albumSearch" parameterType="String" resultType="java.util.Map">
-	    SELECT album.no AS album_no, album, album.genre AS genre ,info,img_real,album.regdate AS regdate
-        FROM album JOIN song
-        ON album.no = song.album_no
-        WHERE album.album LIKE CONCAT('%',#{searchword},'%')
-	</select>	 -->
-	
+		
 	<!--노래 검색  -->
 	<select id="songSearch" parameterType="String" resultType="java.util.Map">
-        SELECT no,artist_no,album_no,title,genre,lyrics,regdate,src_real
-        FROM song
+		SELECT song.no,artist_no,album_no,title,song.genre,lyrics,song.regdate,song.src_real,album.album,artist.artist,album.img_real
+		FROM song JOIN album
+		ON song.album_no = album.no
+		JOIN artist
+		ON song.artist_no = artist.no
         WHERE title LIKE CONCAT('%',#{searchword},'%')
 	</select>	
 	

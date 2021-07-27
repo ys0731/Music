@@ -28,9 +28,15 @@ $(function(){
 		        }
 	        });
 			</c:if>	
-			<c:if test="${empty expiryDate}">
-				alert('보유중인 이용권이 없습니다.');
-				$(this).removeClass("on");
+			
+			<c:if test="${empty userInfo}">
+			alert('로그인 후 이용해주세요.');
+			</c:if>
+			<c:if test="${!empty userInfo}">
+				<c:if test="${empty expiryDate}">
+					alert('보유중인 이용권이 없습니다.');
+					$(this).removeClass("on");
+				</c:if>
 			</c:if>
     	}
 	});

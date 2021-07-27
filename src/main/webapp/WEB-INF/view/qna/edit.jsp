@@ -58,26 +58,7 @@
 	$(function(){
 		oEditors = setEditor("content"); // id
 	});
-/*     $(document).ready(function() {
-        $(".qna_form_btn").click(function(){
-            var id = $("#id").val();
-            var title = $("#title").val();
-            var content = $("#content").val();
-            if(id == "") {
-                alert('아이디');
-                $("#id").focus();
-                return false;
-            } else if(title == "") {
-                alert('제목을 입력해 주세요');
-                $("#title").focus();
-                return false;
-            } else if(content == "") {
-                alert('내용을 입력해 주세요');
-                $("#content").focus();
-                return false;
-            }
-        });
-    }); */
+
 </script>
 <body>
      <%@ include file="/WEB-INF/view/include/top.jsp" %>
