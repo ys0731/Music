@@ -3,9 +3,9 @@ package music.player;
 import java.sql.Timestamp;
 import java.text.SimpleDateFormat;
 
-import util.CommonVo;
+import util.StatisticVo;
 
-public class MusicPlayerVo extends CommonVo {
+public class MusicPlayerVo extends StatisticVo {
 	
 //----------Play-------------
 	private int no;

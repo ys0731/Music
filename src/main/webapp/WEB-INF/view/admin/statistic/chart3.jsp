@@ -12,20 +12,50 @@
 	
 		var data = google.visualization.arrayToDataTable([
 			['Total', 'Accumulated'],
-			['Song1', 11],
-			['Song2', 2],
-			['Song3', 3],
-			['Song4', 6],
-			['Song5', 7]
+           	<c:forEach var="songs" items="${song }">
+       		['${songs.title }', ${songs.total }],
+       		</c:forEach>
 		]);
 		
 		var options = {
-			title: 'Running Total'
+			title: '전체 곡 개별 총계'
 		};
 		
 		var chart = new google.visualization.PieChart(document.getElementById('piechart'));
 		
 		chart.draw(data, options);
+	}
+
+	google.charts.setOnLoadCallback(drawChart2);
+	function drawChart2() {
+	
+		var data2 = google.visualization.arrayToDataTable([
+			['Total', 'Accumulated'],
+           	<c:forEach var="genres" items="${genre }">
+       			[
+               	<c:if test="${genres.genre == 1}">
+           			'장르1'
+           		</c:if>
+               	<c:if test="${genres.genre == 2}">
+           			'장르2'
+           		</c:if>
+               	<c:if test="${genres.genre == 3}">
+           			'장르3'
+           		</c:if>
+               	<c:if test="${genres.genre == 4}">
+           			'장르4'
+           		</c:if>
+       			, ${genres.total }],
+       		</c:forEach>
+		]);
+		
+		var options2 = {
+			title: '전체 곡 장르별 총계'
+		};
+		
+		var chart2 = new google.visualization.PieChart(document.getElementById('piechart2'));
+		
+		chart2.draw(data2, options2);
 	}
 </script>
 </head>
@@ -41,12 +71,13 @@
 		<div id="container">
 			<div id="content">
 				<div class="con_tit">
-					<h2>통계 - [차트3]</h2>
+					<h2>통계 - [누적 재생횟수]</h2>
 				</div>
 				<!-- //con_tit -->
-				<div class="con">
+				<div class="con" style="clear: both;">
 					<!-- 내용 : s -->
-					<div id="piechart" style="width: 1840px; height: 750px;"></div>
+					<div id="piechart" style="float: left; width: 900px; height: 750px;"></div>
+					<div id="piechart2" style="float: left; width: 900px; height: 750px;"></div>
 					<!-- 내용 : e -->
 				</div>
 				<!--//con -->

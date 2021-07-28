@@ -101,12 +101,12 @@ $(window).load(function(){
 					</div>
 				</li>
 				<li>
-  					<a href="<%=request.getContextPath()%>/admin/statistic/chart1.do" class="parent"><span>통계관리</span></a>
+  					<a href="<%=request.getContextPath()%>/admin/statistic/chart1.do" class="parent"><span>재생통계차트</span></a>
   					<div class="standard_left">
   					<ul>
-  						<li><a href="<%=request.getContextPath()%>/admin/statistic/chart1.do"><span>차트1</span></a></li>
-  						<li><a href="<%=request.getContextPath()%>/admin/statistic/chart2.do"><span>차트2</span></a></li>
-  						<li><a href="<%=request.getContextPath()%>/admin/statistic/chart3.do"><span>차트3</span></a></li>
+  						<li><a href="<%=request.getContextPath()%>/admin/statistic/chart1.do"><span>일간차트</span></a></li>
+  						<li><a href="<%=request.getContextPath()%>/admin/statistic/chart2.do"><span>주간차트</span></a></li>
+  						<li><a href="<%=request.getContextPath()%>/admin/statistic/chart3.do"><span>누적합계차트</span></a></li>
   					</ul>
   					</div>
 				</li>

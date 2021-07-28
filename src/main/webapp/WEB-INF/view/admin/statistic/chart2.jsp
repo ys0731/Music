@@ -9,23 +9,61 @@
     google.charts.setOnLoadCallback(drawChart);
     function drawChart() {
         var data = google.visualization.arrayToDataTable([
-            ['Song', 'Song1', 'Song2', 'Song3', 'Song4', 'Song5', 'Song6', { role: 'annotation' } ],
-            ['Monday', 10, 24, 20, 32, 18, 5, ''],
-            ['Tuesday', 16, 22, 23, 30, 16, 9, ''],
-            ['Wednesday', 28, 19, 29, 30, 12, 13, ''],
-            ['Thursday', 28, 19, 29, 30, 12, 13, ''],
-            ['Friday', 28, 19, 29, 30, 12, 13, ''],
-            ['Saturday', 28, 19, 29, 30, 12, 13, ''],
-            ['Sunday', 28, 19, 29, 30, 12, 13, '']
+          
+        	
+            ['Song',
+           	<c:forEach var="songlists" items="${songlist }">
+           		'${songlists.title}',
+           	</c:forEach>
+			{ role: 'annotation' } ],
+            ['Monday',
+            <c:forEach var="songlists" items="${songlist }">
+       		${songlists.monday},
+       		</c:forEach>
+			''],
+            ['Tuesday',
+            <c:forEach var="songlists" items="${songlist }">
+       		${songlists.tuesday},
+       		</c:forEach>
+			''],
+            ['Wednesday',
+            <c:forEach var="songlists" items="${songlist }">
+       		${songlists.wednesday},
+       		</c:forEach>
+			''],
+            ['Thursday',
+            <c:forEach var="songlists" items="${songlist }">
+       		${songlists.thursday},
+       		</c:forEach>
+			''],
+            ['Friday',
+            <c:forEach var="songlists" items="${songlist }">
+       		${songlists.friday},
+       		</c:forEach>
+			''],
+            ['Saturday',
+            <c:forEach var="songlists" items="${songlist }">
+       		${songlists.saturday},
+       		</c:forEach>
+			''],
+            ['Sunday',
+            <c:forEach var="songlists" items="${songlist }">
+       		${songlists.sunday},
+       		</c:forEach>
+			'']
           ]);
 
       var view = new google.visualization.DataView(data);
-      view.setColumns([0, 1, 2, 3, 4, 5, 6]);
-
+      view.setColumns([ 0,
+			<c:forEach var="songlists" items="${songlist }" varStatus="status">
+				${status.count},
+			</c:forEach>
+    	  ]);
+      
       var options = {
-    		  title : 'Play Count per Week',
+    		  title : '지난주의 재생횟수',
               width: 1840,
-              height: 750,
+              height: 700,
               legend: { position: 'top', maxLines: 1 },
               bar: { groupWidth: '75%' },
               isStacked: true
@@ -48,7 +86,7 @@
 		<div id="container">
 			<div id="content">
 				<div class="con_tit">
-					<h2>통계 - [차트2]</h2>
+					<h2>통계 - [주간 재생횟수]</h2>
 				</div>
 				<!-- //con_tit -->
 				<div class="con">

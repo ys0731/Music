@@ -2,290 +2,314 @@ package util;
 
 public class StatisticVo {
 	
-	private int xxiv;
-	private int i;
-	private int ii;
-	private int iii;
-	private int iv;
-	private int v;
-	private int vi;
-	private int vii;
-	private int viii;
-	private int ix;
-	private int x;
-	private int xi;
-	private int xii;
-	private int xiii;
-	private int xiv;
-	private int xv;
-	private int xvi;
-	private int xvii;
-	private int xviii;
-	private int xix;
-	private int xx;
-	private int xxi;
-	private int xxii;
-	private int xxiii;
+	/*
+	 * for (int i; i<24; i++) {
+	 * 
+	 * }
+	 */
+	private int h0;
+	private int h1;
+	private int h2;
+	private int h3;
+	private int h4;
+	private int h5;
+	private int h6;
+	private int h7;
+	private int h8;
+	private int h9;
+	private int h10;
+	private int h11;
+	private int h12;
+	private int h13;
+	private int h14;
+	private int h15;
+	private int h16;
+	private int h17;
+	private int h18;
+	private int h19;
+	private int h20;
+	private int h21;
+	private int h22;
+	private int h23;
 
-	private int Monday;
-	private int Tuesday;
-	private int Wednesday;
-	private int Thursday;
-	private int Friday;
-	private int Saturday;
-	private int Sunday;
+	private int monday;
+	private int tuesday;
+	private int wednesday;
+	private int thursday;
+	private int friday;
+	private int saturday;
+	private int sunday;
+	
+	private String title;
+	private int genre;
 	
 	private int total;
 	
-
-	public int getXxiv() {
-		return xxiv;
+	public int getH0() {
+		return h0;
 	}
 
-	public void setXxiv(int xxiv) {
-		this.xxiv = xxiv;
+	public void setH0(int h0) {
+		this.h0 = h0;
 	}
 
-	public int getI() {
-		return i;
+	public int getH1() {
+		return h1;
 	}
 
-	public void setI(int i) {
-		this.i = i;
+	public void setH1(int h1) {
+		this.h1 = h1;
 	}
 
-	public int getIi() {
-		return ii;
+	public int getH2() {
+		return h2;
 	}
 
-	public void setIi(int ii) {
-		this.ii = ii;
+	public void setH2(int h2) {
+		this.h2 = h2;
 	}
 
-	public int getIii() {
-		return iii;
+	public int getH3() {
+		return h3;
 	}
 
-	public void setIii(int iii) {
-		this.iii = iii;
+	public void setH3(int h3) {
+		this.h3 = h3;
 	}
 
-	public int getIv() {
-		return iv;
+	public int getH4() {
+		return h4;
 	}
 
-	public void setIv(int iv) {
-		this.iv = iv;
+	public void setH4(int h4) {
+		this.h4 = h4;
 	}
 
-	public int getV() {
-		return v;
+	public int getH5() {
+		return h5;
 	}
 
-	public void setV(int v) {
-		this.v = v;
+	public void setH5(int h5) {
+		this.h5 = h5;
 	}
 
-	public int getVi() {
-		return vi;
+	public int getH6() {
+		return h6;
 	}
 
-	public void setVi(int vi) {
-		this.vi = vi;
+	public void setH6(int h6) {
+		this.h6 = h6;
 	}
 
-	public int getVii() {
-		return vii;
+	public int getH7() {
+		return h7;
 	}
 
-	public void setVii(int vii) {
-		this.vii = vii;
+	public void setH7(int h7) {
+		this.h7 = h7;
 	}
 
-	public int getViii() {
-		return viii;
+	public int getH8() {
+		return h8;
 	}
 
-	public void setViii(int viii) {
-		this.viii = viii;
+	public void setH8(int h8) {
+		this.h8 = h8;
 	}
 
-	public int getIx() {
-		return ix;
+	public int getH9() {
+		return h9;
 	}
 
-	public void setIx(int ix) {
-		this.ix = ix;
+	public void setH9(int h9) {
+		this.h9 = h9;
 	}
 
-	public int getX() {
-		return x;
+	public int getH10() {
+		return h10;
 	}
 
-	public void setX(int x) {
-		this.x = x;
+	public void setH10(int h10) {
+		this.h10 = h10;
 	}
 
-	public int getXi() {
-		return xi;
+	public int getH11() {
+		return h11;
 	}
 
-	public void setXi(int xi) {
-		this.xi = xi;
+	public void setH11(int h11) {
+		this.h11 = h11;
 	}
 
-	public int getXii() {
-		return xii;
+	public int getH12() {
+		return h12;
 	}
 
-	public void setXii(int xii) {
-		this.xii = xii;
+	public void setH12(int h12) {
+		this.h12 = h12;
 	}
 
-	public int getXiii() {
-		return xiii;
+	public int getH13() {
+		return h13;
 	}
 
-	public void setXiii(int xiii) {
-		this.xiii = xiii;
+	public void setH13(int h13) {
+		this.h13 = h13;
 	}
 
-	public int getXiv() {
-		return xiv;
+	public int getH14() {
+		return h14;
 	}
 
-	public void setXiv(int xiv) {
-		this.xiv = xiv;
+	public void setH14(int h14) {
+		this.h14 = h14;
 	}
 
-	public int getXv() {
-		return xv;
+	public int getH15() {
+		return h15;
 	}
 
-	public void setXv(int xv) {
-		this.xv = xv;
+	public void setH15(int h15) {
+		this.h15 = h15;
 	}
 
-	public int getXvi() {
-		return xvi;
+	public int getH16() {
+		return h16;
 	}
 
-	public void setXvi(int xvi) {
-		this.xvi = xvi;
+	public void setH16(int h16) {
+		this.h16 = h16;
 	}
 
-	public int getXvii() {
-		return xvii;
+	public int getH17() {
+		return h17;
 	}
 
-	public void setXvii(int xvii) {
-		this.xvii = xvii;
+	public void setH17(int h17) {
+		this.h17 = h17;
 	}
 
-	public int getXviii() {
-		return xviii;
+	public int getH18() {
+		return h18;
 	}
 
-	public void setXviii(int xviii) {
-		this.xviii = xviii;
+	public void setH18(int h18) {
+		this.h18 = h18;
 	}
 
-	public int getXix() {
-		return xix;
+	public int getH19() {
+		return h19;
 	}
 
-	public void setXix(int xix) {
-		this.xix = xix;
+	public void setH19(int h19) {
+		this.h19 = h19;
 	}
 
-	public int getXx() {
-		return xx;
+	public int getH20() {
+		return h20;
 	}
 
-	public void setXx(int xx) {
-		this.xx = xx;
+	public void setH20(int h20) {
+		this.h20 = h20;
 	}
 
-	public int getXxi() {
-		return xxi;
+	public int getH21() {
+		return h21;
 	}
 
-	public void setXxi(int xxi) {
-		this.xxi = xxi;
+	public void setH21(int h21) {
+		this.h21 = h21;
 	}
 
-	public int getXxii() {
-		return xxii;
+	public int getH22() {
+		return h22;
 	}
 
-	public void setXxii(int xxii) {
-		this.xxii = xxii;
+	public void setH22(int h22) {
+		this.h22 = h22;
 	}
 
-	public int getXxiii() {
-		return xxiii;
+	public int getH23() {
+		return h23;
 	}
 
-	public void setXxiii(int xxiii) {
-		this.xxiii = xxiii;
+	public void setH23(int h23) {
+		this.h23 = h23;
 	}
 
 	
 	
 	public int getMonday() {
-		return Monday;
+		return monday;
 	}
 
 	public void setMonday(int monday) {
-		Monday = monday;
+		this.monday = monday;
 	}
 
 	public int getTuesday() {
-		return Tuesday;
+		return tuesday;
 	}
 
 	public void setTuesday(int tuesday) {
-		Tuesday = tuesday;
+		this.tuesday = tuesday;
 	}
 
 	public int getWednesday() {
-		return Wednesday;
+		return wednesday;
 	}
 
 	public void setWednesday(int wednesday) {
-		Wednesday = wednesday;
+		this.wednesday = wednesday;
 	}
 
 	public int getThursday() {
-		return Thursday;
+		return thursday;
 	}
 
 	public void setThursday(int thursday) {
-		Thursday = thursday;
+		this.thursday = thursday;
 	}
 
 	public int getFriday() {
-		return Friday;
+		return friday;
 	}
 
 	public void setFriday(int friday) {
-		Friday = friday;
+		this.friday = friday;
 	}
 
 	public int getSaturday() {
-		return Saturday;
+		return saturday;
 	}
 
 	public void setSaturday(int saturday) {
-		Saturday = saturday;
+		this.saturday = saturday;
 	}
 
 	public int getSunday() {
-		return Sunday;
+		return sunday;
 	}
 
 	public void setSunday(int sunday) {
-		Sunday = sunday;
+		this.sunday = sunday;
+	}
+	
+	
+	public String getTitle() {
+		return title;
+	}
+
+	public void setTitle(String title) {
+		this.title = title;
+	}
+	
+	public int getGenre() {
+		return genre;
+	}
+
+	public void setGenre(int genre) {
+		this.genre = genre;
 	}
 
 	

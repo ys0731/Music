@@ -1,0 +1,93 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org//dtd/mybatis-3-mapper.dtd">
+<mapper namespace="statistic">
+	
+	<select id="selectAll" resultType="music.admin.song.AdminSongVo" parameterType="music.admin.song.AdminSongVo">
+		SELECT *, (SELECT album FROM album WHERE album_no=album.no) AS albumName, (SELECT artist FROM artist WHERE artist_no=artist.no) AS artistName
+		FROM song
+		ORDER BY title
+	</select>
+	
+	<select id="exist" resultType="music.admin.song.AdminSongVo" parameterType="music.admin.song.AdminSongVo">
+		SELECT *
+		FROM song
+		WHERE no = #{no}
+	</select>
+
+	<select id="daily" resultType="music.player.MusicPlayerVo" parameterType="music.player.MusicPlayerVo">
+		SELECT
+        a.title,
+		sum(if(a.h=0, 1, 0)) AS h0,
+		sum(if(a.h=1, 1, 0)) AS h1,
+		sum(if(a.h=2, 1, 0)) AS h2,
+		sum(if(a.h=3, 1, 0)) AS h3,
+		sum(if(a.h=4, 1, 0)) AS h4,
+		sum(if(a.h=5, 1, 0)) AS h5,
+		sum(if(a.h=6, 1, 0)) AS h6,
+		sum(if(a.h=7, 1, 0)) AS h7,
+		sum(if(a.h=8, 1, 0)) AS h8,
+		sum(if(a.h=9, 1, 0)) AS h9,
+		sum(if(a.h=10, 1, 0)) AS h10,
+		sum(if(a.h=11, 1, 0)) AS h11,
+		sum(if(a.h=12, 1, 0)) AS h12,
+		sum(if(a.h=13, 1, 0)) AS h13,
+		sum(if(a.h=14, 1, 0)) AS h14,
+		sum(if(a.h=15, 1, 0)) AS h15,
+		sum(if(a.h=16, 1, 0)) AS h16,
+		sum(if(a.h=17, 1, 0)) AS h17,
+		sum(if(a.h=18, 1, 0)) AS h18,
+		sum(if(a.h=19, 1, 0)) AS h19,
+		sum(if(a.h=20, 1, 0)) AS h20,
+		sum(if(a.h=21, 1, 0)) AS h21,
+		sum(if(a.h=22, 1, 0)) AS h22,
+		sum(if(a.h=23, 1, 0)) AS h23
+		FROM (
+		SELECT song_no, song.title AS title, HOUR(clickdate) AS h
+		FROM play
+        INNER JOIN song
+        ON play.song_no = song.no
+		WHERE SUBSTRING(clickdate,1,10) = SUBSTRING(now(),1,10)
+		) AS a
+		<if test="song_no != 0">
+			WHERE song_no = #{song_no}
+		</if>
+	</select>
+
+	<select id="weekly" resultType="music.player.MusicPlayerVo" parameterType="music.player.MusicPlayerVo">
+		SELECT
+		a.title,
+		sum(if(a.d=0, 1, 0)) AS Monday,
+		sum(if(a.d=1, 1, 0)) AS Tuesday,
+		sum(if(a.d=2, 1, 0)) AS Wednesday,
+		sum(if(a.d=3, 1, 0)) AS Thursday,
+		sum(if(a.d=4, 1, 0)) AS Friday,
+		sum(if(a.d=5, 1, 0)) AS Saturday,
+		sum(if(a.d=6, 1, 0)) AS Sunday
+		FROM (
+		SELECT song_no, song.title AS title, WEEKDAY(clickdate) AS d
+		FROM play
+		INNER JOIN song
+		ON play.song_no = song.no
+		WHERE WEEK(clickdate) = WEEK(now()) - 1
+		) AS a
+		GROUP BY a.song_no
+	</select>
+
+	<select id="totalSong" resultType="music.player.MusicPlayerVo" parameterType="music.player.MusicPlayerVo">
+		SELECT song.title AS title, COUNT(song_no) AS total
+		FROM play
+		INNER JOIN song
+		ON play.song_no = song.no
+		GROUP BY song_no
+	</select>
+
+	<select id="totalGenre" resultType="music.player.MusicPlayerVo" parameterType="music.player.MusicPlayerVo">
+		SELECT song.genre AS genre, COUNT(song_no) AS total
+		FROM play
+		INNER JOIN song
+		ON play.song_no = song.no
+		GROUP BY song.genre
+	</select>
+	
+	
+</mapper>
