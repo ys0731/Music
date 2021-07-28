@@ -2,11 +2,8 @@ package util;
 
 public class StatisticVo {
 	
-	/*
-	 * for (int i; i<24; i++) {
-	 * 
-	 * }
-	 */
+	private String datepicker;
+	
 	private int h0;
 	private int h1;
 	private int h2;
@@ -44,6 +41,17 @@ public class StatisticVo {
 	private int genre;
 	
 	private int total;
+	
+	
+	public String getDatepicker() {
+		return datepicker;
+	}
+
+	public void setDatepicker(String datepicker) {
+		this.datepicker = datepicker;
+	}
+
+	
 	
 	public int getH0() {
 		return h0;

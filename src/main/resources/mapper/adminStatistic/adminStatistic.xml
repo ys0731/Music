@@ -46,7 +46,7 @@
 		FROM play
         INNER JOIN song
         ON play.song_no = song.no
-		WHERE SUBSTRING(clickdate,1,10) = SUBSTRING(now(),1,10)
+		WHERE SUBSTRING(clickdate,1,10) = SUBSTRING(#{datepicker},1,10)
 		) AS a
 		<if test="song_no != 0">
 			WHERE song_no = #{song_no}
