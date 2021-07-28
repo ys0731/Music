@@ -1,7 +1,6 @@
 package music.admin.album;
 
 import java.sql.Timestamp;
-import java.text.SimpleDateFormat;
 
 import util.CommonVo;
 
@@ -70,10 +69,6 @@ public class AdminAlbumVo extends CommonVo {
 	public void setImg_real(String img_real) {
 		this.img_real = img_real;
 	}
-//	public String getRegdate() {
-//		SimpleDateFormat sdf = new SimpleDateFormat("yyyy-MM-dd"); 
-//		return sdf.format(regdate);
-//	}
 	public Timestamp getRegdate() {
 		return regdate;
 	}

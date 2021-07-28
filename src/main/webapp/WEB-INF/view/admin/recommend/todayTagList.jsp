@@ -43,8 +43,6 @@
 			chkArr2.push($(this).attr("data-Num"));
 		});
     	
-		// alert(chkArr);
-			
         $.ajax({
 	        url: 'sendtwolist.do',
 	        type: 'post',
@@ -112,7 +110,6 @@
        				if (res.trim() == 'failed') {
        					alert('삭제를 실패하였습니다.')
        				} else {
-						// alert('총 ' + chkArr.length +'건이 삭제되었습니다.');
 						alert('총 ' + res.trim() +'건이 삭제되었습니다.');
 						location.href='index.do';
        				}

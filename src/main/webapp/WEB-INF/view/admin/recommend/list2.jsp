@@ -26,8 +26,6 @@
 			chkArr.push($(this).attr("data-Num"));
 		});
     	
-    	// alert(chkArr);
-    	
         $.ajax({
 	        url: 'editplus.do',
 	        type: 'post',

@@ -1,11 +1,6 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8"
     pageEncoding="UTF-8"%>
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
-<%
-	/* HttpSession sess= request.getSession();
-	sess.getAttribute("playlist"); */
-	/* session.getAttribute("playlist"); */
-%>
 <!DOCTYPE html>
 <html>
 

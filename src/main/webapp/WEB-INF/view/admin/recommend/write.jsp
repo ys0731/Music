@@ -8,13 +8,6 @@
 		// list.jsp
 		getList(1,'','','','');
 		
-		// session validate
-		/* if(sessionStorage.getItem("songlist") != 'null') {
-			if(!confirm('이전에 작업하던 내용을 불러오시겠습니까?')) {
-				sessionStorage.removeItem("songlist");			
-			}
-		} */
-		
 		// sortable
 	    $("#sortable").sortable();
 	    $("#sortable").disableSelection();

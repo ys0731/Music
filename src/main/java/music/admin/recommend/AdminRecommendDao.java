@@ -15,7 +15,7 @@ public class AdminRecommendDao {
 	private SqlSessionTemplate sqlSession;
 	
 	public List<AdminSongVo> selectAll (AdminSongVo vo) {
-		return sqlSession.selectList("recommend.selectAll", vo); // namespace.id
+		return sqlSession.selectList("recommend.selectAll", vo);
 	}
 
 	public List<AdminRecommendVo> selectToday (AdminRecommendVo vo) {

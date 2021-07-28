@@ -25,8 +25,6 @@
     	$("input[type='checkbox'][name='num']:checked").each(function(){
 			chkArr.push($(this).attr("data-Num"));
 		});
-    	
-		// alert(chkArr);
 			
         $.ajax({
 	        url: 'write.do',

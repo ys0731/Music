@@ -2,8 +2,10 @@ package util;
 
 public class StatisticVo {
 	
+	// 날짜 선택
 	private String datepicker;
 	
+	// 일간차트 시간별 count
 	private int h0;
 	private int h1;
 	private int h2;
@@ -28,7 +30,8 @@ public class StatisticVo {
 	private int h21;
 	private int h22;
 	private int h23;
-
+	
+	// 주간차트 요일별 count
 	private int monday;
 	private int tuesday;
 	private int wednesday;
@@ -37,9 +40,13 @@ public class StatisticVo {
 	private int saturday;
 	private int sunday;
 	
+	// 곡 제목
 	private String title;
+	
+	// 곡 장르
 	private int genre;
 	
+	// COUNT(*)
 	private int total;
 	
 	

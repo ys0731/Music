@@ -13,7 +13,7 @@ public class AdminAlbumDao {
 	private SqlSessionTemplate sqlSession;
 	
 	public List<AdminAlbumVo> selectAll(AdminAlbumVo vo) {
-		return sqlSession.selectList("album.selectAll", vo); // namespace.id
+		return sqlSession.selectList("album.selectAll", vo);
 	}
 
 	public List<AdminAlbumVo> selectAllAlbums(AdminAlbumVo vo) {

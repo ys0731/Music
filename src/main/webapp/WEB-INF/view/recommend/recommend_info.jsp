@@ -12,7 +12,6 @@
     <%@ include file="/WEB-INF/view/include/headHtml.jsp" %>
 
     <script>
-        // lyrics popup (id는 같은 이름을 복수의 태그에 부여 불가능!)
         window.onload = function () {
             var btn = document.getElementById("lyrics_1");
 

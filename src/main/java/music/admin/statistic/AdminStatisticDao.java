@@ -16,7 +16,7 @@ public class AdminStatisticDao {
 	private SqlSessionTemplate sqlSession;
 	
 	public List<AdminSongVo> selectAll(AdminSongVo vo) {
-		return sqlSession.selectList("statistic.selectAll", vo); // namespace.id
+		return sqlSession.selectList("statistic.selectAll", vo);
 	}
 	
 	public AdminSongVo exist(AdminSongVo vo) {
@@ -36,6 +36,6 @@ public class AdminStatisticDao {
 	}
 
 	public List<MusicPlayerVo> totalGenre(MusicPlayerVo vo) {
-		return sqlSession.selectList("statistic.totalGenre", vo); // namespace.id
+		return sqlSession.selectList("statistic.totalGenre", vo);
 	}
 }

@@ -1,7 +1,6 @@
 package music.admin.song;
 
 import java.sql.Timestamp;
-import java.text.SimpleDateFormat;
 
 import util.CommonVo;
 
@@ -64,10 +63,6 @@ public class AdminSongVo extends CommonVo {
 	public void setLyrics(String lyrics) {
 		this.lyrics = lyrics;
 	}
-//	public String getRegdate() {
-//		SimpleDateFormat sdf = new SimpleDateFormat("yyyy-MM-dd"); 
-//		return sdf.format(regdate);
-//	}
 	public Timestamp getRegdate() {
 		return regdate;
 	}

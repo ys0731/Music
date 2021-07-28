@@ -214,7 +214,6 @@ public class AdminController {
 		
 		if (sess.getAttribute("songlist") == null) {
 			for (String i : list) {
-				// System.out.println(Integer.parseInt(i));
 				asv.setNo(Integer.parseInt(i));
 				li.add(songService.detail(asv));
 			}
@@ -223,7 +222,6 @@ public class AdminController {
 			List<AdminSongVo> lili = (List<AdminSongVo>)sess.getAttribute("songlist");
 			
 			for (String i : list) {
-				// System.out.println(Integer.parseInt(i));
 				asv.setNo(Integer.parseInt(i));
 				lili.add(songService.detail(asv));
 			}
@@ -255,18 +253,17 @@ public class AdminController {
 	//-----------------------------------------------------------insert.do
 	
 	@RequestMapping("/admin/album/insert.do")
-	public String albumInsert(Model model, AdminAlbumVo vo, @RequestParam MultipartFile file, HttpServletRequest req) { // 첨부파일 객체 : MultipartFile타입
-		if (!file.isEmpty()) { // 첨부파일이 있으면			
+	public String albumInsert(Model model, AdminAlbumVo vo, @RequestParam MultipartFile file, HttpServletRequest req) {
+		if (!file.isEmpty()) {
 			try {
-				String org = file.getOriginalFilename(); // 원본 업로드 파일명
-				String ext = ""; // 확장자
+				String org = file.getOriginalFilename();
+				String ext = "";
 				
 				ext = org.substring(org.lastIndexOf("."));
-				String real = new Date().getTime()+ext; // 서버에 저장되는 파일명
+				String real = new Date().getTime()+ext;
 				
-				// 파일 저장
-				String path = req.getRealPath("/upload/"); // 경로
-				file.transferTo(new File(path+real)); // 경로 + 파일명 저장
+				String path = req.getRealPath("/upload/");
+				file.transferTo(new File(path+real));
 				
 				vo.setImg_org(org);
 				vo.setImg_real(real);
@@ -287,18 +284,17 @@ public class AdminController {
 	}
 	
 	@RequestMapping("/admin/artist/insert.do")
-	public String artistInsert(Model model, AdminArtistVo vo, @RequestParam MultipartFile file, HttpServletRequest req) { // 첨부파일 객체 : MultipartFile타입
-		if (!file.isEmpty()) { // 첨부파일이 있으면			
+	public String artistInsert(Model model, AdminArtistVo vo, @RequestParam MultipartFile file, HttpServletRequest req) {
+		if (!file.isEmpty()) {
 			try {
-				String org = file.getOriginalFilename(); // 원본 업로드 파일명
-				String ext = ""; // 확장자
+				String org = file.getOriginalFilename();
+				String ext = "";
 				
 				ext = org.substring(org.lastIndexOf("."));
-				String real = new Date().getTime()+ext; // 서버에 저장되는 파일명
+				String real = new Date().getTime()+ext;
 				
-				// 파일 저장
-				String path = req.getRealPath("/upload/"); // 경로
-				file.transferTo(new File(path+real)); // 경로 + 파일명 저장
+				String path = req.getRealPath("/upload/");
+				file.transferTo(new File(path+real));
 				
 				vo.setImg_org(org);
 				vo.setImg_real(real);
@@ -338,8 +334,8 @@ public class AdminController {
 					String ext = "";
 					ext = org.substring(org.lastIndexOf("."));
 					String real = new Date().getTime()+ext;
-					String path = req.getRealPath("/upload/"); // 경로
-					file[i].transferTo(new File(path+real)); // 경로 + 파일명 저장
+					String path = req.getRealPath("/upload/");
+					file[i].transferTo(new File(path+real));
 					
 					asv.setSrc_org(org);
 					asv.setSrc_real(real);
@@ -385,8 +381,8 @@ public class AdminController {
 				AdminRecommendVo arv1 = new AdminRecommendVo();
 				
 				String org = file.getOriginalFilename();
-				String path = req.getRealPath("/upload/"); // 경로
-				file.transferTo(new File(path+org)); // 경로 + 파일명 저장
+				String path = req.getRealPath("/upload/");
+				file.transferTo(new File(path+org));
 				
 				arv1.setImg(org);
 				arv1.setGroup_id(group_id);
@@ -533,18 +529,17 @@ public class AdminController {
 	//-----------------------------------------------------------update.do
 	
 	@RequestMapping("/admin/album/update.do")
-	public String albumUpdate(Model model, AdminAlbumVo vo, @RequestParam MultipartFile file, HttpServletRequest req) { // 첨부파일 객체 : MultipartFile타입
-		if (!file.isEmpty()) { // 첨부파일이 있으면			
+	public String albumUpdate(Model model, AdminAlbumVo vo, @RequestParam MultipartFile file, HttpServletRequest req) {
+		if (!file.isEmpty()) {
 			try {
-				String org = file.getOriginalFilename(); // 원본 업로드 파일명
-				String ext = ""; // 확장자
+				String org = file.getOriginalFilename();
+				String ext = "";
 				
 				ext = org.substring(org.lastIndexOf("."));
-				String real = new Date().getTime()+ext; // 서버에 저장되는 파일명
+				String real = new Date().getTime()+ext;
 				
-				// 파일 저장
-				String path = req.getRealPath("/upload/"); // 경로
-				file.transferTo(new File(path+real)); // 경로 + 파일명 저장
+				String path = req.getRealPath("/upload/");
+				file.transferTo(new File(path+real));
 				
 				vo.setImg_org(org);
 				vo.setImg_real(real);
@@ -565,18 +560,17 @@ public class AdminController {
 	}
 	
 	@RequestMapping("/admin/artist/update.do")
-	public String artistUpdate(Model model, AdminArtistVo vo, @RequestParam MultipartFile file, HttpServletRequest req) { // 첨부파일 객체 : MultipartFile타입
-		if (!file.isEmpty()) { // 첨부파일이 있으면			
+	public String artistUpdate(Model model, AdminArtistVo vo, @RequestParam MultipartFile file, HttpServletRequest req) {
+		if (!file.isEmpty()) {
 			try {
-				String org = file.getOriginalFilename(); // 원본 업로드 파일명
-				String ext = ""; // 확장자
+				String org = file.getOriginalFilename();
+				String ext = "";
 				
 				ext = org.substring(org.lastIndexOf("."));
-				String real = new Date().getTime()+ext; // 서버에 저장되는 파일명
+				String real = new Date().getTime()+ext;
 				
-				// 파일 저장
-				String path = req.getRealPath("/upload/"); // 경로
-				file.transferTo(new File(path+real)); // 경로 + 파일명 저장
+				String path = req.getRealPath("/upload/");
+				file.transferTo(new File(path+real));
 				
 				vo.setImg_org(org);
 				vo.setImg_real(real);
@@ -597,18 +591,17 @@ public class AdminController {
 	}
 	
 	@RequestMapping("/admin/song/update.do")
-	public String songUpdate(Model model, AdminSongVo vo, @RequestParam MultipartFile file, HttpServletRequest req) { // 첨부파일 객체 : MultipartFile타입
-		if (!file.isEmpty()) { // 첨부파일이 있으면			
+	public String songUpdate(Model model, AdminSongVo vo, @RequestParam MultipartFile file, HttpServletRequest req) {
+		if (!file.isEmpty()) {
 			try {
-				String org = file.getOriginalFilename(); // 원본 업로드 파일명
-				String ext = ""; // 확장자
+				String org = file.getOriginalFilename();
+				String ext = "";
 				
 				ext = org.substring(org.lastIndexOf("."));
-				String real = new Date().getTime()+ext; // 서버에 저장되는 파일명
+				String real = new Date().getTime()+ext;
 				
-				// 파일 저장
-				String path = req.getRealPath("/upload/"); // 경로
-				file.transferTo(new File(path+real)); // 경로 + 파일명 저장
+				String path = req.getRealPath("/upload/");
+				file.transferTo(new File(path+real));
 				
 				vo.setSrc_org(org);
 				vo.setSrc_real(real);
@@ -645,8 +638,6 @@ public class AdminController {
 			r += recommendService.update(arv);
 			update++;
 		}
-		// System.out.println(reset);
-		// System.out.println(r);
 		
 		res.setContentType("text/html;charset=utf-8");
 		PrintWriter out = res.getWriter();
@@ -679,8 +670,8 @@ public class AdminController {
 			try {
 				
 				String org = file.getOriginalFilename();
-				String path = req.getRealPath("/upload/"); // 경로
-				file.transferTo(new File(path+org)); // 경로 + 파일명 저장
+				String path = req.getRealPath("/upload/");
+				file.transferTo(new File(path+org));
 				arv.setImg(org);
 				
 			} catch (Exception e) {
@@ -840,7 +831,7 @@ public class AdminController {
 	@RequestMapping("/admin/recommend/delete.do")
 	public void recommendDelete(AdminRecommendVo vo, HttpServletRequest req, HttpServletResponse res) throws IOException {
 		String chkArr = req.getParameter("chkArr");
-		String[] list = chkArr.split(","); // ajax에서 traditional: true가 설정 되어 있지 않은 경우 배열로 담기지 않음
+		String[] list = chkArr.split(",");
 		int size = list.length;
 		int[] li = new int[size];
 		

@@ -13,18 +13,14 @@ public class AdminAlbumServiceImpl implements AdminAlbumService {
 
 	@Override
 	public List<AdminAlbumVo> selectAll(AdminAlbumVo vo) {
-		// 총 개수
 		int totCount = dao.count(vo);
 		
-		// 페이지 개수
 		int totPage = (totCount % vo.getPageRow() > 0) ? totCount / vo.getPageRow() + 1 : totCount / vo.getPageRow();
 		System.out.println(totPage);
 		
-		// Command객체를 사용하기 위하여 세팅함
 		vo.setTotCount(totCount);
 		vo.setTotPage(totPage);
 		
-		// 시작 페이지
 		int startPage = (vo.getReqPage() - 1) / (vo.getPageRange()) * (vo.getPageRange()) + 1;
 		int endPage = startPage + vo.getPageRange() - 1;
 		if (endPage > totPage) endPage = totPage;

@@ -16,7 +16,7 @@ public class AdminSongDao {
 	private SqlSessionTemplate sqlSession;
 	
 	public List<AdminSongVo> selectAll(AdminSongVo vo) {
-		return sqlSession.selectList("song.selectAll", vo); // namespace.id
+		return sqlSession.selectList("song.selectAll", vo);
 	}
 	
 	public List<AdminSongVo> selectAllSongs(AdminSongVo vo) {

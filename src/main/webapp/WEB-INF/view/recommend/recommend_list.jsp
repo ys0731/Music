@@ -12,22 +12,6 @@
     <%@ include file="/WEB-INF/view/include/headHtml.jsp" %>
 
     <script>
-    	/* function goToList(no) {
-            $.ajax({
-    	        url: 'recommend_info.do',
-    	        type: 'post',
-    	        data: {
-    	        	no: no	
-    	        },
-    	        success : function(res){
-    	        	location.href='recommend_info.do?no='+no;
-    	        },
-    	        error : function(res){
-    	        	
-    	        }
-    		});
-    	} */
-    
         $(document).ready(function(){
             // sysdate
             var today = new Date();

@@ -13,7 +13,7 @@ public class RecommendDao {
 	private SqlSessionTemplate sqlSession;
 	
 	public List<RecommendVo> selectList (RecommendVo vo) {
-		return sqlSession.selectList("recommended.selectList", vo); // namespace.id
+		return sqlSession.selectList("recommended.selectList", vo);
 	}
 
 	public List<RecommendVo> selectSongList (RecommendVo vo) {
