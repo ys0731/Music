@@ -20,7 +20,7 @@
 	
 	<select id="selectAll" resultType="music.detailArtistComment.ArtistCommentVo" parameterType="music.detailArtistComment.ArtistCommentVo">
 		SELECT *,
-		(SELECT name FROM user WHERE no=artist_comment.user_no) AS name
+		(SELECT id FROM user WHERE no=artist_comment.user_no) AS id
 		FROM artist_comment
 		<include refid="boardWhere"/>
 		ORDER BY gno DESC, ono ASC

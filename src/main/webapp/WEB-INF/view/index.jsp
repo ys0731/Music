@@ -15,7 +15,7 @@
     <link rel="stylesheet" href="css/main.css">
 	<%@ include file="/WEB-INF/view/include/headHtml.jsp" %>
 </head>
-
+<%@ include file="/WEB-INF/view/player/playnlog.jsp" %>
 <body>
 	<%@ include file="/WEB-INF/view/include/top.jsp" %>
     
@@ -83,6 +83,11 @@
                 <div class="cont_1_left">
                     <h2>곡 차트</h2><a class="more" href="/music/chart/chart_24hit.do">더 보기</a>
                     <table class="charts">
+                    	<c:if test="${empty cv }">
+                            <tr>
+                                <td class="first" colspan="5" style="">차트 정보가 없습니다.</td>
+                            </tr>
+                        </c:if>
                     	<c:forEach var="cv" items="${cv }" begin="0" end="0">
                     		<tr class="on">                 
 	                            <td>1</td>
@@ -97,51 +102,26 @@
 	                            <td>${status.count }</td>
 	                            <td><a href="album_info.html"><img src="<%=path %>/upload/${cv.rel}" alt="album2"></a><span>${cv.title }</span></td>
 	                            <td><a href="artist_info.html">${cv.artist }</a></td>
-	                            <td><a class="play_music button_icons" href="#"></a></td>
-	                            <td><a class="add_list button_icons" href="#"></a></td>
+	                            <td><a class="play_music button_icons play" href="#" onclick="javascript:player(no=${cv.no });" data-no="${cv.no }"></a></td>
+	                            <td><a class="add_list button_icons" href="#" onclick="javascript:plusplayer(no=${cv.no });"></a></td>
                         	</tr>
                         </c:forEach>
                     </table>
                 </div>
                 <div class="cont_1_right">
-                    <h2>오늘의 추천</h2><a class="more" href="recommend_list.html">더 보기</a>
+                    <h2>오늘의 추천</h2><a class="more" href="/music/recommend/recommend_list.do">더 보기</a>
                     <ul class="recom">
-                        <li>
-                            <a class="clear" href="recommend_info.html">
-                                <img src="img/album1.jpg" alt="album1">
-                                <div>
-                                    <p>올 롸잇!</p>
-                                    <p><span>1</span><span>곡</span></p>
-                                </div>
-                            </a>
-                        </li>
-                        <li>
-                            <a class="clear" href="#">
-                                <img src="img/album2.jpg" alt="album2">
-                                <div>
-                                    <p>니 안에 내 있다</p>
-                                    <p><span>2</span><span>곡</span></p>
-                                </div>
-                            </a>
-                        </li>
-                        <li>
-                            <a class="clear" href="#">
-                                <img src="img/album3.jpg" alt="album3">
-                                <div>
-                                    <p>내 미래처럼 깜깜한 밤에</p>
-                                    <p><span>3</span><span>곡</span></p>
-                                </div>
-                            </a>
-                        </li>
-                        <li>
-                            <a class="clear" href="#">
-                                <img src="img/album4.jpg" alt="album4">
-                                <div>
-                                    <p>끝없는 코딩에 지친 당신</p>
-                                    <p><span>4</span><span>곡</span></p>
-                                </div>
-                            </a>
-                        </li>
+                        <c:forEach var="rv" items="${rv }" begin="0" end="3">
+                        	<li>
+	                            <a class="clear" href="<%=path%>/recommend/recommend_info.do?no=${rv.order_id}">
+	                                <img src="<%=path %>/upload/${rv.img }" alt="album1">
+	                                <div>
+	                                    <p>${rv.sub_title }</p>
+	                                    <p><span>${rv.songcount}</span><span>곡</span></p>
+	                                </div>
+	                            </a>
+	                        </li>
+                        </c:forEach>
                     </ul>
                 </div>
             </div>

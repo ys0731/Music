@@ -1,6 +1,7 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8"
     pageEncoding="UTF-8"%>
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
+<%@ taglib prefix="fmt" uri="http://java.sun.com/jsp/jstl/fmt" %>
 <!DOCTYPE html>
 <html lang="en">
 <%
@@ -10,7 +11,7 @@
     <meta charset="UTF-8">
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>mymusic</title>
+    <title>mymusic_comment</title>
     <%@ include file="/WEB-INF/view/include/headHtml.jsp" %>
 
     <script>
@@ -25,29 +26,16 @@
                 }
             });
 
-            // preventDefault
-            $(".chart_box ul li a, .play_music, .add_list").click(function(e){
-                e.preventDefault();
-                // e.stopPropagation();
+            
+            $(".chart_box table").append(html);
+            $(".list_title").click(function(){
+                var offset = $(".comment_list").offset();
+                $('html, body').animate({scrollTop : offset.top}, 400);
             })
-            
-            $(".album").click(function() {
-            	var sno = $(this).data('no');
-            	$.ajax({
-            		url: '<%=request.getContextPath()%>/detail/albumDetail.do?album_no='+sno,
-            		method: 'post',
-            		data: {
-            			no: sno           			
-            		},
-            		success: function(data) {
-            			console.log("success");
-            			location.href='<%=request.getContextPath()%>/detail/albumDetail.do?album_no='+sno;
-            		}
-            		
-            	});
-            });//함수 끝
-            
-            $(".artist").click(function() {
+                       
+        });
+        $(function() {
+        	$(".content").click(function() {
             	var sno = $(this).data('no');
             	$.ajax({
             		url: '<%=request.getContextPath()%>/detail/artistDetail.do?artist_no='+sno,
@@ -62,12 +50,13 @@
             		
             	});
             });//함수 끝
-        });
+        });    
+        
     </script>
-	<%@ include file="/WEB-INF/view/player/playnlog.jsp" %>
+
     <style>
         /* right side */
-        .right_side {float: right; width: 75%;}
+        .right_side {float: right; width: 75%; height: 500px;}
 
         /* profile box */
         .my_box {position: fixed; z-index: 1; width: 240px; background-color: #b0c4de; border-radius: 5px;}
@@ -112,12 +101,10 @@
         .chart_box table {margin-bottom: 20px;}
 
         .chart_box table tr td:nth-child(1) {width: 25px;}
-        .chart_box table tr td:nth-child(2) {width: 70px; text-align: center;}
-        .chart_box table tr td:nth-child(3) {width: 320px;}
+        .chart_box table tr td:nth-child(2) {width: 90px; text-align: center;}
+        .chart_box table tr td:nth-child(3) {width: 490px;}
         .chart_box table tr td:nth-child(4) {width: 157px;}
-        .chart_box table tr td:nth-child(5) {width: 100px;}
-        .chart_box table tr td:nth-child(6) {width: 45px; text-align: center;}
-        .chart_box table tr td:nth-child(7) {width: 45px; text-align: center;}
+
 
         .chart_box table tr {border-bottom: 2px solid #ccc;}
         .chart_box table tr:nth-child(1) {color: #333; border-top: 2px solid #ccc; height: 40px; font-size: 12px;}
@@ -125,22 +112,16 @@
 
         /* chart txt */
         .album_mini {float: left; width: 45px; height: 45px;}
-        .list_title {width: 315px; text-overflow: ellipsis; white-space: nowrap; overflow: hidden;}
+        .list_title {width: 460px; text-overflow: ellipsis; white-space: nowrap; overflow: hidden;}
         .list_artist {width: 152px; text-overflow: ellipsis; white-space: nowrap; overflow: hidden;}
         .list_album {width: 95px; text-overflow: ellipsis; white-space: nowrap; overflow: hidden;}
 
         /* like btn */
-        .like_btn {display: block; margin-left: 10.5px; width: 24px; height: 24px; background-image: url("<%=path %>/img/like_empty.png"); background-size: cover; background-position: center; background-repeat: no-repeat;}
-        .like_btn.on {background-image: url("<%=path %>/img/like_full.png");}
+        .like_btn {display: block; margin-left: 10.5px; width: 24px; height: 24px; background-image: url("<%=path %>/img/like_full.png"); background-size: cover; background-position: center; background-repeat: no-repeat;}
+        .like_btn.on {background-image: url("img/like_empty.png");}
 
         /* button icons */
         .button_icons {display: block; width: 24px; height: 24px; background-image: url("<%=path %>/img/button_icons.png"); border-radius: 50%; overflow: hidden;}
-        
-        /* .play_music btn */
-        .play_music {background-position: 0px -167px; margin-left: 10.5px; }
-        .play_music:hover {background-position: 221px -167px;}
-        .play_music:active {background-position: 249px -167px;}
-        .play_music.on {background-position: 249px -167px;}
         
         /* add_list btn */
         .add_list {background-position: -165px 0px; margin-left: 10.5px; }
@@ -148,7 +129,7 @@
         .add_list:active {background-position: -165px 220px;}
         .add_list.on {background-position: -165px 220px;}
         
-         /* 페이징처리 */
+        /* 페이징처리 */
 		.pagenate {width:100%; clear:both;}
 		.pagenate {text-align:center; margin:10px auto 0;}
 		.pagenate li {display:inline-block;}
@@ -161,12 +142,13 @@
 		.pagenate li a.board.next {margin-left:30px; background:#efefef  no-repeat center center;}
 		.pagenate li a.board.last {background:#f3f3f3  no-repeat center center;}
 		.pagenate li a.current {color:#fff; background-color:#221f1f; font-weight:bold;  border:1px solid #221f1f;}
+		       
     </style>
 
 </head>
 
-<body>
-    <%@ include file="/WEB-INF/view/include/top.jsp" %>
+<body>    
+   <%@ include file="/WEB-INF/view/include/top.jsp" %>
     <div id="container">
         <div class="center clear">
             <div class="left_side">
@@ -176,7 +158,7 @@
                             <div class="my_img"></div>
                             <div class="my_nick">
                                 <p>
-                                    <span>${uv.nickname }</span><span>님</span>
+                                    <span>${userInfo.nickname }</span><span>님</span>
                                 </p>
                                 <a href="/music/mymusic/mymusic_update.do">회원정보 변경</a>
                             </div>
@@ -201,70 +183,60 @@
                     </div>
                 </div>
             </div>
+            
             <div class="right_side">
-                <h2>최근감상곡</h2>
+                <h2>내가 쓴 댓글</h2>
                 <form class="chart_box" action="" method="post">
                     <ul class="clear">
                         <li><input id="check_all" type="checkbox"></li>
-                        <li><a href="#" onclick="javascript:checkplayer();">듣기</a></li>                       
                     </ul>
                     <table>
                         <tr>
                             <td></td>
-                            <td>No</td>
-                            <td>곡</td>
-                            <td>아티스트</td>
-                            <td>앨범</td>
-                            <td>듣기</td>
-                            <td>추가</td>
+                            <td>NO</td>
+                            <td>내용</td>
+                            <td>등록일</td>
                         </tr>
                         <c:if test="${empty list }">
                             <tr>
-                                <td class="first" colspan="7">등록된 곡이 없습니다.</td>
+                                <td class="first" colspan="4">등록된 글이 없습니다.</td>
                             </tr>
                         </c:if>
-                        <c:forEach var="vo" items="${list }" varStatus="status">
-                        <tr>
-                   			<td><input name="check_list" type="checkbox" data-Num="${vo.no }"></td>
-                  			<td>
-                      			<p>${status.count }</p>
-                   		    </td>
-                   			<td>
-                       			<p class="list_title">${vo.title }</p>
-                   			</td>
-                   			<td>
-		                       <p class="list_artist" id="artist"><a class="artist" href="#" data-no="${vo.ar_no }">${vo.artist }</a></p>
-		                    </td>
-			                <td>
-			                    <p class="list_album" id="album"><a class="album" href="#" data-no="${vo.al_no }">${vo.album }</a></p>
-			                </td>
-			                <td>
-			                    <a class="play_music button_icons" href="#" onclick="javascript:player(no=${vo.no });" data-no="${vo.no }"></a>
-			                </td>
-			                <td>
-			                    <a class="add_list button_icons" href="#" onclick="javascript:plusplayer(no=${vo.no });"></a>
-			                </td>
-			            </tr>
+                        
+                        <c:forEach items="${list }" var="vo" varStatus="status">
+                        	<tr>
+				                  <td><input name="check_list" type="checkbox"></td>
+				                  <td>
+				                      <p>${status.count }</p>
+				                  </td>
+				                  <td>
+				                     <p><a href="#" class="content" data-no="${vo.artist_no }">${vo.content }</a></p>
+				                  </td>
+				                  <td>
+				                      <p class="list_artist"><fmt:formatDate value="${vo.regdate }" pattern="yyyy-MM-dd HH:mm"/></p>
+				                  </td>
+               				</tr>
                         </c:forEach>
+                        
                     </table>
                 </form>
-                <div class="pagenate clear">
+                	<div class="pagenate clear">
                         <ul class='paging'>
-                        <c:if test="${chartVo.startPage > chartVo.pageRange}">
-                        	<li><a href="/music/mymusic/mymusic.do?reqPage=${chartVo.startPage-1 }"><</a></li>
+                        <c:if test="${artistCommentVo.startPage > artistCommentVo.pageRange}">
+                        	<li><a href="/music/mymusic/mymusic_comment2.do?reqPage=${artistCommentVo.startPage-1 }"><</a></li>
                         </c:if>
-                        <c:forEach var="rp" begin="${chartVo.startPage}" end="${chartVo.endPage }">
-                            <li><a href='/music/mymusic/mymusic.do?reqPage=${rp}' <c:if test="${rp==chartVo.reqPage }">class='current'</c:if>>${rp }</a></li>
+                        <c:forEach var="rp" begin="${artistCommentVo.startPage}" end="${artistCommentVo.endPage }">
+                            <li><a href='/music/mymusic/mymusic_comment2.do?reqPage=${rp}' <c:if test="${rp==artistCommentVo.reqPage }">class='current'</c:if>>${rp }</a></li>
                         </c:forEach>
-                        <c:if test="${chartVo.totPage > chartVo.endPage}">
-                        	<li><a href="/music/mymusic/mymusic.do?reqPage=${chartVo.endPage+1 }">></a></li>
+                        <c:if test="${artistCommentVo.totPage > artistCommentVo.endPage}">
+                        	<li><a href="/music/mymusic/mymusic_comment2.do?reqPage=${artistCommentVo.endPage+1 }">></a></li>
                         </c:if>
                         </ul> 
                     </div>
             </div>
         </div>
     </div>
-    <%@ include file="/WEB-INF/view/include/bottom.jsp" %>
+     <%@ include file="/WEB-INF/view/include/bottom.jsp" %>
 </body>
 
 </html>

@@ -19,11 +19,6 @@
 	        window.open("/music/chart/lyrics.do?no="+no, "popup", "width=400, height=600");
 	    }
 		
-	  /* //재생팝업
-	    function ppopup(no) {
-	        window.open("/music/player/play.do?no="+no, "popup", "width=400, height=600");
-	    } */
-        
         $(document).ready(function(){
 
             // check all
@@ -188,7 +183,6 @@
                 <ul class="clear">
                     <li><input id="check_all" type="checkbox"></li>
                     <li><a href="#" onclick="javascript:checkplayer();">듣기</a></li>
-                    <li><a href="#">재생목록에 추가</a></li>
                 </ul>
                 <table>
                     <tr>

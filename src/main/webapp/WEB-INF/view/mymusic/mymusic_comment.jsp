@@ -28,16 +28,26 @@
 
             
             $(".chart_box table").append(html);
-            $(".list_title").click(function(){
-                var offset = $(".comment_list").offset();
-                $('html, body').animate({scrollTop : offset.top}, 400);
-            })
-            // preventDefault
-            $(".chart_box ul li a, .play_music, .add_list").click(function(e){
-                e.preventDefault();
-            })
-            
+                     
+                       
         });
+        $(function() {
+        	$(".content").click(function() {
+            	var sno = $(this).data('no');
+            	$.ajax({
+            		url: '<%=request.getContextPath()%>/detail/albumDetail.do?album_no='+sno,
+            		method: 'post',
+            		data: {
+            			no: sno           			
+            		},
+            		success: function(data) {
+            			console.log("success");
+            			location.href='<%=request.getContextPath()%>/detail/albumDetail.do?album_no='+sno;
+            		}
+            		
+            	});
+            });//함수 끝
+        });           
     </script>
 
     <style>
@@ -162,18 +172,19 @@
                     <div class="my_box_bottom">
                         <ul class="my_comment">
                             <li>댓글</li>
-                            <li><a href="/music/mymusic/mymusic_comment.do"><span>-</span><span>내가 쓴 댓글</span></a></li>
+                            <li><a href="/music/mymusic/mymusic_comment.do"><span>-</span><span>앨범 댓글</span></a></li>
+                            <li><a href="/music/mymusic/mymusic_comment2.do"><span>-</span><span>아티스트 댓글</span></a></li>
                         </ul>
                         <a class="sign_out" href="/music/mymusic/mymusic_withdrawal.do">회원탈퇴</a>
                     </div>
                 </div>
             </div>
+            
             <div class="right_side">
                 <h2>내가 쓴 댓글</h2>
                 <form class="chart_box" action="" method="post">
                     <ul class="clear">
                         <li><input id="check_all" type="checkbox"></li>
-                        <!-- <li><a href="#">댓글 삭제</a></li> -->
                     </ul>
                     <table>
                         <tr>
@@ -195,7 +206,7 @@
 				                      <p>${status.count }</p>
 				                  </td>
 				                  <td>
-				                      <a href="#"><p class="list_title">${vo.content } </p></a>
+				                      <p><a href="#" class="content" data-no="${vo.album_no }">${vo.content }</a></p>
 				                  </td>
 				                  <td>
 				                      <p class="list_artist"><fmt:formatDate value="${vo.regdate }" pattern="yyyy-MM-dd HH:mm"/></p>

@@ -12,6 +12,8 @@ import music.chart.ChartService;
 import music.chart.ChartVo;
 import music.detailAlbumComment.AlbumCommentService;
 import music.detailAlbumComment.AlbumCommentVo;
+import music.detailArtistComment.ArtistCommentService;
+import music.detailArtistComment.ArtistCommentVo;
 import music.like.LikeService;
 import music.like.LikeVo;
 import music.user.UserService;
@@ -32,6 +34,9 @@ public class MymusicController {
 	@Autowired
 	AlbumCommentService acservice;
 	
+	@Autowired
+	ArtistCommentService arcservice;
+			
 	//마이뮤직-최근감상곡
 	@RequestMapping("/mymusic/mymusic.do")
 	public String mymusic(Model model, UserVo uv, ChartVo cv, HttpSession sess) {
@@ -125,8 +130,21 @@ public class MymusicController {
 	public String comment(UserVo uv, HttpServletRequest req, HttpSession sess,Model model,AlbumCommentVo acv) {
 		uv = (UserVo)sess.getAttribute("userInfo");
 		acv.setUser_no(uv.getNo());
-		model.addAttribute("list", acservice.selectAll(acv));
+		acv.setPageRow(4);
+		
+		model.addAttribute("list", acservice.selectAll(acv));		
 		
 		return "mymusic/mymusic_comment";
+	}
+		
+		@RequestMapping("/mymusic/mymusic_comment2.do")
+		public String comment2(UserVo uv, HttpServletRequest req, HttpSession sess,Model model,ArtistCommentVo arcv) {
+			uv = (UserVo)sess.getAttribute("userInfo");
+			arcv.setUser_no(uv.getNo());
+			arcv.setPageRow(4);
+			
+			model.addAttribute("list", arcservice.selectAll(arcv));		
+			
+			return "mymusic/mymusic_comment2";
 	}
 }
