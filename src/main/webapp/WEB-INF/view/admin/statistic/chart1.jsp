@@ -3,7 +3,12 @@
 <head>
 <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
 <%@ include file="/WEB-INF/view/admin/include/headHtml.jsp" %>
-<script type="text/javascript" src="https://www.gstatic.com/charts/loader.js"></script>
+
+<link rel="stylesheet" href="//code.jquery.com/ui/1.12.1/themes/base/jquery-ui.css">
+<link rel="stylesheet" href="/resources/demos/style.css">
+<script src="https://code.jquery.com/jquery-1.12.4.js"></script>
+<script src="https://code.jquery.com/ui/1.12.1/jquery-ui.js"></script>
+
 <script type="text/javascript">
 	google.charts.load('current', {'packages':['corechart']});
 	google.charts.setOnLoadCallback(drawVisualization);
@@ -46,7 +51,7 @@
 		]);
 		
 		var options = {
-			title : '하룻동안의 재생횟수',
+			title : '${musicPlayerVo.datepicker }',
 			vAxis: {title: '재생횟수'},
 			hAxis: {title: '24시간'},
 			seriesType: 'bars',
@@ -60,6 +65,10 @@
 	function selectSong() {
 		if ($("#song_no").val() == '') {
 			alert("곡 번호를 입력해주세요.");
+			return;
+		} else if ($("#datepicker").val() == '') {
+			alert("날짜를 입력해주세요.");
+			return;
 		}
 		
 		$.ajax({
@@ -68,15 +77,23 @@
 	        data: {
 	        	no: $("#song_no").val()
 	        },
-	        success : function(res){
+	        success: function(res){
 	        	if (res.trim() != 'true') {
-		        	alert("존재하지 않는 번호입니다.");
+		        	alert("존재하지 않는 곡 번호입니다.");
 				} else {
 					$("#frm").submit();
 				}
 	        }
         });
 	}
+
+	$(function(){
+	    $("#datepicker").datepicker({
+			changeMonth: true,
+			changeYear: true
+		});
+		$("#datepicker").datepicker("option", "dateFormat", "yy-mm-dd");
+	});
 </script>
 </head>
 <body> 
@@ -97,17 +114,18 @@
 				<div class="con">
 					<!-- 내용 : s -->
 					<div>
-						<form method="post" name="frm" id="frm" action="chart1.do" enctype="multipart/form-data">
+						<form method="post" name="frm" id="frm" action="chart1.do" enctype="multipart/form-data" style="display: inline-block;">
 							<label for="song_no">곡 선택 : </label>
-							<input type="text" id="song_no" name="song_no" title="곡 선택" list="songlisted" autocomplete="off"/>
+							<input type="text" id="song_no" name="song_no" title="곡 선택" list="songlisted" autocomplete="off" placeholder="곡 번호 입력"/>
 							<datalist id="songlisted">
 								<option value="0">전체</option>
 	                            <c:forEach var="songs" items="${songList }">
 									<option value="${songs.no }">${songs.title }</option>				
 								</c:forEach>
 							</datalist>
+							<input type="text" id="datepicker" name="datepicker" size="15" autocomplete="off" placeholder="날짜 입력">
 						</form>
-						<a class="btns" href="#" onclick="selectSong();" style="margin-left: 51px;"><strong>선택</strong></a>
+						<a class="btns" href="#" onclick="selectSong();"><strong>선택</strong></a>
 					</div>
 					<div id="chart_div" style="width: 1840px; height: 680px;"></div>
 					<!-- 내용 : e -->
