@@ -15,6 +15,11 @@
 		</where>
 	</sql>
 	
+	<select id="selectAllSongs" resultType="music.admin.song.AdminSongVo" parameterType="music.admin.song.AdminSongVo">
+		SELECT *, (SELECT album FROM album WHERE album_no=album.no) AS albumName, (SELECT artist FROM artist WHERE artist_no=artist.no) AS artistName
+		FROM song ORDER BY title, regdate
+	</select>
+	
 	<select id="selectAll" resultType="music.admin.song.AdminSongVo" parameterType="music.admin.song.AdminSongVo">
 		SELECT *, (SELECT album FROM album WHERE album_no=album.no) AS albumName, (SELECT artist FROM artist WHERE artist_no=artist.no) AS artistName
 		FROM song
