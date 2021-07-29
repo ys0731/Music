@@ -113,8 +113,8 @@
 							</c:choose>
 								<c:if test="${vo.regdate >= nowday }">
 									<strong style="color:red;"> [NEW] </strong>
-									<c:if test="${!empty vo.answer}"><strong> <img src="/music/img/admin/ico_answer_done.png" style="width: 45px"/> </strong></c:if>
 								</c:if>
+								<c:if test="${!empty vo.answer}"><strong> <img src="/music/img/admin/ico_answer_done.png" style="width: 45px"/> </strong></c:if>
 							</td>
 							<td><a href="userpost.do">${vo.name}</a></td>
 							<td>${vo.regdate }</td>

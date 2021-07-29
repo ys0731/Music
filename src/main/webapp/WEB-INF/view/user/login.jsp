@@ -108,7 +108,6 @@
                 </ul>
             </div>
             <button class="login_btn">로그인</button>
-            <button class="kakao_login_btn">카카오 계정으로 로그인</button>
         </form>
         <ul class="link_line clear">
             <li><a href="#">이용약관</a></li>

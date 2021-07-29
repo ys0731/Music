@@ -33,16 +33,16 @@
            	<c:forEach var="genres" items="${genre }">
        			[
                	<c:if test="${genres.genre == 1}">
-           			'장르1'
+           			'가요'
            		</c:if>
                	<c:if test="${genres.genre == 2}">
-           			'장르2'
+           			'팝'
            		</c:if>
                	<c:if test="${genres.genre == 3}">
-           			'장르3'
+           			'재즈'
            		</c:if>
                	<c:if test="${genres.genre == 4}">
-           			'장르4'
+           			'클래식'
            		</c:if>
        			, ${genres.total }],
        		</c:forEach>
