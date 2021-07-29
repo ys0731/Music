@@ -13,14 +13,14 @@ function OpenWinCount(URL,width,height) {
 	window.open(URL,'remote',str);
 }
 
-$(window).load(function(){
+$(function(){
 	// 1depth 메뉴들
 	var parent = $(".parent");
 	
 	//현재 주소
 	// 주소중 manage이후 폴더 경로 자르기 ex) /admin/board/index.jsp -> board
 	var curUrl = document.location.pathname;
-	curUrl = curUrl.substring(curUrl.indexOf("manage")+12,curUrl.length);
+	curUrl = curUrl.substring(curUrl.indexOf("admin")+11,curUrl.length);
 	if (curUrl.indexOf("/") > 0) {
 		curUrl = curUrl.substring(curUrl,curUrl.indexOf("/"));
 	}
@@ -92,7 +92,7 @@ $(window).load(function(){
   					</ul>
   					</div>
 				</li>
-				<li><a href="<%=request.getContextPath()%>/admin/notice/index.do" class="parent"><span>게시판</span></a>
+				<li><a href="<%=request.getContextPath()%>/admin/notice/index.do" class="parent"><span>게시판관리</span></a>
 					<div class="standard_left">
 					<ul>
 						<li><a href="<%=request.getContextPath()%>/admin/notice/index.do"><span>공지사항</span></a></li>
@@ -101,7 +101,7 @@ $(window).load(function(){
 					</div>
 				</li>
 				<li>
-  					<a href="<%=request.getContextPath()%>/admin/statistic/chart1.do" class="parent"><span>재생통계차트</span></a>
+  					<a href="<%=request.getContextPath()%>/admin/statistic/chart1.do" class="parent"><span>통계관리</span></a>
   					<div class="standard_left">
   					<ul>
   						<li><a href="<%=request.getContextPath()%>/admin/statistic/chart1.do"><span>일간차트</span></a></li>
@@ -120,6 +120,7 @@ $(window).load(function(){
 						<li><a href="<%=request.getContextPath()%>/admin/sales/category.do"><span>이용권별</span></a></li>
 					</ul>
 				</li>
+				<li><a href="<%=request.getContextPath()%>/admin/report/index.do" class="parent"><span>신고관리</span></a>			
 			</ul>
 		</div>
 		<!--//gnb-->
