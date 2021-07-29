@@ -65,7 +65,7 @@
         .my_box_bottom {position: relative; padding-bottom: 40px;}
         
         /* profile box top */
-        .my_img {float: left; width: 100px; height: 100px; margin-right: 20px; background-image: url("<%=path %>/img/profile_default.jpg"); background-position: center; background-repeat: no-repeat; background-size: cover; border-radius: 50%;}
+        .my_img {float: left; width: 100px; height: 100px; margin-right: 20px;  background-position: center; background-repeat: no-repeat; background-size: cover; border-radius: 50%;}
         .my_nick {float: left;}
         .my_nick p {margin-bottom: 10px;}
         .my_nick p span {font-size: 16px;}
@@ -77,7 +77,7 @@
         .my_info {margin: 20px 0;}
         .my_info a {float: left; display: block; width: 40%; margin: 0 2%; line-height: 25px; font-size: 12px; color: #fff; text-align: center; background-color: #11264f; border-radius: 5px;}
         .my_info a:hover {background-color: #11347a;}
-        .my_info a:first-child {margin-left: 8%;}
+        .my_info a:first-child {margin-left: 0px;}
 
         /* profile box bottom */
         .my_box_top li, .my_box_bottom li {margin: 10px 0;}
@@ -100,10 +100,9 @@
         /* chart row */
         .chart_box table {margin-bottom: 20px;}
 
-        .chart_box table tr td:nth-child(1) {width: 25px;}
-        .chart_box table tr td:nth-child(2) {width: 90px; text-align: center;}
-        .chart_box table tr td:nth-child(3) {width: 490px;}
-        .chart_box table tr td:nth-child(4) {width: 157px;}
+       .chart_box table tr td:nth-child(1) {width: 50px; text-align: center;}
+        .chart_box table tr td:nth-child(2) {width: 500px; text-align: center;}
+        .chart_box table tr td:nth-child(3) {width: 200px; text-align: center;}
 
 
         .chart_box table tr {border-bottom: 2px solid #ccc;}
@@ -113,7 +112,6 @@
         /* chart txt */
         .album_mini {float: left; width: 45px; height: 45px;}
         .list_title {width: 460px; text-overflow: ellipsis; white-space: nowrap; overflow: hidden;}
-        .list_artist {width: 152px; text-overflow: ellipsis; white-space: nowrap; overflow: hidden;}
         .list_album {width: 95px; text-overflow: ellipsis; white-space: nowrap; overflow: hidden;}
 
         /* like btn */
@@ -130,8 +128,8 @@
         .add_list.on {background-position: -165px 220px;}
         
         /* 페이징처리 */
-		.pagenate {width:100%; clear:both;}
-		.pagenate {text-align:center; margin:10px auto 0;}
+		.pagenate {width:100%; clear:both; margin-left:100px;}
+		.pagenate {text-align:center; margin-top: 10px; margin-bottom: 10px;}
 		.pagenate li {display:inline-block;}
 		.pagenate li:first-child { margin-left:0px; }
 		.pagenate li a{display:inline-block; text-decoration:none; padding:0; width:30px; height:30px; line-height:30px; border:1px solid #c7c8cc; box-sizing:border-box; margin-left:-1px; vertical-align:middle;}
@@ -155,7 +153,6 @@
                 <div class="my_box clear">
                     <div class="my_box_top">
                         <div class="clear">
-                            <div class="my_img"></div>
                             <div class="my_nick">
                                 <p>
                                     <span>${userInfo.nickname }</span><span>님</span>
@@ -185,14 +182,12 @@
             </div>
             
             <div class="right_side">
-                <h2>내가 쓴 댓글</h2>
+                <h2>아티스트 댓글</h2>
                 <form class="chart_box" action="" method="post">
-                    <ul class="clear">
-                        <li><input id="check_all" type="checkbox"></li>
+                    <ul class="clear">                        
                     </ul>
                     <table>
-                        <tr>
-                            <td></td>
+                        <tr>                           
                             <td>NO</td>
                             <td>내용</td>
                             <td>등록일</td>
@@ -205,7 +200,6 @@
                         
                         <c:forEach items="${list }" var="vo" varStatus="status">
                         	<tr>
-				                  <td><input name="check_list" type="checkbox"></td>
 				                  <td>
 				                      <p>${status.count }</p>
 				                  </td>
@@ -216,11 +210,11 @@
 				                      <p class="list_artist"><fmt:formatDate value="${vo.regdate }" pattern="yyyy-MM-dd HH:mm"/></p>
 				                  </td>
                				</tr>
-                        </c:forEach>
-                        
+                        </c:forEach>                      
                     </table>
-                </form>
-                	<div class="pagenate clear">
+                </form>               	
+            </div>
+            <div class="pagenate clear">
                         <ul class='paging'>
                         <c:if test="${artistCommentVo.startPage > artistCommentVo.pageRange}">
                         	<li><a href="/music/mymusic/mymusic_comment2.do?reqPage=${artistCommentVo.startPage-1 }"><</a></li>
@@ -233,7 +227,6 @@
                         </c:if>
                         </ul> 
                     </div>
-            </div>
         </div>
     </div>
      <%@ include file="/WEB-INF/view/include/bottom.jsp" %>

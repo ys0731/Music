@@ -56,6 +56,7 @@ public class MymusicController {
 		lv.setUser_no(uv.getNo());
 		
 		model.addAttribute("list", lservice.like_List(lv));
+		model.addAttribute("uv", uv);
 		
 		return "mymusic/mymusic_like";
 	}
@@ -112,6 +113,7 @@ public class MymusicController {
 		uv.setEmail(email);
 		uv.setTel(tel);
 		uservice.update(uv);
+		sess.setAttribute("userInfo", uv);
 		return "mymusic/mymusic";
 	}
 	
@@ -121,6 +123,7 @@ public class MymusicController {
 		String nickname = req.getParameter("nickname");
 		uv.setNickname(nickname);
 		uservice.updateNick(uv);
+		sess.setAttribute("userInfo", uv);
 		model.addAttribute("msg","true");
 		return "include/result";
 		
@@ -132,7 +135,8 @@ public class MymusicController {
 		acv.setUser_no(uv.getNo());
 		acv.setPageRow(4);
 		
-		model.addAttribute("list", acservice.selectAll(acv));		
+		model.addAttribute("list", acservice.selectAll(acv));
+		model.addAttribute("uv", uv);
 		
 		return "mymusic/mymusic_comment";
 	}
@@ -143,7 +147,8 @@ public class MymusicController {
 			arcv.setUser_no(uv.getNo());
 			arcv.setPageRow(4);
 			
-			model.addAttribute("list", arcservice.selectAll(arcv));		
+			model.addAttribute("list", arcservice.selectAll(arcv));
+			model.addAttribute("uv", uv);
 			
 			return "mymusic/mymusic_comment2";
 	}
