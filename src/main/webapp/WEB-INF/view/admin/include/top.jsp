@@ -111,7 +111,15 @@ $(window).load(function(){
   					</div>
 				</li>
 				<li><a href="<%=request.getContextPath()%>/admin/admin/index.do" class="parent"><span>관리자관리</span></a></li>
-				<li><a href="<%=request.getContextPath()%>/admin/report/index.do" class="parent"><span>신고관리</span></a>			
+				<li><a href="<%=request.getContextPath()%>/admin/report/index.do" class="parent"><span>신고관리</span></a></li>
+				<li>
+					<a href="<%=request.getContextPath()%>/admin/sales/day.do" class="parent"><span>이용권통계</span></a>
+					<div class="standard_left">
+					<ul>
+						<li><a href="<%=request.getContextPath()%>/admin/sales/day.do"><span>내달 일별</span></a></li>
+						<li><a href="<%=request.getContextPath()%>/admin/sales/category.do"><span>이용권별</span></a></li>
+					</ul>
+				</li>
 			</ul>
 		</div>
 		<!--//gnb-->
