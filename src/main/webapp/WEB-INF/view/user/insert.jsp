@@ -68,7 +68,23 @@
         	$('input[name="checked_list"]').val('');
         };
         
+        
         $(function(){
+        	
+	     	// check_all function
+	        $("input:checkbox[name='check_list']").change(function(){
+	            check_length = $("input:checkbox[name='check_list']:checked").length;
+	
+	            if(check_length == 3) {
+	                $("#check_all").prop("checked", true);
+	                $('input[name="checked_list"]').val('y');
+	            } else {
+	                $("#check_all").prop("checked", false);
+	                $('input[name="checked_list"]').val('');
+	            }
+
+	        });
+     	
         	//비밀번호 유효성 검사
             $("#pwd").keyup(function(){
 				$.ajax({

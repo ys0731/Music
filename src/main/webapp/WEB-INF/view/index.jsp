@@ -48,37 +48,15 @@
                                 </c:forEach>
                             </div>
                         </div>
-                        <div class="swiper-slide">
-                            <div class="clear">
-                                <c:forEach var="av" items="${av }" begin="20" end="24">
-                                	<a href=""><img src="<%=path %>/upload/${av.img_real}" alt="album1"></a>
-                                </c:forEach>
-                            </div>
-                            <div class="clear">
-                                <c:forEach var="av" items="${av }" begin="25" end="29">
-                                	<a href=""><img src="<%=path %>/upload/${av.img_real}" alt="album1"></a>
-                                </c:forEach>
-                            </div>
-                        </div>
-                        <div class="swiper-slide">
-                            <div class="clear">
-                                <c:forEach var="av" items="${av }" begin="30" end="34">
-                                	<a href=""><img src="<%=path %>/upload/${av.img_real}" alt="album1"></a>
-                                </c:forEach>
-                            </div>
-                            <div class="clear">
-                                <c:forEach var="av" items="${av }" begin="35" end="39">
-                                	<a href=""><img src="<%=path %>/upload/${av.img_real}" alt="album1"></a>
-                                </c:forEach>
-                            </div>
-                        </div>
                     </div>
                     <div class="swiper-button-next"></div>
                     <div class="swiper-button-prev"></div>
                     <div class="swiper-pagination"></div>
                 </div>
             </div>
-            <div class="banner"></div>
+            <div class="banner">
+            	<a href="<%=request.getContextPath() %>/ticket/index.do" style="display: block; height: 100px;"></a>
+            </div>
             <div class="cont_1 clear">
                 <div class="cont_1_left">
                     <h2>곡 차트</h2><a class="more" href="/music/chart/chart_24hit.do">더 보기</a>
@@ -129,23 +107,14 @@
                 <div class="cont2_left">
                     <h2>최신 뮤직비디오</h2>
                     <ul class="rec_mv clear">
+                    <c:forEach var="mv" items="${mv }" begin="0" end="2">
                         <li>
-                            <iframe width="232.8" height="150" src="https://www.youtube.com/embed/quH6XxJTj-k"
+                            <iframe width="232.8" height="150" src="${mv.link}"
                                 title="YouTube video player" frameborder="0"
                                 allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture"
                                 allowfullscreen></iframe>
                         </li>
-                        <li>
-                            <iframe width="232.8" height="150" src="https://www.youtube.com/embed/a9k7MF_-HPQ"
-                                title="YouTube video player" frameborder="0" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture"\
-                                allowfullscreen></iframe>
-                        </li>
-                        <li>
-                            <iframe width="232.8" height="150" src="https://www.youtube.com/embed/Jp4-snWZuoI"
-                                title="YouTube video player" frameborder="0"
-                                allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture"
-                                allowfullscreen></iframe>
-                        </li>
+                    </c:forEach>
                     </ul>
                 </div>
                 <div class="cont2_right">

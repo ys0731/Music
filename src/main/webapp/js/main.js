@@ -19,13 +19,4 @@ $(document).ready(function () {
         e.preventDefault();
     })
 
-    //add list img toggle
-    $(".add_list").click(function(){
-        $(this).toggleClass("on");
-    });
-    
-    //play music img toggle
-    $(".play_music").click(function(){
-        $(this).toggleClass("on");
-    });
 });

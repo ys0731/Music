@@ -50,7 +50,7 @@
         .theme_pick .recommend_list {margin-bottom: 20px;}
 
         /* banner */
-        .banner {display: block; height: 150px; margin: 100px 0; background-color: #ccc;}
+        .banner {display: block; height: 100px; margin: 100px 0; background-image: url(../img/banner.png); background-position: center; background-repeat: no-repeat; background-size: cover;}
     </style>
 
 </head>
@@ -80,7 +80,7 @@
                 	</c:forEach>
                 </ul>
             </div>
-            <a class="banner" href="#"></a>
+            <a class="banner" href="<%=request.getContextPath() %>/ticket/index.do"></a>
             <div class="theme_pick">
                 <h2>
                     <span>주제별 DJ</span><span>PICK</span>

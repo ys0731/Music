@@ -88,7 +88,8 @@
                 <p id="strm" name="ticket_type" value="${vo.ticket_type}">${vo.ticket_type}</p>
                 <div class="price_box1">                    
                     <span name="price">${vo.price } 원</span>
-                    <a href='javascript:iamport("${vo.ticket_type}",${vo.price}, ${vo.time},${vo.no});'>구매</a>
+                    <%-- <a href='javascript:iamport("${vo.ticket_type}",${vo.price}, ${vo.time},${vo.no});'>구매</a> --%>
+                    <a <c:if test="${empty userInfo}"> href='javascript:alert("로그인 후 이용해주세요.");' </c:if><c:if test="${!empty userInfo}"> href='javascript:iamport("${vo.ticket_type}",${vo.price}, ${vo.time},${vo.no});' </c:if>>구매</a>
                 </div>
                 <input type="hidden" name="time" value="${vo.time}">
                 <input type="hidden" name="no" value="${vo.no}">

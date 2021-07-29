@@ -13,6 +13,8 @@ import music.admin.album.AdminAlbumService;
 import music.admin.album.AdminAlbumVo;
 import music.chart.ChartService;
 import music.chart.ChartVo;
+import music.mvChart.MvChartService;
+import music.mvChart.MvChartVo;
 import music.notice.NoticeService;
 import music.notice.NoticeVo;
 import music.recommend.RecommendService;
@@ -38,9 +40,12 @@ public class MainController {
 	@Autowired
 	RecommendService rservice;
 	
+	@Autowired
+	MvChartService mservice;
+	
 	//메인 페이지
 	@RequestMapping("/index.do")
-	public String index(Model model, ChartVo cv, AdminAlbumVo av, HttpSession sess, SearchVo sv, NoticeVo nv, RecommendVo rv) {
+	public String index(Model model, ChartVo cv, AdminAlbumVo av, HttpSession sess, SearchVo sv, NoticeVo nv, RecommendVo rv,MvChartVo mv) {
 		
 		model.addAttribute("av",alservice.selectAllAlbums(av)); //앨범
 		model.addAttribute("cv",cservice.ChartList_24hits(cv)); //차트
@@ -48,7 +53,7 @@ public class MainController {
 		model.addAttribute("nv",nservice.selectAll(nv));
 		
 		model.addAttribute("rv", rservice.selectList(rv)); //추천음악
-		System.out.println(rv);  
+		model.addAttribute("mv", mservice.RecentMv(mv)); // 뮤직비디오 최신
 		return "index";
 		}
 }
