@@ -69,7 +69,7 @@
 
     <style>
         /* right side */
-        .right_side {float: right; width: 75%;}
+        .right_side {float: right; width: 75%; height: 500px;}
 
         /* profile box */
         .my_box {position: fixed; z-index: 1; width: 240px; background-color: #b0c4de; border-radius: 5px;}
@@ -78,7 +78,7 @@
         .my_box_bottom {position: relative; padding-bottom: 40px;}
         
         /* profile box top */
-        .my_img {float: left; width: 100px; height: 100px; margin-right: 20px; background-image: url("<%=path %>/img/profile_default.jpg"); background-position: center; background-repeat: no-repeat; background-size: cover; border-radius: 50%;}
+        .my_img {float: left; width: 100px; height: 100px; margin-right: 20px;  background-position: center; background-repeat: no-repeat; background-size: cover; border-radius: 50%;}
         .my_nick {float: left;}
         .my_nick p {margin-bottom: 10px;}
         .my_nick p span {font-size: 16px;}
@@ -90,7 +90,7 @@
         .my_info {margin: 20px 0;}
         .my_info a {float: left; display: block; width: 40%; margin: 0 2%; line-height: 25px; font-size: 12px; color: #fff; text-align: center; background-color: #11264f; border-radius: 5px;}
         .my_info a:hover {background-color: #11347a;}
-        .my_info a:first-child {margin-left: 8%;}
+        .my_info a:first-child {margin-left: 0px;}
 
         /* profile box bottom */
         .my_box_top li, .my_box_bottom li {margin: 10px 0;}
@@ -125,6 +125,7 @@
         .chart_box table tr {border-bottom: 2px solid #ccc;}
         .chart_box table tr:nth-child(1) {color: #333; border-top: 2px solid #ccc; height: 40px; font-size: 12px;}
         .chart_box table tr {height: 80px;}
+        .first{text-align:center;}
 
         /* chart txt */
         .album_mini {float: left; width: 45px; height: 45px;}
@@ -147,8 +148,8 @@
         .play_music.on {background-position: 249px -167px;}
         
         /* 페이징처리 */
-		.pagenate {width:100%; clear:both;}
-		.pagenate {text-align:center; margin:10px auto 0;}
+		.pagenate {width:100%; clear:both; margin-left:100px;}
+		.pagenate {text-align:center; margin-top: 10px; margin-bottom: 10px;}
 		.pagenate li {display:inline-block;}
 		.pagenate li:first-child { margin-left:0px; }
 		.pagenate li a{display:inline-block; text-decoration:none; padding:0; width:30px; height:30px; line-height:30px; border:1px solid #c7c8cc; box-sizing:border-box; margin-left:-1px; vertical-align:middle;}
@@ -173,7 +174,6 @@
                 <div class="my_box clear">
                     <div class="my_box_top">
                         <div class="clear">
-                            <div class="my_img"></div>
                             <div class="my_nick">
                                 <p>
                                     <span>${userInfo.nickname }</span><span>님</span>
@@ -247,20 +247,20 @@
                 		</tr>
                         </c:forEach>
                     </table>
-                </form>
-                	<div class="pagenate clear">
-                        <ul class='paging'>
-                        <c:if test="${likeVo.startPage > likeVo.pageRange}">
-                        	<li><a href="/music/mymusic/mymusic_like.do?reqPage=${likeVo.startPage-1 }"><</a></li>
-                        </c:if>
-                        <c:forEach var="rp" begin="${likeVo.startPage}" end="${likeVo.endPage }">
-                            <li><a href='/music/mymusic/mymusic_like.do?reqPage=${rp}' <c:if test="${rp==likeVo.reqPage }">class='current'</c:if>>${rp }</a></li>
-                        </c:forEach>
-                        <c:if test="${likeVo.totPage > likeVo.endPage}">
-                        	<li><a href="/music/mymusic/mymusic_like.do?reqPage=${likeVo.endPage+1 }">></a></li>
-                        </c:if>
-                        </ul> 
-                    </div>
+                </form>                	
+            </div>
+            <div class="pagenate clear">
+                <ul class='paging'>
+                   <c:if test="${likeVo.startPage > likeVo.pageRange}">
+                   	<li><a href="/music/mymusic/mymusic_like.do?reqPage=${likeVo.startPage-1 }"><</a></li>
+                   </c:if>
+                   <c:forEach var="rp" begin="${likeVo.startPage}" end="${likeVo.endPage }">
+                       <li><a href='/music/mymusic/mymusic_like.do?reqPage=${rp}' <c:if test="${rp==likeVo.reqPage }">class='current'</c:if>>${rp }</a></li>
+                   </c:forEach>
+                   <c:if test="${likeVo.totPage > likeVo.endPage}">
+                   	<li><a href="/music/mymusic/mymusic_like.do?reqPage=${likeVo.endPage+1 }">></a></li>
+                   </c:if>
+                </ul> 
             </div>
         </div>
     </div>

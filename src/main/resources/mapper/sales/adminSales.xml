@@ -1,0 +1,35 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org//dtd/mybatis-3-mapper.dtd">
+<mapper namespace="sales">
+
+	<!-- 이용권 종류별 매출 -->
+	<select id="categorySales" resultType="music.admin.sales.AdminSalesVo" parameterType="music.admin.sales.AdminSalesVo"> 
+		SELECT
+			t.ticket_type, sum(t.price) AS amount
+		FROM pay AS p JOIN ticket AS t
+		ON p.ticket_no = t.no
+		GROUP BY p.ticket_no
+	</select>
+	
+	<!-- 이용권 전체 -->
+	<select id="ticketAll" resultType="music.admin.sales.AdminSalesVo" > 
+		SELECT no, ticket_type AS name FROM music.ticket;
+	</select>
+	<select id="ticketStatistics" parameterType="int" resultType="music.admin.sales.AdminSalesVo" > 
+		SELECT day(a.today) AS day, ifnull(b.price,0) AS price from
+		(SELECT today FROM calendar WHERE year(today) = year(now()) AND month(today) = month(now())) AS a
+		LEFT OUTER JOIN
+		(
+		SELECT
+			p.ticket_no,
+			date(p.pay_start_date) AS today,
+		    sum(t.price) AS price
+		FROM pay AS p JOIN ticket AS t
+		ON p.ticket_no = t.no
+		AND year(p.pay_start_date) = year(now()) AND month(p.pay_start_date) = month(now())
+		AND p.ticket_no=#{no}
+		GROUP BY date(p.pay_start_date)
+		) AS b
+		ON a.today = b.today
+	</select>
+</mapper>

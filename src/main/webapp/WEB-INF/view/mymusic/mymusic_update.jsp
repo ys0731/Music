@@ -106,7 +106,7 @@
                         <td><input type="text" id="id" name="id" value="${user.id }" readonly></td> 
                     </tr>
                     <tr>
-                        <td><a>이름</a></td>
+                        <td><a>닉네임</a></td>
                         <td><input type="text" id="name" name="name" value="${user.nickname }" readonly></td> 
                     </tr>
                     <tr>

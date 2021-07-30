@@ -105,9 +105,7 @@
             <div id="visual">
                 <div class="top_title">
                     <h2>내정보</h2>
-                </div>
-                
-                
+                </div>                            
                 <div class="bottom_title">
                     <h1>프로필 설정</h1>
                 </div>
