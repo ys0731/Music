@@ -88,7 +88,7 @@
         </div>
     </div>
     <textarea class="wrapper_bottom no_outline" id="lyrics" readonly>
-	${vo.lyrics }
+${vo.lyrics }
     </textarea>
 </body>
 

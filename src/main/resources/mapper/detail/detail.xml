@@ -26,6 +26,7 @@
 		FROM artist join song
 		ON artist.no = song.artist_no
 		WHERE artist.artist LIKE CONCAT('%',#{searchword},'%')
+		GROUP BY artist.no;
 	</select>
 		
 	<!--노래 검색  -->
@@ -36,6 +37,7 @@
 		JOIN artist
 		ON song.artist_no = artist.no
         WHERE title LIKE CONCAT('%',#{searchword},'%')
+        GROUP BY song.no;
 	</select>	
 	
 	<!-- 앨범 상세 곡 -->
