@@ -135,7 +135,7 @@
 			<c:forEach var="req" begin="${qnaVo.startPage }" end="${qnaVo.endPage }">
 					<a href='index.do?reqPage=${req}&stype=${qnaVo.stype}&sval=${qnaVo.sval}' <c:if test="${req==qnaVo.reqPage }">style="color: red"</c:if>> ${req} </a>
 			</c:forEach>
-             <c:if test="${qnaVo.totPage > qnaVo.endPage}"> 
+            <c:if test="${qnaVo.totPage > qnaVo.endPage}"> 
          		<a href="index.do?reqPage=${qnaVo.endPage+1}&stype=${qnaVo.stype}&sval=${qnaVo.sval}">></a>
          	</c:if>
          	<c:if test="${qnaVo.totPage > qnaVo.endPage}"> 

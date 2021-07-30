@@ -318,12 +318,17 @@ public class AdminController {
 	public String songInsert(Model model,
 				@RequestParam int album_no,
 				@RequestParam int artist_no,
-				@RequestParam String[] title,
 				@RequestParam int[] genre,
 				@RequestParam String[] lyrics,
 				@RequestParam MultipartFile[] file,
 				HttpServletRequest req) {
 		int r = 0;
+		String[] title = req.getParameterValues("title"); // @RequestParam 사용시 title에 ','이 포함되어 있다면 하나의 값이 split됨
+		System.out.println(title.length);
+		for (int i=0; i<title.length; i++) {
+			
+			System.out.println(title[i]);
+		}
 		for (int i=0; i<title.length; i++) {
 			
 			if (!file[i].isEmpty()) {		
