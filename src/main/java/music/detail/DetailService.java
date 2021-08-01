@@ -10,6 +10,6 @@ public interface DetailService {
 	List<Map> artistSong(int no);
 	List<Map> artistSearch(String searchword);
 	List<Map> songSearch(String searchword);
-
+	List<Map> artistAlbumSearch(String searchword);
 	  
 }

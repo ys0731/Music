@@ -47,7 +47,7 @@
     .notice_btn_box_wrapper {text-align: center;}
     .notice_btn_box {display: inline-block; margin-bottom: 10px;}
 
-    #container {margin-bottom: 200px;}
+    #container {margin-bottom: 163px;}
 </style>
 <script>
 	function goSave() {
@@ -88,9 +88,9 @@
                            <input type="radio" class="chk_open" name="secret" id="close" value="1"><label for="close">비공개</label>
                         </td>
                     </tr>
-                    <tr>
+                    <tr style="height:500px;">
                         <td class="notice_regi_title" style="width: 100;"><label for="content">내용</label></td>
-                        <td><textarea name="content" id="content" cols="30" rows="10"></textarea></td>
+                        <td><textarea name="content" id="content" cols="30" rows="10" style="display:none;height:500px;"></textarea></td>
                     </tr>
                 </table>
                 <div class="notice_btn_box_wrapper">

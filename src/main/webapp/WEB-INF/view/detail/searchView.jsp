@@ -173,7 +173,7 @@
         .artist_box table tr:nth-child(3) td {vertical-align: top;}
         .artist_box table tr:nth-child(2) td:first-child, .artist_box table tr:nth-child(3) td:first-child {width: 80px; color: #666;}
 
-      
+      	h4 {font-size: 20px; margin: 20px 0;}
     </style>
 </head>
 
@@ -182,40 +182,11 @@
     <%@ include file="/WEB-INF/view/include/top.jsp" %>
     <div id="container">
         <div class="center">
-        	<c:if test="${!empty vo }">
-	            <h2>찾으시는 <strong style="color:purple;">'${param.searchword}'</strong> 검색 결과입니다.</h2>
-	            <c:forEach var="vo" items="${vo}" varStatus="status">    
-		            <div class="artist_box clear">
-		            <input type="hidden" id="artist_no" name="artist_no" value="${vo.artist_no}">
-		                <a href="/music/detail/albumDetail.do?album_no=${vo.album_no}"><img src="<%=path %>/upload/${vo.img_real }" alt="album1"></a>
-		                <table>
-		                    <tr>
-		                        <td colspan="2"><a href="/music/detail/artistDetail.do?artist_no=${vo.artist_no}">${vo.artist }</a></td>
-		                    </tr>
-		                    <tr>
-		                        <td>데뷔</td>
-		                        <td>${vo.debdate }</td>
-		                    </tr>
-		                    <tr>
-		                        <td>소개</td>
-		                        <td>
-		                            <p>${vo.info }</p>
-		                        </td>
-		                    </tr>
-		                </table> 
-		            </div>
-	            </c:forEach>
-            </c:if>
-            <c:if test="${empty vo && empty svo}">
-            	<img src="/music/img/search_no.jpeg" style="margin: 200px 253px;"/>
-			</c:if>
-			
-			<c:if test="${!empty svo}">
-				<c:if test="${empty vo}">
-					<h2>찾으시는 <strong style="color:purple;">'${param.searchword}'</strong> 검색 결과입니다.</h2>
-				</c:if>	
+			<h2 style="padding: 50px 0; margin-bottom: 0; text-align: center; ">찾으시는 <strong style="color: #11246b;">'${param.searchword}'</strong> 검색 결과입니다.</h2>					
+        	      		        		
+				<h4>곡</h4>
 				<form class="chart_box" action="" method="post">
-	                <ul class="clear" style="margin-top: 50px;">
+	                <ul class="clear">
 	                    <li><input id="check_all" type="checkbox"></li>
 	                    <li><a href="#" onclick="javascript:checkplayer();">듣기</a></li>
 	                    <li><a href="#">재생목록에 추가</a></li>
@@ -231,6 +202,7 @@
 	                        <td>듣기</td>
 	                        <td>추가</td>
 	                    </tr>
+	                    <c:if test="${!empty svo}">  
 	                    <c:forEach var="vo" items="${svo }" varStatus="status">
 	                    <tr>
 	                  		<td><input name="check_list" type="checkbox" data-Num="${vo.no }"></td>
@@ -260,9 +232,74 @@
 	                  		</td>
 	                	</tr>
 	                    </c:forEach>
+	                    </c:if>
+	                    <c:if test="${empty svo}"> 
+	                    	 <td colspan="8" style="text-align: center;">등록된 곡이 없습니다.</td>
+	                    </c:if>
 	                </table>
 	            </form>	
+			
+			<c:if test="${!empty avo }">
+			<div class="clear">
+	            <h4>앨범</h4>
+	            <c:forEach var="vo" items="${avo}" varStatus="status">    
+		            <div class="artist_box clear" style="margin: 10px 0; width: 49%; float: left; <c:if test="${status.count % 2 == 1}">margin-right: 2%;</c:if>">
+		            <a href="/music/detail/albumDetail.do?album_no=${vo.album_no}">
+		            <input type="hidden" id="album_no" name="album_no" value="${vo.album_no}">
+		                <img src="<%=path %>/upload/${vo.img_real }" alt="album1">
+		                <table style="width: 55%;">
+		                    <tr>
+		                        <td>${vo.album }</td>
+		                    </tr>
+		                    <tr>
+		                        <td>아티스트</td>
+		                        <td>
+		                            <p><a href="/music/detail/artistDetail.do?artist_no=${vo.artist_no}">${vo.artist }</a></p>
+		                        </td>
+		                    </tr>
+		                    <tr>
+		                        <td>발매일</td>
+		                        <td>
+		                            <p>${vo.reldate }</p>
+		                        </td>
+		                    </tr>
+		                </table>
+		                </a>
+		            </div>
+	            </c:forEach>
+			</div>
+            </c:if>
+        	<c:if test="${!empty vo }">	            
+	            <h4>아티스트</h4>
+	            <c:forEach var="vo" items="${vo}" varStatus="status">    
+		            <div class="artist_box clear" style="margin: 10px 0;">
+		            <a href="/music/detail/artistDetail.do?artist_no=${vo.artist_no}">
+		            <input type="hidden" id="artist_no" name="artist_no" value="${vo.artist_no}">
+		                <img src="<%=path %>/upload/${vo.img_real }" alt="album">
+		                <table>
+		                    <tr>
+		                        <td colspan="2">${vo.artist }</td>
+		                    </tr>
+		                    <tr>
+		                        <td>데뷔</td>
+		                        <td>${vo.debdate }</td>
+		                    </tr>
+		                    <tr>
+		                        <td>소개</td>
+		                        <td>
+		                            <p>${vo.info }</p>
+		                        </td>
+		                    </tr>
+		                </table>
+		                </a>
+		            </div>
+	            </c:forEach>
+            </c:if>           
+            <c:if test="${empty vo && empty svo && empty avo}">
+            	<img src="/music/img/search_no.jpeg" style="margin: 200px 253px;"/>
 			</c:if>
+			
+			
 		</div>
 	</div>
     <%@ include file="/WEB-INF/view/include/bottom.jsp" %>

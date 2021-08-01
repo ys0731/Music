@@ -11,7 +11,17 @@
 		WHERE order_id != 0
 		AND group_id = #{group_id}
 		GROUP BY rec.no
-		ORDER BY order_id;
+		ORDER BY order_id
+	</select>
+	
+	<!-- 메인페이지 오늘의 추천 -->
+	<select id="selectTodayList" resultType="music.recommend.RecommendVo" parameterType="music.recommend.RecommendVo">
+		SELECT rec.*, COUNT(rec.no) AS songcount
+		FROM recommend rec
+		INNER JOIN recommend_list list
+		ON rec.no = list.package_id
+		WHERE order_id BETWEEN 1 AND 4
+		GROUP BY rec.no
 	</select>
 	
 	<!-- 부제목, 곡 수량 -->
@@ -25,9 +35,11 @@
 	
 	<!-- 곡 리스트 -->
 	<select id="selectSongList" resultType="music.recommend.RecommendVo" parameterType="music.recommend.RecommendVo">
-		SELECT song.no AS songList_no, song.title AS songList_title
+	SELECT song.no AS songList_no, song.title AS songList_title
+        , (SELECT no FROM album WHERE album_no=album.no) AS songList_album_no
         , (SELECT album FROM album WHERE album_no=album.no) AS songList_album
         , (SELECT img_org FROM album WHERE album_no=album.no) AS songList_albumImg
+        , (SELECT no FROM artist WHERE artist_no=artist.no) AS songList_artist_no
         , (SELECT artist FROM artist WHERE artist_no=artist.no) AS songList_artist
 		FROM song
         WHERE no IN
@@ -35,9 +47,7 @@
 		FROM recommend_list list
 		INNER JOIN recommend rec
 		ON list.package_id = rec.no
-		WHERE rec.no = #{no}
-        <!-- ORDER BY rec.no -->
-        );
+        WHERE rec.no = #{no})
 	</select>
 	
 </mapper>

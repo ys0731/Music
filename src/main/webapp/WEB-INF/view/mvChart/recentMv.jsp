@@ -105,10 +105,10 @@
     <%@ include file="/WEB-INF/view/include/top.jsp" %>
     <div id="container">
         <div class="center">
-            <ul class="chart_btn clear">
+            <!-- <ul class="chart_btn clear">
                 <li class="on"><a href="recentMv.do">최신</a></li>
                 <li><a href="popularMv.do">인기</a></li>              
-            </ul>
+            </ul> -->
 
   <!--default값으로 유투브 썸네일 가져오기-->
   <div class="banner">
@@ -136,7 +136,7 @@
 	  console.log(mno);
 	  console.log(link);
 	  $.ajax({
-			url:'/musicproject/mvChart/clickMv.do',
+			url:'/music/mvChart/clickMv.do',
 			method: 'post',
 			data:{
 				no:mno
@@ -167,16 +167,16 @@
                       		<p>${status.count }</p>
                    		</td>
                    		<td class="clear"> <!--!${vo.link } -->
-		                     <a href="#" value="${vo.no}" value2="${vo.link}" class="video" id="recent" onclick="test(this);"> <img class="album_mini" src="${vo.img}" alt="album_img"></a>
+		                     <a href="${vo.link}" target='_blank' value="${vo.no}" value2="${vo.link}" class="video" id="recent" onclick="test(this);"> <img class="album_mini" src="${vo.img}" alt="album_img"></a>
                    		</td>
                    		<td>
 		                     <p class="list_title">${vo.title }</p>
                    		</td>
                    		<td>
-                      		<a href="artist_info.html"><p class="list_artist">${vo.artist }</p></a>
+                      		<p class="list_artist">${vo.artist }</p>
                    		</td>
                   		<td>
-                     		<a href="album_info.html"><p class="list_album">${vo.album }</p></a>
+                     		<p class="list_album">${vo.album }</p>
                    		</td>
                 	</tr>
                     </c:forEach>

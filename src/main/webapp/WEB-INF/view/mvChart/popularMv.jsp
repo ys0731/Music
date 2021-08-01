@@ -166,7 +166,7 @@
                       		<p>${status.count }</p>
                    		</td>
                    		<td class="clear"> <!--!${vo.link } -->
-		                     <a href="#" value="${vo.no}" value2="${vo.link}" class="video" id="recent" onclick="test(this);"> <img class="album_mini" src="${vo.img}" alt="album_img"></a>
+		                     <a href="${vo.link}" value="${vo.no}" value2="${vo.link}" class="video" id="recent" onclick="test(this);"> <img class="album_mini" src="${vo.img}" alt="album_img"></a>
                    		</td>
                    		<td>
 		                     <p class="list_title">${vo.title }</p>

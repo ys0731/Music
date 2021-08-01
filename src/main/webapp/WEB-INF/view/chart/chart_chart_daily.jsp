@@ -18,10 +18,6 @@
 	    function popup(no) {
 	        window.open("/music/chart/lyrics.do?no="+no, "popup", "width=400, height=600");
 	    }
-	  /* //재생팝업
-	    function ppopup(no) {
-	        window.open("/music/player/play.do?no="+no, "popup", "width=400, height=600");
-	    } */
 
         $(document).ready(function(){
             // change color when clicked
@@ -47,38 +43,6 @@
             		},
             		success: function(data) {
             			console.log("success");
-            		}
-            		
-            	});
-            });//함수 끝
-            
-            $(".album").click(function() {
-            	var sno = $(this).data('no');
-            	$.ajax({
-            		url: '<%=request.getContextPath()%>/detail/albumDetail.do?album_no='+sno,
-            		method: 'post',
-            		data: {
-            			no: sno           			
-            		},
-            		success: function(data) {
-            			console.log("success");
-            			location.href='<%=request.getContextPath()%>/detail/albumDetail.do?album_no='+sno;
-            		}
-            		
-            	});
-            });//함수 끝
-            
-            $(".artist").click(function() {
-            	var sno = $(this).data('no');
-            	$.ajax({
-            		url: '<%=request.getContextPath()%>/detail/artistDetail.do?artist_no='+sno,
-            		method: 'post',
-            		data: {
-            			no: sno           			
-            		},
-            		success: function(data) {
-            			console.log("success");
-            			location.href='<%=request.getContextPath()%>/detail/artistDetail.do?artist_no='+sno;
             		}
             		
             	});
@@ -118,21 +82,6 @@
     
     <%@ include file="/WEB-INF/view/player/playnlog.jsp" %>
     
-	<script>
-		$(function() {
-		//	var rank = $(".rank").text()
-	    //    if(rank==999) {
-	     //   	$(".rank").text("new");
-	    //    } else if(rank<0) {
-	   //     	rank = -1*rank;
-	    //    	$(".rank").text("↓" + rank);
-	    //    } else if(rank==0) {
-	   //     	$(".rank").text("-");
-	  //      } else {
-	    //    	$(".rank").text("↑" + rank);
-	    //    }
-		});
-	</script>
     <style>
         /* chart top btn */
         .chart_btn li {float: left; width: 100px; height: 30px; border-radius: 5px; background-color: #bbb; color: #fff; line-height: 30px; text-align: center; margin-right: 5px;}
@@ -226,7 +175,7 @@
 	                    </tr>
 	                    <c:if test="${empty list }">
                             <tr>
-                                <td class="first" colspan="8">차트 정보가 없습니다.</td>
+                                <td class="first" colspan="8" style="text-align: center;">차트 정보가 없습니다.</td>
                             </tr>
                         </c:if>
 	                    <c:forEach var="vo" items="${list }" varStatus="status">
@@ -250,25 +199,25 @@
 	                			</c:choose>	                			
 	               			</td>
 	                		<td class="clear">
-	               				<a href="#"><img class="album_mini" src="<%=path %>/upload/${vo.rel}" alt="album_img"></a>
-	               				<a class="lyrics_popup button_icons lyrics" href="#" data-no="${vo.no }"></a>
-	                 			<p class="list_title">${vo.title }</p>
-	                		</td>
-	                		<td>
-	                			<p class="list_artist" id="artist"><a class="artist" href="#" data-no="${vo.ar_no }">${vo.artist }</a></p>
-	                		</td>
-	                		<td>
-	                			<p class="list_album" id="album"><a class="album" href="#" data-no="${vo.al_no }">${vo.album }</a></p>
-	                		</td>
-	                		<td>
-	                			<a class="like_btn like <c:if test="${vo.mlike_cnt==1 }">on</c:if>" href="#" data-no="${vo.no }"></a>
+		                      <a href="<%=request.getContextPath()%>/detail/albumDetail.do?album_no=${vo.al_no }"> <img class="album_mini" src="<%=path %>/upload/${vo.rel}" alt="album_img"></a>
+		                       <a class="lyrics_popup button_icons lyrics" href="#" data-no="${vo.no }"></a>
+		                       <p class="list_title">${vo.title }</p>
+	                   		</td>
+	                   		<td>
+	                      		<p class="list_artist" id="artist"><a class="artist" href="<%=request.getContextPath()%>/detail/artistDetail.do?artist_no=${vo.ar_no }">${vo.artist }</a></p>
 	                   		</td>
 	                  		<td>
-	                      		<a class="play_music button_icons play" href="#" onclick="javascript:player(no=${vo.no });" data-no="${vo.no }"></a>
+	                     		<p class="list_album" id="album"><a class="album" href="<%=request.getContextPath()%>/detail/albumDetail.do?album_no=${vo.al_no }">${vo.album }</a></p>
 	                   		</td>
+		                    <td>
+		                        <a class="like_btn like <c:if test="${vo.mlike_cnt==1 }">on</c:if>" href="#" data-no="${vo.no }"></a>
+		                    </td>
+		                    <td>
+		                         <a class="play_music button_icons play" href="#" onclick="javascript:player(no=${vo.no });" data-no="${vo.no }"></a>
+		                    </td>
 	                  		<td>
 	                       		<a class="add_list button_icons" href="#" onclick="javascript:plusplayer(no=${vo.no });"></a>
-	                   		</td>
+	                  		</td>
 	                	</tr>
 	                    </c:forEach>                  
 	                </table>

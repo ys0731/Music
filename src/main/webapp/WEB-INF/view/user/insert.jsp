@@ -69,6 +69,17 @@
         };
         
         $(function(){
+        	// 개별 체크박스 3개 선택시 전체체크 체크
+        	$('input:checkbox[name="check_list"]').change(function(){
+	        	if ($('input:checkbox[name="check_list"]:checked').length == 3) {
+	        		$("#check_all").prop("checked",true);
+	        		$('input[name="checked_list"]').val('y');
+	        	} else {
+	        		$("#check_all").prop("checked",false);
+	        		$('input[name="checked_list"]').val('');
+	        	}
+        	});
+        	
         	//비밀번호 유효성 검사
             $("#pwd").keyup(function(){
 				$.ajax({
@@ -260,7 +271,7 @@
 </head>
 
 <body>
-    <h1 class="logo"><a href="index.html"></a></h1>
+    <h1 class="logo"><a href="/music/index.do"></a></h1>
     <div class="register_wrapper">
         <form action="" method="post" name="frm" id="frm">
             <div class="input_wrapper">

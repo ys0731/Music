@@ -48,30 +48,6 @@
                                 </c:forEach>
                             </div>
                         </div>
-                        <div class="swiper-slide">
-                            <div class="clear">
-                                <c:forEach var="av" items="${av }" begin="20" end="24">
-                                	<a href=""><img src="<%=path %>/upload/${av.img_real}" alt="album1"></a>
-                                </c:forEach>
-                            </div>
-                            <div class="clear">
-                                <c:forEach var="av" items="${av }" begin="25" end="29">
-                                	<a href=""><img src="<%=path %>/upload/${av.img_real}" alt="album1"></a>
-                                </c:forEach>
-                            </div>
-                        </div>
-                        <div class="swiper-slide">
-                            <div class="clear">
-                                <c:forEach var="av" items="${av }" begin="30" end="34">
-                                	<a href=""><img src="<%=path %>/upload/${av.img_real}" alt="album1"></a>
-                                </c:forEach>
-                            </div>
-                            <div class="clear">
-                                <c:forEach var="av" items="${av }" begin="35" end="39">
-                                	<a href=""><img src="<%=path %>/upload/${av.img_real}" alt="album1"></a>
-                                </c:forEach>
-                            </div>
-                        </div>
                     </div>
                     <div class="swiper-button-next"></div>
                     <div class="swiper-button-prev"></div>
@@ -83,11 +59,6 @@
                 <div class="cont_1_left">
                     <h2>곡 차트</h2><a class="more" href="/music/chart/chart_24hit.do">더 보기</a>
                     <table class="charts">
-                    	<c:if test="${empty cv }">
-                            <tr>
-                                <td class="first" colspan="5" style="">차트 정보가 없습니다.</td>
-                            </tr>
-                        </c:if>
                     	<c:forEach var="cv" items="${cv }" begin="0" end="0">
                     		<tr class="on">                 
 	                            <td>1</td>
@@ -111,10 +82,10 @@
                 <div class="cont_1_right">
                     <h2>오늘의 추천</h2><a class="more" href="/music/recommend/recommend_list.do">더 보기</a>
                     <ul class="recom">
-                        <c:forEach var="rv" items="${rv }" begin="0" end="3">
+                        <c:forEach var="rv" items="${rv }">
                         	<li>
 	                            <a class="clear" href="<%=path%>/recommend/recommend_info.do?no=${rv.order_id}">
-	                                <img src="<%=path %>/upload/${rv.img }" alt="album1">
+	                                <img src="<%=path %>/upload/${rv.img }" alt="album">
 	                                <div>
 	                                    <p>${rv.sub_title }</p>
 	                                    <p><span>${rv.songcount}</span><span>곡</span></p>
@@ -127,26 +98,18 @@
             </div>
             <div class="cont_2 clear">
                 <div class="cont2_left">
-                    <h2>최신 뮤직비디오</h2>
+                    <h2>최신 뮤직비디오</h2>                   
                     <ul class="rec_mv clear">
-                        <li>
-                            <iframe width="232.8" height="150" src="https://www.youtube.com/embed/quH6XxJTj-k"
-                                title="YouTube video player" frameborder="0"
-                                allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture"
-                                allowfullscreen></iframe>
-                        </li>
-                        <li>
-                            <iframe width="232.8" height="150" src="https://www.youtube.com/embed/a9k7MF_-HPQ"
-                                title="YouTube video player" frameborder="0" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture"\
-                                allowfullscreen></iframe>
-                        </li>
-                        <li>
-                            <iframe width="232.8" height="150" src="https://www.youtube.com/embed/Jp4-snWZuoI"
-                                title="YouTube video player" frameborder="0"
-                                allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture"
-                                allowfullscreen></iframe>
-                        </li>
+	                    <c:forEach var="mv" items="${mv }" begin="0" end="2">
+	                        <li>
+	                            <iframe width="232.8" height="150" src="${mv.link}"
+	                                title="YouTube video player" frameborder="0"
+	                                allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture"
+	                                allowfullscreen></iframe>
+	                        </li>
+	                    </c:forEach>
                     </ul>
+                    
                 </div>
                 <div class="cont2_right">
                     <h2>매거진</h2>

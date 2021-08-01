@@ -6,7 +6,7 @@
 	<!-- 시간별 순위 차트 출력 sql -->
 	<select id="ChartList_24hits" parameterType="music.chart.ChartVo" resultType="music.chart.ChartVo">
 	
-		SELECT  thisweek.no, thisweek.count, thisweek.title, 
+		SELECT  thisweek.no, thisweek.playcount, thisweek.title, 
 		thisweek.lyrics,  thisweek.artist, thisweek.album, 
 		thisweek.org, thisweek.rel 
         , if(prevweek.rownum is null,999,(ifnull(prevweek.rownum,0)-ifnull(thisweek.rownum,0))) AS rank_ch, thisweek.al_no,thisweek.ar_no,
@@ -19,7 +19,7 @@
         FROM                                                                                                            
 	        (                                                                                                                 
 	          SELECT row_number() over(ORDER BY COUNT(p.song_no) DESC) AS rownum 
-	          ,p.song_no AS no, count(p.song_no) AS COUNT, s.title AS title
+	          ,p.song_no AS no, count(p.song_no) as playcount, s.title AS title
 	          ,s.lyrics AS lyrics,  ar.artist AS artist, al.album AS album, 
 			  al.img_org AS org, al.img_real AS rel, al.no AS al_no,ar.no AS ar_no                              
 	       	  FROM play p		                        
@@ -36,7 +36,7 @@
         LEFT OUTER JOIN  
 	       (        
 	     	SELECT row_number() OVER(order by COUNT(p.song_no) DESC) AS rownum 
-	        ,p.song_no AS no2, COUNT(p.song_no) AS count2, s.title AS title2
+	        ,p.song_no AS no2, COUNT(p.song_no) as playcount2, s.title AS title2
 	        ,s.lyrics as lyrics2,  ar.artist AS artist2, al.album AS album2
 	        ,al.img_org AS org2, al.img_real AS rel2, al.no AS al_no2,ar.no AS ar_no2                                     
 	        FROM play p
@@ -55,7 +55,7 @@
 	</select>
 	
 	<select id="ChartList_daily" parameterType="music.chart.ChartVo" resultType="music.chart.ChartVo">
-		SELECT  thisweek.no, thisweek.count, thisweek.title, 
+		SELECT  thisweek.no, thisweek.playcount, thisweek.title, 
 		thisweek.lyrics,  thisweek.artist, thisweek.album, 
 		thisweek.org, thisweek.rel 
         , if(prevweek.rownum is null,999,(ifnull(prevweek.rownum,0)-ifnull(thisweek.rownum,0))) AS rank_ch,thisweek.al_no,thisweek.ar_no,
@@ -68,7 +68,7 @@
         FROM                                                                                                            
 	        (                                                                                                                 
 	          SELECT row_number() over(ORDER BY COUNT(p.song_no) DESC) AS rownum 
-	          ,p.song_no AS no, count(p.song_no) AS COUNT, s.title AS title
+	          ,p.song_no AS no, count(p.song_no) as playcount, s.title AS title
 	          ,s.lyrics AS lyrics,  ar.artist AS artist, al.album AS album, 
 			  al.img_org AS org, al.img_real AS rel, al.no AS al_no,ar.no AS ar_no                              
 	       	  FROM play p		                        
@@ -83,7 +83,7 @@
         LEFT OUTER JOIN  
 	       (        
 	     	SELECT row_number() OVER(order by COUNT(p.song_no) DESC) AS rownum 
-	        ,p.song_no AS no2, COUNT(p.song_no) AS count2, s.title AS title2
+	        ,p.song_no AS no2, COUNT(p.song_no) as playcount2, s.title AS title2
 	        ,s.lyrics as lyrics2,  ar.artist AS artist2, al.album AS album2
 	        ,al.img_org AS org2, al.img_real AS rel2, al.no AS al_no2,ar.no AS ar_no2                                     
 	        FROM play p
@@ -99,7 +99,7 @@
 	</select>
 	
 	<select id="ChartList_weekly" parameterType="music.chart.ChartVo" resultType="music.chart.ChartVo">
-		SELECT  thisweek.no, thisweek.count, thisweek.title, 
+		SELECT  thisweek.no, thisweek.playcount, thisweek.title, 
 		thisweek.lyrics,  thisweek.artist, thisweek.album, 
 		thisweek.org, thisweek.rel 
         , if(prevweek.rownum is null,999,(ifnull(prevweek.rownum,0)-ifnull(thisweek.rownum,0))) AS rank_ch ,thisweek.al_no,thisweek.ar_no,
@@ -112,7 +112,7 @@
         FROM                                                                                                            
 	        (                                                                                                                 
 	          SELECT row_number() over(ORDER BY COUNT(p.song_no) DESC) AS rownum 
-	          ,p.song_no AS no, count(p.song_no) AS COUNT, s.title AS title
+	          ,p.song_no AS no, count(p.song_no) as playcount, s.title AS title
 	          ,s.lyrics AS lyrics,  ar.artist AS artist, al.album AS album, 
 			  al.img_org AS org, al.img_real AS rel , al.no AS al_no,ar.no AS ar_no                             
 	       	  FROM play p		                        
@@ -127,7 +127,7 @@
         LEFT OUTER JOIN  
 	       (        
 	     	SELECT row_number() OVER(order by COUNT(p.song_no) DESC) AS rownum 
-	        ,p.song_no AS no2, COUNT(p.song_no) AS count2, s.title AS title2
+	        ,p.song_no AS no2, COUNT(p.song_no) as playcount2, s.title AS title2
 	        ,s.lyrics as lyrics2,  ar.artist AS artist2, al.album AS album2
 	        ,al.img_org AS org2, al.img_real AS rel2, al.no AS al_no2,ar.no AS ar_no2                                     
 	        FROM play p

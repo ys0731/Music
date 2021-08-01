@@ -82,7 +82,7 @@
 								<tbody>
 									<c:if test="${empty list}">
 			                            <tr>
-			                                <td class="first" colspan="5">등록된 글이 없습니다.</td>
+			                                <td class="first" colspan="7">등록된 글이 없습니다.</td>
 			                            </tr>						
 									</c:if>
 									<c:forEach var="vo" items="${list }" varStatus="status">

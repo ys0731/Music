@@ -50,7 +50,7 @@
         .theme_pick .recommend_list {margin-bottom: 20px;}
 
         /* banner */
-        .banner {display: block; height: 150px; margin: 100px 0; background-color: #ccc;}
+        .banner {display: block; margin: 100px 0; height: 100px; background-image: url(../img/banner.png); background-position: center; background-repeat: no-repeat; background-size: cover;}
     </style>
 
 </head>

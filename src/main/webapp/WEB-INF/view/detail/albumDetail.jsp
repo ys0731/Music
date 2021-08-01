@@ -235,7 +235,7 @@
 
         /* chart txt */
         .album_mini {float: left; width: 45px; height: 45px;}
-        .list_title {float: left; margin-top: 14px; margin-left: 10px; width: 385px; text-overflow: ellipsis; white-space: nowrap; overflow: hidden;}
+        .list_title {float: left; margin-top: 15px; margin-left: 10px; width: 385px; text-overflow: ellipsis; white-space: nowrap; overflow: hidden;}
         .list_artist {width: 125px; text-overflow: ellipsis; white-space: nowrap; overflow: hidden;}
         .list_album {width: 185px; text-overflow: ellipsis; white-space: nowrap; overflow: hidden;}
 
@@ -366,22 +366,22 @@
                         <td>듣기</td>
                         <td>추가</td>
                     </tr>
-                    <c:forEach var="vo" items="${list }"  varStatus="status" end="10">
+                    <c:forEach var="vo" items="${list}" varStatus="status" end="10">
                     <tr>
                   		<td><input name="check_list" type="checkbox"></td>
                   		<td>
                       		<p>${status.count }</p>
                    		</td>
                    		<td class="clear">
-		                      <a href="album_info.html"> <img class="album_mini" src="<%=path %>/upload/${vo.album_img }" alt="album_img"></a>
+		                      <a href="#"><img class="album_mini" src="<%=path %>/upload/${vo.album_img }" alt="album_img"></a>
 		                       <a id="lyrics_'+i+'" class="lyrics_popup button_icons" href="#"></a>
 		                       <p class="list_title">${vo.title }</p>
                    		</td>
                    		<td>
-                      		<a href="artist_info.html"><p class="list_artist">${vo.artist }</p></a>
+                      		<a href="<%=request.getContextPath()%>/detail/artistDetail.do?artist_no=${vo.artist_no}"><p class="list_artist">${vo.artist }</p></a>
                    		</td>
                   		<td>
-                     		<a href="album_info.html"><p class="list_album">${vo.album }</p></a>
+                     		<a href="#"><p class="list_album">${vo.album }</p></a>
                    		</td>
 	                    <td>
 	                        <a class="like_btn" href="#"></a>

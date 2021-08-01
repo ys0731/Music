@@ -6,6 +6,8 @@ public interface RecommendService {
 	
 	List<RecommendVo> selectList(RecommendVo vo);
 
+	List<RecommendVo> selectTodayList(RecommendVo vo);
+
 	List<RecommendVo> selectSongList(RecommendVo vo);
 
 	RecommendVo selectListTitle(RecommendVo vo);

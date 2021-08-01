@@ -81,7 +81,7 @@
                         </ul>
                         <ul class="mv_sub">
                             <li><a href="/music/mvChart/recentMv.do">최신MV</a></li>
-                            <li><a href="/music/mvChart/popularMv.do">인기MV</a></li>
+                            <!-- <li><a href="/music/mvChart/popularMv.do">인기MV</a></li> -->
                         </ul>
                     </div>
                 </ul>

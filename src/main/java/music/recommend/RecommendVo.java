@@ -17,8 +17,10 @@ public class RecommendVo {
 	//--------------------------------Alias
 	private int songList_no;
 	private String songList_title;
+	private int songList_album_no;
 	private String songList_album;
 	private String songList_albumImg;
+	private int songList_artist_no;
 	private String songList_artist;
 
 	
@@ -111,6 +113,18 @@ public class RecommendVo {
 	}
 	public void setSongList_artist(String songList_artist) {
 		this.songList_artist = songList_artist;
+	}
+	public int getSongList_album_no() {
+		return songList_album_no;
+	}
+	public void setSongList_album_no(int songList_album_no) {
+		this.songList_album_no = songList_album_no;
+	}
+	public int getSongList_artist_no() {
+		return songList_artist_no;
+	}
+	public void setSongList_artist_no(int songList_artist_no) {
+		this.songList_artist_no = songList_artist_no;
 	}
 	
 	

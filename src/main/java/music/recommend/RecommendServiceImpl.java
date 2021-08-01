@@ -26,5 +26,9 @@ public class RecommendServiceImpl implements RecommendService {
 		return dao.selectListTitle(vo);
 	}
 
+	@Override
+	public List<RecommendVo> selectTodayList(RecommendVo vo) {
+		return dao.selectTodayList(vo);
+	}
 
 }

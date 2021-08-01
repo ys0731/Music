@@ -15,14 +15,14 @@ $(document).ready(function () {
 
     // gnb
     $(".gnb > li").mouseenter(function () {
-        $(".gnb_sub").stop().fadeIn(300);
+        $(".gnb_sub").stop().show();
     }).mouseleave(function () {
-        $(".gnb_sub").stop().fadeOut(300);
+        $(".gnb_sub").stop().hide();
     });
     $(".gnb_sub").mouseenter(function () {
-        $(this).stop().fadeIn(300);
+        $(this).stop().show();
     }).mouseleave(function () {
-        $(".gnb_sub").stop().fadeOut(300);
+        $(".gnb_sub").stop().hide();
     });
 
     $("#gnb_li_last, #user_name").off("mouseenter");

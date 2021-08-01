@@ -52,6 +52,7 @@ public class DetailController {
 		if(!"".equals(searchword)) { 
 			model.addAttribute("vo", service.artistSearch(searchword));	//artist 검색 결과 vo에 저장 
 			model.addAttribute("svo", service.songSearch(searchword));	//song 검색 결과 vo에 저장 
+			model.addAttribute("avo", service.artistAlbumSearch(searchword)); //aritst album 내용 저장
 
 			if(sService.selectOne(searchword) != null) {  //artist테이블에서 검색어랑 이름이 같은 아티스트 검색	, 결과가 있으면
 				int r = sService.searchInsert(searchword);  //search 테이블에 검색어 저장

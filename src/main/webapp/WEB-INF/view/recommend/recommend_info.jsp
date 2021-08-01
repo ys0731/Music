@@ -144,15 +144,15 @@
                       		<p>${status.count }</p>
                    		</td>
                    		<td class="clear">
-		                      <a href="album_info.html"> <img class="album_mini" src="<%=request.getContextPath() %>/upload/${vo.songList_albumImg }" alt="album_img"></a>
+		                      <a href="<%=request.getContextPath()%>/detail/albumDetail.do?album_no=${vo.songList_album_no }"> <img class="album_mini" src="<%=request.getContextPath() %>/upload/${vo.songList_albumImg }" alt="album_img"></a>
 		                       <a id="lyrics_'+i+'" class="lyrics_popup button_icons" href="#"></a>
 		                       <p class="list_title">${vo.songList_title }</p>
                    		</td>
                    		<td>
-                      		<a href="artist_info.html"><p class="list_artist">${vo.songList_artist }</p></a>
+                      		<a href="<%=request.getContextPath()%>/detail/artistDetail.do?artist_no=${vo.songList_artist_no }"><p class="list_artist">${vo.songList_artist }</p></a>
                    		</td>
                   		<td>
-                     		<a href="album_info.html"><p class="list_album">${vo.songList_album }</p></a>
+                     		<a href="<%=request.getContextPath()%>/detail/albumDetail.do?album_no=${vo.songList_album_no }"><p class="list_album">${vo.songList_album }</p></a>
                    		</td>
 	                    <td>
 	                        <a class="like_btn" href="#"></a>

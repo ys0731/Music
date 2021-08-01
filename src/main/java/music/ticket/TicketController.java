@@ -27,7 +27,9 @@ public class TicketController {
 	//목록
 	@RequestMapping("/ticket/index.do")
 	public String index(TicketVo vo, PayVo pv, HttpSession sess,Model model) {		
-		pv.setUser_no(((UserVo)sess.getAttribute("userInfo")).getNo());
+		if(sess.getAttribute("userInfo")!=null) {
+			pv.setUser_no(((UserVo)sess.getAttribute("userInfo")).getNo());
+		}
 		model.addAttribute("list",pService.selectAll(pv));
 		model.addAttribute("vo",service.selectAll(vo));
 		return "ticket/index";

@@ -13,7 +13,7 @@ public class ChartVo extends CommonVo{
 	private String lyrics;
 	private String org;
 	private String rel;
-	private int count; //누적 재생 수
+	private int playcount; //누적 재생 수
 	private int genre; //장르
 	private int rank_ch; //순위 등락
 	
@@ -79,12 +79,13 @@ public class ChartVo extends CommonVo{
 		this.lyrics = lyrics;
 	}
 	
-	public int getCount() {
-		return count;
+	public int getPlaycount() {
+		return playcount;
 	}
-	public void setCount(int count) {
-		this.count = count;
+	public void setPlaycount(int playcount) {
+		this.playcount = playcount;
 	}
+	
 	public int getGenre() {
 		return genre;
 	}

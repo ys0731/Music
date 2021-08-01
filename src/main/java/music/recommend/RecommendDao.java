@@ -16,6 +16,10 @@ public class RecommendDao {
 		return sqlSession.selectList("recommended.selectList", vo);
 	}
 
+	public List<RecommendVo> selectTodayList (RecommendVo vo) {
+		return sqlSession.selectList("recommended.selectTodayList", vo);
+	}
+
 	public List<RecommendVo> selectSongList (RecommendVo vo) {
 		return sqlSession.selectList("recommended.selectSongList", vo);
 	}
