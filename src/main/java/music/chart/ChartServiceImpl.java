@@ -12,47 +12,39 @@ public class ChartServiceImpl implements ChartService {
 	ChartDao dao;
 
 	@Override
-	public List<ChartVo> ChartList_24hits(ChartVo vo) {
-		List<ChartVo> list = dao.ChartList_24hits(vo);
-		return list;
+	public List<ChartVo> ChartList_24hits(ChartVo vo) {		 
+		return dao.ChartList_24hits(vo);
 	}
 	@Override
-	public List<ChartVo> ChartList_daily(ChartVo vo) {
-		List<ChartVo> list = dao.ChartList_daily(vo);
-		return list;
+	public List<ChartVo> ChartList_daily(ChartVo vo) {		
+		return dao.ChartList_daily(vo);
 	}
 	@Override
 	public List<ChartVo> ChartList_weekly(ChartVo vo) {
-		List<ChartVo> list = dao.ChartList_weekly(vo);
-		return list;
+		return dao.ChartList_weekly(vo);
 	}
 
 	@Override
-	public List<ChartVo> ChartList_classic(ChartVo vo) {
-		List<ChartVo> list = dao.ChartList_classic(vo);
-		return list;
+	public List<ChartVo> ChartList_classic(ChartVo vo) {		
+		return dao.ChartList_classic(vo);
 	}
 	
 	@Override
 	public List<ChartVo> ChartList_jazz(ChartVo vo) {
-		List<ChartVo> list = dao.ChartList_jazz(vo);
-		return list;
+		return dao.ChartList_jazz(vo);
 	}
 	@Override
 	public List<ChartVo> ChartList_kpop(ChartVo vo) {
-		List<ChartVo> list = dao.ChartList_kpop(vo);
-		return list;
+		return dao.ChartList_kpop(vo);
 	}
 	@Override
 	public List<ChartVo> ChartList_pop(ChartVo vo) {
-		List<ChartVo> list = dao.ChartList_pop(vo);
-		return list;
+		return dao.ChartList_pop(vo);
 	}
 
 	@Override
 	public List<ChartVo> ChartList_recent(ChartVo vo) {
-		List<ChartVo> list = dao.ChartList_recent(vo);
-		return list;
+		return dao.ChartList_recent(vo);
 	}
 	
 	@Override
@@ -72,13 +64,11 @@ public class ChartServiceImpl implements ChartService {
 		vo.setEndPage(endPage);
 		vo.setTotCount(totCount);
 		vo.setTotPage(totPage);
-		List<ChartVo> list = dao.User_recent(vo);
-		return list;
+		return dao.User_recent(vo);
 	}
 	@Override
 	public ChartVo detail(int no) {
-		ChartVo vo = dao.detail(no);
-		return vo;
+		return dao.detail(no);
 	}
 	
 

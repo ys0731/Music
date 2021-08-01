@@ -1,5 +1,6 @@
 package music.main;
 
+
 import java.util.ArrayList;
 import java.util.List;
 
@@ -48,18 +49,15 @@ public class MainController {
 	
 	//메인 페이지
 	@RequestMapping("/index.do")
-	public String index(Model model, ChartVo cv, AdminAlbumVo av, HttpSession sess, SearchVo sv, NoticeVo nv,MvChartVo mv ) {
-		
-		model.addAttribute("av",alservice.selectAllAlbums(av)); //앨범
-		
-		model.addAttribute("cv",cservice.ChartList_24hits(cv)); //차트
-		
+	public String index(Model model, ChartVo cv, AdminAlbumVo av, HttpSession sess, SearchVo sv, NoticeVo nv,MvChartVo mv ) {		
+		model.addAttribute("av",alservice.selectAllAlbums(av)); //앨범		
+		model.addAttribute("cv",cservice.ChartList_24hits(cv)); //차트		
 		model.addAttribute("nv",nservice.selectAll(nv));
-		
+
 		RecommendVo rv = new RecommendVo();
-		model.addAttribute("rv", rservice.selectTodayList(rv)); //추천음악
-		
+		model.addAttribute("rv", rservice.selectTodayList(rv)); //추천음악		
 		model.addAttribute("mv", mservice.RecentMv(mv));
+
 		return "index";
 		}
 }

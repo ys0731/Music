@@ -191,7 +191,7 @@
 	                					<p class="rank" style="color: red; font-size: 12px;">↑${vo.rank_ch }</p>
 	                				</c:when>
 	                				<c:when test="${vo.rank_ch == 0}">
-	                					<p class="rank" style="color: red; font-size: 12px;">ㅡ</p>
+	                					<p class="rank" style="color: blue; font-size: 12px;">ㅡ</p>
 	                				</c:when>
 	                				<c:when test="${vo.rank_ch < 0}">
 	                					<p class="rank" style="color: blue; font-size: 12px;">↓${vo.rank_ch * (-1) }</p>
