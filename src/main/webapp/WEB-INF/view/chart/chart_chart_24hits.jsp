@@ -209,7 +209,7 @@
 	                    </tr>
 	                   <c:if test="${empty list }">
                             <tr>
-                                <td class="first" colspan="8">차트 정보가 없습니다.</td>
+                                <td class="first" colspan="8" style="text-align:center">차트 정보가 없습니다.</td>
                             </tr>
                         </c:if>
 	                    <c:forEach var="vo" items="${list }" varStatus="status">
@@ -226,7 +226,7 @@
 	                					<p class="rank" style="color: red; font-size: 12px;">↑${vo.rank_ch }</p>
 	                				</c:when>
 	                				<c:when test="${vo.rank_ch == 0}">
-	                					<p class="rank" style="color: red; font-size: 12px;">ㅡ</p>
+	                					<p class="rank" style="color: blue; font-size: 12px;">ㅡ</p>
 	                				</c:when>
 	                				<c:when test="${vo.rank_ch < 0}">
 	                					<p class="rank" style="color: blue; font-size: 12px;">↓${vo.rank_ch * (-1) }</p>

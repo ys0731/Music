@@ -197,7 +197,7 @@
                     </tr>
                     <c:if test="${empty list }">
                           <tr>
-                              <td class="first" colspan="8">차트 정보가 없습니다.</td>
+                              <td class="first" colspan="8" style="text-align:center">차트 정보가 없습니다.</td>
                           </tr>
                     </c:if>
                     <c:forEach var="vo" items="${list }" varStatus="status">
