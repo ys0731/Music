@@ -4,15 +4,12 @@
 	
 	<!-- 앨범 상세-->
 	<select id="albumDetail" parameterType="int" resultType="java.util.Map">
-		SELECT
-			s.genre,
-			(SELECT artist FROM artist WHERE no=s.artist_no) AS artist,
-			(SELECT album FROM album WHERE no=album_no) AS album,
-    		(SELECT img_real FROM album WHERE no=album_no) AS album_img,
-    		(SELECT reldate FROM album WHERE no=album_no) AS reldate,
-            (SELECT info FROM album WHERE no=album_no) AS info,
-            (SELECT no FROM album WHERE no=album_no) AS album_no
-		FROM song AS s WHERE album_no=${album_no}
+		select album.*, artist.artist
+		from song
+		join artist on song.artist_no = artist.no
+		join album on song.album_no = album.no
+		where album.no = #{album_no}
+		group by album.no
 	</select>
 	
 	<!-- 아티스트 상세 -->

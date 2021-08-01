@@ -249,7 +249,7 @@
 		                <img src="<%=path %>/upload/${vo.img_real }" alt="album1">
 		                <table style="width: 55%;">
 		                    <tr>
-		                        <td>${vo.album }</td>
+		                        <td colspan="2">${vo.album }</td>
 		                    </tr>
 		                    <tr>
 		                        <td>아티스트</td>

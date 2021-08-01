@@ -103,7 +103,7 @@
                 <div class="cont_1_left">
                     <h2>곡 차트</h2><a class="more" href="/music/chart/chart_24hit.do">더 보기</a>
                     <table class="charts">
-                    	<c:forEach var="cv" items="${cv }" varStatus="status" begin="0" end="9">
+                    	<%-- <c:forEach var="cv" items="${cv }" varStatus="status" begin="0" end="9">
                     	<c:if test="${status.count == 1 }">
                      		<tr class="on"> 
                   		</c:if>
@@ -116,7 +116,7 @@
 	                            <td><a class="play_music button_icons play" href="#" onclick="javascript:player(no=${cv.no });" data-no="${cv.no }"></a></td>
 	                            <td><a class="add_list button_icons" href="#" onclick="javascript:plusplayer(no=${cv.no });"></a></td>
                         	</tr>                   	
-                    	</c:forEach>
+                    	</c:forEach> --%>
                     </table>
                 </div>
                 <div class="cont_1_right">

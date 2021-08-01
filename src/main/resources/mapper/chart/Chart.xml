@@ -9,7 +9,7 @@
 		SELECT  thisweek.no, thisweek.playcount, thisweek.title, 
 		thisweek.lyrics,  thisweek.artist, thisweek.album, 
 		thisweek.org, thisweek.rel 
-        , if(prevweek.rownum is null,999,(ifnull(prevweek.rownum,0)-ifnull(thisweek.rownum,0))) AS rank_ch, thisweek.al_no,thisweek.ar_no,
+        , if(prevweek.rowplace is null,999,(ifnull(prevweek.rowplace,0)-ifnull(thisweek.rowplace,0))) AS rank_ch, thisweek.al_no,thisweek.ar_no,
         <if test="user_no != 0">
         (SELECT COUNT(*) FROM mlike WHERE song_no = thisweek.no AND user_no=#{user_no}) AS mlike_cnt 
         </if>
@@ -18,8 +18,8 @@
         </if>
         FROM                                                                                                            
 	        (                                                                                                                 
-	          SELECT row_number() over(ORDER BY COUNT(p.song_no) DESC) AS rownum 
-	          ,p.song_no AS no, count(p.song_no) as playcount, s.title AS title
+	          SELECT row_number() over(ORDER BY COUNT(*) DESC) AS rowplace 
+	          ,p.song_no AS no, count(*) as playcount, s.title AS title
 	          ,s.lyrics AS lyrics,  ar.artist AS artist, al.album AS album, 
 			  al.img_org AS org, al.img_real AS rel, al.no AS al_no,ar.no AS ar_no                              
 	       	  FROM play p		                        
@@ -30,13 +30,12 @@
 	          WHERE TIMESTAMPDIFF(HOUR,p.clickdate,NOW())>=0 AND TIMESTAMPDIFF(HOUR,p.clickdate,NOW())<=1
 	          ]]>
 	          GROUP BY p.song_no   
-	          ORDER BY COUNT(p.song_no) DESC
 		      LIMIT 0,100  
 	         ) AS thisweek  
         LEFT OUTER JOIN  
 	       (        
-	     	SELECT row_number() OVER(order by COUNT(p.song_no) DESC) AS rownum 
-	        ,p.song_no AS no2, COUNT(p.song_no) as playcount2, s.title AS title2
+	     	SELECT row_number() OVER(order by COUNT(*) DESC) AS rowplace 
+	        ,p.song_no AS no2, COUNT(*) as playcount2, s.title AS title2
 	        ,s.lyrics as lyrics2,  ar.artist AS artist2, al.album AS album2
 	        ,al.img_org AS org2, al.img_real AS rel2, al.no AS al_no2,ar.no AS ar_no2                                     
 	        FROM play p
@@ -47,7 +46,6 @@
 	        WHERE TIMESTAMPDIFF(HOUR,p.clickdate,NOW())>=2 AND TIMESTAMPDIFF(HOUR,p.clickdate,NOW())<=3  
 	        ]]>
 	        GROUP BY p.song_no   
-	        ORDER BY COUNT(p.song_no) DESC
 		    LIMIT 0,100        
            ) AS prevweek     
   		ON thisweek.no = prevweek.no2
@@ -58,7 +56,7 @@
 		SELECT  thisweek.no, thisweek.playcount, thisweek.title, 
 		thisweek.lyrics,  thisweek.artist, thisweek.album, 
 		thisweek.org, thisweek.rel 
-        , if(prevweek.rownum is null,999,(ifnull(prevweek.rownum,0)-ifnull(thisweek.rownum,0))) AS rank_ch,thisweek.al_no,thisweek.ar_no,
+        , if(prevweek.rowplace is null,999,(ifnull(prevweek.rowplace,0)-ifnull(thisweek.rowplace,0))) AS rank_ch,thisweek.al_no,thisweek.ar_no,
         <if test="user_no != 0">
         (SELECT COUNT(*) FROM mlike WHERE song_no = thisweek.no AND user_no=#{user_no}) AS mlike_cnt 
         </if>
@@ -67,8 +65,8 @@
         </if>
         FROM                                                                                                            
 	        (                                                                                                                 
-	          SELECT row_number() over(ORDER BY COUNT(p.song_no) DESC) AS rownum 
-	          ,p.song_no AS no, count(p.song_no) as playcount, s.title AS title
+	          SELECT row_number() over(ORDER BY COUNT(*) DESC) AS rowplace 
+	          ,p.song_no AS no, count(*) as playcount, s.title AS title
 	          ,s.lyrics AS lyrics,  ar.artist AS artist, al.album AS album, 
 			  al.img_org AS org, al.img_real AS rel, al.no AS al_no,ar.no AS ar_no                              
 	       	  FROM play p		                        
@@ -77,13 +75,12 @@
 			  INNER JOIN album al ON s.album_no = al.no                                 
 	          WHERE TIMESTAMPDIFF(DAY,p.clickdate,NOW())>=0 AND TIMESTAMPDIFF(DAY,p.clickdate,NOW())&lt;=1  
 	          GROUP BY p.song_no   
-	          ORDER BY COUNT(p.song_no) DESC
 		      LIMIT 0,100  
 	         ) AS thisweek  
         LEFT OUTER JOIN  
 	       (        
-	     	SELECT row_number() OVER(order by COUNT(p.song_no) DESC) AS rownum 
-	        ,p.song_no AS no2, COUNT(p.song_no) as playcount2, s.title AS title2
+	     	SELECT row_number() OVER(order by COUNT(*) DESC) AS rowplace 
+	        ,p.song_no AS no2, COUNT(*) as playcount2, s.title AS title2
 	        ,s.lyrics as lyrics2,  ar.artist AS artist2, al.album AS album2
 	        ,al.img_org AS org2, al.img_real AS rel2, al.no AS al_no2,ar.no AS ar_no2                                     
 	        FROM play p
@@ -92,7 +89,6 @@
 		    INNER JOIN album al ON s.album_no = al.no		                                                            
 	        WHERE TIMESTAMPDIFF(DAY,p.clickdate,NOW())>=2 AND TIMESTAMPDIFF(DAY,p.clickdate,NOW())&lt;=3  
 	        GROUP BY p.song_no   
-	        ORDER BY COUNT(p.song_no) DESC
 		    LIMIT 0,100        
            ) AS prevweek     
   		ON thisweek.no = prevweek.no2  
@@ -102,7 +98,7 @@
 		SELECT  thisweek.no, thisweek.playcount, thisweek.title, 
 		thisweek.lyrics,  thisweek.artist, thisweek.album, 
 		thisweek.org, thisweek.rel 
-        , if(prevweek.rownum is null,999,(ifnull(prevweek.rownum,0)-ifnull(thisweek.rownum,0))) AS rank_ch ,thisweek.al_no,thisweek.ar_no,
+        , if(prevweek.rowplace is null,999,(ifnull(prevweek.rowplace,0)-ifnull(thisweek.rowplace,0))) AS rank_ch ,thisweek.al_no,thisweek.ar_no,
         <if test="user_no != 0">
         (SELECT COUNT(*) FROM mlike WHERE song_no = thisweek.no AND user_no=#{user_no}) AS mlike_cnt 
         </if>
@@ -111,8 +107,8 @@
         </if>
         FROM                                                                                                            
 	        (                                                                                                                 
-	          SELECT row_number() over(ORDER BY COUNT(p.song_no) DESC) AS rownum 
-	          ,p.song_no AS no, count(p.song_no) as playcount, s.title AS title
+	          SELECT row_number() over(ORDER BY COUNT(*) DESC) AS rowplace 
+	          ,p.song_no AS no, count(*) as playcount, s.title AS title
 	          ,s.lyrics AS lyrics,  ar.artist AS artist, al.album AS album, 
 			  al.img_org AS org, al.img_real AS rel , al.no AS al_no,ar.no AS ar_no                             
 	       	  FROM play p		                        
@@ -121,13 +117,12 @@
 			  INNER JOIN album al ON s.album_no = al.no                                 
 	          WHERE TIMESTAMPDIFF(DAY,p.clickdate,NOW())>=0 AND TIMESTAMPDIFF(DAY,p.clickdate,NOW())&lt;=7  
 	          GROUP BY p.song_no   
-	          ORDER BY COUNT(p.song_no) DESC
 		      LIMIT 0,100  
 	         ) AS thisweek  
         LEFT OUTER JOIN  
 	       (        
-	     	SELECT row_number() OVER(order by COUNT(p.song_no) DESC) AS rownum 
-	        ,p.song_no AS no2, COUNT(p.song_no) as playcount2, s.title AS title2
+	     	SELECT row_number() OVER(order by COUNT(*) DESC) AS rowplace 
+	        ,p.song_no AS no2, COUNT(*) as playcount2, s.title AS title2
 	        ,s.lyrics as lyrics2,  ar.artist AS artist2, al.album AS album2
 	        ,al.img_org AS org2, al.img_real AS rel2, al.no AS al_no2,ar.no AS ar_no2                                     
 	        FROM play p
@@ -136,7 +131,6 @@
 		    INNER JOIN album al ON s.album_no = al.no		                                                            
 	        WHERE TIMESTAMPDIFF(DAY,p.clickdate,NOW())>=8 AND TIMESTAMPDIFF(DAY,p.clickdate,NOW())&lt;=15  
 	        GROUP BY p.song_no   
-	        ORDER BY COUNT(p.song_no) DESC
 		    LIMIT 0,100        
            ) AS prevweek     
   		ON thisweek.no = prevweek.no2  

@@ -322,7 +322,7 @@
             <h2>${vo.album }</h2>
             <div class="artist_box clear">
             	<input type="hidden" id="album_no" name="album_no" value="${vo.album_no}">
-                <img src="<%=path %>/upload/${vo.album_img }" alt="album1">
+                <img src="<%=path %>/upload/${vo.img_org }" alt="album1">
                 <table>
                     <tr>
                         <td>아티스트</td>
