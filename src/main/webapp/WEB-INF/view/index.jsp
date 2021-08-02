@@ -80,8 +80,8 @@
                      		<tr>
                   		</c:if>
 	                            <td>${status.count}</td>
-	                            <td><a class="album" href="#"><img src="<%=path %>/upload/${cv.rel}" alt="album"></a><span style="width: 200px; text-overflow: ellipsis; white-space: nowrap; overflow: hidden;">${cv.title }</span></td>
-	                            <td><a class="artist" href="#">${cv.artist }</a></td>
+	                            <td><a class="album" href="<%=path%>/detail/albumDetail.do?album_no=${cv.al_no }"><img src="<%=path %>/upload/${cv.rel}" alt="album"></a><span style="width: 200px; text-overflow: ellipsis; white-space: nowrap; overflow: hidden;">${cv.title }</span></td>
+	                            <td><a class="artist" href="<%=path%>/detail/artistDetail.do?artist_no=${cv.ar_no }">${cv.artist }</a></td>
 	                            <td><a class="play_music button_icons play" style="cursor: pointer;" onclick="javascript:player(no=${cv.no });"></a></td>
 	                            <td><a class="add_list button_icons" style="cursor: pointer;" onclick="javascript:plusplayer(no=${cv.no });"></a></td>
                         	</tr>
