@@ -36,12 +36,9 @@ public class ChartController {
 		if(uv != null) {  //로그인 했으면
 			int uno = uv.getNo(); 
 			vo.setUser_no(uno);  //로그인한유저의 번호를 ChartVo에 set
-			model.addAttribute("list", service.ChartList_24hits(vo));
-			return "chart/chart_chart_24hits";
-		} else {		
-			model.addAttribute("list", service.ChartList_24hits(vo));
-			return "chart/chart_chart_24hits";
 		}
+		model.addAttribute("list", service.ChartList_24hits(vo));
+		return "chart/chart_chart_24hits";
 	}
 	
 	//일간 순위 차트

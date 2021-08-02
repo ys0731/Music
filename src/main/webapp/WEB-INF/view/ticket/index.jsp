@@ -68,10 +68,10 @@
 
         /* ticket box */
         .ticket_box {height: 60px; padding: 60px; border: 1px solid #ccc; margin-bottom: 20px; position: relative;}
-        #strm {color: #6A5ACD; font-size: 20px; line-height: 30px;}
+        #strm {color: #6A5ACD; font-size: 20px; line-height: 60px;}
 
         /* pirce & pay button */
-        .price_box1 {position: absolute; bottom: 70px; right: 70px;}
+        .price_box1 {position: absolute; bottom: 75px; right: 70px;}
         .price_box1 span {float: left; font-size: 20px; line-height: 30px; margin-right: 10px;}
         .price_box1 a {display: block; float: left; width: 100px; line-height: 30px; background-color: #6A5ACD; color: #fff; border-radius: 15px; text-align: center;}
     </style>

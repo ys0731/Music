@@ -12,21 +12,9 @@ public class MvChartServiceImpl implements MvChartService {
 	MvChartDao dao;   
 
 	@Override
-	public List<MvChartVo> PopularMv(MvChartVo vo) {
-		List<MvChartVo> list = dao.PopularMv(vo);
-		return list;
-	}
-	
-	@Override
 	public List<MvChartVo> RecentMv(MvChartVo vo) {
 		List<MvChartVo> list = dao.RecentMv(vo);
 		return list;
 	}
-	
-	@Override
-	public int insert(ClickMvVo vo) {
-		return dao.insert(vo);
-	}
-
 	
 }

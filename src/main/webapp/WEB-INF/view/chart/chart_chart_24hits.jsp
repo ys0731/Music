@@ -187,19 +187,19 @@
 		                		<td>
 		               				<p style="margin-top: 11px">${status.count}</p>
 		                			<c:choose>
-	                				<c:when test="${vo.rank_ch == 999}">
-	                					<p class="rank" style="color: red; font-size: 12px;">new</p>
-	                				</c:when>
-	                				<c:when test="${vo.rank_ch < 999 and vo.rank_ch>0}">
-	                					<p class="rank" style="color: red; font-size: 12px;">↑${vo.rank_ch }</p>
-	                				</c:when>
-	                				<c:when test="${vo.rank_ch == 0}">
-	                					<p class="rank" style="color: blue; font-size: 12px;">ㅡ</p>
-	                				</c:when>
-	                				<c:when test="${vo.rank_ch < 0}">
-	                					<p class="rank" style="color: blue; font-size: 12px;">↓${vo.rank_ch * (-1) }</p>
-	                				</c:when>
-	                			</c:choose>	       
+		                				<c:when test="${vo.rank_ch == 999}">
+		                					<p class="rank" style="color: red; font-size: 12px;">new</p>
+		                				</c:when>
+		                				<c:when test="${vo.rank_ch>0}">
+		                					<p class="rank" style="color: red; font-size: 12px;">↑${vo.rank_ch }</p>
+		                				</c:when>
+		                				<c:when test="${vo.rank_ch == 0}">
+		                					<p class="rank" style="color: blue; font-size: 12px;">ㅡ</p>
+		                				</c:when>
+		                				<c:when test="${vo.rank_ch < 0}">
+		                					<p class="rank" style="color: blue; font-size: 12px;">↓${vo.rank_ch * (-1) }</p>
+		                				</c:when>
+		                			</c:choose>	       
 		                			</p>
 		               			</td>
 		                		<td class="clear">
@@ -214,7 +214,7 @@
 	                     		<p class="list_album" id="album"><a class="album" href="<%=request.getContextPath()%>/detail/albumDetail.do?album_no=${vo.al_no }">${vo.album }</a></p>
 	                   		</td>
 		                    <td>
-		                        <a class="like_btn like <c:if test="${vo.mlike_cnt==1 }">on</c:if>" href="#" data-no="${vo.no }"></a>
+		                        <a class="like_btn like <c:if test="<%-- ${vo.mlike_cnt==1 } --%>">on</c:if>" href="#" data-no="${vo.no }"></a>
 		                    </td>
 		                    <td>
 		                         <a class="play_music button_icons play" href="#" onclick="javascript:player(no=${vo.no });" data-no="${vo.no }"></a>

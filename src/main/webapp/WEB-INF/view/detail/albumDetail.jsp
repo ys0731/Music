@@ -51,7 +51,7 @@
                 $(".album_intro").toggleClass("on");
                 var fold = document.getElementById('open_info');
                 click_count++;
-                if (click_count % 2 == 1) {
+                if (click_count % 2 == 0) {
                     fold.innerHTML = '접기';
                     $(this).css({'background-position': '50px 3px'});
                 } else {
@@ -272,8 +272,8 @@
         .artist_box table tr td:last-child {padding-left: 20px;}
 
         /* album intro */
-        .album_intro {height: 200px; padding: 20px; overflow: hidden; margin-bottom: 20px;}
-        .album_intro.on {height: inherit; overflow: none;}
+        .album_intro.on {height: 200px; overflow: hidden; margin-bottom: 20px;}
+        .album_intro {height: inherit; overflow: none; padding: 20px;}
         .album_intro h3 {font-size: 18px; line-height: 20px; margin-bottom: 20px;}
         .album_intro p {color: #666; font-size: 15px; line-height: 20px;}
 
@@ -400,7 +400,7 @@
                 <h3>앨범 소개</h3>
                 <p>${vo.info }</p>
             </div>
-            <a id="open_info" href="#">펼치기</a>
+            <a id="open_info" class="on" href="#">펼치기</a>
             <div id="comment_box2" class="comment_box">
                 <h3>댓글</h3>
                 <div>

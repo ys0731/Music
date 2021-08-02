@@ -26,37 +26,6 @@
 	        $(this).addClass("on");
 	    });
 		
-		$(".album").click(function() {
-        	var sno = $(this).data('no');
-        	$.ajax({
-        		url: '<%=request.getContextPath()%>/detail/albumDetail.do?album_no='+sno,
-        		method: 'post',
-        		data: {
-        			no: sno           			
-        		},
-        		success: function(data) {
-        			console.log("success");
-        			location.href='<%=request.getContextPath()%>/detail/albumDetail.do?album_no='+sno;
-        		}
-        		
-        	});
-        });//함수 끝
-        
-        $(".artist").click(function() {
-        	var sno = $(this).data('no');
-        	$.ajax({
-        		url: '<%=request.getContextPath()%>/detail/artistDetail.do?artist_no='+sno,
-        		method: 'post',
-        		data: {
-        			no: sno           			
-        		},
-        		success: function(data) {
-        			console.log("success");
-        			location.href='<%=request.getContextPath()%>/detail/artistDetail.do?artist_no='+sno;
-        		}
-        		
-        	});
-		})
 	})
 </script>
 <%@ include file="/WEB-INF/view/player/playnlog.jsp" %>
@@ -71,24 +40,24 @@
                         <div class="swiper-slide">
                             <div class="clear">
                                 <c:forEach var="av" items="${av }" begin="0" end="4">
-                                	<a href="<%=request.getContextPath()%>/detail/albumDetail.do?album_no=${av.no}"><img src="<%=path %>/upload/${av.img_real}" alt="album1"></a>
+                                	<a href="<%=request.getContextPath()%>/detail/albumDetail.do?album_no=${av.no}"><img src="<%=path %>/upload/${av.img_real}" alt="album"></a>
                                 </c:forEach>
                             </div>
                             <div class="clear">
                                 <c:forEach var="av" items="${av }" begin="5" end="9">
-                                	<a href="<%=request.getContextPath()%>/detail/albumDetail.do?album_no=${av.no}"><img src="<%=path %>/upload/${av.img_real}" alt="album1"></a>
+                                	<a href="<%=request.getContextPath()%>/detail/albumDetail.do?album_no=${av.no}"><img src="<%=path %>/upload/${av.img_real}" alt="album"></a>
                                 </c:forEach>
                             </div>
                         </div>
                         <div class="swiper-slide">
                             <div class="clear">
                                 <c:forEach var="av" items="${av }" begin="10" end="14">
-                                	<a href="<%=request.getContextPath()%>/detail/albumDetail.do?album_no=${av.no}"><img src="<%=path %>/upload/${av.img_real}" alt="album1"></a>
+                                	<a href="<%=request.getContextPath()%>/detail/albumDetail.do?album_no=${av.no}"><img src="<%=path %>/upload/${av.img_real}" alt="album"></a>
                                 </c:forEach>
                             </div>
                             <div class="clear">
                                 <c:forEach var="av" items="${av }" begin="15" end="19">
-                                	<a href="<%=request.getContextPath()%>/detail/albumDetail.do?album_no=${av.no}"><img src="<%=path %>/upload/${av.img_real}" alt="album1"></a>
+                                	<a href="<%=request.getContextPath()%>/detail/albumDetail.do?album_no=${av.no}"><img src="<%=path %>/upload/${av.img_real}" alt="album"></a>
                                 </c:forEach>
                             </div>
                         </div>
@@ -103,20 +72,20 @@
                 <div class="cont_1_left">
                     <h2>곡 차트</h2><a class="more" href="/music/chart/chart_24hit.do">더 보기</a>
                     <table class="charts">
-                    	<%-- <c:forEach var="cv" items="${cv }" varStatus="status" begin="0" end="9">
+                    	<c:forEach var="cv" items="${cv }" varStatus="status" begin="0" end="9">
                     	<c:if test="${status.count == 1 }">
-                     		<tr class="on"> 
+                     		<tr class="on">
                   		</c:if>
                   		<c:if test="${status.count != 1 }">
-                     		<tr> 
-                  		</c:if>                 
+                     		<tr>
+                  		</c:if>
 	                            <td>${status.count}</td>
-	                            <td><a class="album" href="#" data-no="${cv.al_no }"><img src="<%=path %>/upload/${cv.rel}" alt="album2"></a><span>${cv.title }</span></td>
-	                            <td><a class="artist" href="#" data-no="${cv.ar_no }">${cv.artist }</a></td>
-	                            <td><a class="play_music button_icons play" href="#" onclick="javascript:player(no=${cv.no });" data-no="${cv.no }"></a></td>
-	                            <td><a class="add_list button_icons" href="#" onclick="javascript:plusplayer(no=${cv.no });"></a></td>
-                        	</tr>                   	
-                    	</c:forEach> --%>
+	                            <td><a class="album" href="#"><img src="<%=path %>/upload/${cv.rel}" alt="album"></a><span style="width: 200px; text-overflow: ellipsis; white-space: nowrap; overflow: hidden;">${cv.title }</span></td>
+	                            <td><a class="artist" href="#">${cv.artist }</a></td>
+	                            <td><a class="play_music button_icons play" style="cursor: pointer;" onclick="javascript:player(no=${cv.no });"></a></td>
+	                            <td><a class="add_list button_icons" style="cursor: pointer;" onclick="javascript:plusplayer(no=${cv.no });"></a></td>
+                        	</tr>
+                    	</c:forEach>
                     </table>
                 </div>
                 <div class="cont_1_right">

@@ -62,7 +62,7 @@ $(function(){
 		<!-- util : s -->
 		<div class="util">
 			<ul>
-				<li class="frist"><a href="#" onclick="">Home</a></li>
+				<li class="frist"><a href="<%=request.getContextPath()%>/index.do" onclick="">Site</a></li>
 				<li><a href="<%=request.getContextPath()%>/admin/logout.do">LogOut</a></li>
 			</ul>
 		</div>
@@ -109,15 +109,6 @@ $(function(){
   						<li><a href="<%=request.getContextPath()%>/admin/statistic/chart3.do"><span>누적합계차트</span></a></li>
   					</ul>
   					</div>
-				</li>
-				<li><a href="<%=request.getContextPath()%>/admin/report/index.do" class="parent"><span>신고관리</span></a></li>
-				<li>
-					<a href="<%=request.getContextPath()%>/admin/sales/day.do" class="parent"><span>매출관리</span></a>
-					<div class="standard_left">
-					<ul>
-						<li><a href="<%=request.getContextPath()%>/admin/sales/day.do"><span>내달 일별</span></a></li>
-						<li><a href="<%=request.getContextPath()%>/admin/sales/category.do"><span>이용권별</span></a></li>
-					</ul>
 				</li>
 			</ul>
 		</div>

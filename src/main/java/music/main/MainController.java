@@ -51,7 +51,7 @@ public class MainController {
 	@RequestMapping("/index.do")
 	public String index(Model model, ChartVo cv, AdminAlbumVo av, HttpSession sess, SearchVo sv, NoticeVo nv,MvChartVo mv ) {		
 		model.addAttribute("av",alservice.selectAllAlbums(av)); //앨범		
-		// model.addAttribute("cv",cservice.ChartList_24hits(cv)); //차트		
+		model.addAttribute("cv",cservice.ChartList_24hits(cv)); //차트		
 		model.addAttribute("nv",nservice.selectAll(nv));
 
 		RecommendVo rv = new RecommendVo();

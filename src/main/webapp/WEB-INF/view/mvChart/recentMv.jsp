@@ -105,10 +105,6 @@
     <%@ include file="/WEB-INF/view/include/top.jsp" %>
     <div id="container">
         <div class="center">
-            <!-- <ul class="chart_btn clear">
-                <li class="on"><a href="recentMv.do">최신</a></li>
-                <li><a href="popularMv.do">인기</a></li>              
-            </ul> -->
 
   <!--default값으로 유투브 썸네일 가져오기-->
   <div class="banner">
@@ -116,7 +112,7 @@
         <ul>
         <c:forEach var="vo" items="${list }"  varStatus="status" end="10">
         	<li class="videos">
-              <a href="#" value="${vo.no}" value2="${vo.link}" class="video" onclick="test(this);">
+              <a href="${vo.link}" target='_blank' value="${vo.no}"class="video">
                   <span></span>
                   <img src="${vo.img}" alt="" width="360px" height="240px"/>
               </a>
@@ -130,26 +126,7 @@
       style:'carousel',
       spacing:-0.3,
   });
-  function test(obj){
-	  let mno = $(obj).attr('value');
-	  let link = $(obj).attr('value2');
-	  console.log(mno);
-	  console.log(link);
-	  $.ajax({
-			url:'/music/mvChart/clickMv.do',
-			method: 'post',
-			data:{
-				no:mno
-			},
-			success:function(res) {
-				console.log("success")
-				window.open(link)
-			},
-		    error : function(request, status, error) { // 결과 에러 콜백함수
-		        console.log("error")
-		    }
-		});
-	}
+
 </script>
 
             <form class="chart_box" action="" method="post">
@@ -167,7 +144,7 @@
                       		<p>${status.count }</p>
                    		</td>
                    		<td class="clear"> <!--!${vo.link } -->
-		                     <a href="${vo.link}" target='_blank' value="${vo.no}" value2="${vo.link}" class="video" id="recent" onclick="test(this);"> <img class="album_mini" src="${vo.img}" alt="album_img"></a>
+		                     <a href="${vo.link}" target='_blank' value="${vo.no}" class="video" id="recent"> <img class="album_mini" src="${vo.img}" alt="album_img"></a>
                    		</td>
                    		<td>
 		                     <p class="list_title">${vo.title }</p>
