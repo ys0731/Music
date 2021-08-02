@@ -124,7 +124,6 @@
                 <ul class="clear">
                     <li><input id="check_all" type="checkbox"></li>
                     <li><a onclick="javascript:checkplayer();">듣기</a></li>
-                    <li><a href="#">재생목록에 추가</a></li>
                 </ul>
                 <table>
                     <tr>

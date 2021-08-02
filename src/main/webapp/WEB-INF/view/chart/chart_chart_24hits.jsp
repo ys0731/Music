@@ -186,20 +186,18 @@
 		                		<td><input name="check_list" type="checkbox" data-Num="${vo.no }"></td>
 		                		<td>
 		               				<p style="margin-top: 11px">${status.count}</p>
-		                			<c:choose>
-		                				<c:when test="${vo.rank_ch == 999}">
+		                				<c:if test="${empty vo.rank_ch}">
 		                					<p class="rank" style="color: red; font-size: 12px;">new</p>
-		                				</c:when>
-		                				<c:when test="${vo.rank_ch>0}">
+		                				</c:if>
+		                				<c:if test="${vo.rank_ch > 0}">
 		                					<p class="rank" style="color: red; font-size: 12px;">↑${vo.rank_ch }</p>
-		                				</c:when>
-		                				<c:when test="${vo.rank_ch == 0}">
+		                				</c:if>
+		                				<c:if test="${vo.rank_ch == 0}">
 		                					<p class="rank" style="color: blue; font-size: 12px;">ㅡ</p>
-		                				</c:when>
-		                				<c:when test="${vo.rank_ch < 0}">
+		                				</c:if>
+		                				<c:if test="${vo.rank_ch < 0}">
 		                					<p class="rank" style="color: blue; font-size: 12px;">↓${vo.rank_ch * (-1) }</p>
-		                				</c:when>
-		                			</c:choose>	       
+		                				</c:if>
 		                			</p>
 		               			</td>
 		                		<td class="clear">

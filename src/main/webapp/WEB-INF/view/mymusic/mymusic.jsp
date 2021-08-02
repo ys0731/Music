@@ -14,6 +14,13 @@
     <%@ include file="/WEB-INF/view/include/headHtml.jsp" %>
 
     <script>
+	    $(function(){
+			var marginTop =  $("input[type='checkbox'][name='check_list']").length;
+			if (marginTop < 6) {
+				$("#container").css({"height": "638px"});
+			}
+		});
+    
         $(document).ready(function(){
             // check all
             $("#check_all").change(function(){

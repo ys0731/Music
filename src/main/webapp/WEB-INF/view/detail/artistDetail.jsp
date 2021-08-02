@@ -36,10 +36,6 @@
                 }
             });
 
-
-            // song count
-            document.getElementById('row_count').innerHTML = row_num;
-            
             // preventDefault
             $(".chart_box ul li a, .lyrics_popup, .like_btn, .play_music, .add_list").click(function(e){
                 e.preventDefault();
@@ -49,15 +45,7 @@
             $(".like_btn").click(function(){
                 $(this).toggleClass("on");
             });
-            //add list img toggle
-            $(".add_list").click(function(){
-                $(this).toggleClass("on");
-            });
-            //play music img toggle
-            $(".play_music").click(function(){
-                $(this).toggleClass("on");
-            });
-
+            
             // string count 100
             $(".comment_box div form textarea").keyup(function(){
                 var text_count = $(this).val().length;
@@ -209,7 +197,9 @@
     		}
     	}
     </script>
-
+    
+	<%@ include file="/WEB-INF/view/player/playnlog.jsp" %>
+	
     <style>
         /* song count */
         .song_count {font-size: 18px; margin: 20px 0;}
@@ -297,7 +287,7 @@
         .comment_list > div > div:nth-child(1) > div {position: absolute; bottom: 20px;}
         .comment_list > div > div:nth-child(1) > div > a {color: #ccc;}
         .comment_list > div > div:nth-child(1) > div > a:hover {color: #aaa;}
-        .comment_list > div > div:nth-child(2) {float: left; margin-left: 90px; margin-top: 5px; color: #ccc;}
+        .comment_list > div > div:nth-child(2) {float: left; margin-left: 135px; margin-top: 5px; color: #ccc;}
         .comment_list > div > div:nth-child(2) a:hover {color: #aaa;}
 
         /* co_comment list */
@@ -344,7 +334,6 @@
                 <ul class="clear">
                     <li><input id="check_all" type="checkbox"></li>
                     <li><a href="#">듣기</a></li>
-                    <li><a href="#">재생목록에 추가</a></li>
                 </ul>
                 <table>
                     <tr>
@@ -378,10 +367,10 @@
 	                        <a class="like_btn" href="#"></a>
 	                    </td>
 	                    <td>
-	                        <a class="play_music button_icons" href="#"></a>
+	                        <a class="play_music button_icons" onclick="javascript:player(no=${vo.song_no });" href="#"></a>
 	                    </td>
                   		<td>
-                       		<a class="add_list button_icons" href="#"></a>
+                       		<a class="add_list button_icons" onclick="javascript:player(no=${vo.song_no });" href="#"></a>
                   		</td>
                 	</tr>
                     </c:forEach>

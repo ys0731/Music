@@ -35,14 +35,6 @@
             $(".like_btn").click(function(){
                 $(this).toggleClass("on");
             });
-            //add list img toggle
-            $(".add_list").click(function(){
-                $(this).toggleClass("on");
-            });
-            //play music img toggle
-            $(".play_music").click(function(){
-                $(this).toggleClass("on");
-            });
 
             // open / fold btn
             var click_count = 0;
@@ -51,7 +43,7 @@
                 $(".album_intro").toggleClass("on");
                 var fold = document.getElementById('open_info');
                 click_count++;
-                if (click_count % 2 == 0) {
+                if (click_count % 2 == 1) {
                     fold.innerHTML = '접기';
                     $(this).css({'background-position': '50px 3px'});
                 } else {
@@ -209,6 +201,9 @@
     		}
     	}
     </script>
+    
+    <%@ include file="/WEB-INF/view/player/playnlog.jsp" %>
+    
     <style>
         /* chart medium btn */
         .chart_box > ul:first-child {margin-top: 40px;}	
@@ -299,7 +294,7 @@
         .comment_list > div > div:nth-child(1) > div {position: absolute; bottom: 20px;}
         .comment_list > div > div:nth-child(1) > div > a {color: #ccc;}
         .comment_list > div > div:nth-child(1) > div > a:hover {color: #aaa;}
-        .comment_list > div > div:nth-child(2) {float: left; margin-left: 90px; margin-top: 5px; color: #ccc;}
+        .comment_list > div > div:nth-child(2) {float: left; margin-left: 135px; margin-top: 5px; color: #ccc;}
         .comment_list > div > div:nth-child(2) a:hover {color: #aaa;}
 
         /* co_comment list */
@@ -353,7 +348,6 @@
                 <ul class="clear">
                     <li><input id="check_all" type="checkbox"></li>
                     <li><a href="#">듣기</a></li>
-                    <li><a href="#">재생목록에 추가</a></li>
                 </ul>
                 <table>
                     <tr>
@@ -387,10 +381,10 @@
 	                        <a class="like_btn" href="#"></a>
 	                    </td>
 	                    <td>
-	                        <a class="play_music button_icons" href="#"></a>
+	                        <a class="play_music button_icons" onclick="javascript:player(no=${vo.song_no });" href="#"></a>
 	                    </td>
                   		<td>
-                       		<a class="add_list button_icons" href="#"></a>
+                       		<a class="add_list button_icons" onclick="javascript:player(no=${vo.song_no });" href="#"></a>
                   		</td>
                 	</tr>
                     </c:forEach>

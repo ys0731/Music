@@ -17,7 +17,7 @@
                     <button class="search_btn" type="submit">
                         <img src="/music/img/search.png" alt="search">
                     </button>
-                    <input class="search_text hide_input_outline no_outline" type="text" name="searchword" id="searchword" value="${searchword}" placeholder="아티스트 혹은 곡명을 검색해주세요">
+                    <input class="search_text hide_input_outline no_outline" type="text" name="searchword" id="searchword" value="${searchword}" placeholder="아티스트 혹은 곡명을 검색해주세요" autocomplete="off">
                 </form>
                 <div class="rise"><p>급상승</p></div>
                 <div class="rising">

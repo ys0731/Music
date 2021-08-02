@@ -22,8 +22,6 @@ public class ChartVo extends CommonVo{
 	private int ar_no; //아티스트 번호
 	private int al_no; //앨범 번호
 	
-	
-	
 	public int getAr_no() {
 		return ar_no;
 	}
