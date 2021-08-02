@@ -97,7 +97,7 @@
                    	<li style="display: inline-block"><a href='javascript:getList(reqPage=${adminSongVo.startPage - 1 })'><<</a></li>
                 </c:if>
                 <c:forEach var="rp" begin="${adminSongVo.startPage }" step="1" end="${adminSongVo.endPage }">
-                    <li style="display: inline-block"><a href='javascript:getList(reqPage=${rp })' <c:if test="${rp == adminSongVo.reqPage }">style='color: red;'</c:if>>${rp }</a></li>                        
+                    <li style="display: inline-block"><a href="javascript:getList(${rp },'${param.stype}', '${param.sval }', '${param.order }', '${param.direct }', ${param.no })" <c:if test="${rp == adminSongVo.reqPage }">style='color: red;'</c:if>>${rp }</a></li>                        
                 </c:forEach>
                 <c:if test="${adminSongVo.endPage < adminSongVo.totPage }">
                   	<li style="display: inline-block"><a href='javascript:getList(reqPage=${adminSongVo.endPage - 1 })'>>></a></li>

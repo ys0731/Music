@@ -25,9 +25,9 @@
 	<!-- DBCP연결 -->
 <bean id="dataSource" class="org.apache.commons.dbcp.BasicDataSource" destroy-method="close">
 		<property name="driverClassName" value="com.mysql.jdbc.Driver"></property>
-		<property name="url" value="jdbc:mysql://localhost:3306/goldrocket"></property>
-		<property name="username" value="goldrocket"></property>
-		<property name="password" value="sendmusic1@"></property>
+		<property name="url" value="jdbc:mysql://localhost:3307/music"></property>
+		<property name="username" value="music"></property>
+		<property name="password" value="music1234"></property>
 	</bean> 
 	
 	<!-- factory bean -->	
