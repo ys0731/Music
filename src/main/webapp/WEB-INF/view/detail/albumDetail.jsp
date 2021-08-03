@@ -80,6 +80,8 @@
         			alert('내용을 입력해 주세요');
         	} else {
        			if (confirm('댓글을 등록하시겠습니까?')) {
+       				console.log("comment", $("#comment").val())
+       				console.log("album_no",$("#album_no").val())
        	        	var payload = {
        	        		content : $("#comment").val(),
        	         		album_no : $("#album_no").val(),
@@ -312,7 +314,7 @@
 
 <body>
     <%@ include file="/WEB-INF/view/include/top.jsp" %>
-    <div id="container">
+    <div id="container" style="padding-bottom: 100px;">
         <div class="center">
             <h2>${vo.album }</h2>
             <div class="artist_box clear">
@@ -395,22 +397,6 @@
                 <p>${vo.info }</p>
             </div>
             <a id="open_info" class="on" href="#">펼치기</a>
-            <div id="comment_box2" class="comment_box">
-                <h3>댓글</h3>
-                <div>
-                    <form action="" method="POST" class="clear">
-                        <textarea name="comment" id="comment" placeholder="내용을 입력해주세요." maxlength="100"></textarea>
-                        
-                        <button class="insert_comment" onclick="goSave(event);">등록</button>
-                    </form>
-                </div>
-                <p class="max_type">
-                    <span>(</span><span id="text_count">0</span><span>/100)</span>
-                </p>
-            </div>
-            <div class="comment_list_wrapper">
-				<div id="commentArea"></div>
-            </div>
         </div>
     </div>
     <%@ include file="/WEB-INF/view/include/bottom.jsp" %>

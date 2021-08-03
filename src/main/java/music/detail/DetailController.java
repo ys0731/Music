@@ -1,9 +1,6 @@
 package music.detail;
 
-
-
 import java.util.List;
-import java.util.Map;
 
 import javax.servlet.http.HttpSession;
 
@@ -14,7 +11,6 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 
 import music.admin.artist.AdminArtistVo;
-import music.detailAlbumComment.AlbumCommentService;
 import music.search.SearchService;
 import music.search.SearchVo;
 
@@ -24,8 +20,6 @@ public class DetailController {
 
 	@Autowired
 	DetailService service;
-	@Autowired
-	AlbumCommentService aService;
 	@Autowired
 	SearchService sService;
 	

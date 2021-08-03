@@ -5,7 +5,7 @@
 	
 	<!-- 시간별 순위 차트 출력 sql -->
 	<select id="ChartList_24hits" parameterType="music.chart.ChartVo" resultType="music.chart.ChartVo">
-	    SELECT a.song_no as no, a.rank1 as rank1, a.cnt as playcount, b.rank2 as rank2, (b.rank2-a.rank1) AS rank_ch, s.title as title, 
+	    SELECT a.song_no as no, a.rank1 as rank1, a.cnt as playcount, b.rank2 as rank2, (b.rank2-a.rank1) AS ranknum, s.title as title, 
 		      s.lyrics as lyrics, ar.artist as artist, al.album as album, al.img_org AS org, al.img_real AS rel,
 		        ar.no as ar_no, al.no as al_no		        
 		FROM (
@@ -23,7 +23,7 @@
 		      p1.cnt, p1.song_no
 		   FROM (
 		      SELECT COUNT(*) AS cnt, song_no FROM play
-		      WHERE TIMESTAMPDIFF(minute,play.clickdate,NOW()) >= 1
+		      WHERE TIMESTAMPDIFF(hour,play.clickdate,NOW()) >= 1
 		      GROUP BY song_no
 		      ORDER BY cnt DESC
 		   ) as p1
@@ -33,83 +33,6 @@
 		JOIN artist ar ON s.artist_no = ar.no
 		JOIN album al ON s.album_no = al.no
 		ORDER BY rank1 ASC
-	
-	
-	
-		<!-- SET @ORD_NUM1 := 0;
-		SET @ORD_NUM2 := 0; -->
-		<!-- SELECT a.song_no as no, a.rank1, a.cnt as playcount, b.rank1, (a.rank1-b.rank1) AS rank_ch, s.title as title, 
-				s.lyrics as lyrics, ar.artist as artist, al.album as album, al.img_org AS org, al.img_real AS rel,
-		        ar.no as ar_no, al.no as al_no
-		FROM (
-			SELECT
-				@ORD_NUM1 := @ORD_NUM1 + 1 as rank1,
-				p1.cnt, p1.song_no
-			FROM (
-				SELECT COUNT(*) AS cnt, song_no FROM play
-				GROUP BY song_no
-				ORDER BY cnt DESC
-			) as p1
-		) AS a JOIN (
-			SELECT
-				@ORD_NUM2 := @ORD_NUM2 + 1 as rank1,
-				p1.cnt, p1.song_no
-			FROM (
-				SELECT COUNT(*) AS cnt, song_no FROM play
-				GROUP BY song_no
-				ORDER BY cnt DESC
-			) as p1
-		) AS b
-		ON a.song_no = b.song_no
-		JOIN song s ON a.song_no = s.no
-		JOIN artist ar ON s.artist_no = ar.no
-		JOIN album al ON s.album_no = al.no -->
-		
-		
-		<!-- SELECT  thisweek.no, thisweek.playcount, thisweek.title, 
-		thisweek.lyrics,  thisweek.artist, thisweek.album, 
-		thisweek.org, thisweek.rel 
-        , if(prevweek.rowplace is null,999,(ifnull(prevweek.rowplace,0)-ifnull(thisweek.rowplace,0))) AS rank_ch, thisweek.al_no,thisweek.ar_no,
-        <if test="user_no != 0">
-        (SELECT COUNT(*) FROM mlike WHERE song_no = thisweek.no AND user_no=#{user_no}) AS mlike_cnt 
-        </if>
-         <if test="user_no == 0">
-        0 AS mlike_cnt 
-        </if>
-        FROM                                                                                                            
-	        (                                                                                                                 
-	          SELECT row_number() over(ORDER BY COUNT(*) DESC) AS rowplace 
-	          ,p.song_no AS no, count(*) as playcount, s.title AS title
-	          ,s.lyrics AS lyrics,  ar.artist AS artist, al.album AS album, 
-			  al.img_org AS org, al.img_real AS rel, al.no AS al_no,ar.no AS ar_no                              
-	       	  FROM play p		                        
-	          INNER JOIN song s ON p.song_no = s.no
-			  INNER JOIN artist ar ON s.artist_no = ar.no
-			  INNER JOIN album al ON s.album_no = al.no 
-			  <![CDATA[
-	          WHERE TIMESTAMPDIFF(HOUR,p.clickdate,NOW())>=0 AND TIMESTAMPDIFF(HOUR,p.clickdate,NOW())<=1
-	          ]]>
-	          GROUP BY p.song_no   
-		      LIMIT 0,100  
-	         ) AS thisweek  
-        LEFT OUTER JOIN  
-	       (        
-	     	SELECT row_number() OVER(order by COUNT(*) DESC) AS rowplace 
-	        ,p.song_no AS no2, COUNT(*) as playcount2, s.title AS title2
-	        ,s.lyrics as lyrics2,  ar.artist AS artist2, al.album AS album2
-	        ,al.img_org AS org2, al.img_real AS rel2, al.no AS al_no2,ar.no AS ar_no2                                     
-	        FROM play p
-		    INNER JOIN song s ON p.song_no = s.no
-		    INNER JOIN artist ar ON s.artist_no = ar.no
-		    INNER JOIN album al ON s.album_no = al.no	
-		     <![CDATA[	                                                            
-	        WHERE TIMESTAMPDIFF(HOUR,p.clickdate,NOW())>=2 AND TIMESTAMPDIFF(HOUR,p.clickdate,NOW())<=3  
-	        ]]>
-	        GROUP BY p.song_no   
-		    LIMIT 0,100        
-           ) AS prevweek     
-  		ON thisweek.no = prevweek.no2 -->
-  		 
 	</select>
 	
 	<select id="ChartList_daily" parameterType="music.chart.ChartVo" resultType="music.chart.ChartVo">
