@@ -292,7 +292,7 @@
                     <span>비밀번호가 일치하지 않습니다.</span>
                 </div>
                 <div class="email_wrapper">
-                    <label for="email">이메일</label><input name="email" id="email" class="no_outline hide_input_outline" type="text" placeholder="ex) goldrocket@naver.com">
+                    <label for="email">이메일</label><input name="email" id="email" class="no_outline hide_input_outline" type="text" placeholder="ex)email@naver.com">
                 </div>
                 <div class="nickname_wrapper">
                     <label for="nickname">*닉네임</label><input name="nickname" id="nickname" class="no_outline hide_input_outline" type="text">

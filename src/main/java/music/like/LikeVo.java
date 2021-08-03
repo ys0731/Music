@@ -14,9 +14,17 @@ public class LikeVo extends CommonVo{
 	private int ar_no; //아티스트 번호
 	private int al_no; //앨범 번호
 	
+	private String rel;
 	
 	
 	
+	
+	public String getRel() {
+		return rel;
+	}
+	public void setRel(String rel) {
+		this.rel = rel;
+	}
 	public int getAr_no() {
 		return ar_no;
 	}

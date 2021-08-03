@@ -18,7 +18,7 @@
 	    function popup(no) {
 	        window.open("/music/chart/lyrics.do?no="+no, "popup", "width=400, height=600");
 	    }
-
+	  
         $(document).ready(function(){
             // change color when clicked
             $(".chart_btn li").click(function(){
@@ -34,19 +34,20 @@
             
             //좋아요
             $(".like").click(function() {
-            	var sno = $(this).data('no');
-            	$.ajax({
-            		url: '/music/like/like.do?sno='+sno,
-            		method: 'post',
-            		data: {
-            			no: sno           			
-            		},
-            		success: function(data) {
-            			console.log("success");
-            		}
-            		
-            	});
+                	var sno = $(this).data('no');
+                	$.ajax({
+                		url: '/music/like/like.do?sno='+sno,
+                		method: 'post',
+                		data: {
+                			no: sno           			
+                		},
+                		success: function(data) {
+                			console.log("success");
+                		}
+                		
+                	});
             });//함수 끝
+
             
             // sysdate
             var today = new Date();
@@ -181,7 +182,9 @@
                             </tr>
                         </c:if>
 	                    <c:forEach var="vo" items="${list }" varStatus="status">
-		                    
+	                    <input type="hidden" value="${vo.rank_ch }">
+	                    <input type="hidden" name="user_no" value="">
+		                   
 		                    <tr>
 		                		<td><input name="check_list" type="checkbox" data-Num="${vo.no }"></td>
 		                		<td>
@@ -212,7 +215,7 @@
 	                     		<p class="list_album" id="album"><a class="album" href="<%=request.getContextPath()%>/detail/albumDetail.do?album_no=${vo.al_no }">${vo.album }</a></p>
 	                   		</td>
 		                    <td>
-		                        <a class="like_btn like <c:if test="<%-- ${vo.mlike_cnt==1 } --%>">on</c:if>" href="#" data-no="${vo.no }"></a>
+		                        <a class="like_btn like <c:if test="${vo.mlike_cnt==1 }">on</c:if>" href="#" data-no="${vo.no }"></a>			                       
 		                    </td>
 		                    <td>
 		                         <a class="play_music button_icons play" href="#" onclick="javascript:player(no=${vo.no });" data-no="${vo.no }"></a>

@@ -14,62 +14,42 @@
     <%@ include file="/WEB-INF/view/include/headHtml.jsp" %>
 
     <script>
-	    $(function(){
+ 	// 전체 선택을 체크하면 개별 체크박스들도 모두 체크
+    function isAllChk(){
+    	var chk = $("#check_all").prop("checked");
+    	if(chk){
+    		$('input:checkbox[name="check_list"]').prop("checked",true);  	
+    	}else{
+    		$('input:checkbox[name="check_list"]').prop("checked",false);
+    	}
+    };
+
+    // 개별 체크 박스를 선택, 취소하면 전체 선택 체크박스는 해제 
+    function isChk(){
+    	$("#check_all").prop("checked",false);
+    };
+
+    $(function(){
 			var marginTop =  $("input[type='checkbox'][name='check_list']").length;
-			if (marginTop < 6) {
+			if (marginTop < 4) {
 				$("#container").css({"height": "638px"});
 			}
+			
+        	// 개별 체크박스 4개 선택시 전체체크 체크
+        	$('input:checkbox[name="check_list"]').change(function(){
+	        	if ($('input:checkbox[name="check_list"]:checked').length == 4) {
+	        		$("#check_all").prop("checked",true);
+	        	} else {
+	        		$("#check_all").prop("checked",false);
+	        	}
+        	}); 
 		});
-    
-        $(document).ready(function(){
-            // check all
-            $("#check_all").change(function(){
-                if ($("#check_all").is(':checked')) {
-                    $("input[type='checkbox'][name='check_list']").prop("checked", true);                  
-                } 
-                else {
-                    $("input[type='checkbox'][name='check_list']").prop("checked", false);
-                }
-            });
-
-            // preventDefault
-            $(".chart_box ul li a, .play_music, .add_list").click(function(e){
-                e.preventDefault();
-                // e.stopPropagation();
-            })
-            
-            $(".album").click(function() {
-            	var sno = $(this).data('no');
-            	$.ajax({
-            		url: '<%=request.getContextPath()%>/detail/albumDetail.do?album_no='+sno,
-            		method: 'post',
-            		data: {
-            			no: sno           			
-            		},
-            		success: function(data) {
-            			console.log("success");
-            			location.href='<%=request.getContextPath()%>/detail/albumDetail.do?album_no='+sno;
-            		}
-            		
-            	});
-            });//함수 끝
-            
-            $(".artist").click(function() {
-            	var sno = $(this).data('no');
-            	$.ajax({
-            		url: '<%=request.getContextPath()%>/detail/artistDetail.do?artist_no='+sno,
-            		method: 'post',
-            		data: {
-            			no: sno           			
-            		},
-            		success: function(data) {
-            			console.log("success");
-            			location.href='<%=request.getContextPath()%>/detail/artistDetail.do?artist_no='+sno;
-            		}
-            		
-            	});
-            });//함수 끝
+	    
+        // preventDefault
+        $(".chart_box ul li a, .play_music, .add_list").click(function(e){
+            e.preventDefault();
         });
+            
     </script>
 	<%@ include file="/WEB-INF/view/player/playnlog.jsp" %>
     <style>
@@ -118,13 +98,12 @@
         /* chart row */
         .chart_box table {margin-bottom: 20px;}
 
-        .chart_box table tr td:nth-child(1) {width: 25px;}
-        .chart_box table tr td:nth-child(2) {width: 70px; text-align: center;}
-        .chart_box table tr td:nth-child(3) {width: 320px;}
-        .chart_box table tr td:nth-child(4) {width: 157px;}
-        .chart_box table tr td:nth-child(5) {width: 100px;}
+        .chart_box table tr td:nth-child(1) {width: 155px;}
+        .chart_box table tr td:nth-child(2) {width: 240px; }
+        .chart_box table tr td:nth-child(3) {width: 177px; }
+        .chart_box table tr td:nth-child(4) {width: 100px;}
+        .chart_box table tr td:nth-child(5) {width: 45px; text-align: center;}
         .chart_box table tr td:nth-child(6) {width: 45px; text-align: center;}
-        .chart_box table tr td:nth-child(7) {width: 45px; text-align: center;}
 
         .chart_box table tr {border-bottom: 2px solid #ccc;}
         .chart_box table tr:nth-child(1) {color: #333; border-top: 2px solid #ccc; height: 40px; font-size: 12px;}
@@ -156,7 +135,7 @@
         .add_list:active {background-position: -165px 220px;}
         .add_list.on {background-position: -165px 220px;}
         
-         /* 페이징처리 */
+        /* 페이징처리 */
 		.pagenate {width:100%; clear:both; margin-left:100px;}
 		.pagenate {text-align:center; margin-top: 10px; margin-bottom: 10px;}
 		.pagenate li {display:inline-block;}
@@ -175,7 +154,7 @@
 
 <body>
     <%@ include file="/WEB-INF/view/include/top.jsp" %>
-    <div id="container">
+    <div id="container" style="margin-bottom: 98px;">
         <div class="center clear">
             <div class="left_side">
                 <div class="my_box clear">
@@ -213,14 +192,14 @@
                 <h2>최근감상곡</h2>
                 <form class="chart_box" action="" method="post">
                     <ul class="clear">
-                        <li><input id="check_all" type="checkbox"></li>
-                        <li><a href="#" onclick="javascript:checkplayer();">듣기</a></li>                       
+                        <li><input id="check_all" type="checkbox" name="check_all" onclick="isAllChk();"></li>
+                        <li><a href="#" onclick="javascript:checkplayer();">듣기</a></li>
                     </ul>
                     <table>
                         <tr>
                             <td></td>
-                            <td>No</td>
-                            <td>곡</td>
+                            <td style="margin: 30px;">곡</td>
+                            <td></td>
                             <td>아티스트</td>
                             <td>앨범</td>
                             <td>듣기</td>
@@ -231,20 +210,20 @@
                                 <td class="first" colspan="7">등록된 곡이 없습니다.</td>
                             </tr>
                         </c:if>
-                        <c:forEach var="vo" items="${list }" varStatus="status">
+                        <c:forEach var="vo" items="${list }" varStatus="status" >
                         <tr>
-                   			<td><input name="check_list" type="checkbox" data-Num="${vo.no }"></td>
+                   			<td><input name="check_list" type="checkbox" data-Num="${vo.no }" onclick="isChk();"></td>
                   			<td>
-                      			<p>${status.count }</p>
+                      			<a href="<%=request.getContextPath()%>/detail/albumDetail.do?album_no=${vo.al_no }"> <img class="album_mini" src="<%=path %>/upload/${vo.rel}" alt="album_img" ></a>
                    		    </td>
                    			<td>
                        			<p class="list_title">${vo.title }</p>
                    			</td>
                    			<td>
-		                       <p class="list_artist" id="artist"><a class="artist" href="#" data-no="${vo.ar_no }">${vo.artist }</a></p>
+		                       <p class="list_artist" id="artist"><a class="artist" href="<%=request.getContextPath()%>/detail/artistDetail.do?artist_no=${vo.ar_no}" data-no="${vo.ar_no }">${vo.artist }</a></p>
 		                    </td>
 			                <td>
-			                    <p class="list_album" id="album"><a class="album" href="#" data-no="${vo.al_no }">${vo.album }</a></p>
+			                    <p class="list_album" id="album"><a class="album" href="<%=request.getContextPath()%>/detail/albumDetail.do?album_no=${vo.al_no }" data-no="${vo.al_no }">${vo.album }</a></p>
 			                </td>
 			                <td>
 			                    <a class="play_music button_icons" href="#" onclick="javascript:player(no=${vo.no });" data-no="${vo.no }"></a>
@@ -257,19 +236,19 @@
                     </table>
                 </form>                
             </div>
-            <div class="pagenate clear">
-                 <ul class='paging'>
-                 <c:if test="${chartVo.startPage > chartVo.pageRange}">
-                 	<li><a href="/music/mymusic/mymusic.do?reqPage=${chartVo.startPage-1 }"><</a></li>
-                 </c:if>
-                 <c:forEach var="rp" begin="${chartVo.startPage}" end="${chartVo.endPage }">
-                     <li><a href='/music/mymusic/mymusic.do?reqPage=${rp}' <c:if test="${rp==chartVo.reqPage }">class='current'</c:if>>${rp }</a></li>
-                 </c:forEach>
-                 <c:if test="${chartVo.totPage > chartVo.endPage}">
-                 	<li><a href="/music/mymusic/mymusic.do?reqPage=${chartVo.endPage+1 }">></a></li>
-                 </c:if>
-                 </ul> 
-             </div>
+ 			<div class='pagenate clear'>
+				<ul class='paging'>				
+					<c:if test="${chartVo.startPage > chartVo.pageRange }">
+						<li><a href="mymusic.do?reqPage=${chartVo.startPage-1}"> < </a></li>
+					</c:if>
+					<c:forEach var="req" begin="${chartVo.startPage }" end="${chartVo.endPage }">
+							<li><a href='mymusic.do?reqPage=${req}' <c:if test="${req==chartVo.reqPage }">class='current'</c:if>> ${req} </a></li>
+					</c:forEach>
+		            <c:if test="${chartVo.totPage > chartVo.endPage}"> 
+		         		<li><a href="mymusic.do?reqPage=${chartVo.endPage+1}">></a></li>
+		         	</c:if>
+         		</ul>
+			</div>           
         </div>
     </div>
     <%@ include file="/WEB-INF/view/include/bottom.jsp" %>

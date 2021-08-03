@@ -9,7 +9,7 @@
 	</insert>
 	
 	<!-- 좋아요 취소-->
-	<delete id="dislike">
+	<delete id="dislike" parameterType="music.like.LikeVo">
 		DELETE FROM mlike
 		WHERE song_no = #{song_no} AND  user_no = #{user_no}
 	</delete>
@@ -23,13 +23,14 @@
 	
 	<!-- 좋아요 누른 곡 목록 -->
 	<select id="like_List" resultType="music.like.LikeVo" parameterType="music.like.LikeVo">
-		SELECT s.title, ar.artist, al.album,(SELECT COUNT(*) FROM mlike WHERE song_no = s.no) AS liked
-		,ar.no AS ar_no, al.no AS al_no
+		SELECT s.title, ar.artist, al.album,(SELECT COUNT(*) FROM mlike WHERE song_no = s.no) AS liked,al.img_real AS rel
+		,ar.no AS ar_no, al.no AS al_no, s.no as song_no
 		FROM mlike l
 		JOIN song s ON l.song_no = s.no
 		JOIN artist ar ON s.artist_no = ar.no
 		JOIN album al ON s.album_no = al.no
 		WHERE user_no = #{user_no}
+		ORDER BY l.no DESC
 		LIMIT ${startIdx},${pageRow}
 	</select>
 	

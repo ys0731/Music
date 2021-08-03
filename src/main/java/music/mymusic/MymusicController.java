@@ -49,7 +49,7 @@ public class MymusicController {
 	public String mymusic_like(Model model, LikeVo lv, HttpSession sess,UserVo uv) {
 		uv = (UserVo)sess.getAttribute("userInfo");
 		lv.setUser_no(uv.getNo());
-		
+
 		model.addAttribute("list", lservice.like_List(lv));
 		model.addAttribute("uv", uv);
 		
@@ -102,7 +102,7 @@ public class MymusicController {
 	public String mymusic_edit(Model model, UserVo uv, HttpServletRequest req, HttpSession sess) {
 		uv = uservice.deatil(((UserVo)sess.getAttribute("userInfo")));		
 		String pwd = req.getParameter("newPwd");		
-		String email = req.getParameter("email")+"@"+req.getParameter("domain_input");
+		String email = req.getParameter("email");
 		String tel = req.getParameter("tel");
 		uv.setPwd(pwd);
 		uv.setEmail(email);
