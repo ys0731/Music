@@ -1,4 +1,4 @@
-<%-- <%@ page language="java" contentType="text/html; charset=UTF-8"
+<%@ page language="java" contentType="text/html; charset=UTF-8"
     pageEncoding="UTF-8"%>
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
 <%@ taglib prefix="fmt" uri="http://java.sun.com/jsp/jstl/fmt" %>
@@ -17,10 +17,8 @@
     <script>
 	    $(function(){
 			var marginTop =  $("input[type='checkbox'][name='check_list']").length;
-			if (marginTop == 0) {
+			if (marginTop < 6) {
 				$("#container").css({"height": "638px"});
-			} else if (marginTop <= 5) {
-				$("#container").css({"height": "540px"});
 			}
 		});
     
@@ -37,35 +35,31 @@
 
             
             $(".chart_box table").append(html);
-            $(".list_title").click(function(){
-                var offset = $(".comment_list").offset();
-                $('html, body').animate({scrollTop : offset.top}, 400);
-            })
+                     
                        
         });
         $(function() {
         	$(".content").click(function() {
             	var sno = $(this).data('no');
             	$.ajax({
-            		url: '<%=request.getContextPath()%>/detail/artistDetail.do?artist_no='+sno,
+            		url: '<%=request.getContextPath()%>/detail/albumDetail.do?album_no='+sno,
             		method: 'post',
             		data: {
             			no: sno           			
             		},
             		success: function(data) {
             			console.log("success");
-            			location.href='<%=request.getContextPath()%>/detail/artistDetail.do?artist_no='+sno;
+            			location.href='<%=request.getContextPath()%>/detail/albumDetail.do?album_no='+sno;
             		}
             		
             	});
             });//함수 끝
-        });    
-        
+        });           
     </script>
 
     <style>
         /* right side */
-        .right_side {float: right; width: 75%;}
+        .right_side {float: right; width: 75%; height: 500px;}
 
         /* profile box */
         .my_box {position: fixed; z-index: 1; width: 240px; background-color: #b0c4de; border-radius: 5px;}
@@ -109,9 +103,10 @@
         /* chart row */
         .chart_box table {margin-bottom: 20px;}
 
-       .chart_box table tr td:nth-child(1) {width: 50px; text-align: center;}
+        .chart_box table tr td:nth-child(1) {width: 50px; text-align: center;}
         .chart_box table tr td:nth-child(2) {width: 500px; text-align: center;}
         .chart_box table tr td:nth-child(3) {width: 200px; text-align: center;}
+       
 
 
         .chart_box table tr {border-bottom: 2px solid #ccc;}
@@ -120,7 +115,7 @@
 
         /* chart txt */
         .album_mini {float: left; width: 45px; height: 45px;}
-        .list_title {width: 460px; text-overflow: ellipsis; white-space: nowrap; overflow: hidden;}
+        .list_title {width: 460px; text-overflow: ellipsis; white-space: nowrap; overflow: hidden;}        
         .list_album {width: 95px; text-overflow: ellipsis; white-space: nowrap; overflow: hidden;}
 
         /* like btn */
@@ -137,8 +132,8 @@
         .add_list.on {background-position: -165px 220px;}
         
         /* 페이징처리 */
-		.pagenate {width:100%; clear:both; margin-left:120px;}
-		.pagenate {text-align:center; margin-top: 10px; margin-bottom: 10px;}
+		.pagenate {width:100%; clear:both; margin-left:100px;}
+		.pagenate {text-align:center;  margin-top: 10px; margin-bottom: 10px;}
 		.pagenate li {display:inline-block;}
 		.pagenate li:first-child { margin-left:0px; }
 		.pagenate li a{display:inline-block; text-decoration:none; padding:0; width:30px; height:30px; line-height:30px; border:1px solid #c7c8cc; box-sizing:border-box; margin-left:-1px; vertical-align:middle;}
@@ -182,7 +177,8 @@
                     <div class="my_box_bottom">
                         <ul class="my_comment">
                             <li>댓글</li>
-                            <li><a href="/music/mymusic/mymusic_comment2.do"><span>-</span><span>나의 댓글</span></a></li>
+                            <li><a href="/music/mymusic/mymusic_comment.do"><span>-</span><span>나의 댓글</span></a></li>
+                            <!-- <li><a href="/music/mymusic/mymusic_comment2.do"><span>-</span><span>아티스트 댓글</span></a></li> -->
                         </ul>
                         <a class="sign_out" href="/music/mymusic/mymusic_withdrawal.do">회원탈퇴</a>
                     </div>
@@ -192,7 +188,7 @@
             <div class="right_side">
                 <h2>나의 댓글</h2>
                 <form class="chart_box" action="" method="post">
-                    <ul class="clear">                        
+                    <ul class="clear">                      
                     </ul>
                     <table>
                         <tr>                           
@@ -207,31 +203,32 @@
                         </c:if>
                         
                         <c:forEach items="${list }" var="vo" varStatus="status">
-                        	<tr>
+                        	<tr>				                  
 				                  <td>
 				                      <p>${status.count }</p>
 				                  </td>
 				                  <td>
-				                     <p><a href="#" class="content" style="display: block; width: 500px; text-overflow: ellipsis; white-space: nowrap; overflow: hidden;" data-no="${vo.artist_no }">${vo.content }</a></p>
+				                      <p><a href="#" class="content" data-no="${vo.album_no }">${vo.content }</a></p>
 				                  </td>
 				                  <td>
 				                      <p class="list_artist"><fmt:formatDate value="${vo.regdate }" pattern="yyyy-MM-dd HH:mm"/></p>
 				                  </td>
                				</tr>
-                        </c:forEach>                      
+                        </c:forEach>
+                        
                     </table>
                 </form>               	
             </div>
             <div class="pagenate clear">
                         <ul class='paging'>
-                        <c:if test="${artistCommentVo.startPage > artistCommentVo.pageRange}">
-                        	<li><a href="/music/mymusic/mymusic_comment2.do?reqPage=${artistCommentVo.startPage-1 }"><</a></li>
+                        <c:if test="${albumCommentVo.startPage > albumCommentVo.pageRange}">
+                        	<li><a href="/music/mymusic/mymusic_comment.do?reqPage=${albumCommentVo.startPage-1 }"><</a></li>
                         </c:if>
-                        <c:forEach var="rp" begin="${artistCommentVo.startPage}" end="${artistCommentVo.endPage }">
-                            <li><a href='/music/mymusic/mymusic_comment2.do?reqPage=${rp}' <c:if test="${rp==artistCommentVo.reqPage }">class='current'</c:if>>${rp }</a></li>
+                        <c:forEach var="rp" begin="${albumCommentVo.startPage}" end="${albumCommentVo.endPage }">
+                            <li><a href='/music/mymusic/mymusic_comment.do?reqPage=${rp}' <c:if test="${rp==albumCommentVo.reqPage }">class='current'</c:if>>${rp }</a></li>
                         </c:forEach>
-                        <c:if test="${artistCommentVo.totPage > artistCommentVo.endPage}">
-                        	<li><a href="/music/mymusic/mymusic_comment2.do?reqPage=${artistCommentVo.endPage+1 }">></a></li>
+                        <c:if test="${albumCommentVo.totPage > albumCommentVo.endPage}">
+                        	<li><a href="/music/mymusic/mymusic_comment.do?reqPage=${albumCommentVo.endPage+1 }">></a></li>
                         </c:if>
                         </ul> 
                     </div>
@@ -240,4 +237,4 @@
      <%@ include file="/WEB-INF/view/include/bottom.jsp" %>
 </body>
 
-</html> --%>
+</html>

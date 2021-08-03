@@ -15,12 +15,13 @@ public class ChartVo extends CommonVo{
 	private String rel;
 	private int playcount; //누적 재생 수
 	private int genre; //장르
+	
 	private int rank_ch; //순위 등락
 	
 	private int user_no; //유저 번호
 	private int mlike_cnt; //좋아요 여부
 	private int ar_no; //아티스트 번호
-	private int al_no; //앨범 번호
+	private int al_no; //앨범 번호	
 	
 	public int getAr_no() {
 		return ar_no;
