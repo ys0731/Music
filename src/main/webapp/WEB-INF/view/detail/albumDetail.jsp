@@ -383,10 +383,10 @@
 	                        <a class="like_btn" href="#"></a>
 	                    </td>
 	                    <td>
-	                        <a class="play_music button_icons" onclick="javascript:player(no=${vo.song_no });" href="#"></a>
+	                        <a class="play_music button_icons" onclick="javascript:player(no=${vo.no });" href="#"></a>
 	                    </td>
                   		<td>
-                       		<a class="add_list button_icons" onclick="javascript:player(no=${vo.song_no });" href="#"></a>
+                       		<a class="add_list button_icons" onclick="javascript:player(no=${vo.no });" href="#"></a>
                   		</td>
                 	</tr>
                     </c:forEach>

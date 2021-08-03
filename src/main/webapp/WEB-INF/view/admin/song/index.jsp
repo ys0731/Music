@@ -99,8 +99,8 @@
 											<td class="first"><input type="checkbox" name="num" id="num" data-Num="${vo.no }"/></td>
 											<td>${vo.no }</td>
 											<td class="title"><a href="view.do?no=${vo.no }&reqPage=${adminSongVo.reqPage}&stype=${param.stype}&sval=${param.sval}&orderby=${param.orderby}&direct=${param.direct}">${vo.title }</a></td>
-											<td><a href="<c:if test="${!empty vo.artistName }"><%=request.getContextPath()%>/admin/album/view.do?no=${vo.album_no }&reqPage=1</c:if>" style="<c:if test="${empty vo.artistName }">color: red;</c:if>">${vo.albumName }<c:if test="${empty vo.albumName }">삭제된 앨범</c:if></a></td>
-											<td><a href="<c:if test="${!empty vo.artistName }"><%=request.getContextPath()%>/admin/artist/view.do?no=${vo.artist_no }&reqPage=1</c:if>" style="<c:if test="${empty vo.artistName }">color: red;</c:if>">${vo.artistName }<c:if test="${empty vo.artistName }">삭제된 아티스트</c:if></a></td>
+											<td><a href="<c:if test="${!empty vo.albumName }"><%=request.getContextPath()%>/admin/album/view.do?no=${vo.album_no }&reqPage=1</c:if>" style="<c:if test="${empty vo.albumName || vo.artistName }">color: red;</c:if>">${vo.albumName }<c:if test="${empty vo.albumName }">삭제된 앨범</c:if></a></td>
+											<td><a href="<c:if test="${!empty vo.artistName }"><%=request.getContextPath()%>/admin/artist/view.do?no=${vo.artist_no }&reqPage=1</c:if>" style="<c:if test="${empty vo.artistName || vo.albumName }">color: red;</c:if>">${vo.artistName }<c:if test="${empty vo.artistName }">삭제된 아티스트</c:if></a></td>
 											<td><fmt:formatDate value="${vo.regdate }" pattern="yyyy-MM-dd hh:mm"/></td>
 											<td class="last">admin</td>
 										</tr>					
