@@ -88,9 +88,9 @@
 											<div style="width: 160px; border: 5px double #ccc;">
 												<img alt="앨범커버_이미지" src="${vo.img}" style="width: 160px; height: 90px;">
 											</div>
-											<p style="margin: 10px 0">기존 썸네일 : ${vo.img }</p>
-											<p style="margin: 10px 0">변경할 썸네일</p>
-											<input type="text" id="img" name="img" class="w100" title="변경할 썸네일을 입력해주세요" >썸네일은 https://img.youtube.com/vi/유튜브링크 고유번호/mqdefault.jpg 형식으로 저장해주세요</input>
+										<%-- 	<p style="margin: 10px 0">기존 썸네일 : ${vo.img }</p> --%>
+											<!-- <p style="margin: 10px 0">변경할 썸네일</p> -->
+											<input type="text" id="img" name="img" class="w100" title="변경할 썸네일을 입력해주세요" value="${vo.img}" style="margin-top: 30px;"></input>
 										</td>
 									</tr>
 									<tr>

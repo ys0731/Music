@@ -34,7 +34,7 @@
         JOIN artist
         ON song.artist_no = artist.no
         WHERE artist.artist LIKE CONCAT('%',#{searchword},'%')
-        GROUP by album.no
+        GROUP by album.no 
 	</select>	
 		
 	<!--노래 검색  -->
