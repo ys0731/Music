@@ -17,6 +17,9 @@ public class ArtistCommentVo extends CommonVo {
 	
 	private String isDel;
 	private String name;
+	
+	private int replycount; // count(gno)
+	
 	public int getNo() {
 		return no;
 	}
@@ -79,4 +82,11 @@ public class ArtistCommentVo extends CommonVo {
 	}
 
 	
+	
+	public int getReplycount() {
+		return replycount;
+	}
+	public void setReplycount(int replycount) {
+		this.replycount = replycount;
+	}
 }

@@ -9,4 +9,6 @@ public interface ArtistCommentService {
 	int insertReply(ArtistCommentVo vo);
 	int delete(ArtistCommentVo vo);
 	List<ArtistCommentVo> findByNo(int no);
+	
+	ArtistCommentVo replycount(ArtistCommentVo vo);
 }

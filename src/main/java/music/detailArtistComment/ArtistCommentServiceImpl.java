@@ -66,5 +66,10 @@ public class ArtistCommentServiceImpl implements ArtistCommentService {
 	public List<ArtistCommentVo> findByNo(int no) {
 		return dao.findByNo(no);
 	}
+
+	@Override
+	public ArtistCommentVo replycount(ArtistCommentVo vo) {
+		return dao.replycount(vo);
+	}
 	
 }

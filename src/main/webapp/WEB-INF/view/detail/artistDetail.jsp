@@ -119,17 +119,29 @@
        	}
        	function commentDel(no) {
     		if (confirm('댓글을 삭제하시겠습니까?')) {
-        		$.ajax({
-        			url:'/music/artistDetailComment/delete.do',
+    			$.ajax({
+        			url:'/music/artistDetailComment/beforedelete.do',
         			data:{
-        				no:no
+        				no: no
         			},
         			success:function(res) {
         				if (res.trim()=='true') {
-            				alert('댓글이 삭제되었습니다.');
-            				commentList();
+            				alert('답글이 있는 댓글은 삭제할 수 없습니다.');
         				} else {
-        					alert('댓글 삭제 오류');
+        					$.ajax({
+			        			url:'/music/artistDetailComment/delete.do',
+			        			data:{
+			        				no:no
+			        			},
+			        			success:function(res) {
+			        				if (res.trim()=='true') {
+			            				alert('댓글이 삭제되었습니다.');
+			            				commentList();
+			        				} else {
+			        					alert('댓글 삭제 오류');
+			        				}
+			        			}
+			        		});
         				}
         			}
         		});

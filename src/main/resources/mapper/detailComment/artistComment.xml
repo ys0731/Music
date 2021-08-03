@@ -67,4 +67,10 @@
 		FROM artist_comment WHERE artist_no=#{artist_no} ORDER BY gno DESC, ono ASC
 	</select>
 	
+	<select id="replycount" parameterType="music.detailArtistComment.ArtistCommentVo" resultType="music.detailArtistComment.ArtistCommentVo">
+		SELECT COUNT(gno) AS replycount, (SELECT nested FROM artist_comment WHERE no = #{no}) AS nested
+		FROM artist_comment
+		WHERE gno = (SELECT gno FROM artist_comment WHERE no = #{no});
+	</select>
+	
 </mapper>

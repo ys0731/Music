@@ -23,9 +23,11 @@ String path = request.getContextPath();
 					</c:if>
 				</div>
 			</div>
-			<div <c:if test="${vo.nested > 0 }">style="margin-left: 95px;"</c:if>>
-				<a class="delete_btn" href="javascript:commentDel(no=${vo.no });">삭제</a>
-			</div>
+			<c:if test="${userInfo.no == vo.user_no}">
+				<div <c:if test="${vo.nested > 0 }">style="margin-left: 95px;"</c:if>>
+					<a class="delete_btn" href="javascript:commentDel(no=${vo.no });">삭제</a>
+				</div>
+			</c:if>
 		</div>
 	</div> 
 	<div class="co_comment_box on" name="co_comment_box_${status.count }" id="co_comment_box_${status.count }">

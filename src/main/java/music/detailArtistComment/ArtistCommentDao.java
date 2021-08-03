@@ -52,4 +52,8 @@ public class ArtistCommentDao {
 		return sqlSession.selectList("artistComment.findByNo", no);
 	}
 
+	public ArtistCommentVo replycount(ArtistCommentVo vo) {
+		return sqlSession.selectOne("artistComment.replycount", vo);
+	}
+
 }
