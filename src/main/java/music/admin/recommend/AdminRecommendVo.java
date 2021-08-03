@@ -15,7 +15,6 @@ public class AdminRecommendVo {
 	//----------todaytag_delete-------------
 	private int[] nos;
 	
-
 	public int getNo() {
 		return no;
 	}

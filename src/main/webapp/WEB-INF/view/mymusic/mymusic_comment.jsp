@@ -177,8 +177,8 @@
                     <div class="my_box_bottom">
                         <ul class="my_comment">
                             <li>댓글</li>
-                            <li><a href="/music/mymusic/mymusic_comment.do"><span>-</span><span>앨범 댓글</span></a></li>
-                            <li><a href="/music/mymusic/mymusic_comment2.do"><span>-</span><span>아티스트 댓글</span></a></li>
+                            <li><a href="/music/mymusic/mymusic_comment.do"><span>-</span><span>나의 댓글</span></a></li>
+                            <!-- <li><a href="/music/mymusic/mymusic_comment2.do"><span>-</span><span>아티스트 댓글</span></a></li> -->
                         </ul>
                         <a class="sign_out" href="/music/mymusic/mymusic_withdrawal.do">회원탈퇴</a>
                     </div>
@@ -186,7 +186,7 @@
             </div>
             
             <div class="right_side">
-                <h2>앨범 댓글</h2>
+                <h2>나의 댓글</h2>
                 <form class="chart_box" action="" method="post">
                     <ul class="clear">                      
                     </ul>
