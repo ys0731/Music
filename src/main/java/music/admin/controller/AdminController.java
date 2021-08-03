@@ -731,7 +731,7 @@ public class AdminController {
 	
 	//-----------------------------------------------------------delete.do
 	
-	@RequestMapping("/admin/album/deleteArr.do")
+	@RequestMapping("/admin/album/deletearr.do")
 	public void albumDelete(Model model, AdminAlbumVo vo, @RequestParam(value = "chkbox[]") List<String> chArr, HttpServletResponse res) throws IOException {
 		int r = 0;
 		int no = 0;
@@ -739,15 +739,16 @@ public class AdminController {
 		for (String i : chArr) {
 			no = Integer.parseInt(i);
 			vo.setNo(no);
-			r = albumService.delete(vo);
+		
+			r += albumService.delete(vo);
+		}
 
-			res.setContentType("text/html;charset=utf-8");
-			PrintWriter out = res.getWriter();
-			if (r > 0) {
-				out.print("true");
-			} else {
-				out.print("false");
-			}
+		res.setContentType("text/html;charset=utf-8");
+		PrintWriter out = res.getWriter();
+		if (r > 0) {
+			out.print("true");
+		} else {
+			out.print("false");
 		}
 		
 	}
@@ -765,7 +766,7 @@ public class AdminController {
 		}
 	}
 	
-	@RequestMapping("/admin/artist/deleteArr.do")
+	@RequestMapping("/admin/artist/deletearr.do")
 	public void artistDelete(Model model, AdminArtistVo vo, @RequestParam(value = "chkbox[]") List<String> chArr, HttpServletResponse res) throws IOException {
 		int r = 0;
 		int no = 0;
@@ -773,15 +774,16 @@ public class AdminController {
 		for (String i : chArr) {
 			no = Integer.parseInt(i);
 			vo.setNo(no);
-			r = artistService.delete(vo);
+		
+			r += artistService.delete(vo);
+		}
 
-			res.setContentType("text/html;charset=utf-8");
-			PrintWriter out = res.getWriter();
-			if (r > 0) {
-				out.print("true");
-			} else {
-				out.print("false");
-			}
+		res.setContentType("text/html;charset=utf-8");
+		PrintWriter out = res.getWriter();
+		if (r > 0) {
+			out.print("true");
+		} else {
+			out.print("false");
 		}
 		
 	}
@@ -799,7 +801,7 @@ public class AdminController {
 		}
 	}
 	
-	@RequestMapping("/admin/song/deleteArr.do")
+	@RequestMapping("/admin/song/deletearr.do")
 	public void songDelete(Model model, AdminSongVo vo, @RequestParam(value = "chkbox[]") List<String> chArr, HttpServletResponse res) throws IOException {
 		int r = 0;
 		int no = 0;
@@ -807,17 +809,17 @@ public class AdminController {
 		for (String i : chArr) {
 			no = Integer.parseInt(i);
 			vo.setNo(no);
-			r = songService.delete(vo);
-
-			res.setContentType("text/html;charset=utf-8");
-			PrintWriter out = res.getWriter();
-			if (r > 0) {
-				out.print("true");
-			} else {
-				out.print("false");
-			}
+			
+			r += songService.delete(vo);
 		}
 		
+		res.setContentType("text/html;charset=utf-8");
+		PrintWriter out = res.getWriter();
+		if (r > 0) {
+			out.print("true");
+		} else {
+			out.print("false");
+		}
 	}
 	
 	@RequestMapping("/admin/song/delete.do")
@@ -857,7 +859,7 @@ public class AdminController {
 		
 	}
 	
-	@RequestMapping("/admin/mv/deleteArr.do")
+	@RequestMapping("/admin/mv/deletearr.do")
 	public void mvDelete(Model model, AdminMvVo vo, @RequestParam(value = "chkbox[]") List<String> chArr, HttpServletResponse res) throws IOException {
 		int r = 0;
 		int no = 0;
@@ -865,7 +867,8 @@ public class AdminController {
 		for (String i : chArr) {
 			no = Integer.parseInt(i);
 			vo.setNo(no);
-			r = mvService.delete(vo);
+			
+			r += mvService.delete(vo);
 		}
 		
 		res.setContentType("text/html;charset=utf-8");

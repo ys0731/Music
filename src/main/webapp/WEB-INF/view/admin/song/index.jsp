@@ -29,7 +29,7 @@
 			});
 			
 			$.ajax({
-				url: 'deleteArr.do',
+				url: 'deletearr.do',
 				method: 'post',
 				data: {
 					chkbox : chkArr
