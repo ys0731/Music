@@ -7,6 +7,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.RequestParam;
 
 import music.user.UserService;
 import music.user.UserVo; 
@@ -20,7 +21,7 @@ public class LikeController {
 	@Autowired
 	UserService uservice;
 	
-	//AJAX로 처리 고민
+	//
 	@RequestMapping("/like/like.do")
 	public String like(LikeVo lv, Model model,HttpSession sess,UserVo uv, HttpServletRequest req) {
 		int r;
@@ -42,4 +43,22 @@ public class LikeController {
 		}
 	}
 	
+	@RequestMapping("/like/deleteLiked.do")
+	public String deleteLiked(LikeVo lv, Model model,HttpSession sess,UserVo uv, HttpServletRequest req, @RequestParam int song_no,@RequestParam int user_no) {	
+
+//		uv = (UserVo)sess.getAttribute("userInfo");  //로그인한 유저의 정보
+//		int uno = uv.getNo();  //로그인한 유저의 유저번호
+//		int sno = Integer.parseInt(req.getParameter("sno")); //좋아요 누른 곡의 곡번호
+		lv.setSong_no(song_no);
+		lv.setUser_no(user_no);
+
+		int r=lservice.dislike(lv);
+		if(r>0) {
+			model.addAttribute("msg","true");
+			return "include/result";			
+		}else {
+			model.addAttribute("msg","false");
+			return "include/result";			
+		}
+	}	
 }

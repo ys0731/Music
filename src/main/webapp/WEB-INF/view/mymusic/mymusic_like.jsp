@@ -14,66 +14,17 @@
     <%@ include file="/WEB-INF/view/include/headHtml.jsp" %>
     <%@ include file="/WEB-INF/view/player/playnlog.jsp" %>
 
-    <script>
-	    $(function(){
-			var marginTop =  $("input[type='checkbox'][name='check_list']").length;
-			if (marginTop < 6) {
-				$("#container").css({"height": "638px"});
-			}
-		});
-    
-        $(document).ready(function(){
-            // check all
-            $("#check_all").change(function(){
-                if ($("#check_all").is(':checked')) {
-                    $("input[type='checkbox'][name='check_list']").prop("checked", true);                  
-                } 
-                else {
-                    $("input[type='checkbox'][name='check_list']").prop("checked", false);
-                }
-            });
-
-            
+    <script>  
+    $(function(){            
             // preventDefault
             $(".chart_box ul li a, .play_music, .add_list").click(function(e){
                 e.preventDefault();
-            })
-            
-            $(".album").click(function() {
-            	var sno = $(this).data('no');
-            	$.ajax({
-            		url: '<%=request.getContextPath()%>/detail/albumDetail.do?album_no='+sno,
-            		method: 'post',
-            		data: {
-            			no: sno           			
-            		},
-            		success: function(data) {
-            			console.log("success");
-            			location.href='<%=request.getContextPath()%>/detail/albumDetail.do?album_no='+sno;
-            		}
-            		
-            	});
-            });//함수 끝
-            
-            $(".artist").click(function() {
-            	var sno = $(this).data('no');
-            	$.ajax({
-            		url: '<%=request.getContextPath()%>/detail/artistDetail.do?artist_no='+sno,
-            		method: 'post',
-            		data: {
-            			no: sno           			
-            		},
-            		success: function(data) {
-            			console.log("success");
-            			location.href='<%=request.getContextPath()%>/detail/artistDetail.do?artist_no='+sno;
-            		}
-            		
-            	});
-            });//함수 끝
+            })              
             
         });
-    </script>
 
+
+    </script>
     <style>
         /* right side */
         .right_side {float: right; width: 75%; height: 500px;}
@@ -121,13 +72,13 @@
         .chart_box table {margin-bottom: 20px;}
 
         .chart_box table tr td:nth-child(1) {width: 42px;}
-        .chart_box table tr td:nth-child(2) {width: 153px; text-align: center;}
+        .chart_box table tr td:nth-child(2) {width: 153px; }
         .chart_box table tr td:nth-child(3) {width: 150px;}
         .chart_box table tr td:nth-child(4) {width: 157px;}
         .chart_box table tr td:nth-child(5) {width: 100px;}
-        .chart_box table tr td:nth-child(6) {width: 115px; }
+        .chart_box table tr td:nth-child(6) {width: 160px; }
         .chart_box table tr td:nth-child(6) span {display: block; float: left; margin-top: 5px;}
-        .chart_box table tr td:nth-child(7) {width: 45px; text-align: center;}
+        /* .chart_box table tr td:nth-child(7) {width: 45px; text-align: center;} */
 
         .chart_box table tr {border-bottom: 2px solid #ccc;}
         .chart_box table tr:nth-child(1) {color: #333; border-top: 2px solid #ccc; height: 40px; font-size: 12px;}
@@ -147,13 +98,8 @@
 
         /* button icons */
         .button_icons {display: block; width: 24px; height: 24px; background-image: url("<%=path %>/img/button_icons.png"); border-radius: 50%; overflow: hidden;}
-         
-        /* .play_music btn */
-        .play_music {background-position: 0px -167px; margin-left: 10.5px; }
-        .play_music:hover {background-position: 221px -167px;}
-        .play_music:active {background-position: 249px -167px;}
-        .play_music.on {background-position: 249px -167px;}
-        
+  
+       
         /* 페이징처리 */
 		.pagenate {width:100%; clear:both; margin-left:100px;}
 		.pagenate {text-align:center; margin-top: 10px; margin-bottom: 10px;}
@@ -211,19 +157,14 @@
             <div class="right_side">
                 <h2>좋아요</h2>
                 <form class="chart_box" action="" method="post">
-                    <ul class="clear">
-                        <li><input id="check_all" type="checkbox"></li>
-                        <li><a href="#" onclick="javascript:checkplayer();">듣기</a></li>
-                    </ul>
                     <table>
                         <tr>
                             <td></td>
-                            <td>NO</td>
                             <td>곡</td>
+                            <td></td>
                             <td>아티스트</td>
                             <td>앨범</td>
                             <td>좋아요</td>
-                            <td>듣기</td>
                         </tr>
                         <c:if test="${empty list }">
                             <tr>
@@ -232,25 +173,22 @@
                         </c:if>
                         <c:forEach var="vo" items="${list }" varStatus="status">
                         <tr>
-		                  <td><input name="check_list" type="checkbox" data-Num="${vo.no }"></td>
+		                  <td></td>
 		                  <td>
-		                       <p>${status.count }</p>
+		                  	   <a href="<%=request.getContextPath()%>/detail/albumDetail.do?album_no=${vo.al_no }"> <img class="album_mini" src="<%=path %>/upload/${vo.rel}" alt="album_img" ></a>
 		                   </td>
 		                  <td>
 		                       <p class="list_title">${vo.title }</p>
 		                   </td>
 		                   <td>
-		                       <p class="list_artist" id="artist"><a class="artist" href="#" data-no="${vo.ar_no }">${vo.artist }</a></p>
+		                       <p class="list_artist" id="artist"><a class="artist" href="<%=request.getContextPath()%>/detail/artistDetail.do?artist_no=${vo.ar_no}" data-no="${vo.ar_no }">${vo.artist }</a></p>
 		                   </td>
 		                   <td>
-		                       <p class="list_album" id="album"><a class="album" href="#" data-no="${vo.al_no }">${vo.album }</a></p>
+		                       <p class="list_album" id="album"><a class="album" href="<%=request.getContextPath()%>/detail/albumDetail.do?album_no=${vo.al_no }" data-no="${vo.al_no }">${vo.album }</a></p>
 		                   </td>
 		                   <td class="clear">
-		                       <a class="like_btn" href="#"></a><span>${vo.liked }</span>
-		                   </td>
-		                   <td>
-		                       <a class="play_music button_icons play" href="#" onclick="javascript:player(no=${vo.no });" data-no="${vo.no }"></a>
-		                   </td>
+		                       <a class="like_btn" href="javascript:void(0);"></a><span>${vo.liked }</span>
+		                   </td>		         
                 		</tr>
                         </c:forEach>
                     </table>

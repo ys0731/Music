@@ -12,7 +12,8 @@
     <title>내정보</title>
    <%@ include file="/WEB-INF/view/include/headHtml.jsp" %>
     
-    <script>           
+    <script>      
+
           	$(function() {
           	//닉네임 중복확인
                 $("#chk_nick").click(function(){
@@ -47,7 +48,11 @@
               		if($("#nickname").val()==''){
         				alert('닉네임을 입력해 주세요.');
         				$("#nickname").focus();
-        			} else {
+        				return;        				
+        			}if($("input[name=checked_nickname]").val()==''){
+    	        		alert('닉네임 중복확인을 체크해주세요.');
+    	        		return;
+    	        	}else {
         				$.ajax({
         					url:'<%=request.getContextPath()%>/mymusic/mymusic_nick_edit.do',
         					data:{
@@ -111,11 +116,12 @@
                 </div>
                 <div class="my_info_div2">
                     <div class="left2">
-                         <label for="nickname"><p style="margin-top: 27.5px;">별명</p></label>
+                         <label for="nickname"><p style="margin-top: 27.5px;">닉네임</p></label>
                     </div>
                     <div class="right2">
                          <input type="text" name="nickname" id="nickname">
                          <button id="chk_nick">중복확인</button>
+                         <input type="hidden" name="checked_nickname" value="">
                     </div>
                  </div>
                  <div class="btn_myinfo_div">

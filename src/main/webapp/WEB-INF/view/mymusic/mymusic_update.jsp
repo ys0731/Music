@@ -15,12 +15,12 @@
     <link rel="stylesheet" href="<%=path %>/css/reset.css">
     <link rel="stylesheet" href="<%=path %>/css/header_footer.css">
     <script>
-        $(document).ready(function() {
+        $(document).ready(function() {      	
             $(".update_form_btn").click(function() {
                 var oldPwd = $("#oldPwd").val();
                 var newPwd = $("#newPwd").val();
                 var newPwd2 = $("#newPwd2").val();
-                var email = $("#email").val() + "@" + $("#domain").val();
+                var email = $("#email").val();
                 var tel = $("#nat_no_input").val() + $("#tel").val();
                 
                 var check1 = /^(?=.*[a-zA-Z])(?=.*[0-9]).{10,20}$/.test(newPwd);   //영문,숫자
@@ -30,7 +30,7 @@
             	var check3 = /^(?=.*[^a-zA-Z0-9])(?=.*[0-9]).{10,20}$/.test(newPwd);  //특수문자, 숫자
 
             	if(!(check1||check2||check3)){
-            		alert("사용할 수 없은 비밀번호 입니다.");
+            		alert("사용할 수 없는 비밀번호 입니다.");
             		return false;
             	}
                 	                              
@@ -46,7 +46,7 @@
                     alert('전화번호를 올바르게 입력해주세요.');
                     $("#tel").focus();
                     return false;
-                } else if(($("#email").val()=="") || ($("#domain").val()=="")) {
+                } else if(($("#email").val()=="")) {
                     alert('이메일을 올바르게 입력해주세요.');
                     $("#email").focus();
                     return false;
@@ -124,29 +124,14 @@
                     <tr>
                         <td><label for="email">이메일</label></td>
                         <td>
-                            <input type="text" id="email" name="email"><a class="dot">@</a><input type="text" id="domain_input" name="domain_input">
-                            <select id="domain">
-                                <option value="">도메인 선택</option>
-                                <option value="naver.com">naver.com</option>
-                                <option value="hanmail.net">hanmail.net</option>
-                                <option value="google.com">google.com</option>
-                                <option value="nate.com">nate.com</option>
-                                <option value="yahoo.com">yahoo.com</option>
-                            </select>
+                            <input type="text" id="email" name="email" placeholder="ex)email@naver.com" value="${user.email }">
+                           
                         </td> 
                     </tr>
                     <tr>
                         <td><label for="tel">휴대폰번호</label></td>
                             <td>
-                            <select id="nat_no">
-                                <option value="82">대한민국(+82)</option>
-                                <option value="81">일본(+81)</option>
-                                <option value="86">중국(+86)</option>
-                                <option value="44">영국(+44)</option>
-                                <option value="1">미국(+1)</option>
-                            </select>
-                            <input type="text" style="width: 35px;" id="nat_no_input" value="82">
-                            <input type="text" placeholder="'-'없이 숫자만 입력" id="tel" name="tel">                            
+							<input name="tel" id="tel" type="text" placeholder="ex) 01012341234" maxlength="11">                         
                         </td>
                     </tr>
                 </table>
