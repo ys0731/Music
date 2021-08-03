@@ -10,8 +10,6 @@ import org.springframework.web.bind.annotation.RequestMapping;
 
 import music.chart.ChartService;
 import music.chart.ChartVo;
-import music.detailAlbumComment.AlbumCommentService;
-import music.detailAlbumComment.AlbumCommentVo;
 import music.detailArtistComment.ArtistCommentService;
 import music.detailArtistComment.ArtistCommentVo;
 import music.like.LikeService;
@@ -30,9 +28,6 @@ public class MymusicController {
 	
 	@Autowired
 	LikeService lservice;
-	
-	@Autowired
-	AlbumCommentService acservice;
 	
 	@Autowired
 	ArtistCommentService arcservice;
@@ -129,27 +124,15 @@ public class MymusicController {
 		
 	}
 	
-	@RequestMapping("/mymusic/mymusic_comment.do")
-	public String comment(UserVo uv, HttpServletRequest req, HttpSession sess,Model model,AlbumCommentVo acv) {
+	@RequestMapping("/mymusic/mymusic_comment2.do")
+	public String comment2(UserVo uv, HttpServletRequest req, HttpSession sess,Model model,ArtistCommentVo arcv) {
 		uv = (UserVo)sess.getAttribute("userInfo");
-		acv.setUser_no(uv.getNo());
-		acv.setPageRow(4);
+		arcv.setUser_no(uv.getNo());
+		arcv.setPageRow(4);
 		
-		model.addAttribute("list", acservice.selectAll(acv));
+		model.addAttribute("list", arcservice.selectAll(arcv));
 		model.addAttribute("uv", uv);
 		
-		return "mymusic/mymusic_comment";
-	}
-		
-		@RequestMapping("/mymusic/mymusic_comment2.do")
-		public String comment2(UserVo uv, HttpServletRequest req, HttpSession sess,Model model,ArtistCommentVo arcv) {
-			uv = (UserVo)sess.getAttribute("userInfo");
-			arcv.setUser_no(uv.getNo());
-			arcv.setPageRow(4);
-			
-			model.addAttribute("list", arcservice.selectAll(arcv));
-			model.addAttribute("uv", uv);
-			
-			return "mymusic/mymusic_comment2";
+		return "mymusic/mymusic_comment2";
 	}
 }

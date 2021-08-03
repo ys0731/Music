@@ -14,7 +14,16 @@
     <%@ include file="/WEB-INF/view/include/headHtml.jsp" %>
     <%@ include file="/WEB-INF/view/player/playnlog.jsp" %>
 
-    <script>  
+    <script>
+    $(function(){
+		var marginTop =  $("input[type='checkbox'][name='check_list']").length;
+		if (marginTop == 0) {
+			$("#container").css({"height": "638px"});
+		} else if (marginTop <= 5) {
+			$("#container").css({"height": "540px"});
+		}
+	});
+    
     $(function(){            
             // preventDefault
             $(".chart_box ul li a, .play_music, .add_list").click(function(e){
@@ -27,7 +36,7 @@
     </script>
     <style>
         /* right side */
-        .right_side {float: right; width: 75%; height: 500px;}
+        .right_side {float: right; width: 75%;}
 
         /* profile box */
         .my_box {position: fixed; z-index: 1; width: 240px; background-color: #b0c4de; border-radius: 5px;}
@@ -92,7 +101,7 @@
         .list_album {width: 95px; text-overflow: ellipsis; white-space: nowrap; overflow: hidden;}
 
         /* like btn */
-        .like_btn {display: block; float: left; width: 24px; height: 24px; background-image: url("<%=path %>/img/like_full.png"); background-size: cover; background-position: center; background-repeat: no-repeat;}
+        .like_btn {display: block; float: left; margin-left: 55px; width: 24px; height: 24px; background-image: url("<%=path %>/img/like_full.png"); background-size: cover; background-position: center; background-repeat: no-repeat;}
         .like_btn.on {background-image: url("<%=path %>/img/like_empty.png");}
         
 
@@ -101,7 +110,7 @@
   
        
         /* 페이징처리 */
-		.pagenate {width:100%; clear:both; margin-left:100px;}
+		.pagenate {width:100%; clear:both; margin-left:120px;}
 		.pagenate {text-align:center; margin-top: 10px; margin-bottom: 10px;}
 		.pagenate li {display:inline-block;}
 		.pagenate li:first-child { margin-left:0px; }
@@ -147,8 +156,7 @@
                     <div class="my_box_bottom">
                         <ul class="my_comment">
                             <li>댓글</li>
-                            <li><a href="/music/mymusic/mymusic_comment.do"><span>-</span><span>앨범 댓글</span></a></li>
-                            <li><a href="/music/mymusic/mymusic_comment2.do"><span>-</span><span>아티스트 댓글</span></a></li>
+                            <li><a href="/music/mymusic/mymusic_comment2.do"><span>-</span><span>나의 댓글</span></a></li>
                         </ul>
                         <a class="sign_out" href="/music/mymusic/mymusic_withdrawal.do">회원탈퇴</a>
                     </div>
@@ -164,7 +172,7 @@
                             <td></td>
                             <td>아티스트</td>
                             <td>앨범</td>
-                            <td>좋아요</td>
+                            <td style="text-align:center;">좋아요</td>
                         </tr>
                         <c:if test="${empty list }">
                             <tr>
@@ -178,13 +186,13 @@
 		                  	   <a href="<%=request.getContextPath()%>/detail/albumDetail.do?album_no=${vo.al_no }"> <img class="album_mini" src="<%=path %>/upload/${vo.rel}" alt="album_img" ></a>
 		                   </td>
 		                  <td>
-		                       <p class="list_title">${vo.title }</p>
+		                       <p class="list_title" style="width: 200px; text-overflow: ellipsis; white-space: nowrap; overflow: hidden;">${vo.title }</p>
 		                   </td>
 		                   <td>
-		                       <p class="list_artist" id="artist"><a class="artist" href="<%=request.getContextPath()%>/detail/artistDetail.do?artist_no=${vo.ar_no}" data-no="${vo.ar_no }">${vo.artist }</a></p>
+		                       <p class="list_artist" id="artist"><a class="artist" style="width: 200px; text-overflow: ellipsis; white-space: nowrap; overflow: hidden;" href="<%=request.getContextPath()%>/detail/artistDetail.do?artist_no=${vo.ar_no}" data-no="${vo.ar_no }">${vo.artist }</a></p>
 		                   </td>
 		                   <td>
-		                       <p class="list_album" id="album"><a class="album" href="<%=request.getContextPath()%>/detail/albumDetail.do?album_no=${vo.al_no }" data-no="${vo.al_no }">${vo.album }</a></p>
+		                       <p class="list_album" id="album"><a class="album" style="width: 200px; text-overflow: ellipsis; white-space: nowrap; overflow: hidden;" href="<%=request.getContextPath()%>/detail/albumDetail.do?album_no=${vo.al_no }" data-no="${vo.al_no }">${vo.album }</a></p>
 		                   </td>
 		                   <td class="clear">
 		                       <a class="like_btn" href="javascript:void(0);"></a><span>${vo.liked }</span>

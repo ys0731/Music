@@ -18,7 +18,7 @@ public class ArtistCommentController {
 
 	
 	@RequestMapping("/artistDetailComment/insert.do")
-	public String albumCommentInsert(Model model, ArtistCommentVo vo) {
+	public String artistCommentInsert(Model model, ArtistCommentVo vo) {
 		int r = service.insert(vo);
 		if (r > 0) {
 			model.addAttribute("msg", "true");

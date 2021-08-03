@@ -30,10 +30,12 @@
     };
 
     $(function(){
-			var marginTop =  $("input[type='checkbox'][name='check_list']").length;
-			if (marginTop < 4) {
-				$("#container").css({"height": "638px"});
-			}
+		var marginTop =  $("input[type='checkbox'][name='check_list']").length;
+		if (marginTop == 0) {
+			$("#container").css({"height": "638px"});
+		} else if (marginTop <= 5) {
+			$("#container").css({"height": "540px"});
+		}
 			
         	// 개별 체크박스 4개 선택시 전체체크 체크
         	$('input:checkbox[name="check_list"]').change(function(){
@@ -54,7 +56,7 @@
 	<%@ include file="/WEB-INF/view/player/playnlog.jsp" %>
     <style>
         /* right side */
-        .right_side {float: right; width: 75%; height: 500px;}
+        .right_side {float: right; width: 75%;}
 
         /* profile box */
         .my_box {position: fixed; z-index: 1; width: 240px; background-color: #b0c4de; border-radius: 5px;}
@@ -98,12 +100,13 @@
         /* chart row */
         .chart_box table {margin-bottom: 20px;}
 
-        .chart_box table tr td:nth-child(1) {width: 155px;}
-        .chart_box table tr td:nth-child(2) {width: 240px; }
-        .chart_box table tr td:nth-child(3) {width: 177px; }
+        .chart_box table tr td:nth-child(1) {width: 30px;}
+        .chart_box table tr td:nth-child(2) {width: 60px; }
+        .chart_box table tr td:nth-child(3) {width: 325px; }
         .chart_box table tr td:nth-child(4) {width: 100px;}
         .chart_box table tr td:nth-child(5) {width: 45px; text-align: center;}
-        .chart_box table tr td:nth-child(6) {width: 45px; text-align: center;}
+        .chart_box table tr td:nth-child(6) {width: 50px; text-align: center;}
+        .chart_box table tr td:nth-child(7) {width: 50px; text-align: center;}
 
         .chart_box table tr {border-bottom: 2px solid #ccc;}
         .chart_box table tr:nth-child(1) {color: #333; border-top: 2px solid #ccc; height: 40px; font-size: 12px;}
@@ -121,22 +124,22 @@
         .like_btn.on {background-image: url("<%=path %>/img/like_full.png");}
 
         /* button icons */
-        .button_icons {display: block; width: 24px; height: 24px; background-image: url("<%=path %>/img/button_icons.png"); border-radius: 50%; overflow: hidden;}
+        .button_icons {display: inline-block; width: 24px; height: 24px; background-image: url("<%=path %>/img/button_icons.png"); border-radius: 50%; overflow: hidden;}
         
         /* .play_music btn */
-        .play_music {background-position: 0px -167px; margin-left: 10.5px; }
+        .play_music {background-position: 0px -167px;}
         .play_music:hover {background-position: 221px -167px;}
         .play_music:active {background-position: 249px -167px;}
         .play_music.on {background-position: 249px -167px;}
         
         /* add_list btn */
-        .add_list {background-position: -165px 0px; margin-left: 10.5px; }
+        .add_list {background-position: -165px 0px;}
         .add_list:hover {background-position: -165px 192px;}
         .add_list:active {background-position: -165px 220px;}
         .add_list.on {background-position: -165px 220px;}
         
         /* 페이징처리 */
-		.pagenate {width:100%; clear:both; margin-left:100px;}
+		.pagenate {width:100%; clear:both; margin-left:120px;}
 		.pagenate {text-align:center; margin-top: 10px; margin-bottom: 10px;}
 		.pagenate li {display:inline-block;}
 		.pagenate li:first-child { margin-left:0px; }
@@ -181,8 +184,7 @@
                     <div class="my_box_bottom">
                         <ul class="my_comment">
                             <li>댓글</li>
-                            <li><a href="/music/mymusic/mymusic_comment.do"><span>-</span><span>앨범 댓글</span></a></li>
-                            <li><a href="/music/mymusic/mymusic_comment2.do"><span>-</span><span>아티스트 댓글</span></a></li>
+                            <li><a href="/music/mymusic/mymusic_comment2.do"><span>-</span><span>나의 댓글</span></a></li>
                         </ul>
                         <a class="sign_out" href="/music/mymusic/mymusic_withdrawal.do">회원탈퇴</a>
                     </div>
@@ -198,8 +200,8 @@
                     <table>
                         <tr>
                             <td></td>
-                            <td style="margin: 30px;">곡</td>
                             <td></td>
+                            <td>곡</td>
                             <td>아티스트</td>
                             <td>앨범</td>
                             <td>듣기</td>
@@ -217,13 +219,13 @@
                       			<a href="<%=request.getContextPath()%>/detail/albumDetail.do?album_no=${vo.al_no }"> <img class="album_mini" src="<%=path %>/upload/${vo.rel}" alt="album_img" ></a>
                    		    </td>
                    			<td>
-                       			<p class="list_title">${vo.title }</p>
+                       			<p class="list_title" style="width: 200px; text-overflow: ellipsis; white-space: nowrap; overflow: hidden;">${vo.title }</p>
                    			</td>
                    			<td>
-		                       <p class="list_artist" id="artist"><a class="artist" href="<%=request.getContextPath()%>/detail/artistDetail.do?artist_no=${vo.ar_no}" data-no="${vo.ar_no }">${vo.artist }</a></p>
+		                       <p class="list_artist" id="artist"><a class="artist" style="width: 200px; text-overflow: ellipsis; white-space: nowrap; overflow: hidden;" href="<%=request.getContextPath()%>/detail/artistDetail.do?artist_no=${vo.ar_no}" data-no="${vo.ar_no }">${vo.artist }</a></p>
 		                    </td>
 			                <td>
-			                    <p class="list_album" id="album"><a class="album" href="<%=request.getContextPath()%>/detail/albumDetail.do?album_no=${vo.al_no }" data-no="${vo.al_no }">${vo.album }</a></p>
+			                    <p class="list_album" id="album"><a class="album" style="width: 200px; text-overflow: ellipsis; white-space: nowrap; overflow: hidden;" href="<%=request.getContextPath()%>/detail/albumDetail.do?album_no=${vo.al_no }" data-no="${vo.al_no }">${vo.album }</a></p>
 			                </td>
 			                <td>
 			                    <a class="play_music button_icons" href="#" onclick="javascript:player(no=${vo.no });" data-no="${vo.no }"></a>

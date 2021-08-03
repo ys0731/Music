@@ -17,8 +17,10 @@
     <script>
 	    $(function(){
 			var marginTop =  $("input[type='checkbox'][name='check_list']").length;
-			if (marginTop < 6) {
+			if (marginTop == 0) {
 				$("#container").css({"height": "638px"});
+			} else if (marginTop <= 5) {
+				$("#container").css({"height": "540px"});
 			}
 		});
     
@@ -63,7 +65,7 @@
 
     <style>
         /* right side */
-        .right_side {float: right; width: 75%; height: 500px;}
+        .right_side {float: right; width: 75%;}
 
         /* profile box */
         .my_box {position: fixed; z-index: 1; width: 240px; background-color: #b0c4de; border-radius: 5px;}
@@ -135,7 +137,7 @@
         .add_list.on {background-position: -165px 220px;}
         
         /* 페이징처리 */
-		.pagenate {width:100%; clear:both; margin-left:100px;}
+		.pagenate {width:100%; clear:both; margin-left:120px;}
 		.pagenate {text-align:center; margin-top: 10px; margin-bottom: 10px;}
 		.pagenate li {display:inline-block;}
 		.pagenate li:first-child { margin-left:0px; }
@@ -180,8 +182,7 @@
                     <div class="my_box_bottom">
                         <ul class="my_comment">
                             <li>댓글</li>
-                            <li><a href="/music/mymusic/mymusic_comment.do"><span>-</span><span>앨범 댓글</span></a></li>
-                            <li><a href="/music/mymusic/mymusic_comment2.do"><span>-</span><span>아티스트 댓글</span></a></li>
+                            <li><a href="/music/mymusic/mymusic_comment2.do"><span>-</span><span>나의 댓글</span></a></li>
                         </ul>
                         <a class="sign_out" href="/music/mymusic/mymusic_withdrawal.do">회원탈퇴</a>
                     </div>
@@ -189,7 +190,7 @@
             </div>
             
             <div class="right_side">
-                <h2>아티스트 댓글</h2>
+                <h2>나의 댓글</h2>
                 <form class="chart_box" action="" method="post">
                     <ul class="clear">                        
                     </ul>
@@ -211,7 +212,7 @@
 				                      <p>${status.count }</p>
 				                  </td>
 				                  <td>
-				                     <p><a href="#" class="content" data-no="${vo.artist_no }">${vo.content }</a></p>
+				                     <p><a href="#" class="content" style="display: block; width: 500px; text-overflow: ellipsis; white-space: nowrap; overflow: hidden;" data-no="${vo.artist_no }">${vo.content }</a></p>
 				                  </td>
 				                  <td>
 				                      <p class="list_artist"><fmt:formatDate value="${vo.regdate }" pattern="yyyy-MM-dd HH:mm"/></p>

@@ -188,7 +188,7 @@
 		                    <tr>
 		                		<td><input name="check_list" type="checkbox" data-Num="${vo.no }"></td>
 		                		<td>
-		               				<p style="margin-top: 11px">${status.count}</p>
+		               				<p style="margin-top: 11px;">${status.count}</p>
 		                				<c:if test="${empty vo.rank_ch}">
 		                					<p class="rank" style="color: red; font-size: 12px;">new</p>
 		                				</c:if>
@@ -199,7 +199,7 @@
 		                					<p class="rank" style="color: blue; font-size: 12px;">ㅡ</p>
 		                				</c:if>
 		                				<c:if test="${vo.rank_ch < 0}">
-		                					<p class="rank" style="color: blue; font-size: 12px;">↓${vo.rank_ch}</p>
+		                					<p class="rank" style="color: blue; font-size: 12px;">↓${vo.rank_ch * (-1) }</p>
 		                				</c:if>
 		                			</p>
 		               			</td>

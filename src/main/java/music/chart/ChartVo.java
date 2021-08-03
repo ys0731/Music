@@ -109,13 +109,6 @@ public class ChartVo extends CommonVo{
 	public void setRank_ch(int rank_ch) {
 		this.rank_ch = rank_ch;
 	}
-	
-	
-	
-	
-	
-	
-	
-	
+
 	
 }
