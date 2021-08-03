@@ -15,7 +15,7 @@ public class ChartVo extends CommonVo{
 	private String rel;
 	private int playcount; //누적 재생 수
 	private int genre; //장르
-	private int ranknum; //순위 등락
+	private int rank_ch; //순위 등락
 	
 	private int user_no; //유저 번호
 	private int mlike_cnt; //좋아요 여부
@@ -102,11 +102,12 @@ public class ChartVo extends CommonVo{
 	public void setRel(String rel) {
 		this.rel = rel;
 	}
-	public int getRanknum() {
-		return ranknum;
+	public int getRank_ch() {
+		return rank_ch;
 	}
-	public void setRanknum(int ranknum) {
-		this.ranknum = ranknum;
+	public void setRank_ch(int rank_ch) {
+		this.rank_ch = rank_ch;
 	}
+
 	
 }

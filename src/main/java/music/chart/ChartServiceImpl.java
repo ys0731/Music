@@ -49,7 +49,7 @@ public class ChartServiceImpl implements ChartService {
 	
 	@Override
 	public List<ChartVo> User_recent(ChartVo vo) {
-		vo.setPageRow(4);
+		vo.setPageRow(5);
 		int totCount = dao.count(vo); // 총갯수
 		// 총페이지수
 		int totPage = totCount / vo.getPageRow();

@@ -17,7 +17,7 @@
 	<select id="ChartList_24hits" parameterType="music.chart.ChartVo" resultType="music.chart.ChartVo">
 		<!-- SET @ORD_NUM1 := 0
 		SET @ORD_NUM2 := 0 -->
-	    SELECT a.song_no as no, a.rank1 as rank1, a.cnt as playcount, b.rank2 as rank2, (b.rank2-a.rank1) AS ranknum, s.title as title, 
+	    SELECT a.song_no as no, a.rank1 as rank1, a.cnt as playcount, b.rank2 as rank2, (b.rank2-a.rank1) AS rank_ch, s.title as title, 
 		      s.lyrics as lyrics, ar.artist as artist, al.album as album, al.img_org AS org, al.img_real AS rel,
 		        ar.no as ar_no, al.no as al_no, <include refid="mlike_cnt"/>      
 		FROM (
