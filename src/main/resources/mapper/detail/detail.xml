@@ -20,20 +20,22 @@
 	<!-- 아티스트 검색 -->
 	<select id="artistSearch" parameterType="String" resultType="java.util.Map">
 		SELECT artist.no AS artist_no, artist, debdate, info, img_real, song.title AS title, song.album_no AS album_no
-		FROM artist join song
+		FROM artist
+		JOIN song
 		ON artist.no = song.artist_no
 		WHERE artist.artist LIKE CONCAT('%',#{searchword},'%')
 		GROUP BY artist.no
 	</select>
 		
-	<!-- 아티스트 검색 시 앨범내용포함 -->
+	<!-- 앨범검색 -->
 	<select id="artistAlbumSearch" parameterType="String" resultType="java.util.Map">
         SELECT artist.no AS artist_no, artist, album.img_real AS img_real, song.album_no AS album_no, album, album.reldate AS reldate
-        FROM album join song
+        FROM album
+		JOIN song
         ON album.no = song.album_no
         JOIN artist
         ON song.artist_no = artist.no
-        WHERE artist.artist LIKE CONCAT('%',#{searchword},'%')
+        WHERE artist.artist LIKE CONCAT('%',#{searchword},'%') OR album.album LIKE CONCAT('%',#{searchword},'%')
         GROUP by album.no
 	</select>	
 		
@@ -44,13 +46,14 @@
 		ON song.album_no = album.no
 		JOIN artist
 		ON song.artist_no = artist.no
-        WHERE title LIKE CONCAT('%',#{searchword},'%')
+        WHERE title LIKE CONCAT('%',#{searchword},'%') OR album.album LIKE CONCAT('%',#{searchword},'%') OR artist.artist LIKE CONCAT('%',#{searchword},'%')
         GROUP BY song.no
 	</select>	
 	
 	<!-- 앨범 상세 곡 -->
 	<select id="albumSong" parameterType="int" resultType="java.util.Map">
 		SELECT
+			s.no,
 			s.title,
 			s.lyrics,
 			(SELECT artist FROM artist WHERE no=s.artist_no) AS artist,
@@ -63,6 +66,7 @@
 	<!-- 아티스트 상세 곡-->
 	<select id="artistSong" parameterType="int" resultType="java.util.Map">
 		SELECT
+			s.no,
 			s.title,
 			s.lyrics,
 			(SELECT artist FROM artist WHERE no=s.artist_no) AS artist,

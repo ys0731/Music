@@ -182,8 +182,8 @@
     <%@ include file="/WEB-INF/view/include/top.jsp" %>
     <div id="container">
         <div class="center">
+            <c:if test="${!empty svo}">
 			<h2 style="padding: 50px 0; margin-bottom: 0; text-align: center; ">찾으시는 <strong style="color: #11246b;">'${param.searchword}'</strong> 검색 결과입니다.</h2>					
-        	      		        		
 				<h4>곡</h4>
 				<form class="chart_box" action="" method="post">
 	                <ul class="clear">
@@ -202,7 +202,6 @@
 	                        <td>듣기</td>
 	                        <td>추가</td>
 	                    </tr>
-	                    <c:if test="${!empty svo}">  
 	                    <c:forEach var="vo" items="${svo }" varStatus="status">
 	                    <tr>
 	                  		<td><input name="check_list" type="checkbox" data-Num="${vo.no }"></td>
@@ -232,12 +231,9 @@
 	                  		</td>
 	                	</tr>
 	                    </c:forEach>
-	                    </c:if>
-	                    <c:if test="${empty svo}"> 
-	                    	 <td colspan="8" style="text-align: center;">등록된 곡이 없습니다.</td>
-	                    </c:if>
 	                </table>
 	            </form>	
+			</c:if>
 			
 			<c:if test="${!empty avo }">
 			<div class="clear">
@@ -296,7 +292,7 @@
 	            </c:forEach>
             </c:if>           
             <c:if test="${empty vo && empty svo && empty avo}">
-            	<img src="/music/img/search_no.jpeg" style="margin: 200px 253px;"/>
+            	<img src="/music/img/search_no.jpeg" style="margin: 254px 253px;"/>
 			</c:if>
 			
 			
