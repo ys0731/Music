@@ -47,7 +47,7 @@
 		                         	<li><a href="/music/pay/view.do">이용권내역</a></li>
 		                            <li><a href="/music/mymusic/mymusic.do">최근감상곡</a></li>
 		                            <li><a href="/music/mymusic/mymusic_like.do">좋아요</a></li>
-		                            <li><a href="/music/mymusic/mymusic_comment.do">나의댓글</a></li>
+		                            <li><a href="/music/mymusic/mymusic_comment2.do">나의댓글</a></li>
 		                            <li><a href="/music/user/logout.do">로그아웃</a></li>
 		                        </ul>
 	                    </c:if>

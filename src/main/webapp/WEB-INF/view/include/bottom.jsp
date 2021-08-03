@@ -16,14 +16,14 @@
         <div class="footer_bottom">
             <div class="center">
                 <p>
-                    <span>(주)샌드뮤직</span>
+                    <span>(주)센드뮤직</span>
                     <span>경기도 고양시 장항동</span>
-                    <span>공동대표이사 : 최영서,김찬구,명선우,이승민</span>
+                    <span>공동대표이사 : 최영서,김찬구</span>
                     <span>사업자등록번호 : 124-43-54788</span>
                     <span>통신판매신고번호 : 제 2021-1234-5678호</span><br>
                     <span>문의전화 : 010) 1234-5678(평일 09:00-18:00, 유료)</span>
                     <span>이메일 : sendmusic@gmail.com</span>
-                    <span>호스팅서비스사업자 : (주)샌드뮤직</span>
+                    <span>호스팅서비스사업자 : (주)센드뮤직</span>
                     <span>Copyright ⓒ 2021 SendMusic Corp. All rights reserved.</span>
                 </p>
             </div>

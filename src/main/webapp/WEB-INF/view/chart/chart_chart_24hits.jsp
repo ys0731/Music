@@ -181,10 +181,8 @@
                                 <td class="first" colspan="8" style="text-align: center;">차트 정보가 없습니다.</td>
                             </tr>
                         </c:if>
+                        
 	                    <c:forEach var="vo" items="${list }" varStatus="status">
-	                    <input type="hidden" value="${vo.rank_ch }">
-	                    <input type="hidden" name="user_no" value="">
-		                   
 		                    <tr>
 		                		<td><input name="check_list" type="checkbox" data-Num="${vo.no }"></td>
 		                		<td>
@@ -199,7 +197,7 @@
 		                					<p class="rank" style="color: blue; font-size: 12px;">ㅡ</p>
 		                				</c:if>
 		                				<c:if test="${vo.rank_ch < 0}">
-		                					<p class="rank" style="color: blue; font-size: 12px;">↓${vo.rank_ch * (-1) }</p>
+		                					<p class="rank" style="color: blue; font-size: 12px;">↓${vo.rank_ch}</p>
 		                				</c:if>
 		                			</p>
 		               			</td>
@@ -224,7 +222,8 @@
 	                       		<a class="add_list button_icons" href="#" onclick="javascript:plusplayer(no=${vo.no });"></a>
 	                  		</td>
 		                	</tr>
-	                    </c:forEach>                  
+	                    </c:forEach>  
+	                                
 	                </table>
 	            </form>
 	        </div>
