@@ -6,10 +6,10 @@ import java.util.Map;
 public interface DetailService {
 	Map albumDetail(int no);
 	Map artistDetail(int no);
-	List<Map> albumSong(int no);
-	List<Map> artistSong(int no);
+	List<Map> albumSong(Map map);
+	List<Map> artistSong(Map map);
 	List<Map> artistSearch(String searchword);
-	List<Map> songSearch(String searchword);
+	List<Map> songSearch(Map map);
 	List<Map> artistAlbumSearch(String searchword);
 	  
 }

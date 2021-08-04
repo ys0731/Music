@@ -40,37 +40,19 @@ public class ChartController {
 		model.addAttribute("list", service.ChartList_24hits(vo));
 		return "chart/chart_chart_24hits";
 	}
-//	
-//	//일간 순위 차트
-//	@RequestMapping("/chart/chart_daily.do")
-//	public String chart_daily(ChartVo vo, Model model,UserVo uv, HttpSession sess) {
-//		uv = (UserVo)sess.getAttribute("userInfo"); //로그인한 유저의 정보
-//		if(uv != null) {  //로그인 했으면
-//			int uno = uv.getNo(); 
-//			vo.setUser_no(uno);  //로그인한유저의 번호를 ChartVo에 set
-//			model.addAttribute("list", service.ChartList_daily(vo));
-//			return "chart/chart_chart_daily";
-//		} else {		
-//			model.addAttribute("list", service.ChartList_daily(vo));
-//			return "chart/chart_chart_daily";
-//		}
-//	}
-//	
-//	//주간 순위 차트
-//	@RequestMapping("/chart/chart_weekly.do")
-//	public String chart_weekly(ChartVo vo, Model model, UserVo uv, HttpSession sess) {
-//		uv = (UserVo)sess.getAttribute("userInfo"); //로그인한 유저의 정보
-//		if(uv != null) {  //로그인 했으면
-//			int uno = uv.getNo(); 
-//			vo.setUser_no(uno);  //로그인한유저의 번호를 ChartVo에 set
-//			model.addAttribute("list", service.ChartList_weekly(vo));
-//			return "chart/chart_chart_weekly";
-//		} else {		
-//			model.addAttribute("list", service.ChartList_weekly(vo));
-//			return "chart/chart_chart_weekly";
-//		}
-//	}
-//	
+
+	//일간 순위 차트
+	@RequestMapping("/chart/chart_daily.do")
+	public String chart_daily(ChartVo vo, Model model,UserVo uv, HttpSession sess) {
+		uv = (UserVo)sess.getAttribute("userInfo"); //로그인한 유저의 정보
+		if(uv != null) {  //로그인 했으면
+			int uno = uv.getNo(); 
+			vo.setUser_no(uno);  //로그인한유저의 번호를 ChartVo에 set
+		} 		
+			model.addAttribute("list", service.ChartList_daily(vo));
+			return "chart/chart_chart_daily";
+	}
+
 	//장르-클래식 
 	@RequestMapping("/chart/chart_genre_classic.do")
 	public String chart_classic(ChartVo vo, Model model, UserVo uv, HttpSession sess) {

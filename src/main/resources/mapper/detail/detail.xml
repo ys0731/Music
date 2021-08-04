@@ -40,8 +40,9 @@
 	</select>	
 		
 	<!--노래 검색  -->
-	<select id="songSearch" parameterType="String" resultType="java.util.Map">
-		SELECT song.no,artist_no,album_no,title,song.genre,lyrics,song.regdate,song.src_real,album.album,artist.artist,album.img_real
+	<select id="songSearch" parameterType="java.util.Map" resultType="java.util.Map">
+		SELECT song.no,artist_no,album_no,title,song.genre,lyrics,song.regdate,song.src_real,album.album,artist.artist,album.img_real,
+		(SELECT COUNT(*) FROM mlike WHERE song_no = song.no AND user_no=#{user_no}) AS mlike_cnt 
 		FROM song JOIN album
 		ON song.album_no = album.no
 		JOIN artist
@@ -51,7 +52,7 @@
 	</select>	
 	
 	<!-- 앨범 상세 곡 -->
-	<select id="albumSong" parameterType="int" resultType="java.util.Map">
+	<select id="albumSong" parameterType="java.util.Map" resultType="java.util.Map">
 		SELECT
 			s.no,
 			s.title,
@@ -59,12 +60,13 @@
 			(SELECT artist FROM artist WHERE no=s.artist_no) AS artist,
 			(SELECT album FROM album WHERE no=album_no) AS album,
     		(SELECT img_real FROM album WHERE no=album_no) AS album_img,
-            (SELECT no FROM artist WHERE no=artist_no) AS artist_no
+            (SELECT no FROM artist WHERE no=artist_no) AS artist_no,
+            (SELECT COUNT(*) FROM mlike WHERE song_no = s.no AND user_no=#{user_no}) AS mlike_cnt 
 		FROM song AS s where album_no=#{album_no}
 	</select>
 	
 	<!-- 아티스트 상세 곡-->
-	<select id="artistSong" parameterType="int" resultType="java.util.Map">
+	<select id="artistSong" parameterType="java.util.Map" resultType="java.util.Map">
 		SELECT
 			s.no,
 			s.title,
@@ -72,7 +74,8 @@
 			(SELECT artist FROM artist WHERE no=s.artist_no) AS artist,
 			(SELECT album FROM album WHERE no=album_no) AS album,
     		(SELECT img_real FROM album WHERE no=album_no) AS album_img,
-    		(SELECT no FROM album WHERE no=album_no) AS album_no
+    		(SELECT no FROM album WHERE no=album_no) AS album_no,
+    		(SELECT COUNT(*) FROM mlike WHERE song_no = s.no AND user_no=#{user_no}) AS mlike_cnt 
 		FROM song AS s where artist_no=#{artist_no} ORDER BY s.regdate DESC
 	</select>
 	

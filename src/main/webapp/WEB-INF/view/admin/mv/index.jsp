@@ -116,7 +116,7 @@
 								</div>
 							</div>
 							<!--//btn-->
-							<!-- 페이징 처리 -->
+ 							<!-- 페이징 처리 -->
 							<ul class='page'>
 							<c:if test="${adminMvVo.startPage > adminMvVo.pageRange }">
 		                       	<li style="display: inline-block"><a href='index.do?reqPage=${adminMvVo.startPage - 1 }&stype=${param.stype}&sval=${param.sval }&orderby=${param.orderby }&direct=${param.direct }'><<</a></li>
@@ -129,7 +129,7 @@
 		                    </c:if>
 							</ul>
 							<!-- //페이징 처리 -->
-							<form name="searchForm" id="searchForm" action="index.do"  method="post">
+							<%-- <form name="searchForm" id="searchForm" action="index.do"  method="post">
 								<div class="search">
 									<select id="orderby" name="orderby" class="dSelect" title="검색분류 선택" onchange="$('#searchForm').submit();">
 	                                    <option value="regdate"<c:if test="${param.orderby == 'regdate'}">selected</c:if>>등록일</option>
@@ -140,13 +140,13 @@
 	                                </select>
 	                                <select id="stype" name="stype" class="dSelect" title="검색분류 선택">
 	                                    <option value="all">전체</option>
-	                                    <option value="no"<c:if test="${param.stype == 'no'}">selected</c:if>>번호</option>
-	                                    <option value="title"<c:if test="${param.stype == 'title'}">selected</c:if>>노래제목</option>
+	                                    <option value="no"<c:if test="${adminMvVo.stype == 'no'}">selected</c:if>>번호</option>
+	                                    <option value="title"<c:if test="${adminMvVo.stype == 'title'}">selected</c:if>>노래제목</option>
 	                                </select>
-	                                <input type="text" id="sval" name="sval" value="${param.sval }"  title="검색어 입력">
+	                                <input type="text" id="sval" name="sval" value="${adminMvVo.sval }"  title="검색어 입력">
 									<input type="image" src="<%=request.getContextPath()%>/img/admin/btn_search.gif" class="sbtn" alt="검색" onclick="$('#searchForm').submit();"/>
 								</div>
-							</form>
+							</form> --%>
 							<!-- //search --> 
 						</div>
 						<!-- //blist -->

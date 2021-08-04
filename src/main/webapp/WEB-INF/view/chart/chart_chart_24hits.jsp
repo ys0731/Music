@@ -38,9 +38,6 @@
                 	$.ajax({
                 		url: '/music/like/like.do?sno='+sno,
                 		method: 'post',
-                		data: {
-                			no: sno           			
-                		},
                 		success: function(data) {
                 			console.log("success");
                 		}
@@ -157,7 +154,6 @@
 	            <ul class="chart_btn clear">
 	                <li class="active"><a href="/music/chart/chart_24hit.do">실시간</a></li>
 	                <li><a href="/music/chart/chart_daily.do">일간</a></li>
-	                <li><a href="/music/chart/chart_weekly.do">주간</a></li>
 	                <span id="sysdate"></span>
 	            </ul>
 	            <form class="chart_box" action="" method="post">

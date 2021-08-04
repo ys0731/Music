@@ -44,7 +44,23 @@
                 e.preventDefault();
                 // e.stopPropagation();
             })
-
+            
+            //좋아요
+            $(".like").click(function() {
+            	var sno = $(this).data('no');
+            	$.ajax({
+            		url: '/music/like/like.do?sno='+sno,
+            		method: 'post',
+            		data: {
+            			no: sno           			
+            		},
+            		success: function(data) {
+            			console.log("success");
+            		}
+            		
+            	});
+            });//함수 끝
+            
             //like img toggle
             $(".like_btn").click(function(){
                 $(this).toggleClass("on");
@@ -154,7 +170,7 @@
                      		<a href="<%=request.getContextPath()%>/detail/albumDetail.do?album_no=${vo.songList_album_no }"><p class="list_album">${vo.songList_album }</p></a>
                    		</td>
 	                    <td>
-	                        <a class="like_btn" href="#"></a>
+	                        <a class="like_btn like<c:if test="${vo.mlike_cnt > 0}"> on</c:if>" href="#" data-no="${vo.songList_no }"></a>
 	                    </td>
 	                    <td>
 	                        <a class="play_music button_icons player" onclick="javascript:player(no=${vo.songList_no });"></a>

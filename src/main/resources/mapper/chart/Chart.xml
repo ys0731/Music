@@ -25,6 +25,7 @@
             p1.cnt, p1.song_no
          FROM (
             SELECT COUNT(*) AS cnt, song_no FROM play
+            WHERE TIMESTAMPDIFF(hour,play.clickdate,NOW()) &lt;= 1
             GROUP BY song_no
             ORDER BY cnt DESC
          ) as p1
@@ -34,7 +35,7 @@
             p1.cnt, p1.song_no
          FROM (
             SELECT COUNT(*) AS cnt, song_no FROM play
-            WHERE TIMESTAMPDIFF(minute,play.clickdate,NOW()) >= 1
+            WHERE TIMESTAMPDIFF(hour,play.clickdate,NOW()) >= 1 and TIMESTAMPDIFF(hour,play.clickdate,NOW()) &lt;= 2
             GROUP BY song_no
             ORDER BY cnt DESC
          ) as p1
@@ -43,18 +44,43 @@
       JOIN song s ON a.song_no = s.no
       JOIN artist ar ON s.artist_no = ar.no
       JOIN album al ON s.album_no = al.no
-      ORDER BY rank1 ASC;
+      ORDER BY rank1 ASC
    </select>
 	
 	<select id="ChartList_daily" parameterType="music.chart.ChartVo" resultType="music.chart.ChartVo">
-
+      SET @ORD_NUM1 := 0;
+      SET @ORD_NUM2 := 0;
+       SELECT a.song_no as no, a.rank1 as rank1, a.cnt as playcount, b.rank2 as rank2, (b.rank2-a.rank1) AS rank_ch, s.title as title, 
+            s.lyrics as lyrics, ar.artist as artist, al.album as album, al.img_org AS org, al.img_real AS rel,
+              ar.no as ar_no, al.no as al_no, <include refid="mlike_cnt"/>
+      FROM (
+         SELECT
+            @ORD_NUM1 := @ORD_NUM1 + 1 as rank1,
+            p1.cnt, p1.song_no
+         FROM (
+            SELECT COUNT(*) AS cnt, song_no FROM play
+            WHERE TIMESTAMPDIFF(day,play.clickdate,NOW()) &lt;= 1
+            GROUP BY song_no
+            ORDER BY cnt DESC
+         ) as p1
+      ) AS a JOIN (
+         SELECT
+            @ORD_NUM2 := @ORD_NUM2 + 1 as rank2,
+            p1.cnt, p1.song_no
+         FROM (
+            SELECT COUNT(*) AS cnt, song_no FROM play
+            WHERE TIMESTAMPDIFF(day,play.clickdate,NOW()) >= 1 and TIMESTAMPDIFF(day,play.clickdate,NOW()) &lt;= 2
+            GROUP BY song_no
+            ORDER BY cnt DESC
+         ) as p1
+      ) AS b
+      ON a.song_no = b.song_no
+      JOIN song s ON a.song_no = s.no
+      JOIN artist ar ON s.artist_no = ar.no
+      JOIN album al ON s.album_no = al.no
+      ORDER BY rank1 ASC
 	</select>
-	
-	<select id="ChartList_weekly" parameterType="music.chart.ChartVo" resultType="music.chart.ChartVo">
-
-	</select>
-	
-	
+		
 	<!-- 장르 | class:4 |jazz:3 |kpop:1 |POP:2 |-->
 	<!-- 클래식 장르 -->
 	<select id="Chart_classic" resultType="music.chart.ChartVo" parameterType="music.chart.ChartVo">

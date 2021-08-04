@@ -109,7 +109,7 @@
 												</datalist>
 										</td>
 									</tr>
-									<tr style="border-top: 48px solid #fff;">
+									<tr>
 										<th scope="row" colspan="2"><label for="">*썸네일</label></th>
 										<td colspan="10">
 											<input type="text" id="img" name="img" class="w100" title="썸네일을 입력해주세요" value="https://img.youtube.com/vi/유튜브링크 고유번호/mqdefault.jpg">

@@ -38,9 +38,6 @@
             	$.ajax({
             		url: '/music/like/like.do?sno='+sno,
             		method: 'post',
-            		data: {
-            			no: sno           			
-            		},
             		success: function(data) {
             			console.log("success");
             		}
@@ -154,7 +151,6 @@
 	            <ul class="chart_btn clear">
 	                <li><a href="/music/chart/chart_24hit.do">실시간</a></li>
 	                <li class="active"><a href="/music/chart/chart_daily.do">일간</a></li>
-	                <li><a href="/music/chart/chart_weekly.do">주간</a></li>
 	                <span id="sysdate"></span>
 	            </ul>
 	            <form class="chart_box" action="" method="post">
@@ -182,21 +178,20 @@
 	                    <tr>
 	                		<td><input name="check_list" type="checkbox" data-Num="${vo.no }"></td>
 	                		<td>
-	               				<p style="margin-top: 11px">${status.count}</p>	                				                	
-	                			<c:choose>
-	                				<c:when test="${vo.rank_ch == 999}">
+	               				<p style="margin-top: 11px;">${status.count}</p>
+	                				<c:if test="${empty vo.rank_ch}">
 	                					<p class="rank" style="color: red; font-size: 12px;">new</p>
-	                				</c:when>
-	                				<c:when test="${vo.rank_ch < 999 and vo.rank_ch>0}">
+	                				</c:if>
+	                				<c:if test="${vo.rank_ch > 0}">
 	                					<p class="rank" style="color: red; font-size: 12px;">↑${vo.rank_ch }</p>
-	                				</c:when>
-	                				<c:when test="${vo.rank_ch == 0}">
+	                				</c:if>
+	                				<c:if test="${vo.rank_ch == 0}">
 	                					<p class="rank" style="color: blue; font-size: 12px;">ㅡ</p>
-	                				</c:when>
-	                				<c:when test="${vo.rank_ch < 0}">
-	                					<p class="rank" style="color: blue; font-size: 12px;">↓${vo.rank_ch * (-1) }</p>
-	                				</c:when>
-	                			</c:choose>	                			
+	                				</c:if>
+	                				<c:if test="${vo.rank_ch < 0}">
+	                					<p class="rank" style="color: blue; font-size: 12px;">↓${vo.rank_ch}</p>
+	                				</c:if>
+	                			</p>
 	               			</td>
 	                		<td class="clear">
 		                      <a href="<%=request.getContextPath()%>/detail/albumDetail.do?album_no=${vo.al_no }"> <img class="album_mini" src="<%=path %>/upload/${vo.rel}" alt="album_img"></a>

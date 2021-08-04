@@ -6,10 +6,10 @@
 		<where>
 			<if test="sval != null and sval != ''">
 				<if test="stype == 'all'">
-					no LIKE '%${sval}%' OR title LIKE '%${sval}%'
+					AND no LIKE '%${sval}%' OR title LIKE '%${sval}%'
 				</if>
 				<if test="stype != 'all'">
-					${stype} LIKE '%${sval}%'
+					AND ${stype} LIKE '%${sval}%'
 				</if>
 			</if>
 		</where>

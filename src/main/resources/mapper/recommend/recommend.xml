@@ -41,6 +41,7 @@
         , (SELECT img_org FROM album WHERE album_no=album.no) AS songList_albumImg
         , (SELECT no FROM artist WHERE artist_no=artist.no) AS songList_artist_no
         , (SELECT artist FROM artist WHERE artist_no=artist.no) AS songList_artist
+        , (SELECT COUNT(*) FROM mlike WHERE song_no = song.no AND user_no=#{user_no}) AS mlike_cnt 
 		FROM song
         WHERE no IN
         (SELECT list.song_no

@@ -21,9 +21,6 @@ public class ChartDao {
 	public List<ChartVo> ChartList_daily(ChartVo vo) {
 		return sqlSession.selectList("chart.ChartList_daily",vo);
 	}
-	public List<ChartVo> ChartList_weekly(ChartVo vo) {
-		return sqlSession.selectList("chart.ChartList_weekly",vo);
-	}
 	
 	//장르
 	public List<ChartVo> ChartList_classic(ChartVo vo) {

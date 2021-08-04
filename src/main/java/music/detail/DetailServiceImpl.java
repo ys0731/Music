@@ -6,8 +6,6 @@ import java.util.Map;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
-import music.chart.ChartVo;
-
 @Service
 public class DetailServiceImpl implements DetailService {
 	
@@ -29,20 +27,20 @@ public class DetailServiceImpl implements DetailService {
 		return list;
 	}	
 	@Override
-	public List<Map> albumSong(int no) {
-		List<Map> list = dao.albumSong(no);
+	public List<Map> albumSong(Map map) {
+		List<Map> list = dao.albumSong(map);
 		return list;
 	}
 
 	@Override
-	public List<Map> artistSong(int no) {
-		List<Map> list = dao.artistSong(no);
+	public List<Map> artistSong(Map map) {
+		List<Map> list = dao.artistSong(map);
 		return list;
 	}
 
 	@Override
-	public List<Map> songSearch(String searchword) {
-		List<Map> list = dao.songSearch(searchword);
+	public List<Map> songSearch(Map map) {
+		List<Map> list = dao.songSearch(map);
 		return list;
 	}
 	

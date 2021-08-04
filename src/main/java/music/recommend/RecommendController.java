@@ -2,6 +2,8 @@ package music.recommend;
 
 import java.io.IOException;
 import java.io.PrintWriter;
+import java.util.HashMap;
+import java.util.Map;
 
 import javax.servlet.http.HttpServletResponse;
 import javax.servlet.http.HttpSession;
@@ -37,7 +39,13 @@ public class RecommendController {
 	}	
 
 	@RequestMapping("/recommend/recommend_info.do")
-	public String recommendInfo(Model model, RecommendVo vo, UserVo uv, HttpSession sess) {
+	public String recommendInfo(Model model, RecommendVo vo, HttpSession sess) {
+		int user_no = 0;
+		UserVo uv = (UserVo)sess.getAttribute("userInfo");
+		if (uv != null) user_no = uv.getNo();	
+		
+		vo.setUser_no(user_no);
+
 		model.addAttribute("title", service.selectListTitle(vo));
 		model.addAttribute("list", service.selectSongList(vo));
 	

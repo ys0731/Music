@@ -44,9 +44,6 @@
             	$.ajax({
             		url: '/music/like/like.do?sno='+sno,
             		method: 'post',
-            		data: {
-            			no: sno           			
-            		},
             		success: function(data) {
             			console.log("success");
             		}

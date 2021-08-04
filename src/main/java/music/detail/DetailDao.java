@@ -34,17 +34,17 @@ public class DetailDao {
 	}
 
 	// 노래 검색
-	public List<Map> songSearch(String searchword){
-		return sqlSession.selectList("detail.songSearch",searchword);
+	public List<Map> songSearch(Map map){
+		return sqlSession.selectList("detail.songSearch",map);
 	}
 	// 엘범상세 곡
-	public List<Map> albumSong(int no) {
-		return sqlSession.selectList("detail.albumSong", no);
+	public List<Map> albumSong(Map map) {
+		return sqlSession.selectList("detail.albumSong", map);
 	}
 
 	// 아티스트 곡
-	public List<Map> artistSong(int no) {
-		return sqlSession.selectList("detail.artistSong", no);
+	public List<Map> artistSong(Map map) {
+		return sqlSession.selectList("detail.artistSong", map);
 	}
 
 }

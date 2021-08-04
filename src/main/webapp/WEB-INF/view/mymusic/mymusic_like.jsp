@@ -22,17 +22,26 @@
 		} else if (marginTop <= 5) {
 			$("#container").css({"height": "540px"});
 		}
+        // preventDefault
+        $(".chart_box ul li a, .play_music, .add_list").click(function(e){
+            e.preventDefault();
+        })
+        
+        //좋아요
+        $(".like").click(function() {
+        	var sno = $(this).data('no');
+        	$.ajax({
+        		url: '/music/like/like.do?sno='+sno,
+        		method: 'post',
+        		success: function(data) {
+        			console.log("success");
+        			location.href='mymusic_like.do';
+        		}
+        		
+        	});
+        });//함수 끝
 	});
     
-    $(function(){            
-            // preventDefault
-            $(".chart_box ul li a, .play_music, .add_list").click(function(e){
-                e.preventDefault();
-            })              
-            
-        });
-
-
     </script>
     <style>
         /* right side */
@@ -195,7 +204,7 @@
 		                       <p class="list_album" id="album"><a class="album" style="width: 200px; text-overflow: ellipsis; white-space: nowrap; overflow: hidden;" href="<%=request.getContextPath()%>/detail/albumDetail.do?album_no=${vo.al_no }" data-no="${vo.al_no }">${vo.album }</a></p>
 		                   </td>
 		                   <td class="clear">
-		                       <a class="like_btn" href="javascript:void(0);"></a><span>${vo.liked }</span>
+		                       <a class="like_btn like" href="" data-no="${vo.song_no}"></a><span>${vo.liked }</span>		                       
 		                   </td>		         
                 		</tr>
                         </c:forEach>

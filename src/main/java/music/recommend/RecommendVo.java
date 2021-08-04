@@ -22,8 +22,10 @@ public class RecommendVo {
 	private String songList_albumImg;
 	private int songList_artist_no;
 	private String songList_artist;
+	//--------------------------------좋아요 기능
+	private int user_no; 	
+	private int mlike_cnt;
 
-	
 	public int getNo() {
 		return no;
 	}
@@ -128,4 +130,16 @@ public class RecommendVo {
 	}
 	
 	
+	public int getMlike_cnt() {
+		return mlike_cnt;
+	}
+	public void setMlike_cnt(int mlike_cnt) {
+		this.mlike_cnt = mlike_cnt;
+	}
+	public int getUser_no() {
+		return user_no;
+	}
+	public void setUser_no(int user_no) {
+		this.user_no = user_no;
+	}
 }

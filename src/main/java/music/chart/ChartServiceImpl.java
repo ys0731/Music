@@ -19,11 +19,7 @@ public class ChartServiceImpl implements ChartService {
 	public List<ChartVo> ChartList_daily(ChartVo vo) {		
 		return dao.ChartList_daily(vo);
 	}
-	@Override
-	public List<ChartVo> ChartList_weekly(ChartVo vo) {
-		return dao.ChartList_weekly(vo);
-	}
-
+	
 	@Override
 	public List<ChartVo> ChartList_classic(ChartVo vo) {		
 		return dao.ChartList_classic(vo);

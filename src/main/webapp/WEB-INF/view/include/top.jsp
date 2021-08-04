@@ -65,7 +65,6 @@
                        
                             <li><a href="/music/chart/chart_24hit.do">실시간</a></li>
                             <li><a href="/music/chart/chart_daily.do">일간</a></li>
-                            <li><a href="/music/chart/chart_weekly.do">주간</a></li>
                         </ul>
                         <ul class="recent_sub">
                             <li><a href="/music/chart/chart_recent.do">최신곡</a></li>
@@ -81,7 +80,6 @@
                         </ul>
                         <ul class="mv_sub">
                             <li><a href="/music/mvChart/recentMv.do">최신MV</a></li>
-                            <!-- <li><a href="/music/mvChart/popularMv.do">인기MV</a></li> -->
                         </ul>
                     </div>
                 </ul>

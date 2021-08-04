@@ -30,7 +30,20 @@
             $(".chart_box ul li a, .lyrics_popup, .like_btn, .play_music, .add_list").click(function(e){
                 e.preventDefault();
             });
-
+			           
+            //좋아요
+            $(".like").click(function() {
+            	var sno = $(this).data('no');
+            	$.ajax({
+            		url: '/music/like/like.do?sno='+sno,
+            		method: 'post',
+            		success: function(data) {
+            			console.log("success");
+            		}
+            		
+            	});
+            });//함수 끝
+            
             //like img toggle
             $(".like_btn").click(function(){
                 $(this).toggleClass("on");
@@ -380,7 +393,7 @@
                      		<a href="#"><p class="list_album">${vo.album }</p></a>
                    		</td>
 	                    <td>
-	                        <a class="like_btn" href="#"></a>
+	                        <a class="like_btn like<c:if test="${vo.mlike_cnt > 0}"> on</c:if>" href="#" data-no="${vo.no }"></a>
 	                    </td>
 	                    <td>
 	                        <a class="play_music button_icons" onclick="javascript:player(no=${vo.no });" href="#"></a>
