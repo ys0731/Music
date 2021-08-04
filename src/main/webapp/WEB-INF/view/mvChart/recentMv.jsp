@@ -73,7 +73,7 @@
         
         }
         .carousel img{
-            border-radius: 10%;  
+            border-radius: 20px;  
         }
 
         /*mv play_btn */

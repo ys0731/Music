@@ -26,7 +26,7 @@ public class SendMail {
 			//2. Session 객체 생성
 			Session session = Session.getDefaultInstance(prop, new Authenticator() {
 				protected PasswordAuthentication getPasswordAuthentication() {
-					return new PasswordAuthentication("lsmvip0522", "lsmsyyw0522^^"); 
+					return new PasswordAuthentication("goldrocket", "비밀번호"); 
 				}
 			});
 			session.setDebug(true);
@@ -46,6 +46,6 @@ public class SendMail {
 		}
 	}
 	public static void main(String[] args) { //테스트
-		sendMail("lsmvip0522@naver.com", "sysm1230@gmail.com", "제목", "내용");
+		sendMail("goldrocket@naver.com", "goldrocket18@gmail.com", "제목", "내용");
 	}
 }
