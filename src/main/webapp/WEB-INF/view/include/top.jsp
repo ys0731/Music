@@ -62,9 +62,8 @@
                     </li>
                     <div class="gnb_sub clear">
                         <ul class="chart_sub">
-                       
                             <li><a href="/music/chart/chart_24hit.do">실시간</a></li>
-                            <li><a href="/music/chart/chart_daily.do">일간</a></li>
+                            <!-- <li><a href="/music/chart/chart_daily.do">일간</a></li> -->
                         </ul>
                         <ul class="recent_sub">
                             <li><a href="/music/chart/chart_recent.do">최신곡</a></li>

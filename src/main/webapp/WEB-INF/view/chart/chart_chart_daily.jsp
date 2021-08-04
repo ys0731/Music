@@ -150,7 +150,7 @@
 	        <div class="center">
 	            <ul class="chart_btn clear">
 	                <li><a href="/music/chart/chart_24hit.do">실시간</a></li>
-	                <li class="active"><a href="/music/chart/chart_daily.do">일간</a></li>
+	                <!-- <li class="active"><a href="/music/chart/chart_daily.do">일간</a></li> -->
 	                <span id="sysdate"></span>
 	            </ul>
 	            <form class="chart_box" action="" method="post">
@@ -189,7 +189,7 @@
 	                					<p class="rank" style="color: blue; font-size: 12px;">ㅡ</p>
 	                				</c:if>
 	                				<c:if test="${vo.rank_ch < 0}">
-	                					<p class="rank" style="color: blue; font-size: 12px;">↓${vo.rank_ch}</p>
+	                					<p class="rank" style="color: blue; font-size: 12px;">↓${vo.rank_ch * (-1) }</p>
 	                				</c:if>
 	                			</p>
 	               			</td>

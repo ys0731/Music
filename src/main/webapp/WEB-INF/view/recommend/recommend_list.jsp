@@ -32,13 +32,9 @@
         
         /* date, tags */
         .today_pick > p {margin: 20px 0; font-size: 15px;}
-        .hash_tag li {float: left; width: 22%; margin: 20px 4% 10px 0;}
+        .hash_tag li {float: left; width: 22%; margin: 20px 4% 10px 0; color: #777;}
         .hash_tag li:last-child {margin-right: 0;}
-        .hash_tag li:nth-child(1) span:last-child {color: lawngreen;}
-        .hash_tag li:nth-child(2) span:last-child {color: blue;}
-        .hash_tag li:nth-child(3) span:last-child {color: orangered;}
-        .hash_tag li:nth-child(4) span:last-child {color: silver;}
-
+        
         /* list box */
         .recommend_list li {float: left; width: 22%; margin-right: 4%; border: 1px solid #ccc; box-sizing: border-box;}
         .recommend_list li:last-child {margin-right: 0;}
