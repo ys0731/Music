@@ -12,7 +12,7 @@
 		var data = google.visualization.arrayToDataTable([
 			['Total', 'Accumulated'],
            	<c:forEach var="songs" items="${song }">
-       		['${songs.title }', ${songs.total }],
+       		["${songs.title }", ${songs.total }],
        		</c:forEach>
 		]);
 		
