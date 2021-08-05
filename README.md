@@ -84,4 +84,4 @@
       + 일간 : 선택한 날짜의 하룻동안의 시간별 곡 재생수
       + 주간 : 지난 주의 일별 곡 재생수
       + 누적합계 : 사이트가 시작한 이래로 집계된 모든 재생수
-      ><img width="789" alt="통계차트" src="https://user-images.githubusercontent.com/85508195/128296423-9e70b225-eafd-4c82-b951-190b3d2d392d.png">
+         ><img width="789" alt="통계차트" src="https://user-images.githubusercontent.com/85508195/128296423-9e70b225-eafd-4c82-b951-190b3d2d392d.png">
